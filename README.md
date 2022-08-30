@@ -17,14 +17,8 @@ All stakeholders are invited to provide input to these documents. To provide fee
 3.  [Installation](#installation)
 4.  [File Manifest](#file-manifest)
 5.  [Development Setup](#development-setup)
-6.  [Release History](#release-history)
-7.  [Contact Information](#contact-information)
-8.  [Contributing](#contributing)
-9.  [Known Bugs](#known-bugs)
-10. [Credits and Acknowledgement](#credits-and-acknowledgement)
-11. [Code.gov Registration Info](#codegov-registration-info)
-12. [Kubernetes](#kubernetes)
-
+6.  [Contact Information](#contact-information)
+7.  [Contributing](#contributing)
 <!--
 #########################################
 ############# Usage Example #############
