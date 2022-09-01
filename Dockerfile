@@ -1,8 +1,6 @@
 FROM maven:3.8.1-openjdk-11 as builder
 
 WORKDIR /home
-RUN jpo-ode
-RUN jpo-geojsonconverter
 
 # Copy only the files needed to avoid putting all sorts of junk from your local env on to the image
 COPY ./jpo-ode/pom.xml ./jpo-ode/
@@ -15,9 +13,12 @@ COPY ./jpo-ode/jpo-ode-core/src ./jpo-ode/jpo-ode-core/src/
 COPY ./jpo-ode/jpo-ode-svcs/pom.xml ./jpo-ode/jpo-ode-svcs/
 COPY ./jpo-ode/jpo-ode-svcs/src ./jpo-ode/jpo-ode-svcs/src
 
+COPY ./jpo-geojsonconverter/pom.xml ./jpo-geojsonconverter/
+COPY ./jpo-geojsonconverter/src ./jpo-geojsonconverter/src
+
 WORKDIR /home/jpo-ode
 
-RUN mvn clean package -DskipTests
+RUN mvn install -DskipTests
 
 WORKDIR /home/jpo-geojsonconverter
 
