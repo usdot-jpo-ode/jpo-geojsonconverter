@@ -39,7 +39,7 @@ jobs:
             echo "URL ${CIRCLE_PULL_REQUEST}"
             if [ -z "${CIRCLE_PULL_REQUEST}" ]; then
               echo "Non-PR Build Detected. Running analysis on ${CIRCLE_BRANCH}"
-              cd jpo-ode
+              cd jpo-geojsonconverter
               mvn -e -X clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar 
               ls -la
               pwd
@@ -53,6 +53,7 @@ jobs:
             export BASE_BRANCH_URL="https://api.github.com/repos/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/pulls/${PR_NUM}"
             export TARGET_BRANCH=$(curl "$BASE_BRANCH_URL" | jq '.base.ref' | tr -d '"') 
             echo "Target Branch = ${TARGET_BRANCH}"
+            cd jpo-geojsonconverter
             mvn -e -X clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar -Dsonar.pullrequest.base=${TARGET_BRANCH} -Dsonar.pullrequest.branch=${CIRCLE_BRANCH} -Dsonar.pullrequest.key=${PR_NUM}
   docker_build_push_geojsonconverter:
    machine:
