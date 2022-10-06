@@ -7,6 +7,10 @@
     <version>2.5.0</version>
     <relativePath /> <!-- lookup parent from repository -->
   </parent>
+  <properties>
+    <!-- Java Version for Spring Boot App -->
+    <java.version>11</java.version>
+  </properties>
   <artifactId>jpo-geojsonconverter</artifactId>
   <packaging>jar</packaging>
   <name>jpo-geojsonconverter</name>
