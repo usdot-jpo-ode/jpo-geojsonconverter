@@ -41,5 +41,10 @@ public class GeoJsonConverterPropertiesTest {
         assertThat(appProperties.getVersion(), is(not(emptyOrNullString())));
     }
 
+    @Test
+    public void hostIdIsSet() {
+        assertThat(appProperties.getHostId(), is(not(emptyOrNullString())));
+    }
+
     
 }

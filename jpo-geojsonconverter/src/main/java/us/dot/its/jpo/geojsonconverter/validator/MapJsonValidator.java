@@ -2,12 +2,24 @@ package us.dot.its.jpo.geojsonconverter.validator;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.io.IOUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.networknt.schema.JsonSchema;
+import com.networknt.schema.JsonSchemaFactory;
+import com.networknt.schema.SpecVersionDetector;
+import com.networknt.schema.ValidationMessage;
+
 
 /**
  * Class for a validator to validate a JSON document against a
@@ -23,8 +35,10 @@ public class MapJsonValidator  {
         this.jsonSchemaResource = jsonSchemaResource;
     }
 
-    private String jsonSchema;
+    private final ObjectMapper mapper = new ObjectMapper();
     private final Resource jsonSchemaResource;
+    private JsonSchema jsonSchema;
+    
 
     /**
      * The resource where the json schema file is
@@ -35,25 +49,30 @@ public class MapJsonValidator  {
         return jsonSchemaResource;
     }
 
-    /**
-     * @return The json schema to validate against
-     */
-    public String getJsonSchema() {
+
+    public JsonSchema getJsonSchema() {
         if (jsonSchema == null) {
-            // Load the schema lazily
             try (var inputStream = jsonSchemaResource.getInputStream()) {
-                jsonSchema = IOUtils.toString(inputStream, StandardCharsets.UTF_8.name());
+                JsonNode schemaNode = mapper.readTree(inputStream);
+                JsonSchemaFactory factory = JsonSchemaFactory.getInstance(SpecVersionDetector.detect(schemaNode));
+                jsonSchema = factory.getSchema(schemaNode);
             } catch (IOException ioe) {
-                throw new RuntimeException(String.format("Failed to load json schema from resource '%'", jsonSchemaResource), ioe);
+                throw new RuntimeException(String.format("Failed to load json schema from resource '%s'", jsonSchemaResource), ioe);
             }
         }
         return jsonSchema;
     }
 
- 
-
-    // public String validate(String json) {
-
-    // }
+    public JsonValidatorResult validate(String json) {
+        var result = new JsonValidatorResult();
+        try {
+            JsonNode node = mapper.readTree(json);
+            Set<ValidationMessage> validationMessages = getJsonSchema().validate(node);
+            result.addValidationMessages(validationMessages);
+        } catch (JsonProcessingException e) {
+            result.addException(e);
+        }
+        return result;
+    }
     
 }

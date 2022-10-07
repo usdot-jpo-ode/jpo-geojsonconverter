@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import us.dot.its.jpo.geojsonconverter.GeoJsonConverterProperties;
+import us.dot.its.jpo.geojsonconverter.validator.MapJsonValidator;
 import us.dot.its.jpo.ode.wrapper.MessageConsumer;
 
 /**
@@ -18,7 +19,7 @@ public class GeoJsonConverterServiceController {
     org.apache.kafka.common.serialization.Serdes bas;
 
     @Autowired
-    public GeoJsonConverterServiceController(GeoJsonConverterProperties geojsonProps) {
+    public GeoJsonConverterServiceController(GeoJsonConverterProperties geojsonProps, MapJsonValidator mapJsonValidator) {
         super();
 
         logger.info("Starting {}", this.getClass().getSimpleName());
@@ -26,7 +27,7 @@ public class GeoJsonConverterServiceController {
         // Starting the MAP geoJSON converter Kafka message consumer
         logger.info("Creating the MAP geoJSON Converter MessageConsumer");
         
-        MapGeoJsonConverter mapGeoJsonConverter = new MapGeoJsonConverter(geojsonProps);
+        MapGeoJsonConverter mapGeoJsonConverter = new MapGeoJsonConverter(geojsonProps, mapJsonValidator);
         MessageConsumer<String, String> mapJsonConsumer = MessageConsumer.defaultStringMessageConsumer(
             geojsonProps.getKafkaBrokers(), this.getClass().getSimpleName(), mapGeoJsonConverter);
         mapJsonConsumer.setName("MapJsonToGeoJsonConsumer");

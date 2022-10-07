@@ -35,9 +35,8 @@ public class MapJsonValidatorTest  {
 
     @Test
     public void jsonSchemaLoaded() {
-        var schema = mapJsonValidator.getJsonSchema();
-        assertThat(schema, notNullValue());
-        assertThat(schema, containsString("$schema"));
+        var jsonSchema = mapJsonValidator.getJsonSchema();
+        assertThat(jsonSchema, notNullValue());
     }
     
 

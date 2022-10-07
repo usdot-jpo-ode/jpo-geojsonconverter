@@ -210,8 +210,6 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
       logger.info("groupId: {}", env.getProperty("groupId"));
       logger.info("artifactId: {}", env.getProperty("artifactId"));
       logger.info("version: {}", version);
-      logger.info("schema.map: {}", env.getProperty("schema.map"));
-      logger.info("schema.spat: {}", env.getProperty("schema.spat"));
 
       OdeMsgMetadata.setStaticSchemaVersion(OUTPUT_SCHEMA_VERSION);
 

@@ -13,6 +13,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import us.dot.its.jpo.geojsonconverter.GeoJsonConverterProperties;
+import us.dot.its.jpo.geojsonconverter.validator.JsonValidatorResult;
+import us.dot.its.jpo.geojsonconverter.validator.MapJsonValidator;
 import us.dot.its.jpo.ode.model.OdeMapMetadata;
 import us.dot.its.jpo.ode.model.OdeMapPayload;
 import us.dot.its.jpo.ode.plugin.j2735.J2735IntersectionGeometry;
@@ -30,17 +32,30 @@ public class MapGeoJsonConverter extends AbstractSubscriberProcessor<String, Str
 
 	private GeoJsonConverterProperties geojsonProperties;
 	private MessageProducer<String, String> geoJsonProducer;
+	private MapJsonValidator mapJsonValidator;
 
-	public MapGeoJsonConverter(GeoJsonConverterProperties geojsonProps) {
+	public MapGeoJsonConverter(GeoJsonConverterProperties geojsonProps, MapJsonValidator mapJsonValidator) {
 		super();
 		this.geojsonProperties = geojsonProps;
 		this.geoJsonProducer = MessageProducer.defaultStringMessageProducer(geojsonProperties.getKafkaBrokers(),
 			geojsonProperties.getKafkaProducerType(), geojsonProperties.getKafkaTopicsDisabledSet());
+		this.mapJsonValidator = mapJsonValidator;
 	}
 
 	@Override
 	public Object process(String consumedData) {
 		try {
+			JsonValidatorResult validationResult = mapJsonValidator.validate(consumedData);
+			logger.info("MapJsonValidator result: isValid = {}", validationResult.isValid());
+			if (!validationResult.isValid()) {
+				for (var exception : validationResult.getExceptions()) {
+					logger.error("JsonProcessingException: {}", exception.getMessage());
+				}
+				for (var validationMessage : validationResult.getValidationMessages()) {
+					logger.error("MAP JSON Validation Message: {}", validationMessage.getMessage());
+				}
+			}
+
 			ObjectMapper mapper = new ObjectMapper();
 			JsonNode actualObj = mapper.readTree(consumedData);
 
