@@ -1,4 +1,4 @@
-package us.dot.its.jpo.geojsonconverter.tests;
+package us.dot.its.jpo.geojsonconverter;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -18,9 +18,27 @@ public class GeoJsonConverterPropertiesTest {
     @Autowired
     private ApplicationContext appContext;
 
+    @Autowired
+    private GeoJsonConverterProperties appProperties;
+
     @Test
-    public void contextLoads() {
+    public void contextLoaded() {
         assertThat(appContext, notNullValue());
+    }
+
+    @Test
+    public void propertiesLoaded() {
+        assertThat(appProperties, notNullValue());
+    }
+
+    @Test
+    public void envIsSet() {
+        assertThat(appProperties.getEnv(), notNullValue());
+    }
+
+    @Test
+    public void versionIsSet() {
+        assertThat(appProperties.getVersion(), is(not(emptyOrNullString())));
     }
 
     

@@ -1,9 +1,12 @@
 package us.dot.its.jpo.geojsonconverter.validator;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,32 +17,37 @@ import org.springframework.stereotype.Service;
 public class MapJsonValidator  {
 
     /**
-     * Constructor that loads the schema from a resource file.
-     * 
-     * @param jsonSchemaResource Name of a json schema file in resources/schemas.
+     * @param jsonSchemaResource The json schema file in resources/schemas.  Injected by Spring DI.
      */
-    @Autowired
     public MapJsonValidator(@Value("${schema.map}") Resource jsonSchemaResource) {
         this.jsonSchemaResource = jsonSchemaResource;
-        // if (schemaResourceName == null) {
-        //     throw new IllegalArgumentException("schemaResourceName is null");
-        // }
-        // var schemaPath = "schema/" + schemaResourceName;
-        // var classLoader = getClass().getClassLoader();
-        // try (var inputStream = classLoader.getResourceAsStream(schemaPath)) {
-        //     this.jsonSchema = IOUtils.toString(inputStream, StandardCharsets.UTF_8.name());
-        // } catch (IOException ioe) {
-        //     throw new RuntimeException(String.format("Failed to load json schema from resource path '%'", schemaPath), ioe);
-        // }
     }
 
+    private String jsonSchema;
     private final Resource jsonSchemaResource;
+
+    /**
+     * The resource where the json schema file is
+     * 
+     * @return Resource
+     */
+    public Resource getJsonSchemaResource() {
+        return jsonSchemaResource;
+    }
 
     /**
      * @return The json schema to validate against
      */
-    public Resource getJsonSchemaResource() {
-        return jsonSchemaResource;
+    public String getJsonSchema() {
+        if (jsonSchema == null) {
+            // Load the schema lazily
+            try (var inputStream = jsonSchemaResource.getInputStream()) {
+                jsonSchema = IOUtils.toString(inputStream, StandardCharsets.UTF_8.name());
+            } catch (IOException ioe) {
+                throw new RuntimeException(String.format("Failed to load json schema from resource '%'", jsonSchemaResource), ioe);
+            }
+        }
+        return jsonSchema;
     }
 
  
