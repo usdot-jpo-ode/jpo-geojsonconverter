@@ -28,6 +28,7 @@ import java.util.UUID;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,7 @@ import org.springframework.boot.info.BuildProperties;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import org.thymeleaf.util.StringUtils;
+
 
 import us.dot.its.jpo.ode.context.AppContext;
 import us.dot.its.jpo.ode.eventlog.EventLogger;
@@ -198,14 +199,14 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
 
    private static final byte[] JPO_ODE_GROUP_ID = "jode".getBytes();
 
-   @Autowired
-   BuildProperties buildProperties;
+   // @Autowired
+   // BuildProperties buildProperties;
 
    @PostConstruct
    void initialize() {
-      setVersion(buildProperties.getVersion());
-      logger.info("groupId: {}", buildProperties.getGroup());
-      logger.info("artifactId: {}", buildProperties.getArtifact());
+      //setVersion(buildProperties.getVersion());
+      // logger.info("groupId: {}", buildProperties.getGroup());
+      // logger.info("artifactId: {}", buildProperties.getArtifact());
       logger.info("version: {}", version);
       OdeMsgMetadata.setStaticSchemaVersion(OUTPUT_SCHEMA_VERSION);
 
@@ -258,7 +259,7 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
    }
 
    public boolean dataSigningEnabled() {
-      return getSecuritySvcsSignatureUri() != null && !StringUtils.isEmptyOrWhitespace(getSecuritySvcsSignatureUri())
+      return getSecuritySvcsSignatureUri() != null && StringUtils.isBlank(getSecuritySvcsSignatureUri())
             && !getSecuritySvcsSignatureUri().startsWith("UNSECURE");
    }
 

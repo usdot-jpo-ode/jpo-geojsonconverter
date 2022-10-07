@@ -1,14 +1,16 @@
 package us.dot.its.jpo.geojsonconverter.validator;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 /**
  * Class for a validator to validate a JSON document against a
  * schema and report all errors
  */
-@Component
+@Service
 public class MapJsonValidator  {
 
     /**
@@ -16,6 +18,7 @@ public class MapJsonValidator  {
      * 
      * @param jsonSchemaResource Name of a json schema file in resources/schemas.
      */
+    @Autowired
     public MapJsonValidator(@Value("${schema.map}") Resource jsonSchemaResource) {
         this.jsonSchemaResource = jsonSchemaResource;
         // if (schemaResourceName == null) {

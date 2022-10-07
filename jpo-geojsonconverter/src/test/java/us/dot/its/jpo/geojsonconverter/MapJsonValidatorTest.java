@@ -23,6 +23,11 @@ public class MapJsonValidatorTest {
     private MapJsonValidator mapJsonValidator;
 
     @Test
+    public void contextLoads() {
+        assertThat(applicationContext, notNullValue());
+    }
+
+    @Test
     public void canLoadSchemaResource() {
         assertNotNull(applicationContext);
         System.out.printf("Application context: %s%n", applicationContext);
