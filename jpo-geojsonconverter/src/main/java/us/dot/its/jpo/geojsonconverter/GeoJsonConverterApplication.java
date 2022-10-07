@@ -29,11 +29,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
+
 
 @SpringBootApplication
 @EnableConfigurationProperties(GeoJsonConverterProperties.class)
-@ComponentScan({ "us.dot.its.jpo.geojsonconverter"})
 public class GeoJsonConverterApplication {
 
    static final int DEFAULT_NO_THREADS = 10;

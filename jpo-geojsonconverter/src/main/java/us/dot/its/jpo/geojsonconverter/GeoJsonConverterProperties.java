@@ -36,6 +36,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.info.BuildProperties;
 import org.springframework.context.EnvironmentAware;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 
@@ -58,6 +59,7 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
    /*
     * General Properties
     */
+   @Value("${version}")
    private String version;
    public static final int OUTPUT_SCHEMA_VERSION = 6;
    private String pluginsLocations = "plugins";
@@ -199,15 +201,18 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
 
    private static final byte[] JPO_ODE_GROUP_ID = "jode".getBytes();
 
-   // @Autowired
-   // BuildProperties buildProperties;
+
 
    @PostConstruct
    void initialize() {
-      //setVersion(buildProperties.getVersion());
-      // logger.info("groupId: {}", buildProperties.getGroup());
-      // logger.info("artifactId: {}", buildProperties.getArtifact());
+
+      //setVersion(env.getProperty("version"));
+      logger.info("groupId: {}", env.getProperty("groupId"));
+      logger.info("artifactId: {}", env.getProperty("artifactId"));
       logger.info("version: {}", version);
+      logger.info("schema.map: {}", env.getProperty("schema.map"));
+      logger.info("schema.spat: {}", env.getProperty("schema.spat"));
+
       OdeMsgMetadata.setStaticSchemaVersion(OUTPUT_SCHEMA_VERSION);
 
       uploadLocations.add(Paths.get(uploadLocationRoot));
