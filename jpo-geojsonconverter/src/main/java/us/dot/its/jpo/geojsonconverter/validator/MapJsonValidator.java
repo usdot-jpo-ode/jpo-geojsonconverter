@@ -9,14 +9,14 @@ import org.springframework.stereotype.Component;
  * schema and report all errors
  */
 @Component
-public class JsonValidator  {
+public class MapJsonValidator  {
 
     /**
      * Constructor that loads the schema from a resource file.
      * 
      * @param jsonSchemaResource Name of a json schema file in resources/schemas.
      */
-    public JsonValidator(@Value("${schema.map}") Resource jsonSchemaResource) {
+    public MapJsonValidator(@Value("${schema.map}") Resource jsonSchemaResource) {
         this.jsonSchemaResource = jsonSchemaResource;
         // if (schemaResourceName == null) {
         //     throw new IllegalArgumentException("schemaResourceName is null");
