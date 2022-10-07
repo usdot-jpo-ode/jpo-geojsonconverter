@@ -41,6 +41,22 @@ public class JsonValidatorResult {
 
     public void addValidationMessages(Collection<ValidationMessage> messages) {
         validationMessages.addAll(messages);
+        
+    }
+
+    public String describeResults() {
+        var sb = new StringBuilder();
+        sb.append(String.format("MapJsonValidator result: isValid = %s%n", isValid()));
+
+        for (var exception : getExceptions()) {
+            sb.append(String.format("JsonProcessingException: %s%n", exception.getMessage()));
+        }
+
+        for (var validationMessage : getValidationMessages()) {
+            sb.append(String.format("MAP JSON Validation Message: %s%n", validationMessage.getMessage()));
+        }
+
+        return sb.toString();
     }
 
 }

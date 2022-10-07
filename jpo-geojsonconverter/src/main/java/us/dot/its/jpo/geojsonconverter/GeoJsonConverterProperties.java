@@ -34,9 +34,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.info.BuildProperties;
 import org.springframework.context.EnvironmentAware;
-import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 
@@ -205,8 +203,6 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
 
    @PostConstruct
    void initialize() {
-
-      //setVersion(env.getProperty("version"));
       logger.info("groupId: {}", env.getProperty("groupId"));
       logger.info("artifactId: {}", env.getProperty("artifactId"));
       logger.info("version: {}", version);

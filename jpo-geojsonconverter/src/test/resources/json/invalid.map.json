@@ -53,7 +53,7 @@
 							"GenericLane": [
 								{
 									"laneID": 2,
-									"name": "Name",
+									"name": null,
 									"ingressApproach": 1,
 									"egressApproach": null,
 									"laneAttributes": {

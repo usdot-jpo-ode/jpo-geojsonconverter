@@ -1,18 +1,12 @@
 package us.dot.its.jpo.geojsonconverter.validator;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.networknt.schema.JsonSchema;
@@ -56,8 +50,8 @@ public class MapJsonValidator  {
                 JsonNode schemaNode = mapper.readTree(inputStream);
                 JsonSchemaFactory factory = JsonSchemaFactory.getInstance(SpecVersionDetector.detect(schemaNode));
                 jsonSchema = factory.getSchema(schemaNode);
-            } catch (IOException ioe) {
-                throw new RuntimeException(String.format("Failed to load json schema from resource '%s'", jsonSchemaResource), ioe);
+            } catch (Exception ex) {
+                throw new RuntimeException(String.format("Failed to load json schema from resource '%s'", jsonSchemaResource), ex);
             }
         }
         return jsonSchema;

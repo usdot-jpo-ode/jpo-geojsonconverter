@@ -46,15 +46,8 @@ public class MapGeoJsonConverter extends AbstractSubscriberProcessor<String, Str
 	public Object process(String consumedData) {
 		try {
 			JsonValidatorResult validationResult = mapJsonValidator.validate(consumedData);
-			logger.info("MapJsonValidator result: isValid = {}", validationResult.isValid());
-			if (!validationResult.isValid()) {
-				for (var exception : validationResult.getExceptions()) {
-					logger.error("JsonProcessingException: {}", exception.getMessage());
-				}
-				for (var validationMessage : validationResult.getValidationMessages()) {
-					logger.error("MAP JSON Validation Message: {}", validationMessage.getMessage());
-				}
-			}
+			logger.info(validationResult.describeResults());
+			
 
 			ObjectMapper mapper = new ObjectMapper();
 			JsonNode actualObj = mapper.readTree(consumedData);
