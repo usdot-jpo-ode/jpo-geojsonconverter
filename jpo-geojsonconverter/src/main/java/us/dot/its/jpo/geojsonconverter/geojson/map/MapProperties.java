@@ -17,6 +17,8 @@ public class MapProperties {
     private Boolean ingressPath;
     @JsonProperty("egress_path")
     private Boolean egressPath;
+    @JsonProperty("connected_lanes")
+    private Integer[] connectedLanes;
 
     public void setLaneId(Integer laneId) {
         this.laneId = laneId;
@@ -72,5 +74,13 @@ public class MapProperties {
 
     public Boolean getEgressPath() {
         return this.egressPath;
+    }
+
+    public void setConnectedLanes(Integer[] connectedLanes) {
+        this.connectedLanes = connectedLanes;
+    }
+
+    public Integer[] getConnectedLanes() {
+        return this.connectedLanes;
     }
 }

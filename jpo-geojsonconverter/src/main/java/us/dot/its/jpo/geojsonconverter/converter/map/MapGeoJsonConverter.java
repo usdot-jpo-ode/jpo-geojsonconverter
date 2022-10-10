@@ -6,9 +6,13 @@ import us.dot.its.jpo.ode.model.*;
 import us.dot.its.jpo.ode.plugin.j2735.J2735IntersectionGeometry;
 import us.dot.its.jpo.ode.plugin.j2735.J2735GenericLane;
 import us.dot.its.jpo.ode.plugin.j2735.OdePosition3D;
+import us.dot.its.jpo.ode.plugin.j2735.J2735NodeOffsetPointXY;
+import us.dot.its.jpo.ode.plugin.j2735.J2735NodeLLmD64b;
+import us.dot.its.jpo.ode.plugin.j2735.J2735Node_XY;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.math.BigDecimal;
 
 import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.kstream.Transformer;
@@ -73,6 +77,15 @@ public class MapGeoJsonConverter implements Transformer<Void, OdeMapData, KeyVal
             mapProps.setIngressApproach(lane.getIngressApproach() != null ? lane.getIngressApproach() : 0);
 			mapProps.setEgressApproach(lane.getEgressApproach() != null ? lane.getEgressApproach() : 0);
 
+            List<Integer> connectsToLaneList = new ArrayList<>();
+            if (lane.getConnectsTo() != null) {
+                for (int x = 0; x < lane.getConnectsTo().getConnectsTo().size(); x++) {
+					Integer connectsToLane = lane.getConnectsTo().getConnectsTo().get(x).getConnectingLane().getLane();
+					connectsToLaneList.add(connectsToLane);
+				}
+            }
+            mapProps.setConnectedLanes(connectsToLaneList.toArray(new Integer[0]));
+
             // Create MAP geometry
             LineString geometry = createGeometry(lane, refPoint);
 
@@ -84,7 +97,83 @@ public class MapGeoJsonConverter implements Transformer<Void, OdeMapData, KeyVal
     }
 
     public LineString createGeometry(J2735GenericLane lane, OdePosition3D refPoint) {
-        double[][] coordinates = new double[][] {};
-        return new LineString(coordinates);
+        // Calculate coordinates from reference point
+        BigDecimal anchorLat = new BigDecimal(refPoint.getLatitude().toString());
+        BigDecimal anchorLong = new BigDecimal(refPoint.getLongitude().toString());
+        List<List<Double>> coordinatesList = new ArrayList<>();
+        for (int x = 0; x < lane.getNodeList().getNodes().getNodes().size(); x++) {
+            J2735NodeOffsetPointXY nodeOffset = lane.getNodeList().getNodes().getNodes().get(x).getDelta();
+
+            if (nodeOffset.getNodeLatLon() != null) {
+                J2735NodeLLmD64b nodeLatLong = nodeOffset.getNodeLatLon();
+                // Complete absolute lat-long representation per J2735 
+                // Lat-Long values expressed in standard SAE 1/10 of a microdegree
+                BigDecimal lat = nodeLatLong.getLat().divide(new BigDecimal("10000000"));
+                BigDecimal lon = nodeLatLong.getLon().divide(new BigDecimal("10000000"));
+
+                List<Double> coordinate = new ArrayList<>();
+                coordinate.add(lon.doubleValue());
+                coordinate.add(lat.doubleValue());
+                coordinatesList.add(coordinate);
+
+                // Reset the anchor point for following offset nodes
+                // J2735 is not clear if only one of these nodelatlon types is allowed in the lane path nodes
+                anchorLat = new BigDecimal(lat.toString());
+                anchorLong = new BigDecimal(lon.toString());
+            }
+            else {
+                // Get the NodeXY object or skip node if entirely null
+                J2735Node_XY nodexy = null;
+                if (nodeOffset.getNodeXY1() != null)
+                    nodexy = nodeOffset.getNodeXY1();
+                else if (nodeOffset.getNodeXY2() != null)
+                    nodexy = nodeOffset.getNodeXY2();
+                else if (nodeOffset.getNodeXY3() != null)
+                    nodexy = nodeOffset.getNodeXY3();
+                else if (nodeOffset.getNodeXY4() != null)
+                    nodexy = nodeOffset.getNodeXY4();
+                else if (nodeOffset.getNodeXY5() != null)
+                    nodexy = nodeOffset.getNodeXY5();
+                else if (nodeOffset.getNodeXY6() != null)
+                    nodexy = nodeOffset.getNodeXY6();
+                else
+                    continue;
+                
+                // Calculate offset lon,lat values
+                // Equations may become less accurate the futher N/S the coordinate is
+                double offsetX = nodexy.getX().doubleValue();
+                double offsetY = nodexy.getY().doubleValue();
+
+                // (offsetX * 0.01) / (math.cos((Math.PI / 180.0) * anchorLat) * 111111.0)
+                // Step 1. (offsetX * 0.01)
+                // Step 2. (math.cos((Math.PI/180.0) * anchorLat) * 111111.0)
+                // Step 3. Step 1 / Step 2
+                double offsetX_step1 = offsetX * 0.01;
+                double offsetX_step2 = Math.cos(((double)(Math.PI / 180.0)) * anchorLat.doubleValue()) * 111111.0;
+                double offsetXDegrees = offsetX_step1 / offsetX_step2;
+                
+                // (offsetY * 0.01) / 111111.0
+                double offsetYDegrees = (offsetY * 0.01) / 111111.0;
+
+                // return (reference_point[0] + dx_deg, reference_point[1] + dy_deg)
+                BigDecimal offsetLong = new BigDecimal(String.valueOf(anchorLong.doubleValue() + offsetXDegrees));
+                BigDecimal offsetLat = new BigDecimal(String.valueOf(anchorLat.doubleValue() + offsetYDegrees));
+
+                List<Double> coordinate = new ArrayList<>();
+                coordinate.add(offsetLong.doubleValue());
+                coordinate.add(offsetLat.doubleValue());
+                coordinatesList.add(coordinate);
+
+                // Reset the anchor point for following offset nodes
+                anchorLat = new BigDecimal(offsetLat.toString());
+                anchorLong = new BigDecimal(offsetLong.toString());
+            }
+        }
+
+        double[][] coordinatesArray = coordinatesList.stream()
+                        .map(l -> l.stream().mapToDouble(Double::doubleValue).toArray())
+                        .toArray(double[][]::new);
+
+        return new LineString(coordinatesArray);
     }
 }
