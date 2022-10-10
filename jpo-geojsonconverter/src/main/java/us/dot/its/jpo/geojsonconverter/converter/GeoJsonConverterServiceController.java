@@ -30,20 +30,24 @@ public class GeoJsonConverterServiceController {
     public GeoJsonConverterServiceController(GeoJsonConverterProperties geojsonProps) {
         super();
 
-        logger.info("Starting {}", this.getClass().getSimpleName());
-        Topology topology;
-        KafkaStreams streams;
+        try {
+            logger.info("Starting {}", this.getClass().getSimpleName());
+            Topology topology;
+            KafkaStreams streams;
 
-        // Starting the MAP geoJSON converter Kafka message consumer
-        logger.info("Creating the MAP geoJSON Kafka-Streams topology");
+            // Starting the MAP geoJSON converter Kafka message consumer
+            logger.info("Creating the MAP geoJSON Kafka-Streams topology");
 
-        // MAP
-        topology = MapTopology.build();
-        streams = new KafkaStreams(topology, createStreamProperties("mapgeojson", geojsonProps.getKafkaBrokers()));
-        Runtime.getRuntime().addShutdownHook(new Thread(streams::close));
-        streams.start();
+            // MAP
+            topology = MapTopology.build();
+            streams = new KafkaStreams(topology, createStreamProperties("mapgeojson", geojsonProps.getKafkaBrokers()));
+            Runtime.getRuntime().addShutdownHook(new Thread(streams::close));
+            streams.start();
 
-        logger.info("All geoJSON conversion services started!");
+            logger.info("All geoJSON conversion services started!");
+        } catch (Exception e) {
+            logger.error("Encountered issue with creating topologies", e);
+        }
     }
 
     public Properties createStreamProperties(String name, String bootstrapServer) {
