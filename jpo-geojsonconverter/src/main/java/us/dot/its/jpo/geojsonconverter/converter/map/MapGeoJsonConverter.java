@@ -43,9 +43,9 @@ public class MapGeoJsonConverter implements Transformer<Void, OdeMapData, KeyVal
 
 			MapFeatureCollection mapFeatureCollection = createFeatureCollection(intersection, mapMetadata);
             
-            String rsuIp = mapMetadata.getOriginIp();
-            String intersectionId = intersection.getId().getId().toString();
-            return KeyValue.pair(rsuIp + ":" + intersectionId, mapFeatureCollection);
+            String key = mapMetadata.getOriginIp() + ":" + intersection.getId().getId().toString();
+            logger.info("Successfully create MAP GeoJSON for " + key);
+            return KeyValue.pair(key, mapFeatureCollection);
         } catch (Exception e) {
             String errMsg = String.format("Exception converting ODE MAP to GeoJSON! Message: %s", e.getMessage());
             logger.error(errMsg, e);
