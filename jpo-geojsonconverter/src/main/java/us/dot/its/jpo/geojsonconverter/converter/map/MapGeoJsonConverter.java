@@ -80,7 +80,7 @@ public class MapGeoJsonConverter implements Transformer<Void, OdeMapData, KeyVal
             mapFeatures.add(new MapFeature(mapProps.getLaneId(), geometry, mapProps));
         }
 
-        return new MapFeatureCollection((MapFeature[])mapFeatures.toArray());
+        return new MapFeatureCollection(mapFeatures.toArray(new MapFeature[0]));
     }
 
     public LineString createGeometry(J2735GenericLane lane, OdePosition3D refPoint) {
