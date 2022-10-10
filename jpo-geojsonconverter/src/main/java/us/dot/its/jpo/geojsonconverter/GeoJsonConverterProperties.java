@@ -35,7 +35,7 @@ import org.apache.kafka.streams.processor.LogAndSkipOnInvalidTimestamp;
 
 import us.dot.its.jpo.ode.util.CommonUtils;
 
-@ConfigurationProperties("geojson")
+@ConfigurationProperties("geojsonconverter")
 @PropertySource("classpath:application.properties")
 public class GeoJsonConverterProperties implements EnvironmentAware {
 
@@ -69,13 +69,13 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
 
         if (kafkaBrokers == null) {
 
-            logger.info("geojson.kafkaBrokers property not defined. Will try DOCKER_HOST_IP => {}", kafkaBrokers);
+            logger.info("geojsonconverter.kafkaBrokers property not defined. Will try DOCKER_HOST_IP => {}", kafkaBrokers);
 
             String dockerIp = CommonUtils.getEnvironmentVariable("DOCKER_HOST_IP");
 
             if (dockerIp == null) {
             logger.warn(
-                    "Neither geojson.kafkaBrokers ode property nor DOCKER_HOST_IP environment variable are defined. Defaulting to localhost.");
+                    "Neither geojsonconverter.kafkaBrokers property nor DOCKER_HOST_IP environment variable are defined. Defaulting to localhost.");
             dockerIp = "localhost";
             }
             kafkaBrokers = dockerIp + ":" + DEFAULT_KAFKA_PORT;
