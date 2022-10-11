@@ -3,8 +3,6 @@ services:
   geojsonconverter:
     build: .
     image: jpo_geojsonconverter:latest
-    ports:
-      - "9090:9090"
     environment:
       DOCKER_HOST_IP: ${DOCKER_HOST_IP}
     logging:
