@@ -5,7 +5,6 @@ on: [pull_request, push]
 jobs:
   docker:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/develop'
     steps:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
@@ -14,7 +13,6 @@ jobs:
 
   sonar:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/develop'
     steps:
       - uses: actions/checkout@v3
         with:
