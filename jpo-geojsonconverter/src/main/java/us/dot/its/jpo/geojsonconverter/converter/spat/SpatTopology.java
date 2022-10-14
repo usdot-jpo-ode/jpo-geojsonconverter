@@ -29,19 +29,19 @@ public class SpatTopology {
                     JsonSerdes.OdeSpat())   // Value serdes for OdeSpatData
                 );
 
-        // // Convert ODE SPaT to GeoJSON
-        // KStream<String, SpatFeatureCollection> geoJsonSpatStream =
-        //     odeSpatStream.transform(
-        //         () -> new SpatGeoJsonConverter()
-        //     );
+        // Convert ODE SPaT to GeoJSON
+        KStream<String, SpatFeatureCollection> geoJsonSpatStream =
+            odeSpatStream.transform(
+                () -> new SpatGeoJsonConverter()
+            );
             
-        // // Push the GeoJSON stream back out to the SPaT GeoJSON topic 
-        // geoJsonSpatStream.to(
-        //     geoJsonTopic, 
-        //     Produced.with(
-        //         Serdes.Void(), // Key serializer: SPaT GeoJSON has no key, so use the "Void" serializer
-        //         JsonSerdes.SpatGeoJson())  // Value serializer for SPaT GeoJSON
-        //     );
+        // Push the GeoJSON stream back out to the SPaT GeoJSON topic 
+        geoJsonSpatStream.to(
+            geoJsonTopic, 
+            Produced.with(
+                Serdes.String(), // Key is now the "RSU-IP:Intersection-ID"
+                JsonSerdes.SpatGeoJson())  // Value serializer for SPaT GeoJSON
+            );
         
         return builder.build();
     }
