@@ -32,7 +32,7 @@ public class MapGeoJsonConverter implements Transformer<Void, OdeMapData, KeyVal
      * 
      * @param rawKey   - Void type because ODE topics have no specified key
      * @param rawValue - The raw POJO
-     * @return A key value pair: the key is the MAP intersection ID concatenated with the RSU IP and the value is the POJO
+     * @return A key value pair: the key is the MAP intersection ID concatenated with the RSU IP and the value is the GeoJSON FeatureCollection POJO
      */
     @Override
     public KeyValue<String, MapFeatureCollection> transform(Void rawKey, OdeMapData rawValue) {
