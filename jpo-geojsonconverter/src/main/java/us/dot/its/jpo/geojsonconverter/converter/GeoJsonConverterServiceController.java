@@ -38,7 +38,7 @@ public class GeoJsonConverterServiceController {
 
             // SPaT
             logger.info("Creating the SPaT geoJSON Kafka-Streams topology");
-            topology = SpatTopology.build(geojsonProps.getKafkaTopicOdeSpatJson(), geojsonProps.getKafkaTopicSpatGeoJson());
+            topology = SpatTopology.build(geojsonProps.getKafkaTopicOdeSpatJson(), geojsonProps.getKafkaTopicSpatGeoJson(), geojsonProps.getKafkaTopicMapGeoJson());
             streams = new KafkaStreams(topology, geojsonProps.createStreamProperties("spatgeojson"));
             Runtime.getRuntime().addShutdownHook(new Thread(streams::close));
             streams.start();

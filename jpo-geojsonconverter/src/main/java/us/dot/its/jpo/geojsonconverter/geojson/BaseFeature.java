@@ -25,7 +25,7 @@ public abstract class BaseFeature<TId, TGeometry extends Geometry, TProperties>
 
     @JsonInclude(Include.NON_EMPTY)
     protected final TId id;
-    protected final TGeometry geometry;
+    protected TGeometry geometry;
     protected final TProperties properties;
 
     @JsonCreator
@@ -59,11 +59,11 @@ public abstract class BaseFeature<TId, TGeometry extends Geometry, TProperties>
         return geometry;
     }
 
+    public void setGeometry(TGeometry geometry) {
+        this.geometry = geometry;
+    }
+
     public TProperties getProperties() {
         return properties;
     }
-
-
- 
- 
 }

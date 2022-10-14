@@ -1,6 +1,5 @@
 package us.dot.its.jpo.geojsonconverter.converter.spat;
 
-import us.dot.its.jpo.geojsonconverter.geojson.Point;
 import us.dot.its.jpo.geojsonconverter.geojson.spat.*;
 import us.dot.its.jpo.ode.model.*;
 import us.dot.its.jpo.ode.plugin.j2735.J2735IntersectionState;
@@ -9,7 +8,6 @@ import us.dot.its.jpo.ode.plugin.j2735.J2735MovementState;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.math.BigDecimal;
 
 import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.kstream.Transformer;
@@ -22,7 +20,7 @@ public class SpatGeoJsonConverter implements Transformer<Void, OdeSpatData, KeyV
     private static final Logger logger = LoggerFactory.getLogger(SpatGeoJsonConverter.class);
 
     @Override
-    public void init(ProcessorContext arg0) {}
+    public void init(ProcessorContext arg0) { }
 
     /**
      * Transform an ODE SPaT POJO to SPaT GeoJSON POJO.
@@ -41,13 +39,13 @@ public class SpatGeoJsonConverter implements Transformer<Void, OdeSpatData, KeyV
 			SpatFeatureCollection spatFeatureCollection = createFeatureCollection(intersectionState, spatMetadata);
             
             String id = spatMetadata.getOriginIp() + ":" + intersectionState.getId().getId();
-            logger.info("Successfully created SPaT GeoJSON from " + spatMetadata.getOriginIp());
+            logger.info("Successfully created SPaT GeoJSON from " + id);
             return KeyValue.pair(id, spatFeatureCollection);
         } catch (Exception e) {
             String errMsg = String.format("Exception converting ODE SPaT to GeoJSON! Message: %s", e.getMessage());
             logger.error(errMsg, e);
             // KafkaStreams knows to remove null responses before allowing further steps from occurring
-            return KeyValue.pair(null, null);
+            return KeyValue.pair("ERROR", null);
         }
     }
 
@@ -61,7 +59,7 @@ public class SpatGeoJsonConverter implements Transformer<Void, OdeSpatData, KeyV
 
         List<SpatFeature> spatFeatures = new ArrayList<>();
         for (int i = 0; i < intersectionState.getStates().getMovementList().size(); i++) {
-            // Create MAP properties
+            // Create SPaT properties
             SpatProperties spatProps = new SpatProperties();
             spatProps.setIp(metadata.getOriginIp());
             spatProps.setOdeReceivedAt(metadata.getOdeReceivedAt());
@@ -84,11 +82,9 @@ public class SpatGeoJsonConverter implements Transformer<Void, OdeSpatData, KeyV
             }
             spatProps.setMovementEvents(movementEventList.toArray(new SpatMovementEvent[0]));
 
-            // Create MAP geometry
-            Point geometry = null;
-
-            // Create MAP feature and add it to the feature list
-            spatFeatures.add(new SpatFeature(spatProps.getSignalGroupId(), geometry, spatProps));
+            // Create SPaT feature and add it to the feature list
+            // Leave geometry as null for later topology join
+            spatFeatures.add(new SpatFeature(spatProps.getSignalGroupId(), null, spatProps));
         }
 
         return new SpatFeatureCollection(spatFeatures.toArray(new SpatFeature[0]));
