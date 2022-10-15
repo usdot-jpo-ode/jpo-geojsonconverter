@@ -56,14 +56,16 @@ public class SpatTopology {
                 () -> new SpatGeoJsonConverter()
             );
 
-        // Join SPaT GeoJSON stream with the MapGeoJSON table
-        geoJsonSpatStream.join(mapFeatureCollectionTable, (spatGeoJson, mapGeoJson) -> {
+        // Join SPaT GeoJSON stream with the MapGeoJSON table to populate feature geometry
+        KStream<String, SpatFeatureCollection> joinedGeoJsonSpatStream = 
+            geoJsonSpatStream.join(mapFeatureCollectionTable, (spatGeoJson, mapGeoJson) -> {
                 List<SpatFeature> spatFeatures = new ArrayList<>();
 
                 for (SpatFeature spatFeature : spatGeoJson.getFeatures()) {
                     for(int i = 0; i < mapGeoJson.getFeatures().length; i++) {
                         MapFeature mapFeature = mapGeoJson.getFeatures()[i];
                         if (mapFeature.getProperties().getLaneId() == spatFeature.getProperties().getSignalGroupId()) {
+                            // Create a new SPaT feature with the associated MAP lane's LineString's first coordinate set
                             SpatFeature newSpatFeature = new SpatFeature(
                                 spatFeature.getId(), 
                                 new Point(mapFeature.getGeometry().getCoordinates()[0]), 
@@ -77,15 +79,17 @@ public class SpatTopology {
                         }
                     }
                 }
+
                 return new SpatFeatureCollection(spatFeatures.toArray(new SpatFeature[0]));
             }, 
             Joined.<String, SpatFeatureCollection, MapFeatureCollection>as("geojson-joined").withKeySerde(Serdes.String())
-                .withValueSerde(JsonSerdes.SpatGeoJson()).withOtherValueSerde(JsonSerdes.MapGeoJson()))
-            .to(
-                // Push the GeoJSON stream back out to the SPaT GeoJSON topic 
-                spatGeoJsonTopic, 
-                Produced.with(Serdes.String(),
-                        JsonSerdes.SpatGeoJson()));
+                .withValueSerde(JsonSerdes.SpatGeoJson()).withOtherValueSerde(JsonSerdes.MapGeoJson()));
+        
+        joinedGeoJsonSpatStream.to(
+            // Push the joined GeoJSON stream back out to the SPaT GeoJSON topic 
+            spatGeoJsonTopic, 
+            Produced.with(Serdes.String(),
+                    JsonSerdes.SpatGeoJson()));
         
         return builder.build();
     }
