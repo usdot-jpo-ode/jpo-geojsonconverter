@@ -1,5 +1,9 @@
 package us.dot.its.jpo.geojsonconverter.converter.spat;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.common.utils.Bytes;
 import org.apache.kafka.streams.StreamsBuilder;
@@ -16,14 +20,21 @@ import us.dot.its.jpo.geojsonconverter.serialization.JsonSerdes;
 import us.dot.its.jpo.geojsonconverter.geojson.Point;
 import us.dot.its.jpo.geojsonconverter.geojson.map.MapFeature;
 import us.dot.its.jpo.geojsonconverter.geojson.map.MapFeatureCollection;
+import us.dot.its.jpo.geojsonconverter.geojson.spat.SpatFeature;
 import us.dot.its.jpo.geojsonconverter.geojson.spat.SpatFeatureCollection;
+import us.dot.its.jpo.geojsonconverter.geojson.spat.SpatProperties;
 import us.dot.its.jpo.ode.model.OdeSpatData;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Kafka Streams Topology builder for processing SPaT messages from
  * ODE SPaT JSON -> SPaT GeoJSON
  */
 public class SpatTopology {
+
+    private static final Logger logger = LoggerFactory.getLogger(SpatTopology.class);
 
     public static Topology build(String spatOdeJsonTopic, String spatGeoJsonTopic, String mapGeoJsonTopic) {
         StreamsBuilder builder = new StreamsBuilder();
@@ -54,27 +65,34 @@ public class SpatTopology {
 
         // Join SPaT GeoJSON stream with the MapGeoJSON table
         geoJsonSpatStream.join(mapFeatureCollectionTable, (spatGeoJson, mapGeoJson) -> {
-                for (int i = 0; i < spatGeoJson.getFeatures().length; i++) {
-                    Integer signalGroupId = spatGeoJson.getFeatures()[i].getProperties().getSignalGroupId();
-                    for(MapFeature mapFeature : mapGeoJson.getFeatures()) {  
-                        if (mapFeature.getProperties().getLaneId() == signalGroupId) {
-                            Point signalPoint = new Point(mapFeature.getGeometry().getCoordinates()[0]);
-                            spatGeoJson.getFeatures()[i].setGeometry(signalPoint);
+                List<SpatFeature> spatFeatures = new ArrayList<>();
+
+                for (SpatFeature spatFeature : spatGeoJson.getFeatures()) {
+                    for(int i = 0; i < mapGeoJson.getFeatures().length; i++) {
+                        MapFeature mapFeature = mapGeoJson.getFeatures()[i];
+                        if (mapFeature.getProperties().getLaneId() == spatFeature.getProperties().getSignalGroupId()) {
+                            SpatFeature newSpatFeature = new SpatFeature(
+                                spatFeature.getId(), 
+                                new Point(mapFeature.getGeometry().getCoordinates()[0]), 
+                                spatFeature.getProperties());
+                            spatFeatures.add(newSpatFeature);
+                            break;
+                        }
+                        // If a signalStatus does not correlate to a defined lane ID, keep the geometry as null 
+                        else if (i+1 == mapGeoJson.getFeatures().length) {
+                            spatFeatures.add(spatFeature);
                         }
                     }
                 }
-                return spatGeoJson;
+                return new SpatFeatureCollection(spatFeatures.toArray(new SpatFeature[0]));
             }, 
             Joined.<String, SpatFeatureCollection, MapFeatureCollection>as("geojson-joined").withKeySerde(Serdes.String())
-                .withValueSerde(JsonSerdes.SpatGeoJson()).withOtherValueSerde(JsonSerdes.MapGeoJson()));
-
-        // Push the GeoJSON stream back out to the SPaT GeoJSON topic 
-        geoJsonSpatStream.to(
-            spatGeoJsonTopic, 
-            Produced.with(
-                Serdes.String(), // Key is now the "RSU-IP:Intersection-ID"
-                JsonSerdes.SpatGeoJson())  // Value serializer for SPaT GeoJSON
-            );
+                .withValueSerde(JsonSerdes.SpatGeoJson()).withOtherValueSerde(JsonSerdes.MapGeoJson()))
+            .to(
+                // Push the GeoJSON stream back out to the SPaT GeoJSON topic 
+                spatGeoJsonTopic, 
+                Produced.with(Serdes.String(),
+                        JsonSerdes.SpatGeoJson()));
         
         return builder.build();
     }
