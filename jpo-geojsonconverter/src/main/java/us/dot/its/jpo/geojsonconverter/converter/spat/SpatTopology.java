@@ -1,7 +1,6 @@
 package us.dot.its.jpo.geojsonconverter.converter.spat;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.apache.kafka.common.serialization.Serdes;
@@ -24,16 +23,11 @@ import us.dot.its.jpo.geojsonconverter.geojson.spat.SpatFeature;
 import us.dot.its.jpo.geojsonconverter.geojson.spat.SpatFeatureCollection;
 import us.dot.its.jpo.ode.model.OdeSpatData;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
  * Kafka Streams Topology builder for processing SPaT messages from
  * ODE SPaT JSON -> SPaT GeoJSON
  */
 public class SpatTopology {
-
-    private static final Logger logger = LoggerFactory.getLogger(SpatTopology.class);
 
     public static Topology build(String spatOdeJsonTopic, String spatGeoJsonTopic, String mapGeoJsonTopic) {
         StreamsBuilder builder = new StreamsBuilder();
