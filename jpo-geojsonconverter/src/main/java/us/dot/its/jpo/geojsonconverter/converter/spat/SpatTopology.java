@@ -22,7 +22,6 @@ import us.dot.its.jpo.geojsonconverter.geojson.map.MapFeature;
 import us.dot.its.jpo.geojsonconverter.geojson.map.MapFeatureCollection;
 import us.dot.its.jpo.geojsonconverter.geojson.spat.SpatFeature;
 import us.dot.its.jpo.geojsonconverter.geojson.spat.SpatFeatureCollection;
-import us.dot.its.jpo.geojsonconverter.geojson.spat.SpatProperties;
 import us.dot.its.jpo.ode.model.OdeSpatData;
 
 import org.slf4j.Logger;
