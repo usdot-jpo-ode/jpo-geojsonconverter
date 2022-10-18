@@ -36,15 +36,15 @@ public class GeoJsonConverterPropertiesTest {
         assertThat(appProperties.getEnv(), notNullValue());
     }
 
-    @Test
-    public void versionIsSet() {
-        assertThat(appProperties.getVersion(), is(not(emptyOrNullString())));
-    }
+    // @Test
+    // public void versionIsSet() {
+    //     assertThat(appProperties.getVersion(), is(not(emptyOrNullString())));
+    // }
 
-    @Test
-    public void hostIdIsSet() {
-        assertThat(appProperties.getHostId(), is(not(emptyOrNullString())));
-    }
+    // @Test
+    // public void hostIdIsSet() {
+    //     assertThat(appProperties.getHostId(), is(not(emptyOrNullString())));
+    // }
 
     
 }
