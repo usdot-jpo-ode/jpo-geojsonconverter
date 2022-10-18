@@ -8,11 +8,11 @@
 		</encoder>
 	</appender>
 
-	<logger name="us.dot.its.jpo.geojson.eventlog.EventLogger" level="ERROR" />
+	<logger name="us.dot.its.jpo.geojsonconverter.eventlog.EventLogger" level="ERROR" />
 	
 	<logger name="org.springframework.web" level="INFO" />
-	<logger name="org.springframework.test" level="DEBUG"/>
 	<logger name="us.dot.its.jpo.geojsonconverter" level="DEBUG" />
+	<logger name="org.springframework.test" level="DEBUG"/>
 
 	<root level="WARN">
 		<appender-ref ref="STDOUT" />

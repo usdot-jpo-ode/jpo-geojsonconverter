@@ -43,7 +43,7 @@ public class GeoJsonConverterApplication {
       SpringApplication.run(GeoJsonConverterApplication.class, args);
       MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
       SystemConfig mBean = new SystemConfig(DEFAULT_NO_THREADS, DEFAULT_SCHEMA);
-      ObjectName name = new ObjectName("us.dot.its.jpo.geojson:type=SystemConfig");
+      ObjectName name = new ObjectName("us.dot.its.jpo.geojsonconverter:type=SystemConfig");
       mbs.registerMBean(mBean, name);
    }
 
