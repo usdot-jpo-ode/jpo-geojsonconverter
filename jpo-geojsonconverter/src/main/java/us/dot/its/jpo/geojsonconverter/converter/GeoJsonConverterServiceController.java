@@ -1,15 +1,18 @@
 package us.dot.its.jpo.geojsonconverter.converter;
 
+import org.apache.kafka.streams.KafkaStreams;
+import org.apache.kafka.streams.Topology;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import us.dot.its.jpo.geojsonconverter.GeoJsonConverterProperties;
-import us.dot.its.jpo.ode.wrapper.MessageConsumer;
+import us.dot.its.jpo.geojsonconverter.converter.map.MapTopology;
+import us.dot.its.jpo.geojsonconverter.converter.spat.SpatTopology;
 
 /**
- * Launches ToGeoJsonFromJsonConverter service
+ * Launches GeoJsonFromJsonConverter service
  */
 @Controller
 public class GeoJsonConverterServiceController {
@@ -21,15 +24,28 @@ public class GeoJsonConverterServiceController {
     public GeoJsonConverterServiceController(GeoJsonConverterProperties geojsonProps) {
         super();
 
-        logger.info("Starting {}", this.getClass().getSimpleName());
+        try {
+            logger.info("Starting {}", this.getClass().getSimpleName());
+            Topology topology;
+            KafkaStreams streams;
 
-        // Starting the MAP geoJSON converter Kafka message consumer
-        logger.info("Creating the MAP geoJSON Converter MessageConsumer");
-        
-        MapGeoJsonConverter mapGeoJsonConverter = new MapGeoJsonConverter(geojsonProps);
-        MessageConsumer<String, String> mapJsonConsumer = MessageConsumer.defaultStringMessageConsumer(
-            geojsonProps.getKafkaBrokers(), this.getClass().getSimpleName(), mapGeoJsonConverter);
-        mapJsonConsumer.setName("MapJsonToGeoJsonConsumer");
-        mapGeoJsonConverter.start(mapJsonConsumer, geojsonProps.getKafkaTopicOdeMapJson());
+            // MAP
+            logger.info("Creating the MAP geoJSON Kafka-Streams topology");
+            topology = MapTopology.build(geojsonProps.getKafkaTopicOdeMapJson(), geojsonProps.getKafkaTopicMapGeoJson());
+            streams = new KafkaStreams(topology, geojsonProps.createStreamProperties("mapgeojson"));
+            Runtime.getRuntime().addShutdownHook(new Thread(streams::close));
+            streams.start();
+
+            // SPaT
+            logger.info("Creating the SPaT geoJSON Kafka-Streams topology");
+            topology = SpatTopology.build(geojsonProps.getKafkaTopicOdeSpatJson(), geojsonProps.getKafkaTopicSpatGeoJson(), geojsonProps.getKafkaTopicMapGeoJson());
+            streams = new KafkaStreams(topology, geojsonProps.createStreamProperties("spatgeojson"));
+            Runtime.getRuntime().addShutdownHook(new Thread(streams::close));
+            streams.start();
+
+            logger.info("All geoJSON conversion services started!");
+        } catch (Exception e) {
+            logger.error("Encountered issue with creating topologies", e);
+        }
     }
 }
