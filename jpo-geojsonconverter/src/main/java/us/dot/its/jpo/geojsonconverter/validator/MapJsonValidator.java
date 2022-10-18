@@ -1,5 +1,6 @@
 package us.dot.its.jpo.geojsonconverter.validator;
 
+import java.io.IOException;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -64,6 +65,18 @@ public class MapJsonValidator  {
             Set<ValidationMessage> validationMessages = getJsonSchema().validate(node);
             result.addValidationMessages(validationMessages);
         } catch (JsonProcessingException e) {
+            result.addException(e);
+        }
+        return result;
+    }
+
+    public JsonValidatorResult validate(byte[] jsonBytes) {
+        var result = new JsonValidatorResult();
+        try { 
+            JsonNode node = mapper.readTree(jsonBytes);
+            Set<ValidationMessage> validationMessages = getJsonSchema().validate(node);
+            result.addValidationMessages(validationMessages);
+        } catch (IOException e) {
             result.addException(e);
         }
         return result;

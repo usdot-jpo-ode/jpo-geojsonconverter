@@ -21,7 +21,7 @@ public class GeoJsonConverterServiceController {
     org.apache.kafka.common.serialization.Serdes bas;
 
     @Autowired
-    public GeoJsonConverterServiceController(GeoJsonConverterProperties geojsonProps) {
+    public GeoJsonConverterServiceController(GeoJsonConverterProperties geojsonProps, MapJsonValidator mapJsonValidator) {
         super();
 
         try {
@@ -31,7 +31,7 @@ public class GeoJsonConverterServiceController {
 
             // MAP
             logger.info("Creating the MAP geoJSON Kafka-Streams topology");
-            topology = MapTopology.build(geojsonProps.getKafkaTopicOdeMapJson(), geojsonProps.getKafkaTopicMapGeoJson());
+            topology = MapTopology.build(geojsonProps.getKafkaTopicOdeMapJson(), geojsonProps.getKafkaTopicMapGeoJson(), mapJsonValidator);
             streams = new KafkaStreams(topology, geojsonProps.createStreamProperties("mapgeojson"));
             Runtime.getRuntime().addShutdownHook(new Thread(streams::close));
             streams.start();

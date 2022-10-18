@@ -1,6 +1,7 @@
 package us.dot.its.jpo.geojsonconverter.converter.map;
 
 import org.apache.kafka.common.serialization.Serdes;
+import org.apache.kafka.common.utils.Bytes;
 import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.Topology;
 import org.apache.kafka.streams.kstream.Consumed;
@@ -8,6 +9,7 @@ import org.apache.kafka.streams.kstream.Produced;
 import org.apache.kafka.streams.kstream.KStream;
 
 import us.dot.its.jpo.geojsonconverter.serialization.JsonSerdes;
+import us.dot.its.jpo.geojsonconverter.validator.MapJsonValidator;
 import us.dot.its.jpo.geojsonconverter.geojson.map.MapFeatureCollection;
 import us.dot.its.jpo.ode.model.OdeMapData;
 
@@ -17,17 +19,27 @@ import us.dot.its.jpo.ode.model.OdeMapData;
  */
 public class MapTopology {
 
-    public static Topology build(String mapOdeJsonTopic, String mapGeoJsonTopic) {
+    public static Topology build(String mapOdeJsonTopic, String mapGeoJsonTopic, MapJsonValidator mapJsonValidator) {
         StreamsBuilder builder = new StreamsBuilder();
 
         // Create stream from the ODE MAP topic
-        KStream<Void, OdeMapData> odeMapStream = 
+        KStream<Void, Bytes> rawOdeMapStream = 
             builder.stream(
                 mapOdeJsonTopic, 
                 Consumed.with(
                     Serdes.Void(), // Key serializer: Raw has no key, so use the "Void" serializer
-                    JsonSerdes.OdeMap())   // Value serdes for OdeMapData
+                    Serdes.Bytes())   // Raw JSON bytes
                 );
+
+        // Validate the JSON and log validation errors
+        
+
+        // Deserialize the raw JSON bytes to an OdeMapData object
+        KStream<Void, OdeMapData> odeMapStream =
+            rawOdeMapStream.mapValues((Bytes value) -> {
+                if (value == null) return null;
+                return JsonSerdes.OdeMap().deserializer().deserialize(mapOdeJsonTopic, value.get());
+            });
 
         // Convert ODE MAP to GeoJSON
         KStream<String, MapFeatureCollection> geoJsonMapStream =

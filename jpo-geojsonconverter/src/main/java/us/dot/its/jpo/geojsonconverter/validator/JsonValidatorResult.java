@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.ArrayList;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.networknt.schema.ValidationMessage;
 
 public class JsonValidatorResult {
@@ -13,7 +12,7 @@ public class JsonValidatorResult {
         
     }
     
-    private final List<JsonProcessingException> exceptions = new ArrayList<JsonProcessingException>();
+    private final List<Exception> exceptions = new ArrayList<Exception>();
     private final List<ValidationMessage> validationMessages = new ArrayList<ValidationMessage>();
 
     public boolean isValid() {
@@ -24,11 +23,11 @@ public class JsonValidatorResult {
     /**
      * @return Jackson JSON processing exceptions
      */
-    public List<JsonProcessingException> getExceptions() {
+    public List<Exception> getExceptions() {
         return exceptions;
     }
 
-    public void addException(JsonProcessingException ex) {
+    public void addException(Exception ex) {
         exceptions.add(ex);
     }
 
