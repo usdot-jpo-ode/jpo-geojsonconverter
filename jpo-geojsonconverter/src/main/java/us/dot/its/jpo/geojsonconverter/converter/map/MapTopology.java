@@ -5,7 +5,10 @@ import org.apache.kafka.common.utils.Bytes;
 import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.Topology;
 import org.apache.kafka.streams.kstream.Consumed;
+import org.apache.kafka.streams.kstream.ForeachAction;
 import org.apache.kafka.streams.kstream.Produced;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.kafka.streams.kstream.KStream;
 
 import us.dot.its.jpo.geojsonconverter.serialization.JsonSerdes;
@@ -18,6 +21,8 @@ import us.dot.its.jpo.ode.model.OdeMapData;
  * ODE MAP JSON -> MAP GeoJSON
  */
 public class MapTopology {
+
+    private static final Logger logger = LoggerFactory.getLogger(MapTopology.class);
 
     public static Topology build(String mapOdeJsonTopic, String mapGeoJsonTopic, MapJsonValidator mapJsonValidator) {
         StreamsBuilder builder = new StreamsBuilder();
@@ -32,12 +37,22 @@ public class MapTopology {
                 );
 
         // Validate the JSON and log validation errors
-        
+        // Passes the raw JSON along unchanged, even if there are validation errors.
+        KStream<Void, Bytes> validatedOdeMapStream = rawOdeMapStream.peek(
+            (Void key, Bytes value) -> {
+                if (value == null || value.get() == null) {
+                    logger.warn("Null MAP message value encountered.");
+                    return;
+                }
+                var validationResults = mapJsonValidator.validate(value.get());
+                logger.error(validationResults.describeResults());
+            }
+        );
 
         // Deserialize the raw JSON bytes to an OdeMapData object
         KStream<Void, OdeMapData> odeMapStream =
-            rawOdeMapStream.mapValues((Bytes value) -> {
-                if (value == null) return null;
+            validatedOdeMapStream.mapValues((Bytes value) -> {
+                if (value == null || value.get() == null) return null;
                 return JsonSerdes.OdeMap().deserializer().deserialize(mapOdeJsonTopic, value.get());
             });
 
