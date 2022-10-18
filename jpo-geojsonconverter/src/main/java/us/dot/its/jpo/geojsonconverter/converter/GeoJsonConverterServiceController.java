@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import us.dot.its.jpo.geojsonconverter.GeoJsonConverterProperties;
 import us.dot.its.jpo.geojsonconverter.converter.map.MapTopology;
+import us.dot.its.jpo.geojsonconverter.converter.spat.SpatTopology;
 
 /**
  * Launches GeoJsonFromJsonConverter service
@@ -32,6 +33,13 @@ public class GeoJsonConverterServiceController {
             logger.info("Creating the MAP geoJSON Kafka-Streams topology");
             topology = MapTopology.build(geojsonProps.getKafkaTopicOdeMapJson(), geojsonProps.getKafkaTopicMapGeoJson());
             streams = new KafkaStreams(topology, geojsonProps.createStreamProperties("mapgeojson"));
+            Runtime.getRuntime().addShutdownHook(new Thread(streams::close));
+            streams.start();
+
+            // SPaT
+            logger.info("Creating the SPaT geoJSON Kafka-Streams topology");
+            topology = SpatTopology.build(geojsonProps.getKafkaTopicOdeSpatJson(), geojsonProps.getKafkaTopicSpatGeoJson(), geojsonProps.getKafkaTopicMapGeoJson());
+            streams = new KafkaStreams(topology, geojsonProps.createStreamProperties("spatgeojson"));
             Runtime.getRuntime().addShutdownHook(new Thread(streams::close));
             streams.start();
 

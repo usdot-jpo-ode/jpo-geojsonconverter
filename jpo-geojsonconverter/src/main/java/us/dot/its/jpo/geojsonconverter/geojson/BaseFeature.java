@@ -62,8 +62,4 @@ public abstract class BaseFeature<TId, TGeometry extends Geometry, TProperties>
     public TProperties getProperties() {
         return properties;
     }
-
-
- 
- 
 }

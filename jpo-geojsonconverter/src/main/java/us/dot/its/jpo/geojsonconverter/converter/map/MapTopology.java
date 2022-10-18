@@ -17,13 +17,13 @@ import us.dot.its.jpo.ode.model.OdeMapData;
  */
 public class MapTopology {
 
-    public static Topology build(String odeJsonTopic, String geoJsonTopic) {
+    public static Topology build(String mapOdeJsonTopic, String mapGeoJsonTopic) {
         StreamsBuilder builder = new StreamsBuilder();
 
         // Create stream from the ODE MAP topic
         KStream<Void, OdeMapData> odeMapStream = 
             builder.stream(
-                odeJsonTopic, 
+                mapOdeJsonTopic, 
                 Consumed.with(
                     Serdes.Void(), // Key serializer: Raw has no key, so use the "Void" serializer
                     JsonSerdes.OdeMap())   // Value serdes for OdeMapData
@@ -37,7 +37,7 @@ public class MapTopology {
             
         // Push the GeoJSON stream back out to the MAP GeoJSON topic 
         geoJsonMapStream.to(
-            geoJsonTopic, 
+            mapGeoJsonTopic, 
             Produced.with(
                 Serdes.String(), // Key is now the "RSU-IP:Intersection-ID"
                 JsonSerdes.MapGeoJson())  // Value serializer for MAP GeoJSON
