@@ -4,6 +4,10 @@
 
 The JPO Intersection GeoJSON Converter is a real-time validator and data converter of JPO-ODE MAP and SPaT JSON based on the SAE J2735 message standard. Messages are consumed from Kafka and validated based on both the SAE J2735 standard and the more robust Connected Transportation Interoperability (CTI) Intersection Implementation Guide Message Requirements (Section 3.3.3). Message validation occurs simultaneously as the GeoJSON converter converts the JPO-ODE MAP and SPaT messages into mappable geoJSON. The JPO Intersection GeoJSON Converter outputs the resulting geoJSON onto Kafka topics along with an additional property value that defines whether the message is a valid intersection message.
 
+![alt text](docs/jpo-geojsonexporter_arch_diagram.png "jpo-geojsonconverter Design Diagram")
+
+The message validation has been included in the jpo-geojsonconverter in order to prevent too many small microservices from being created. The extent of the current validation that occurs is surface level and is supported by simple verification against a schema. There may be reason to eventually break this feature out into a new, separate repository if more complex validation must be performed.
+
 All stakeholders are invited to provide input to these documents. To provide feedback, we recommend that you create an "issue" in this repository (<https://github.com/usdot-jpo-ode/jpo-geojsonconverter/issues>). You will need a GitHub account to create an issue. If you don’t have an account, a dialog will be presented to you to create one at no cost.
 
 ---
@@ -25,32 +29,73 @@ All stakeholders are invited to provide input to these documents. To provide fee
 #########################################
  -->
 
-<a name="usgage-example"/>
+<a name="usage-example"/>
 
 ## 1. Usage Example
 
-Once the ODE is deployed and running locally, you may access the ODE's demonstration console by opening your browser and navigating to  `http://localhost:8080`.
+The jpo-geojsonconverter is used to convert the ODE JSON output of MAP and SPaT messages into GeoJSON. In order to verify your jpo-geojsonconverter is functioning, you must run the jpo-ode, then the jpo-geojsonconverter, and then send the jpo-ode raw ASN1 encoded MAP and SPaT data.
 
-1.  Press the `Connect` button to connect to the ODE WebSocket service.
-2.  Press `Select File` button to select an OBU log file containing BSMs and/or TIM messages as specified by the WYDOT CV Pilot project. See below documents for details:
-    - [Wyoming CV Pilot Log File Design](data/Wyoming_CV_Pilot_Log_File_Design.docx)
-    - [WYDOT Log Records](data/wydotLogRecords.h)
-3.  Press `Upload` button to upload the file to ODE.
+Follow the configuration section to properly configure and launch your jpo-ode and jpo-geojsonconverter.
 
-Upload records within the files must be embedding BSM and/or TIM messages wrapped in J2735 MessageFrame and ASN.1 UPER encoded, wrapped in IEEE 1609.2 envelope and ASN.1 COER encoded binary format. Please review the files in the [data](data) folder for samples of each supported type. By uploading a valid data file, you will be able to observe the decoded messages contained within the file appear in the web UI page while connected to the WebSocket interface.
+Run one of the UDP sender Python scripts from the [jpo-ode repository](https://github.com/usdot-jpo-ode/jpo-ode/tree/dev/scripts/tests) to generate some example MAP and SPaT messages. Make sure to set your DOCKER_HOST_IP environment variable so the script will properly send the ASN1 encoded messages to your locally running JPO-ODE.
 
-Another way data can be uploaded to the ODE is through copying the file to the location specified by the `ode.uploadLocationRoot/ode.uploadLocationObuLog`property. If not specified,  Default locations would be `uploads/bsmlog`sub-directory off of the location where ODE is launched.
+Once the message has been sent to the jpo-ode, it will be eventually be decoded and serialized into a JSON string. This string will be placed into the Kafka topics topic.OdeMapJson and topic.OdeSpatJson. The jpo-geojsonconverter will then transform them into geoJSON.
 
-The result of uploading and decoding of messages will be displayed on the UI screen.
+Example MAP geoJSON message (trimmed to a single feature):
+```
+{  
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": 2,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -105.09115232580189,
+            39.59533762007272
+          ],
+          [
+            -105.08992396633637,
+            39.595323130058226
+          ],
+          [
+            -105.08960055408492,
+            39.595333210068304
+          ],
+          [
+            -105.08888318379331,
+            39.595317010052106
+          ],
+          [
+            -105.0881081157142,
+            39.59531593005103
+          ],
+          [
+            -105.08766381810617,
+            39.5953153000504
+          ]
+        ]
+      },
+      "properties": {
+        "lane_id": 2,
+        "ip": "172.18.0.1",
+        "ode_received_at": "2022-10-14T18:41:52.549328Z",
+        "egress_approach": 0,
+        "ingress_approach": 1,
+        "ingress_path": true,
+        "egress_path": false,
+        "connected_lanes": [
+          19
+        ]
+      }
+    }
+  ]
+}
+```
 
-![ODE UI](docs/images/readme/figure2.png)
-
-_Figure 2: ODE UI demonstrating message subscription_
-
-Notice that the empty fields in the J2735 message are represented by a `null` value. Also note that ODE output strips the MessageFrame header and returns a pure BSM or TIM in the subscription topic.
-
-
-With the PPM module running, all filtered BSMs that are uploaded through the web interface will be captured and processed. You will see an output of both submitted BSM and processed data unless the entire record was filtered out.
+IMPORTANT: SPaT geoJSON can only be properly created when corresponding MAP messages have been processed first. A SPaT is not a useful message without the context of the MAP message and is therefore required for the generation of SPaT geoJSON. If a SPaT is generated without the corresponding MAP message, the geometry will be null.
 
 [Back to top](#toc)
 
@@ -81,7 +126,7 @@ amount of data being processed by the software. The GeoJsonConverter software ap
 
 ### Software Prerequisites
 
-The GeoJsonConverter is a micro service that runs as an independent application but serves the sole purpose of converting JSON objects created by the JPO-ODE. To support these JSON objects, the GeoJsonConverter application utilizes some classes from the JPO-ODE repository. This is included into the GeoJsonConverter as a submodule. All other required dependencies will automatically be downloaded and installed as part of the Docker build process.
+The GeoJsonConverter is a micro service that runs as an independent application but serves the sole purpose of converting JSON objects created by the JPO-ODE via Apache Kafka. To support these JSON objects, the GeoJsonConverter application utilizes some classes from the JPO-ODE repository. This is included into the GeoJsonConverter as a submodule but the JPO-ODE should also be run independently of the jpo-geojsonconverter. The JPO-ODE is still required to launch Kafka, Zookeeper, the ASN1 decoder and create the required Kafka topics. All other required dependencies will automatically be downloaded and installed as part of the Docker build process.
 
 - Docker: <https://docs.docker.com/engine/installation/>
 - Docker-Compose: <https://docs.docker.com/compose/install/>
@@ -132,7 +177,7 @@ git config --global core.autocrlf false
 
 #### Step 1 - Download the Source Code
 
-The ODE software system consists of the following modules hosted in separate Github repositories:
+The jpo-geojsonconverter software system consists of the following modules hosted in separate Github repositories:
 
 |Name|Visibility|Description|
 |----|----------|-----------|
@@ -142,12 +187,27 @@ The ODE software system consists of the following modules hosted in separate Git
 You may download the stable, default branch for ALL of these dependencies by using the following recursive git clone command:
 
 ```bash
+git clone --recurse-submodules https://github.com/usdot-jpo-ode/jpo-ode.git
+```
+
+```bash
 git clone --recurse-submodules https://github.com/usdot-jpo-ode/jpo-geojsonconverter.git
 ```
 
 Once you have these repositories obtained, you are ready to build and deploy the application.
 
-#### Step 2 - Build and run the application
+#### Step 2 - Build and run jpo-ode application
+
+Navigate to the root directory of the jpo-ode project and run the following command:
+
+```bash
+docker-compose up --build -d
+docker-compose ps
+```
+
+Verify the jpo-ode, kafka, zookeeper, asn1-decoder and asn1-encoder are running before performing step 3.
+
+#### Step 3 - Build and run jpo-geojsonconverter application
 
 **Notes:**
 - Docker builds may fail if you are on a corporate network due to DNS resolution errors.
