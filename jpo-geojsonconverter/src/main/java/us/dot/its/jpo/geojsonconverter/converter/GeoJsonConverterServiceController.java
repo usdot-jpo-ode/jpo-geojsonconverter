@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import us.dot.its.jpo.geojsonconverter.GeoJsonConverterProperties;
 import us.dot.its.jpo.geojsonconverter.converter.map.MapTopology;
 import us.dot.its.jpo.geojsonconverter.converter.spat.SpatTopology;
+import us.dot.its.jpo.geojsonconverter.validator.MapJsonValidator;
 
 /**
  * Launches GeoJsonFromJsonConverter service
