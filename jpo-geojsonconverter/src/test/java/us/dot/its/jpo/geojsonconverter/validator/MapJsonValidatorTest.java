@@ -48,13 +48,23 @@ public class MapJsonValidatorTest  {
 
     
     @Test
-    public void validMapJsonTest() {
+    public void validMapJsonTest_String() {
         testJson(validMapJsonResource, true);
     }
 
     @Test
-    public void invalidMapJsonTest() {
+    public void invalidMapJsonTest_String() {
         testJson(invalidMapJsonResource, false);
+    }
+
+    @Test
+    public void validMapJsonTest_ByteArray() {
+        testJson_ByteArray(validMapJsonResource, true);
+    }
+
+    @Test
+    public void invalidMapJsonTest_ByteArray() {
+        testJson_ByteArray(invalidMapJsonResource, false);
     }
 
     private void testJson(Resource resource, boolean expectValid) {
@@ -65,6 +75,15 @@ public class MapJsonValidatorTest  {
         
         assertThat(String.format("Validation result:%n%s", result.describeResults()), result.isValid(), equalTo(expectValid));
         
+    }
+
+    private void testJson_ByteArray(Resource resource, boolean expectValid) {
+        assertThat("Couldn't get test json resource", resource, notNullValue());
+        byte[] jsonBytes = getTestJson_ByteArray(resource);
+        JsonValidatorResult result = mapJsonValidator.validate(jsonBytes);
+        assertThat(result, notNullValue());
+        
+        assertThat(String.format("Validation result:%n%s", result.describeResults()), result.isValid(), equalTo(expectValid));
     }
 
     @Value("${valid.map.json}")
@@ -80,5 +99,15 @@ public class MapJsonValidatorTest  {
             throw new RuntimeException(ex);
         }
     }
+
+    private byte[] getTestJson_ByteArray(Resource jsonResource) {
+        try (var is = jsonResource.getInputStream()) {
+            return IOUtils.toByteArray(is);
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    
     
 }
