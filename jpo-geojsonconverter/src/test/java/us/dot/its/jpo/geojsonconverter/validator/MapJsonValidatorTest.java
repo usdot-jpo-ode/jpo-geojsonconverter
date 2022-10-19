@@ -20,12 +20,11 @@ import org.springframework.beans.factory.annotation.Value;
     "valid.map.json=classpath:json/valid.map.json",
     "invalid.map.json=classpath:json/invalid.map.json" })
 @RunWith(SpringRunner.class)    
-public class MapJsonValidatorTest  {
+public class MapJsonValidatorTest extends BaseJsonValidatorTest  {
 
 
     @Autowired
     private MapJsonValidator mapJsonValidator;
-
     
     
     @Test
@@ -35,55 +34,33 @@ public class MapJsonValidatorTest  {
 
     @Test
     public void jsonSchemaResourceLoaded() {
-        var resource = mapJsonValidator.getJsonSchemaResource();
-        assertThat(resource, notNullValue());
-        assertTrue("Resource does not exist", resource.exists());
+        testJsonSchemaResourceLoaded(mapJsonValidator);
     }
 
     @Test
     public void jsonSchemaLoaded() {
-        var jsonSchema = mapJsonValidator.getJsonSchema();
-        assertThat(jsonSchema, notNullValue());
+        testJsonSchemaLoaded(mapJsonValidator);
     }
 
     
     @Test
     public void validMapJsonTest_String() {
-        testJson(validMapJsonResource, true);
+        testJson(mapJsonValidator, validMapJsonResource, true);
     }
 
     @Test
     public void invalidMapJsonTest_String() {
-        testJson(invalidMapJsonResource, false);
+        testJson(mapJsonValidator, invalidMapJsonResource, false);
     }
 
     @Test
     public void validMapJsonTest_ByteArray() {
-        testJson_ByteArray(validMapJsonResource, true);
+        testJson_ByteArray(mapJsonValidator, validMapJsonResource, true);
     }
 
     @Test
     public void invalidMapJsonTest_ByteArray() {
-        testJson_ByteArray(invalidMapJsonResource, false);
-    }
-
-    private void testJson(Resource resource, boolean expectValid) {
-        assertThat("Couldn't get test json resource", resource, notNullValue());
-        var json = getTestJson(resource);
-        JsonValidatorResult result = mapJsonValidator.validate(json);
-        assertThat(result, notNullValue());
-        
-        assertThat(String.format("Validation result:%n%s", result.describeResults()), result.isValid(), equalTo(expectValid));
-        
-    }
-
-    private void testJson_ByteArray(Resource resource, boolean expectValid) {
-        assertThat("Couldn't get test json resource", resource, notNullValue());
-        byte[] jsonBytes = getTestJson_ByteArray(resource);
-        JsonValidatorResult result = mapJsonValidator.validate(jsonBytes);
-        assertThat(result, notNullValue());
-        
-        assertThat(String.format("Validation result:%n%s", result.describeResults()), result.isValid(), equalTo(expectValid));
+        testJson_ByteArray(mapJsonValidator, invalidMapJsonResource, false);
     }
 
     @Value("${valid.map.json}")
@@ -91,22 +68,6 @@ public class MapJsonValidatorTest  {
 
     @Value("${invalid.map.json}")
     private Resource invalidMapJsonResource;
-
-    private String getTestJson(Resource jsonResource) {
-        try (var is = jsonResource.getInputStream()) {
-            return IOUtils.toString(is, StandardCharsets.UTF_8.name());
-        } catch (Exception ex) {
-            throw new RuntimeException(ex);
-        }
-    }
-
-    private byte[] getTestJson_ByteArray(Resource jsonResource) {
-        try (var is = jsonResource.getInputStream()) {
-            return IOUtils.toByteArray(is);
-        } catch (Exception ex) {
-            throw new RuntimeException(ex);
-        }
-    }
 
     
     
