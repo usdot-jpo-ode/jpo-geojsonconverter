@@ -30,21 +30,38 @@
 	},
 	"payload": {
 		"data": {
-			"timeStamp": null,
+			"timeStamp": 0,
 			"name": null,
 			"intersectionStateList": {
 				"intersectionStatelist": [
 					{
 						"name": null,
 						"id": {
-							"region": null,
+							"region": 0,
 							"id": 12111
 						},
 						"revision": 0,
-						"status": "MANUALCONTROLISENABLED",
+						"status": {
+							"manualControlIsEnabled": true,
+							"stopTimeIsActivated": false,
+							"failureFlash": false,
+							"preemptIsActive": false,
+							"signalPriorityIsActive": false,
+							"fixedTimeOperation": false,
+							"trafficDependentOperation": false,
+							"standbyOperation": false,
+							"failureMode": false,
+							"off": false,
+							"recentMAPmessageUpdate": false,
+							"recentChangeInMAPassignedLanesIDsUsed": false,
+							"noValidMAPisAvailableAtThisTime": false,
+							"noValidSPATisAvailableAtThisTime": false
+						},
 						"moy": null,
 						"timeStamp": 35176,
-						"enabledLanes": null,
+						"enabledLanes": {
+							"enabledLaneList": [ 1, 2, 3]
+						},
 						"states": {
 							"movementList": [
 								{
@@ -55,12 +72,12 @@
 											{
 												"eventState": "PROTECTED_MOVEMENT_ALLOWED",
 												"timing": {
-													"startTime": null,
+													"startTime": 22120,
 													"minEndTime": 22120,
 													"maxEndTime": 22121,
 													"likelyTime": null,
 													"confidence": null,
-													"nextTime": null
+													"nextTime": 22121
 												},
 												"speeds": null
 											}
@@ -76,12 +93,12 @@
 											{
 												"eventState": "STOP_AND_REMAIN",
 												"timing": {
-													"startTime": null,
+													"startTime": 22120,
 													"minEndTime": 22181,
 													"maxEndTime": 22181,
 													"likelyTime": null,
 													"confidence": null,
-													"nextTime": null
+													"nextTime": 22121
 												},
 												"speeds": null
 											}
@@ -97,12 +114,12 @@
 											{
 												"eventState": "PROTECTED_MOVEMENT_ALLOWED",
 												"timing": {
-													"startTime": null,
+													"startTime": 22120,
 													"minEndTime": 22120,
 													"maxEndTime": 22121,
 													"likelyTime": null,
 													"confidence": null,
-													"nextTime": null
+													"nextTime": 22121
 												},
 												"speeds": null
 											}
@@ -118,12 +135,12 @@
 											{
 												"eventState": "STOP_AND_REMAIN",
 												"timing": {
-													"startTime": null,
+													"startTime": 21852,
 													"minEndTime": 21852,
 													"maxEndTime": 21852,
 													"likelyTime": null,
 													"confidence": null,
-													"nextTime": null
+													"nextTime": 21852
 												},
 												"speeds": null
 											}
@@ -139,12 +156,12 @@
 											{
 												"eventState": "STOP_AND_REMAIN",
 												"timing": {
-													"startTime": null,
+													"startTime": 21852,
 													"minEndTime": 21852,
 													"maxEndTime": 21852,
 													"likelyTime": null,
 													"confidence": null,
-													"nextTime": null
+													"nextTime": 21852
 												},
 												"speeds": null
 											}
@@ -160,14 +177,31 @@
 											{
 												"eventState": "STOP_AND_REMAIN",
 												"timing": {
-													"startTime": null,
+													"startTime": 21852,
 													"minEndTime": 21852,
 													"maxEndTime": 21852,
 													"likelyTime": null,
 													"confidence": null,
-													"nextTime": null
+													"nextTime": 21852
 												},
-												"speeds": null
+												"speeds": { 
+													"advisorySpeedList": [
+														{
+															"type": "GREENWAVE",
+															"speed": 10,
+															"confidence": "PREC1MS",
+															"distance": 1000,
+															"classId": 0
+														},
+														{
+															"type": "ECODRIVE",
+															"speed": 10,
+															"confidence": "PREC1MS",
+															"distance": 1000,
+															"classId": 0
+														}
+													]
+												}
 											}
 										]
 									},

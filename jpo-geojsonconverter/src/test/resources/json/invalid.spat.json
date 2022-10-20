@@ -1,14 +1,14 @@
 {
 	"metadata": {
 		"logFileName": "",
-		"recordType": "spatTx",
+		"recordType": "spatTxInvalid",
 		"securityResultCode": "success",
 		"receivedMessageDetails": {
 			"locationData": null,
 			"rxSource": "NA"
 		},
 		"encodings": null,
-		"payloadType": "us.dot.its.jpo.ode.model.OdeSpatPayload",
+		"payloadType": "us.dot.its.jpo.ode.model.Invalid",
 		"serialId": {
 			"streamId": "13575210-4ce9-41b1-b702-0d6749229797",
 			"bundleSize": 1,
@@ -26,7 +26,8 @@
 		"odeTimStartDateTime": "",
 		"spatSource": "V2X",
 		"originIp": "172.21.0.1",
-		"isCertPresent": false
+		"isCertPresent": false,
+		"invalidExtraProperty": "invalid"
 	},
 	"payload": {
 		"data": {
@@ -82,7 +83,7 @@
 									"state_time_speed": {
 										"movementEventList": [
 											{
-												"eventState": "PROTECTED_MOVEMENT_ALLOWED",
+												"eventState": "INVALID_PHASE_STATE",
 												"timing": {
 													"startTime": null,
 													"minEndTime": 22120,
