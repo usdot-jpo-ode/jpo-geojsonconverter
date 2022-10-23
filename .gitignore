@@ -1,3 +1,5 @@
 jpo-geojsonconverter/target/**
 .env
 .vscode/
+.idea/
+*.iml
