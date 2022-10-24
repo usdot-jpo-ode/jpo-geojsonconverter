@@ -11,6 +11,16 @@
     <packaging>jar</packaging>
     <name>jpo-geojsonconverter</name>
     <description>J2735 message to GeoJSON converter for US DOT ITS JPO ODE</description>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>11</java.version>
+        <timestamp>${maven.build.timestamp}</timestamp>
+        <maven.build.timestamp.format>yyyy-MM-dd'T'HH:mm:ss.SSSZ</maven.build.timestamp.format>
+        <sonar.organization>usdot-jpo-ode</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.exclusions>src/main/**/GeoJsonConverterApplication.java</sonar.exclusions>
+    </properties>
     <dependencies>
         <!-- Spring Boot Dependencies -->
         <dependency>
@@ -72,6 +82,12 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.13.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-streams-test-utils</artifactId>
+            <version>3.2.3</version>
             <scope>test</scope>
         </dependency>
 
