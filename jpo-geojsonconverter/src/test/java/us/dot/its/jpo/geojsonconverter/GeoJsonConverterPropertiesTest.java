@@ -1,50 +1,91 @@
 package us.dot.its.jpo.geojsonconverter;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.Assert.fail;
 
+import java.util.Properties;
+
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.ApplicationContext;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.boot.info.BuildProperties;
 
-@SpringBootTest
-@RunWith(SpringRunner.class)
+import us.dot.its.jpo.ode.util.CommonUtils;
+
+
 public class GeoJsonConverterPropertiesTest {
-    
-
-    @Autowired
-    private ApplicationContext appContext;
-
-    @Autowired
-    private GeoJsonConverterProperties appProperties;
-
-    @Test
-    public void contextLoaded() {
-        assertThat(appContext, notNullValue());
-    }
-
-    @Test
-    public void propertiesLoaded() {
-        assertThat(appProperties, notNullValue());
-    }
-
-    @Test
-    public void envIsSet() {
-        assertThat(appProperties.getEnv(), notNullValue());
-    }
-
-    // @Test
-    // public void versionIsSet() {
-    //     assertThat(appProperties.getVersion(), is(not(emptyOrNullString())));
-    // }
-
-    // @Test
-    // public void hostIdIsSet() {
-    //     assertThat(appProperties.getHostId(), is(not(emptyOrNullString())));
-    // }
 
     
+    GeoJsonConverterProperties testGeoJsonConverterProperties;
+    BuildProperties mockBuildProperties;
+    CommonUtils capturingCommonUtils;
+
+    @Before
+    public void setup() {
+        testGeoJsonConverterProperties = new GeoJsonConverterProperties();
+        testGeoJsonConverterProperties.initialize();
+    }
+
+    @Test
+    public void testInit() {
+        try {
+                new GeoJsonConverterProperties();
+        } catch (Exception e) {
+                fail("Unexpected exception: " + e);
+        }
+    }
+    
+    @Test
+    public void testInitShouldCatchUnknownHostException() {
+        String expectedBroker = "localhost:9092";
+        assertEquals("Incorrect KafkaBrokers", expectedBroker, testGeoJsonConverterProperties.getKafkaBrokers());
+    }
+
+    @Test
+    public void testKafkaBrokersSetterAndGetter() {
+        String testKafkaBrokers = "testKafkaBrokers";
+        testGeoJsonConverterProperties.setKafkaBrokers(testKafkaBrokers);
+        assertEquals("Incorrect KafkaBrokers", testKafkaBrokers, testGeoJsonConverterProperties.getKafkaBrokers());
+    }
+
+    @Test
+    public void testEnvSetterAndGetter() {
+        testGeoJsonConverterProperties.setEnv(null);
+        assertNull(testGeoJsonConverterProperties.getEnv());
+    }
+
+    @Test
+    public void testKafkaTopicOdeSpatJsonSetterAndGetter() {
+        String testKafkaTopicOdeSpatJson = "testKafkaTopicOdeSpatJson";
+        testGeoJsonConverterProperties.setKafkaTopicOdeSpatJson(testKafkaTopicOdeSpatJson);
+        assertEquals("Incorrect KafkaTopicOdeSpatJson", testKafkaTopicOdeSpatJson, testGeoJsonConverterProperties.getKafkaTopicOdeSpatJson());
+    }
+
+    @Test
+    public void testKafkaTopicSpatGeoJsonSetterAndGetter() {
+        String testKafkaTopicSpatGeoJson = "testKafkaTopicSpatGeoJson";
+        testGeoJsonConverterProperties.setKafkaTopicSpatGeoJson(testKafkaTopicSpatGeoJson);
+        assertEquals("Incorrect KafkaTopicSpatGeoJson", testKafkaTopicSpatGeoJson, testGeoJsonConverterProperties.getKafkaTopicSpatGeoJson());
+    }
+
+    @Test
+    public void testKafkaTopicOdeMapJsonSetterAndGetter() {
+        String testKafkaTopicOdeMapJson = "testKafkaTopicOdeMapJson";
+        testGeoJsonConverterProperties.setKafkaTopicOdeMapJson(testKafkaTopicOdeMapJson);
+        assertEquals("Incorrect KafkaTopicOdeMapJson", testKafkaTopicOdeMapJson, testGeoJsonConverterProperties.getKafkaTopicOdeMapJson());
+    }
+
+    @Test
+    public void testKafkaTopicMapGeoJsonSetterAndGetter() {
+        String testKafkaTopicMapGeoJson = "testKafkaTopicMapGeoJson";
+        testGeoJsonConverterProperties.setKafkaTopicMapGeoJson(testKafkaTopicMapGeoJson);
+        assertEquals("Incorrect KafkaTopicMapGeoJson", testKafkaTopicMapGeoJson, testGeoJsonConverterProperties.getKafkaTopicMapGeoJson());
+    }
+
+    @Test
+    public void testStreamProperties() {
+        Properties streamProps = testGeoJsonConverterProperties.createStreamProperties("test-props");
+        assertNotNull(streamProps);
+    }
 }
