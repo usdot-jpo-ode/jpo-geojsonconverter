@@ -30,18 +30,6 @@ public abstract class BaseFeature<TId, TGeometry extends Geometry, TProperties>
 
     @JsonCreator
     public BaseFeature(
-            @JsonProperty("geometry") TGeometry geometry,
-            @JsonProperty("properties") TProperties properties) {
-        super();
-        this.id = null;
-        this.geometry = geometry;
-        this.properties = properties;
-    }
-
-    
-
-    @JsonCreator
-    public BaseFeature(
             @JsonProperty("id") TId id,
             @JsonProperty("geometry") TGeometry geometry,
             @JsonProperty("properties") TProperties properties) {
