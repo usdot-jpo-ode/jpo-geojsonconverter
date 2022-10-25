@@ -1,27 +1,31 @@
 package us.dot.its.jpo.geojsonconverter;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.Assert.fail;
 
+import java.util.Properties;
+
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.boot.info.BuildProperties;
-import org.springframework.core.env.Environment;
 
-import mockit.Capturing;
-import mockit.Injectable;
-import mockit.Tested;
 import us.dot.its.jpo.ode.util.CommonUtils;
 
-public class GeoJsonConverterPropertiesTest {
-    @Tested
-    GeoJsonConverterProperties testGeoJsonConverterProperties;
-    @Injectable
-    Environment mockEnv;
-    @Injectable
-    BuildProperties mockBuildProperties;
 
-    @Capturing
+public class GeoJsonConverterPropertiesTest {
+
+    
+    GeoJsonConverterProperties testGeoJsonConverterProperties;
+    BuildProperties mockBuildProperties;
     CommonUtils capturingCommonUtils;
+
+    @Before
+    public void setup() {
+        testGeoJsonConverterProperties = new GeoJsonConverterProperties();
+        testGeoJsonConverterProperties.initialize();
+    }
 
     @Test
     public void testInit() {
@@ -35,7 +39,6 @@ public class GeoJsonConverterPropertiesTest {
     @Test
     public void testInitShouldCatchUnknownHostException() {
         String expectedBroker = "localhost:9092";
-        testGeoJsonConverterProperties.initialize();
         assertEquals("Incorrect KafkaBrokers", expectedBroker, testGeoJsonConverterProperties.getKafkaBrokers());
     }
 
@@ -48,10 +51,8 @@ public class GeoJsonConverterPropertiesTest {
 
     @Test
     public void testEnvSetterAndGetter() {
-        testGeoJsonConverterProperties.setEnv(mockEnv);
-        assertEquals("Incorrect testEnv", mockEnv, testGeoJsonConverterProperties.getEnv());
-        testGeoJsonConverterProperties.setEnvironment(mockEnv);
-        assertEquals("Incorrect testEnv", mockEnv, testGeoJsonConverterProperties.getEnv());
+        testGeoJsonConverterProperties.setEnv(null);
+        assertNull(testGeoJsonConverterProperties.getEnv());
     }
 
     @Test
@@ -80,5 +81,11 @@ public class GeoJsonConverterPropertiesTest {
         String testKafkaTopicMapGeoJson = "testKafkaTopicMapGeoJson";
         testGeoJsonConverterProperties.setKafkaTopicMapGeoJson(testKafkaTopicMapGeoJson);
         assertEquals("Incorrect KafkaTopicMapGeoJson", testKafkaTopicMapGeoJson, testGeoJsonConverterProperties.getKafkaTopicMapGeoJson());
+    }
+
+    @Test
+    public void testStreamProperties() {
+        Properties streamProps = testGeoJsonConverterProperties.createStreamProperties("test-props");
+        assertNotNull(streamProps);
     }
 }

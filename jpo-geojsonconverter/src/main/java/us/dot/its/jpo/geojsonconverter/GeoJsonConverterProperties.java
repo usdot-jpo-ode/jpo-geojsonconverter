@@ -23,7 +23,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.info.BuildProperties;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -58,15 +57,8 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
     private String kafkaTopicOdeMapJson = "topic.OdeMapJson";
     private String kafkaTopicMapGeoJson = "topic.MapGeoJson";
 
-    @Autowired
-    BuildProperties buildProperties;
-
     @PostConstruct
-    void initialize() {
-        logger.info("groupId: {}", buildProperties.getGroup());
-        logger.info("artifactId: {}", buildProperties.getArtifact());
-        logger.info("version: {}", buildProperties.getVersion());
-
+    public void initialize() {
         if (kafkaBrokers == null) {
 
             logger.info("geojsonconverter.kafkaBrokers property not defined. Will try DOCKER_HOST_IP => {}", kafkaBrokers);
@@ -83,34 +75,34 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
     }
 
     public Properties createStreamProperties(String name) {
-        Properties lcsProps = new Properties();
-        lcsProps.put(StreamsConfig.APPLICATION_ID_CONFIG, name);
+        Properties streamProps = new Properties();
+        streamProps.put(StreamsConfig.APPLICATION_ID_CONFIG, name);
 
-        lcsProps.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaBrokers);
+        streamProps.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaBrokers);
 
-        lcsProps.put(StreamsConfig.DEFAULT_DESERIALIZATION_EXCEPTION_HANDLER_CLASS_CONFIG,
+        streamProps.put(StreamsConfig.DEFAULT_DESERIALIZATION_EXCEPTION_HANDLER_CLASS_CONFIG,
             LogAndContinueExceptionHandler.class.getName());
-        lcsProps.put(StreamsConfig.DEFAULT_TIMESTAMP_EXTRACTOR_CLASS_CONFIG,
+        streamProps.put(StreamsConfig.DEFAULT_TIMESTAMP_EXTRACTOR_CLASS_CONFIG,
             LogAndSkipOnInvalidTimestamp.class.getName());
 
-        lcsProps.put(StreamsConfig.NUM_STREAM_THREADS_CONFIG, 2);
+        streamProps.put(StreamsConfig.NUM_STREAM_THREADS_CONFIG, 2);
 
-        lcsProps.put(StreamsConfig.producerPrefix(ProducerConfig.ACKS_CONFIG), "all");
+        streamProps.put(StreamsConfig.producerPrefix(ProducerConfig.ACKS_CONFIG), "all");
 
         // Reduce cache buffering per topology to 1MB
-        lcsProps.put(StreamsConfig.CACHE_MAX_BYTES_BUFFERING_CONFIG, 1 * 1024 * 1024L);
+        streamProps.put(StreamsConfig.CACHE_MAX_BYTES_BUFFERING_CONFIG, 1 * 1024 * 1024L);
 
         // Decrease default commit interval. Default for 'at least once' mode of 30000ms
         // is too slow.
-        lcsProps.put(StreamsConfig.COMMIT_INTERVAL_MS_CONFIG, 100);
+        streamProps.put(StreamsConfig.COMMIT_INTERVAL_MS_CONFIG, 100);
 
         // All the keys are Strings in this app
-        lcsProps.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
+        streamProps.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
 
         // Configure the state store location
-        lcsProps.put(StreamsConfig.STATE_DIR_CONFIG, "/var/lib/odd/kafka-streams");
+        streamProps.put(StreamsConfig.STATE_DIR_CONFIG, "/var/lib/odd/kafka-streams");
 
-        return lcsProps;
+        return streamProps;
     }
 
     public String getKafkaBrokers() {

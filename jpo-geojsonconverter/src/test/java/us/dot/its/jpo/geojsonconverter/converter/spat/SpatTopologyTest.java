@@ -12,7 +12,7 @@ import org.apache.kafka.streams.TestOutputTopic;
 import org.apache.kafka.streams.Topology;
 import org.apache.kafka.streams.TopologyTestDriver;
 import org.apache.kafka.streams.test.TestRecord;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import us.dot.its.jpo.geojsonconverter.geojson.spat.SpatFeatureCollection;
 import us.dot.its.jpo.geojsonconverter.serialization.JsonSerdes;
@@ -26,7 +26,7 @@ public class SpatTopologyTest {
     String odeSpatJsonString = "{\"metadata\":{\"logFileName\":\"\",\"recordType\":\"spatTx\",\"securityResultCode\":\"success\",\"receivedMessageDetails\":{\"locationData\":null,\"rxSource\":\"NA\"},\"encodings\":null,\"payloadType\":\"us.dot.its.jpo.ode.model.OdeSpatPayload\",\"serialId\":{\"streamId\":\"7b68f216-4a47-4e7e-9376-59c1f8832a8e\",\"bundleSize\":1,\"bundleId\":0,\"recordId\":0,\"serialNumber\":0},\"odeReceivedAt\":\"2022-10-21T17:39:53.700315Z\",\"schemaVersion\":6,\"maxDurationTime\":0,\"recordGeneratedAt\":\"\",\"recordGeneratedBy\":null,\"sanitized\":false,\"odePacketID\":\"\",\"odeTimStartDateTime\":\"\",\"spatSource\":\"V2X\",\"originIp\":\"172.19.0.1\",\"isCertPresent\":false},\"payload\":{\"data\":{\"timeStamp\":null,\"name\":null,\"intersectionStateList\":{\"intersectionStatelist\":[{\"name\":null,\"id\":{\"region\":null,\"id\":12110},\"revision\":0,\"status\":\"MANUALCONTROLISENABLED\",\"moy\":null,\"timeStamp\":28744,\"enabledLanes\":null,\"states\":{\"movementList\":[{\"movementName\":null,\"signalGroup\":2,\"state_time_speed\":{\"movementEventList\":[{\"eventState\":\"STOP_AND_REMAIN\",\"timing\":{\"startTime\":null,\"minEndTime\":1851,\"maxEndTime\":1851,\"likelyTime\":null,\"confidence\":null,\"nextTime\":null},\"speeds\":null}]},\"maneuverAssistList\":null},{\"movementName\":null,\"signalGroup\":3,\"state_time_speed\":{\"movementEventList\":[{\"eventState\":\"STOP_AND_REMAIN\",\"timing\":{\"startTime\":null,\"minEndTime\":2281,\"maxEndTime\":2281,\"likelyTime\":null,\"confidence\":null,\"nextTime\":null},\"speeds\":null}]},\"maneuverAssistList\":null}]},\"maneuverAssistList\":null}]}},\"dataType\":\"us.dot.its.jpo.ode.plugin.j2735.J2735SPAT\"}}";
 
     @Test
-    public void passthroughTest() {
+    public void testTopology() {
         Topology topology = SpatTopology.build(kafkaTopicOdeSpatJson, kafkaTopicSpatGeoJson, kafkaTopicMapGeoJson);
         try (TopologyTestDriver driver = new TopologyTestDriver(topology)) {
             TestInputTopic<String, String> inputMapGeoJsonTopic = driver.createInputTopic(
