@@ -17,7 +17,7 @@
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <sonar.exclusions>src/main/**/GeoJsonConverterApplication.java</sonar.exclusions>
         
-        <jmockit.version>1.49</jmockit.version>
+        
 
         <!-- JaCoCo Properties -->
         <jacoco.version>0.8.8</jacoco.version>
@@ -77,12 +77,12 @@
         </dependency>
 
         <!-- Unit Test Dependencies -->
-        <dependency>
+        <!-- <dependency>
             <groupId>org.jmockit</groupId>
             <artifactId>jmockit</artifactId>
             <version>${jmockit.version}</version>
             <scope>test</scope>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
