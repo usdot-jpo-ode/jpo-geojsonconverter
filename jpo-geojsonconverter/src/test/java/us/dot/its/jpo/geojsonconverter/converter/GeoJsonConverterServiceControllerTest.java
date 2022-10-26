@@ -4,16 +4,22 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Before;
 import org.junit.Test;
-import mockit.*;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import us.dot.its.jpo.geojsonconverter.GeoJsonConverterProperties;
 import us.dot.its.jpo.geojsonconverter.validator.MapJsonValidator;
 
+@SpringBootTest
+@RunWith(SpringRunner.class)
 public class GeoJsonConverterServiceControllerTest {
     GeoJsonConverterServiceController geoJsonConverterServiceController;
     GeoJsonConverterProperties props;
 
-    @Mocked MapJsonValidator mapJsonValidator;
+    @Autowired 
+    MapJsonValidator mapJsonValidator;
 
     @Before
     public void setup() {
