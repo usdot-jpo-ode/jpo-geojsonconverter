@@ -16,6 +16,7 @@
         <sonar.organization>usdot-jpo-ode</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <sonar.exclusions>src/main/**/GeoJsonConverterApplication.java</sonar.exclusions>
+        <jmockit.version>1.49</jmockit.version>
     </properties>
     <dependencies>
         <!-- Spring Boot Dependencies -->
@@ -83,7 +84,7 @@
         <dependency>
             <groupId>org.jmockit</groupId>
             <artifactId>jmockit</artifactId>
-            <version>1.49</version>
+            <version>${jmockit.version}</version>
             <scope>test</scope>
         </dependency>
         
@@ -152,6 +153,11 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M7</version>
+                <configuration>
+                    <argLine>
+                        -javaagent:"${settings.localRepository}"/org/jmockit/jmockit/${jmockit.version}/jmockit-${jmockit.version}.jar
+                    </argLine>
+                </configuration>
                 <dependencies>
                     <dependency>
                     <groupId>org.apache.maven.surefire</groupId>
