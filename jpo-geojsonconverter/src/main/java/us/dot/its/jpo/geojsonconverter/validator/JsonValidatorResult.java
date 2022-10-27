@@ -45,14 +45,14 @@ public class JsonValidatorResult {
 
     public String describeResults() {
         var sb = new StringBuilder();
-        sb.append(String.format("MapJsonValidator result: isValid = %s%n", isValid()));
+        sb.append(String.format("Json Validator result: isValid = %s%n", isValid()));
 
         for (var exception : getExceptions()) {
             sb.append(String.format("JsonProcessingException: %s%n", exception.getMessage()));
         }
 
         for (var validationMessage : getValidationMessages()) {
-            sb.append(String.format("MAP JSON Validation Message: %s%n", validationMessage.getMessage()));
+            sb.append(String.format("JSON Validation Message: %s%n", validationMessage.getMessage()));
         }
 
         return sb.toString();

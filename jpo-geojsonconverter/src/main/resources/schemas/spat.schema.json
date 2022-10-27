@@ -248,7 +248,8 @@
                 "status",
                 "timeStamp",
                 "states"
-            ]
+            ],
+            "additionalProperties": false
         },
         "J2735IntersectionStatusObject": {
             "type": "object",

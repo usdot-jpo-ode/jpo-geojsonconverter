@@ -135,12 +135,8 @@
             <groupId>com.networknt</groupId>
             <artifactId>json-schema-validator</artifactId>
             <version>1.0.73</version>
-          </dependency>
-        <dependency>
-            <groupId>io.vertx</groupId>
-            <artifactId>vertx-json-schema</artifactId>
-            <version>4.3.4</version>
         </dependency>
+        
         
     </dependencies>
     <build>

@@ -33,6 +33,7 @@ public abstract class BaseJsonValidatorTest {
         assertThat(result, notNullValue());
         
         assertThat(String.format("Validation result:%n%s", result.describeResults()), result.isValid(), equalTo(expectValid));
+        System.out.println(result.describeResults());
         
     }
 
@@ -43,6 +44,7 @@ public abstract class BaseJsonValidatorTest {
         assertThat(result, notNullValue());
         
         assertThat(String.format("Validation result:%n%s", result.describeResults()), result.isValid(), equalTo(expectValid));
+        System.out.println(result.describeResults());
     }
     
     protected String getTestJson(Resource jsonResource) {
