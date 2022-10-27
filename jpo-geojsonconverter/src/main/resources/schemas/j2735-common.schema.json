@@ -32,10 +32,8 @@
             "type": "object",
             "properties": {
                 "region": {
-                    "type": "integer",
-                    "minimum": 0,
-                    "maximum": 65535,
-                    "description": "DE_RoadRegulatorID.  Optional in J2735, but mandatory in CI Implementation Guide."
+                    "$ref": "#/$defs/J2735RoadRegulatorID",
+                    "description": "Optional in J2735, but mandatory in CI Implementation Guide."
                 },
                 "id": {
                     "type": "integer",
@@ -50,11 +48,23 @@
             ],
             "additionalProperties": false
         },
+        "J2735RoadRegulatorID": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 65535,
+            "description": "DE_RoadRegulatorID"
+        },
         "J2735RestrictionClassID": {
             "type": "integer",
             "minimum": 0,
             "maximum": 255,
             "description": "DE_RestrictionClassID"
+        },
+        "J2735MinuteOfTheYear": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 527040,
+            "description": "DE_MinuteOfTheYear"
         },
         "OdePosition3D": {
             "title": "us.dot.its.jpo.ode.plugin.J2735.OdePosition3D",

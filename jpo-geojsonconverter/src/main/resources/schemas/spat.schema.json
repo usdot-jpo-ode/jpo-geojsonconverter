@@ -159,9 +159,7 @@
             "type": "object",
             "properties": {
                 "timeStamp": {
-                    "type": "integer",
-                    "minimum": 0,
-                    "maximum": 527040,
+                    "$ref": "j2735-common.schema.json#/$defs/J2735MinuteOfTheYear",
                     "description": "J2735 MinuteOfTheYear. Optional per SAE J2735, but mandatory per CI Implementation Guide CTI 4501 v1.00"
                 },
                 "name": {
