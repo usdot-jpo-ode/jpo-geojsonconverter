@@ -1,6 +1,6 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://github.com/usdot-jpo-ode/jpo-ode/schema-spat.json",
+    "$id": "spat.schema.json",
     "type": "object",
     "properties": {
         "metadata": {
@@ -165,7 +165,12 @@
                     "description": "J2735 MinuteOfTheYear. Optional per SAE J2735, but mandatory per CI Implementation Guide CTI 4501 v1.00"
                 },
                 "name": {
-                    "$ref": "#/$defs/J2735DescriptiveName"
+                    "oneOf": [
+                        {
+                            "$ref": "j2735-common.schema.json#/$defs/J2735DescriptiveName"
+                        },
+                        { "type": "null"}
+                    ]
                 },
                 "intersectionStateList": {
                     "$ref": "#/$defs/J2735IntersectionStateList"
@@ -197,16 +202,18 @@
             "type": "object",
             "properties": {
                 "name": {
-                    "$ref": "#/$defs/J2735DescriptiveName"
+                    "oneOf": [
+                        {
+                            "$ref": "j2735-common.schema.json#/$defs/J2735DescriptiveName"
+                        },
+                        { "type": "null" }
+                    ]
                 },
                 "id": {
-                    "$ref": "#/$defs/J2735IntersectionReferenceID"
+                    "$ref": "j2735-common.schema.json#/$defs/J2735IntersectionReferenceID"
                 },
                 "revision": {
-                    "type": "integer",
-                    "minimum": 0,
-                    "maximum": 127,
-                    "description": "DE_MsgCount"
+                    "$ref": "j2735-common.schema.json#/$defs/J2735MsgCount"
                 },
                 "status": {
                     "$ref": "#/$defs/J2735IntersectionStatusObject"
@@ -244,37 +251,6 @@
                 "timeStamp",
                 "states"
             ]
-        },
-        "J2735DescriptiveName": {
-            "type": [
-                "string",
-                "null"
-            ],
-            "minLength": 1,
-            "maxLength": 63,
-            "description": "Optional name for debugging, may be null"
-        },
-        "J2735IntersectionReferenceID": {
-            "type": "object",
-            "properties": {
-                "region": {
-                    "type": "integer",
-                    "minimum": 0,
-                    "maximum": 65535,
-                    "description": "DE_RoadRegulatorID.  Optional in J2735, but mandatory in CI Implementation Guide."
-                },
-                "id": {
-                    "type": "integer",
-                    "minimum": 0,
-                    "maximum": 65535,
-                    "description": "DE_IntersectionID"
-                }
-            },
-            "required": [
-                "region",
-                "id"
-            ],
-            "additionalProperties": false
         },
         "J2735IntersectionStatusObject": {
             "type": "object",
@@ -384,7 +360,12 @@
             "type": "object",
             "properties": {
                 "movementName": {
-                    "$ref": "#/$defs/J2735DescriptiveName"
+                    "oneOf": [
+                        {
+                            "$ref": "j2735-common.schema.json#/$defs/J2735DescriptiveName"
+                        },
+                        { "type": "null" }
+                    ]
                 },
                 "signalGroup": {
                     "type": "integer",
@@ -400,10 +381,8 @@
                 }
             },
             "required": [
-                "movementName",
                 "signalGroup",
-                "state_time_speed",
-                "maneuverAssistList"
+                "state_time_speed"
             ]
         },
         "J2735MovementEventList": {
@@ -573,10 +552,7 @@
                     "description": "DE_ZoneLength"
                 },
                 "classId": {
-                    "type": "integer",
-                    "minimum": 0,
-                    "maximum": 255,
-                    "description": "DE_RestrictionClassID"
+                    "$ref": "j2735-common.schema.json#/$defs/J2735RestrictionClassID"
                 }
             },
             "required": [

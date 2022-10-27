@@ -1,0 +1,84 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "j2735-common.schema.json",
+    "type": "object",
+    "additionalProperties": false,
+    "$defs": {
+        "J2735LaneID": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 255,
+            "description": "DE_LaneID"
+        },
+        "J2735SignalGroupID": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 255,
+            "description": "DE_SignalGroupID"
+        },
+        "J2735MsgCount": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 127,
+            "description": "DE_MsgCount"
+        },
+        "J2735DescriptiveName": {
+            "type": "string",           
+            "minLength": 1,
+            "maxLength": 63,
+            "description": "Optional name for debugging, may be null"
+        },
+        "J2735IntersectionReferenceID": {
+            "type": "object",
+            "properties": {
+                "region": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 65535,
+                    "description": "DE_RoadRegulatorID.  Optional in J2735, but mandatory in CI Implementation Guide."
+                },
+                "id": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 65535,
+                    "description": "DE_IntersectionID"
+                }
+            },
+            "required": [
+                "region",
+                "id"
+            ],
+            "additionalProperties": false
+        },
+        "J2735RestrictionClassID": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 255,
+            "description": "DE_RestrictionClassID"
+        },
+        "OdePosition3D": {
+            "title": "us.dot.its.jpo.ode.plugin.J2735.OdePosition3D",
+            "description": "This structure is obtained from a J2735 Position3D data structure converted into conventional lon/lat decimal coordinates.",
+            "properties": {
+                "elevation": {
+                    "type": "number",
+                    "description": "Elevation in meters. Mandatory in the CI Implementation Guide.  Optional in J2735."
+                },
+                "latitude": {
+                    "type": "number",
+                    "description": "Latitude in degrees"
+                },
+                "longitude": {
+                    "type": "number",
+                    "description": "Longitude in degrees"
+                }
+            },
+            "required": [
+                "elevation",
+                "latitude",
+                "longitude"
+            ],
+            "type": "object"
+        }
+    }
+}
