@@ -38,7 +38,7 @@
 					{
 						"name": null,
 						"id": {
-							"region": null,
+							"region": 0,
 							"id": 12110
 						},
 						"revision": 0,
@@ -48,7 +48,18 @@
 							"elevation": 1677.0
 						},
 						"laneWidth": 366,
-						"speedLimits": null,
+						"speedLimits": {
+							"speedLimits": [
+								{
+									"speed": 100,
+									"type": "vehicleMaxSpeed"
+								},
+								{
+									"speed": 200,
+									"type": "truckMaxSpeed"
+								}
+							]
+						},
 						"laneSet": {
 							"GenericLane": [
 								{
@@ -672,7 +683,7 @@
 													}
 												},
 												"remoteIntersection": null,
-												"signalGroup": null,
+												"signalGroup": 0,
 												"userClass": null,
 												"connectionID": 1
 											}
@@ -895,7 +906,20 @@
 											"parking": null
 										}
 									},
-									"maneuvers": null,
+									"maneuvers": {
+										"maneuverStraightAllowed": false,
+										"maneuverNoStoppingAllowed": false,
+										"goWithHalt": false,
+										"maneuverLeftAllowed": true,
+										"maneuverUTurnAllowed": false,
+										"maneuverLeftTurnOnRedAllowed": false,
+										"reserved1": false,
+										"maneuverRightAllowed": false,
+										"maneuverLaneChangeAllowed": false,
+										"yieldAllwaysRequired": false,
+										"maneuverRightTurnOnRedAllowed": false,
+										"caution": false
+									},
 									"nodeList": {
 										"computed": null,
 										"nodes": {
@@ -940,7 +964,33 @@
 											]
 										}
 									},
-									"connectsTo": null,
+									"connectsTo": {
+										"connectsTo": [
+											{
+												"connectingLane": {
+													"lane": 0,
+													"maneuver": {
+														"maneuverStraightAllowed": false,
+														"maneuverNoStoppingAllowed": false,
+														"goWithHalt": false,
+														"maneuverLeftAllowed": true,
+														"maneuverUTurnAllowed": false,
+														"maneuverLeftTurnOnRedAllowed": false,
+														"reserved1": false,
+														"maneuverRightAllowed": false,
+														"maneuverLaneChangeAllowed": false,
+														"yieldAllwaysRequired": false,
+														"maneuverRightTurnOnRedAllowed": false,
+														"caution": false
+													}
+												},
+												"remoteIntersection": null,
+												"signalGroup": 0,
+												"userClass": null,
+												"connectionID": 1
+											}
+										]
+									},
 									"overlays": null
 								},
 								{
@@ -985,7 +1035,20 @@
 											"parking": null
 										}
 									},
-									"maneuvers": null,
+									"maneuvers": {
+										"maneuverStraightAllowed": false,
+										"maneuverNoStoppingAllowed": false,
+										"goWithHalt": false,
+										"maneuverLeftAllowed": true,
+										"maneuverUTurnAllowed": false,
+										"maneuverLeftTurnOnRedAllowed": false,
+										"reserved1": false,
+										"maneuverRightAllowed": false,
+										"maneuverLaneChangeAllowed": false,
+										"yieldAllwaysRequired": false,
+										"maneuverRightTurnOnRedAllowed": false,
+										"caution": false
+									},
 									"nodeList": {
 										"computed": null,
 										"nodes": {
@@ -1030,7 +1093,33 @@
 											]
 										}
 									},
-									"connectsTo": null,
+									"connectsTo": {
+										"connectsTo": [
+											{
+												"connectingLane": {
+													"lane": 0,
+													"maneuver": {
+														"maneuverStraightAllowed": false,
+														"maneuverNoStoppingAllowed": false,
+														"goWithHalt": false,
+														"maneuverLeftAllowed": true,
+														"maneuverUTurnAllowed": false,
+														"maneuverLeftTurnOnRedAllowed": false,
+														"reserved1": false,
+														"maneuverRightAllowed": false,
+														"maneuverLaneChangeAllowed": false,
+														"yieldAllwaysRequired": false,
+														"maneuverRightTurnOnRedAllowed": false,
+														"caution": false
+													}
+												},
+												"remoteIntersection": null,
+												"signalGroup": 0,
+												"userClass": null,
+												"connectionID": 1
+											}
+										]
+									},
 									"overlays": null
 								},
 								{
@@ -1075,7 +1164,20 @@
 											"parking": null
 										}
 									},
-									"maneuvers": null,
+									"maneuvers": {
+										"maneuverStraightAllowed": false,
+										"maneuverNoStoppingAllowed": false,
+										"goWithHalt": false,
+										"maneuverLeftAllowed": true,
+										"maneuverUTurnAllowed": false,
+										"maneuverLeftTurnOnRedAllowed": false,
+										"reserved1": false,
+										"maneuverRightAllowed": false,
+										"maneuverLaneChangeAllowed": false,
+										"yieldAllwaysRequired": false,
+										"maneuverRightTurnOnRedAllowed": false,
+										"caution": false
+									},
 									"nodeList": {
 										"computed": null,
 										"nodes": {
@@ -1120,7 +1222,33 @@
 											]
 										}
 									},
-									"connectsTo": null,
+									"connectsTo": {
+										"connectsTo": [
+											{
+												"connectingLane": {
+													"lane": 0,
+													"maneuver": {
+														"maneuverStraightAllowed": false,
+														"maneuverNoStoppingAllowed": false,
+														"goWithHalt": false,
+														"maneuverLeftAllowed": true,
+														"maneuverUTurnAllowed": false,
+														"maneuverLeftTurnOnRedAllowed": false,
+														"reserved1": false,
+														"maneuverRightAllowed": false,
+														"maneuverLaneChangeAllowed": false,
+														"yieldAllwaysRequired": false,
+														"maneuverRightTurnOnRedAllowed": false,
+														"caution": false
+													}
+												},
+												"remoteIntersection": null,
+												"signalGroup": 0,
+												"userClass": null,
+												"connectionID": 1
+											}
+										]
+									},
 									"overlays": null
 								},
 								{
@@ -1165,7 +1293,20 @@
 											"parking": null
 										}
 									},
-									"maneuvers": null,
+									"maneuvers": {
+										"maneuverStraightAllowed": false,
+										"maneuverNoStoppingAllowed": false,
+										"goWithHalt": false,
+										"maneuverLeftAllowed": true,
+										"maneuverUTurnAllowed": false,
+										"maneuverLeftTurnOnRedAllowed": false,
+										"reserved1": false,
+										"maneuverRightAllowed": false,
+										"maneuverLaneChangeAllowed": false,
+										"yieldAllwaysRequired": false,
+										"maneuverRightTurnOnRedAllowed": false,
+										"caution": false
+									},
 									"nodeList": {
 										"computed": null,
 										"nodes": {
@@ -1203,7 +1344,33 @@
 											]
 										}
 									},
-									"connectsTo": null,
+									"connectsTo": {
+										"connectsTo": [
+											{
+												"connectingLane": {
+													"lane": 0,
+													"maneuver": {
+														"maneuverStraightAllowed": false,
+														"maneuverNoStoppingAllowed": false,
+														"goWithHalt": false,
+														"maneuverLeftAllowed": true,
+														"maneuverUTurnAllowed": false,
+														"maneuverLeftTurnOnRedAllowed": false,
+														"reserved1": false,
+														"maneuverRightAllowed": false,
+														"maneuverLaneChangeAllowed": false,
+														"yieldAllwaysRequired": false,
+														"maneuverRightTurnOnRedAllowed": false,
+														"caution": false
+													}
+												},
+												"remoteIntersection": null,
+												"signalGroup": 0,
+												"userClass": null,
+												"connectionID": 1
+											}
+										]
+									},
 									"overlays": null
 								},
 								{
@@ -1248,7 +1415,20 @@
 											"parking": null
 										}
 									},
-									"maneuvers": null,
+									"maneuvers": {
+										"maneuverStraightAllowed": false,
+										"maneuverNoStoppingAllowed": false,
+										"goWithHalt": false,
+										"maneuverLeftAllowed": true,
+										"maneuverUTurnAllowed": false,
+										"maneuverLeftTurnOnRedAllowed": false,
+										"reserved1": false,
+										"maneuverRightAllowed": false,
+										"maneuverLaneChangeAllowed": false,
+										"yieldAllwaysRequired": false,
+										"maneuverRightTurnOnRedAllowed": false,
+										"caution": false
+									},
 									"nodeList": {
 										"computed": null,
 										"nodes": {
@@ -1316,7 +1496,33 @@
 											]
 										}
 									},
-									"connectsTo": null,
+									"connectsTo": {
+										"connectsTo": [
+											{
+												"connectingLane": {
+													"lane": 0,
+													"maneuver": {
+														"maneuverStraightAllowed": false,
+														"maneuverNoStoppingAllowed": false,
+														"goWithHalt": false,
+														"maneuverLeftAllowed": true,
+														"maneuverUTurnAllowed": false,
+														"maneuverLeftTurnOnRedAllowed": false,
+														"reserved1": false,
+														"maneuverRightAllowed": false,
+														"maneuverLaneChangeAllowed": false,
+														"yieldAllwaysRequired": false,
+														"maneuverRightTurnOnRedAllowed": false,
+														"caution": false
+													}
+												},
+												"remoteIntersection": null,
+												"signalGroup": 0,
+												"userClass": null,
+												"connectionID": 1
+											}
+										]
+									},
 									"overlays": null
 								},
 								{
@@ -2041,7 +2247,7 @@
 													}
 												},
 												"remoteIntersection": null,
-												"signalGroup": null,
+												"signalGroup": 0,
 												"userClass": null,
 												"connectionID": 1
 											}
@@ -2711,7 +2917,7 @@
 													}
 												},
 												"remoteIntersection": null,
-												"signalGroup": null,
+												"signalGroup": 0,
 												"userClass": null,
 												"connectionID": 1
 											}
@@ -2761,7 +2967,20 @@
 											"parking": null
 										}
 									},
-									"maneuvers": null,
+									"maneuvers": {
+										"maneuverStraightAllowed": false,
+										"maneuverNoStoppingAllowed": false,
+										"goWithHalt": false,
+										"maneuverLeftAllowed": true,
+										"maneuverUTurnAllowed": false,
+										"maneuverLeftTurnOnRedAllowed": false,
+										"reserved1": false,
+										"maneuverRightAllowed": false,
+										"maneuverLaneChangeAllowed": false,
+										"yieldAllwaysRequired": false,
+										"maneuverRightTurnOnRedAllowed": false,
+										"caution": false
+									},
 									"nodeList": {
 										"computed": null,
 										"nodes": {
@@ -2806,7 +3025,33 @@
 											]
 										}
 									},
-									"connectsTo": null,
+									"connectsTo": {
+										"connectsTo": [
+											{
+												"connectingLane": {
+													"lane": 0,
+													"maneuver": {
+														"maneuverStraightAllowed": false,
+														"maneuverNoStoppingAllowed": false,
+														"goWithHalt": false,
+														"maneuverLeftAllowed": true,
+														"maneuverUTurnAllowed": false,
+														"maneuverLeftTurnOnRedAllowed": false,
+														"reserved1": false,
+														"maneuverRightAllowed": false,
+														"maneuverLaneChangeAllowed": false,
+														"yieldAllwaysRequired": false,
+														"maneuverRightTurnOnRedAllowed": false,
+														"caution": false
+													}
+												},
+												"remoteIntersection": null,
+												"signalGroup": 0,
+												"userClass": null,
+												"connectionID": 1
+											}
+										]
+									},
 									"overlays": null
 								},
 								{
@@ -2851,7 +3096,20 @@
 											"parking": null
 										}
 									},
-									"maneuvers": null,
+									"maneuvers": {
+										"maneuverStraightAllowed": false,
+										"maneuverNoStoppingAllowed": false,
+										"goWithHalt": false,
+										"maneuverLeftAllowed": true,
+										"maneuverUTurnAllowed": false,
+										"maneuverLeftTurnOnRedAllowed": false,
+										"reserved1": false,
+										"maneuverRightAllowed": false,
+										"maneuverLaneChangeAllowed": false,
+										"yieldAllwaysRequired": false,
+										"maneuverRightTurnOnRedAllowed": false,
+										"caution": false
+									},
 									"nodeList": {
 										"computed": null,
 										"nodes": {
@@ -2896,7 +3154,33 @@
 											]
 										}
 									},
-									"connectsTo": null,
+									"connectsTo": {
+										"connectsTo": [
+											{
+												"connectingLane": {
+													"lane": 0,
+													"maneuver": {
+														"maneuverStraightAllowed": false,
+														"maneuverNoStoppingAllowed": false,
+														"goWithHalt": false,
+														"maneuverLeftAllowed": true,
+														"maneuverUTurnAllowed": false,
+														"maneuverLeftTurnOnRedAllowed": false,
+														"reserved1": false,
+														"maneuverRightAllowed": false,
+														"maneuverLaneChangeAllowed": false,
+														"yieldAllwaysRequired": false,
+														"maneuverRightTurnOnRedAllowed": false,
+														"caution": false
+													}
+												},
+												"remoteIntersection": null,
+												"signalGroup": 0,
+												"userClass": null,
+												"connectionID": 1
+											}
+										]
+									},
 									"overlays": null
 								},
 								{
@@ -2941,7 +3225,20 @@
 											"parking": null
 										}
 									},
-									"maneuvers": null,
+									"maneuvers": {
+										"maneuverStraightAllowed": false,
+										"maneuverNoStoppingAllowed": false,
+										"goWithHalt": false,
+										"maneuverLeftAllowed": true,
+										"maneuverUTurnAllowed": false,
+										"maneuverLeftTurnOnRedAllowed": false,
+										"reserved1": false,
+										"maneuverRightAllowed": false,
+										"maneuverLaneChangeAllowed": false,
+										"yieldAllwaysRequired": false,
+										"maneuverRightTurnOnRedAllowed": false,
+										"caution": false
+									},
 									"nodeList": {
 										"computed": null,
 										"nodes": {
@@ -2986,7 +3283,33 @@
 											]
 										}
 									},
-									"connectsTo": null,
+									"connectsTo": {
+										"connectsTo": [
+											{
+												"connectingLane": {
+													"lane": 0,
+													"maneuver": {
+														"maneuverStraightAllowed": false,
+														"maneuverNoStoppingAllowed": false,
+														"goWithHalt": false,
+														"maneuverLeftAllowed": true,
+														"maneuverUTurnAllowed": false,
+														"maneuverLeftTurnOnRedAllowed": false,
+														"reserved1": false,
+														"maneuverRightAllowed": false,
+														"maneuverLaneChangeAllowed": false,
+														"yieldAllwaysRequired": false,
+														"maneuverRightTurnOnRedAllowed": false,
+														"caution": false
+													}
+												},
+												"remoteIntersection": null,
+												"signalGroup": 0,
+												"userClass": null,
+												"connectionID": 1
+											}
+										]
+									},
 									"overlays": null
 								},
 								{
@@ -3588,7 +3911,7 @@
 													}
 												},
 												"remoteIntersection": null,
-												"signalGroup": null,
+												"signalGroup": 0,
 												"userClass": null,
 												"connectionID": 1
 											}
@@ -3976,7 +4299,20 @@
 											"parking": null
 										}
 									},
-									"maneuvers": null,
+									"maneuvers": {
+										"maneuverStraightAllowed": false,
+										"maneuverNoStoppingAllowed": false,
+										"goWithHalt": false,
+										"maneuverLeftAllowed": true,
+										"maneuverUTurnAllowed": false,
+										"maneuverLeftTurnOnRedAllowed": false,
+										"reserved1": false,
+										"maneuverRightAllowed": false,
+										"maneuverLaneChangeAllowed": false,
+										"yieldAllwaysRequired": false,
+										"maneuverRightTurnOnRedAllowed": false,
+										"caution": false
+									},
 									"nodeList": {
 										"computed": null,
 										"nodes": {
@@ -4028,7 +4364,33 @@
 											]
 										}
 									},
-									"connectsTo": null,
+									"connectsTo": {
+										"connectsTo": [
+											{
+												"connectingLane": {
+													"lane": 0,
+													"maneuver": {
+														"maneuverStraightAllowed": false,
+														"maneuverNoStoppingAllowed": false,
+														"goWithHalt": false,
+														"maneuverLeftAllowed": true,
+														"maneuverUTurnAllowed": false,
+														"maneuverLeftTurnOnRedAllowed": false,
+														"reserved1": false,
+														"maneuverRightAllowed": false,
+														"maneuverLaneChangeAllowed": false,
+														"yieldAllwaysRequired": false,
+														"maneuverRightTurnOnRedAllowed": false,
+														"caution": false
+													}
+												},
+												"remoteIntersection": null,
+												"signalGroup": 0,
+												"userClass": null,
+												"connectionID": 1
+											}
+										]
+									},
 									"overlays": null
 								},
 								{
@@ -4073,7 +4435,20 @@
 											"parking": null
 										}
 									},
-									"maneuvers": null,
+									"maneuvers": {
+										"maneuverStraightAllowed": false,
+										"maneuverNoStoppingAllowed": false,
+										"goWithHalt": false,
+										"maneuverLeftAllowed": true,
+										"maneuverUTurnAllowed": false,
+										"maneuverLeftTurnOnRedAllowed": false,
+										"reserved1": false,
+										"maneuverRightAllowed": false,
+										"maneuverLaneChangeAllowed": false,
+										"yieldAllwaysRequired": false,
+										"maneuverRightTurnOnRedAllowed": false,
+										"caution": false
+									},
 									"nodeList": {
 										"computed": null,
 										"nodes": {
@@ -4125,7 +4500,33 @@
 											]
 										}
 									},
-									"connectsTo": null,
+									"connectsTo": {
+										"connectsTo": [
+											{
+												"connectingLane": {
+													"lane": 0,
+													"maneuver": {
+														"maneuverStraightAllowed": false,
+														"maneuverNoStoppingAllowed": false,
+														"goWithHalt": false,
+														"maneuverLeftAllowed": true,
+														"maneuverUTurnAllowed": false,
+														"maneuverLeftTurnOnRedAllowed": false,
+														"reserved1": false,
+														"maneuverRightAllowed": false,
+														"maneuverLaneChangeAllowed": false,
+														"yieldAllwaysRequired": false,
+														"maneuverRightTurnOnRedAllowed": false,
+														"caution": false
+													}
+												},
+												"remoteIntersection": null,
+												"signalGroup": 0,
+												"userClass": null,
+												"connectionID": 1
+											}
+										]
+									},
 									"overlays": null
 								},
 								{
@@ -4170,7 +4571,20 @@
 											"parking": null
 										}
 									},
-									"maneuvers": null,
+									"maneuvers": {
+										"maneuverStraightAllowed": false,
+										"maneuverNoStoppingAllowed": false,
+										"goWithHalt": false,
+										"maneuverLeftAllowed": true,
+										"maneuverUTurnAllowed": false,
+										"maneuverLeftTurnOnRedAllowed": false,
+										"reserved1": false,
+										"maneuverRightAllowed": false,
+										"maneuverLaneChangeAllowed": false,
+										"yieldAllwaysRequired": false,
+										"maneuverRightTurnOnRedAllowed": false,
+										"caution": false
+									},
 									"nodeList": {
 										"computed": null,
 										"nodes": {
@@ -4230,7 +4644,33 @@
 											]
 										}
 									},
-									"connectsTo": null,
+									"connectsTo": {
+										"connectsTo": [
+											{
+												"connectingLane": {
+													"lane": 0,
+													"maneuver": {
+														"maneuverStraightAllowed": false,
+														"maneuverNoStoppingAllowed": false,
+														"goWithHalt": false,
+														"maneuverLeftAllowed": true,
+														"maneuverUTurnAllowed": false,
+														"maneuverLeftTurnOnRedAllowed": false,
+														"reserved1": false,
+														"maneuverRightAllowed": false,
+														"maneuverLaneChangeAllowed": false,
+														"yieldAllwaysRequired": false,
+														"maneuverRightTurnOnRedAllowed": false,
+														"caution": false
+													}
+												},
+												"remoteIntersection": null,
+												"signalGroup": 0,
+												"userClass": null,
+												"connectionID": 1
+											}
+										]
+									},
 									"overlays": null
 								}
 							]

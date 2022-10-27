@@ -59,9 +59,6 @@
 						},
 						"moy": null,
 						"timeStamp": 35176,
-						"enabledLanes": {
-							"enabledLaneList": [ 1, 2, 3]
-						},
 						"states": {
 							"movementList": [
 								{

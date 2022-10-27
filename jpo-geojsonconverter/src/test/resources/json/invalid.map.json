@@ -421,12 +421,12 @@
 														"nodeXY1": null,
 														"nodeXY2": null,
 														"nodeXY3": null,
-														"nodeXY4": null,
-														"nodeXY5": null,
-														"nodeXY6": {
+														"nodeXY4": {
 															"x": 6867,
 															"y": -39
 														},
+														"nodeXY5": null,
+														"nodeXY6": null,
 														"nodeLatLon": null
 													},
 													"attributes": {
@@ -3331,7 +3331,10 @@
 														"nodeXY2": null,
 														"nodeXY3": null,
 														"nodeXY4": null,
-														"nodeXY5": null,
+														"nodeXY5": {
+															"x": 48,
+															"y": 7912
+														},
 														"nodeXY6": {
 															"x": 48,
 															"y": 7912

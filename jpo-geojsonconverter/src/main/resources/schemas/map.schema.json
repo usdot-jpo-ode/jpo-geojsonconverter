@@ -1,6 +1,6 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "map.schema.json",
+    "$id": "https://example.com/map.schema.json",
     "type": "object",
     "properties": {
         "metadata": {
@@ -177,7 +177,7 @@
                     ]
                 },
                 "msgIssueRevision": {
-                    "$ref": "j2735-common.schema.json#/$defs/J2735MsgCount"
+                    "$ref": "#/$defs/J2735MsgCount"
                 },
                 "restrictionList": {
                     "oneOf": [
@@ -198,7 +198,7 @@
                 "timeStamp": {
                     "oneOf": [
                         {
-                            "$ref": "j2735-common.schema.json#/$defs/J2735MinuteOfTheYear"
+                            "$ref": "#/$defs/J2735MinuteOfTheYear"
                         },
                         { "type": "null"}
                     ]
@@ -249,7 +249,7 @@
         "J2735IntersectionGeometry": {
             "properties": {
                 "id": {
-                    "$ref": "j2735-common.schema.json#/$defs/J2735IntersectionReferenceID"
+                    "$ref": "#/$defs/J2735IntersectionReferenceID"
                 },
                 "laneSet": {
                     "$ref": "#/$defs/J2735LaneList"
@@ -261,16 +261,16 @@
                 "name": {
                     "oneOf": [
                         {
-                            "$ref": "j2735-common.schema.json#/$defs/J2735DescriptiveName"
+                            "$ref": "#/$defs/J2735DescriptiveName"
                         },
                         { "type": "null" }
                     ]
                 },
                 "refPoint": {
-                    "$ref": "j2735-common.schema.json#/$defs/OdePosition3D"
+                    "$ref": "#/$defs/OdePosition3D"
                 },
                 "revision": {
-                    "$ref": "j2735-common.schema.json#/$defs/J2735MsgCount"
+                    "$ref": "#/$defs/J2735MsgCount"
                 },
                 "speedLimits": {
                     "$ref": "#/$defs/J2735SpeedLimitList",
@@ -323,12 +323,12 @@
                 },
                 "name": {
                     "oneOf": [
-                        {"$ref": "j2735-common.schema.json#/$defs/J2735DescriptiveName" },
+                        {"$ref": "#/$defs/J2735DescriptiveName" },
                         {"type": "null"}
                     ]
                 },
                 "refPoint": {
-                    "$ref": "j2735-common.schema.json#/$defs/OdePosition3D"
+                    "$ref": "#/$defs/OdePosition3D"
                 },
                 "roadLaneSet": {
                     "properties": {
@@ -370,7 +370,7 @@
                 "region": {
                     "oneOf": [
                         {
-                            "$ref": "j2735-common.schema.json#/$defs/J2735RoadRegulatorID"
+                            "$ref": "#/$defs/J2735RoadRegulatorID"
                         },
                         { "type": "null" }
                     ]
@@ -454,7 +454,7 @@
         "J2735RestrictionClassAssignment": {
             "properties": {
                 "id": {
-                    "$ref": "j2735-common.schema.json#/$defs/J2735RestrictionClassID"
+                    "$ref": "#/$defs/J2735RestrictionClassID"
                 },
                 "users": {
                     "$ref": "#/$defs/J2735RestrictionUserTypeList"
@@ -583,7 +583,7 @@
         "J2735GenericLane": {
             "properties": {
                 "laneID": {
-                    "$ref": "j2735-common.schema.json#/$defs/J2735LaneID"
+                    "$ref": "#/$defs/J2735LaneID"
                 },
                 "connectsTo": {
                     "$ref": "#/$defs/J2735ConnectsToList",
@@ -614,7 +614,7 @@
                 },
                 "name": {
                     "oneOf": [
-                        { "$ref": "j2735-common.schema.json#/$defs/J2735DescriptiveName" },
+                        { "$ref": "#/$defs/J2735DescriptiveName" },
                         { "type": "null" }
                     ]
                 },
@@ -666,18 +666,18 @@
                 },
                 "remoteIntersection": {
                     "oneOf": [
-                        { "$ref": "j2735-common.schema.json#/$defs/J2735IntersectionReferenceID" },
+                        { "$ref": "#/$defs/J2735IntersectionReferenceID" },
                         { "type": "null" }
                     ],
                     "description": "DE_IntersectionReferenceID.  Optional, may be null"
                 },
                 "signalGroup": {
-                    "$ref": "j2735-common.schema.json#/$defs/J2735SignalGroupID",
+                    "$ref": "#/$defs/J2735SignalGroupID",
                     "description": "DE_SignalGroupID.  Mandatory in CI Implementation Guide.  Optional in J2735"
                 },
                 "userClass": {
                     "oneOf": [
-                        { "$ref": "j2735-common.schema.json#/$defs/J2735RestrictionClassID" },
+                        { "$ref": "#/$defs/J2735RestrictionClassID" },
                         { "type": "null" }
                     ],
                     "description": "DE_RestrictionClassID.  Optional, may be null"
@@ -693,7 +693,7 @@
         "J2735ConnectingLane": {
             "properties": {
                 "lane": {
-                    "$ref": "j2735-common.schema.json#/$defs/J2735LaneID"
+                    "$ref": "#/$defs/J2735LaneID"
                 },
                 "maneuver": {
                     "$ref": "#/$defs/J2735AllowedManeuvers",
@@ -1223,7 +1223,7 @@
             "properties": {
                 "laneIds": {
                     "items": {
-                        "$ref": "j2735-common.schema.json#/$defs/J2735LaneID"
+                        "$ref": "#/$defs/J2735LaneID"
                     },
                     "type": "array"
                 }
@@ -1830,6 +1830,92 @@
                 "parkingForBusUse",
                 "parkingForTaxiUse",
                 "noPublicParkingUse"
+            ],
+            "type": "object"
+        },
+        "J2735LaneID": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 255,
+            "description": "DE_LaneID"
+        },
+        "J2735SignalGroupID": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 255,
+            "description": "DE_SignalGroupID"
+        },
+        "J2735MsgCount": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 127,
+            "description": "DE_MsgCount"
+        },
+        "J2735DescriptiveName": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 63,
+            "description": "Optional name for debugging, may be null"
+        },
+        "J2735IntersectionReferenceID": {
+            "type": "object",
+            "properties": {
+                "region": {
+                    "$ref": "#/$defs/J2735RoadRegulatorID",
+                    "description": "Optional in J2735, but mandatory in CI Implementation Guide."
+                },
+                "id": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 65535,
+                    "description": "DE_IntersectionID"
+                }
+            },
+            "required": [
+                "region",
+                "id"
+            ],
+            "additionalProperties": false
+        },
+        "J2735RoadRegulatorID": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 65535,
+            "description": "DE_RoadRegulatorID"
+        },
+        "J2735RestrictionClassID": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 255,
+            "description": "DE_RestrictionClassID"
+        },
+        "J2735MinuteOfTheYear": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 527040,
+            "description": "DE_MinuteOfTheYear"
+        },
+        "OdePosition3D": {
+            "title": "us.dot.its.jpo.ode.plugin.J2735.OdePosition3D",
+            "description": "This structure is obtained from a J2735 Position3D data structure converted into conventional lon/lat decimal coordinates.",
+            "properties": {
+                "elevation": {
+                    "type": "number",
+                    "description": "Elevation in meters. Mandatory in the CI Implementation Guide.  Optional in J2735."
+                },
+                "latitude": {
+                    "type": "number",
+                    "description": "Latitude in degrees"
+                },
+                "longitude": {
+                    "type": "number",
+                    "description": "Longitude in degrees"
+                }
+            },
+            "required": [
+                "elevation",
+                "latitude",
+                "longitude"
             ],
             "type": "object"
         }
