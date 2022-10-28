@@ -12,6 +12,7 @@ import com.networknt.schema.JsonSchema;
 import com.networknt.schema.JsonSchemaFactory;
 import com.networknt.schema.SpecVersionDetector;
 import com.networknt.schema.ValidationMessage;
+import com.networknt.schema.SpecVersion;
 
 /**
  * Class for a validator to validate a JSON document against a
@@ -48,7 +49,10 @@ public abstract class AbstractJsonValidator {
         if (jsonSchema == null) {
             try (var inputStream = jsonSchemaResource.getInputStream()) {
                 JsonNode schemaNode = mapper.readTree(inputStream);
-                JsonSchemaFactory factory = JsonSchemaFactory.getInstance(SpecVersionDetector.detect(schemaNode));
+
+                // Use Json schema version 2019-09 because the 2020-12 implementation in networknt seems buggy as of now.
+                JsonSchemaFactory factory = JsonSchemaFactory.getInstance(SpecVersion.VersionFlag.V201909);
+
                 jsonSchema = factory.getSchema(schemaNode);
             } catch (Exception ex) {
                 throw new RuntimeException(String.format("Failed to load json schema from resource '%s'", jsonSchemaResource), ex);

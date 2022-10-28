@@ -1,5 +1,5 @@
 {
-    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
     "$id": "https://example.com/spat.schema.json",
     "type": "object",
     "properties": {
@@ -232,7 +232,12 @@
                     "description": "DE_DSecond. Milliseconds in minute. Optional in J2735, but mandatory in CI Implementation Guide."
                 },
                 "enabledLanes": {
-                    "$ref": "#/$defs/J2735EnabledLaneList_Nullable",
+                    "oneOf": [
+                        {
+                            "$ref": "#/$defs/J2735EnabledLaneList"
+                        },
+                        { "type": "null" }
+                    ],
                     "description": "CI Implementation Guide: Conditionally required if a revocable lane is active (enabled) in the corresponding MAP.  Optional in J2735."
                 },
                 "states": {
@@ -248,8 +253,7 @@
                 "status",
                 "timeStamp",
                 "states"
-            ],
-            "additionalProperties": false
+            ]
         },
         "J2735IntersectionStatusObject": {
             "type": "object",
@@ -315,11 +319,8 @@
             ],
             "additionalProperties": false
         },
-        "J2735EnabledLaneList_Nullable": {
-            "type": [
-                "object",
-                "null"
-            ],
+        "J2735EnabledLaneList": {
+            "type": "object",
             "properties": {
                 "enabledLaneList": {
                     "type": "array",
@@ -412,7 +413,12 @@
                     "description": "Optional in J2735, but mandatory in CI Implementation Guide"
                 },
                 "speeds": {
-                    "$ref": "#/$defs/J2735AdvisorySpeedList_Nullable"
+                    "oneOf": [
+                        {
+                            "$ref": "#/$defs/J2735AdvisorySpeedList"
+                        },
+                        { "type": "null" }
+                    ]
                 }
             },
             "required": [
@@ -451,16 +457,23 @@
                     "description": "Optional in J2735, but mandatory in CI Implementation Guide"
                 },
                 "likelyTime": {
-                    "$ref": "#/$defs/J2735TimeMark_Nullable",
+                    "oneOf": [
+                        {
+                            "$ref": "#/$defs/J2735TimeMark"
+                        },
+                        { "type": "null" }
+                    ],
                     "description": "Optional"
                 },
                 "confidence": {
-                    "type": [
-                        "integer",
-                        "null"
+                    "oneOf": [
+                        {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 15
+                        },
+                        { "type": "null" }
                     ],
-                    "minimum": 0,
-                    "maximum": 15,
                     "description": "DE_TimeIntervalConfidence. Optional."
                 },
                 "nextTime": {
@@ -482,20 +495,8 @@
             "maximum": 36001,
             "description": "Tenths of a second in the the hour"
         },
-        "J2735TimeMark_Nullable": {
-            "type": [
-                "integer",
-                "null"
-            ],
-            "minimum": 0,
-            "maximum": 36001,
-            "description": "Tenths of a second in the the hour.  May be null."
-        },
-        "J2735AdvisorySpeedList_Nullable": {
-            "type": [
-                "object",
-                "null"
-            ],
+        "J2735AdvisorySpeedList": {
+            "type": "object",
             "properties": {
                 "advisorySpeedList": {
                     "type": "array",
