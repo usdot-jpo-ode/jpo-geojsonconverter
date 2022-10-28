@@ -11,6 +11,7 @@ import us.dot.its.jpo.geojsonconverter.GeoJsonConverterProperties;
 import us.dot.its.jpo.geojsonconverter.converter.map.MapTopology;
 import us.dot.its.jpo.geojsonconverter.converter.spat.SpatTopology;
 import us.dot.its.jpo.geojsonconverter.validator.MapJsonValidator;
+import us.dot.its.jpo.geojsonconverter.validator.SpatJsonValidator;
 
 /**
  * Launches GeoJsonFromJsonConverter service
@@ -22,7 +23,8 @@ public class GeoJsonConverterServiceController {
     org.apache.kafka.common.serialization.Serdes bas;
 
     @Autowired
-    public GeoJsonConverterServiceController(GeoJsonConverterProperties geojsonProps, MapJsonValidator mapJsonValidator) {
+    public GeoJsonConverterServiceController(GeoJsonConverterProperties geojsonProps, MapJsonValidator mapJsonValidator,
+            SpatJsonValidator spatJsonValidator) {
         super();
 
         try {
@@ -39,7 +41,8 @@ public class GeoJsonConverterServiceController {
 
             // SPaT
             logger.info("Creating the SPaT geoJSON Kafka-Streams topology");
-            topology = SpatTopology.build(geojsonProps.getKafkaTopicOdeSpatJson(), geojsonProps.getKafkaTopicSpatGeoJson(), geojsonProps.getKafkaTopicMapGeoJson());
+            topology = SpatTopology.build(geojsonProps.getKafkaTopicOdeSpatJson(), geojsonProps.getKafkaTopicSpatGeoJson(), geojsonProps.getKafkaTopicMapGeoJson(),
+                spatJsonValidator);
             streams = new KafkaStreams(topology, geojsonProps.createStreamProperties("spatgeojson"));
             Runtime.getRuntime().addShutdownHook(new Thread(streams::close));
             streams.start();

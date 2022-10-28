@@ -11,11 +11,15 @@ import org.apache.kafka.streams.kstream.Consumed;
 import org.apache.kafka.streams.kstream.Joined;
 import org.apache.kafka.streams.kstream.Produced;
 import org.apache.kafka.streams.state.KeyValueStore;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.KTable;
 import org.apache.kafka.streams.kstream.Materialized;
 
 import us.dot.its.jpo.geojsonconverter.serialization.JsonSerdes;
+import us.dot.its.jpo.geojsonconverter.validator.JsonValidatorResult;
+import us.dot.its.jpo.geojsonconverter.validator.SpatJsonValidator;
 import us.dot.its.jpo.geojsonconverter.geojson.Point;
 import us.dot.its.jpo.geojsonconverter.geojson.map.MapFeature;
 import us.dot.its.jpo.geojsonconverter.geojson.map.MapFeatureCollection;
@@ -29,16 +33,47 @@ import us.dot.its.jpo.ode.model.OdeSpatData;
  */
 public class SpatTopology {
 
-    public static Topology build(String spatOdeJsonTopic, String spatGeoJsonTopic, String mapGeoJsonTopic) {
+    private static final Logger logger = LoggerFactory.getLogger(SpatTopology.class);
+
+    public static Topology build(String spatOdeJsonTopic, String spatGeoJsonTopic, String mapGeoJsonTopic,
+            SpatJsonValidator spatJsonValidator) {
         StreamsBuilder builder = new StreamsBuilder();
 
-        // Create stream from the ODE SPaT topic
-        KStream<Void, OdeSpatData> odeSpatStream = 
+        // Stream for raw SPAT messages
+        KStream<Void, Bytes> rawOdeSpatStream =
             builder.stream(
-                spatOdeJsonTopic, 
+                spatOdeJsonTopic,
                 Consumed.with(
-                    Serdes.Void(), // Key serializer: Raw has no key, so use the "Void" serializer
-                    JsonSerdes.OdeSpat())   // Value serdes for OdeSpatData
+                    Serdes.Void(),  // Raw topic has no key
+                    Serdes.Bytes()  // Raw JSON bytes
+                )
+            );
+
+        // Validate the JSON and write validation erros to the log at warn level
+        // Passes the raw JSON along unchanged, even if there are validation errors.
+        KStream<Void, Bytes> validatedOdeSpatStream = 
+            rawOdeSpatStream.peek(
+                (Void key, Bytes value) -> {
+                    if (value == null || value.get() == null) {
+                        logger.warn("Null SPAT message value encountered");
+                        return;
+                    }
+                    JsonValidatorResult validationResults = spatJsonValidator.validate(value.get());
+                    if (validationResults.isValid()) {
+                        logger.info(validationResults.describeResults());
+                    } else {
+                        logger.warn(validationResults.describeResults());
+                    }
+                }
+            );
+
+        // Deserialize the raw JSON bytes to SPAT after validation
+        KStream<Void, OdeSpatData> odeSpatStream =
+                validatedOdeSpatStream.mapValues(
+                    (Bytes value) -> {
+                        if (value == null || value.get() == null) return null;
+                        return JsonSerdes.OdeSpat().deserializer().deserialize(spatOdeJsonTopic, value.get());
+                    }
                 );
 
         // KTable MapGeoJSON

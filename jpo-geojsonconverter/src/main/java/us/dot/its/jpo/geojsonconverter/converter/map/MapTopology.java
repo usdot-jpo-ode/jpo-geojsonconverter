@@ -5,13 +5,13 @@ import org.apache.kafka.common.utils.Bytes;
 import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.Topology;
 import org.apache.kafka.streams.kstream.Consumed;
-import org.apache.kafka.streams.kstream.ForeachAction;
 import org.apache.kafka.streams.kstream.Produced;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.kafka.streams.kstream.KStream;
 
 import us.dot.its.jpo.geojsonconverter.serialization.JsonSerdes;
+import us.dot.its.jpo.geojsonconverter.validator.JsonValidatorResult;
 import us.dot.its.jpo.geojsonconverter.validator.MapJsonValidator;
 import us.dot.its.jpo.geojsonconverter.geojson.map.MapFeatureCollection;
 import us.dot.its.jpo.ode.model.OdeMapData;
@@ -36,7 +36,7 @@ public class MapTopology {
                     Serdes.Bytes())   // Raw JSON bytes
                 );
 
-        // Validate the JSON and log validation errors
+        // Validate the JSON and log validation errors at warn level
         // Passes the raw JSON along unchanged, even if there are validation errors.
         KStream<Void, Bytes> validatedOdeMapStream = rawOdeMapStream.peek(
             (Void key, Bytes value) -> {
@@ -44,8 +44,12 @@ public class MapTopology {
                     logger.warn("Null MAP message value encountered.");
                     return;
                 }
-                var validationResults = mapJsonValidator.validate(value.get());
-                logger.error(validationResults.describeResults());
+                JsonValidatorResult validationResults = mapJsonValidator.validate(value.get());
+                if (validationResults.isValid()) {
+                    logger.info(validationResults.describeResults());
+                } else {
+                    logger.warn(validationResults.describeResults());
+                }
             }
         );
 

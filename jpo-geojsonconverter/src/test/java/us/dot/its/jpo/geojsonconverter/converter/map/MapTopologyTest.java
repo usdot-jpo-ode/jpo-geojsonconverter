@@ -3,11 +3,6 @@ package us.dot.its.jpo.geojsonconverter.converter.map;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
-import java.net.URL;
 import java.util.List;
 
 import org.apache.kafka.common.serialization.Serdes;
@@ -20,13 +15,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.core.io.Resource;
-import org.springframework.lang.Nullable;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import us.dot.its.jpo.geojsonconverter.geojson.map.MapFeatureCollection;
 import us.dot.its.jpo.geojsonconverter.serialization.JsonSerdes;
-import us.dot.its.jpo.geojsonconverter.validator.JsonValidatorResult;
 import us.dot.its.jpo.geojsonconverter.validator.MapJsonValidator;
 
 @SpringBootTest
@@ -69,6 +61,7 @@ public class MapTopologyTest {
             assertNotNull(mapGeoJson.value);
             assertEquals(2, mapGeoJson.value.getFeatures().length);
             assertEquals(1, mapGeoJson.value.getFeatures()[0].getProperties().getIngressApproach());
+
         }
     }
 }
