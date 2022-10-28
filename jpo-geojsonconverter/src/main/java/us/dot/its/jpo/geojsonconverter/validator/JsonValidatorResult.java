@@ -8,12 +8,9 @@ import com.networknt.schema.ValidationMessage;
 
 public class JsonValidatorResult {
 
-    public JsonValidatorResult() {
-        
-    }
-    
-    private final List<Exception> exceptions = new ArrayList<Exception>();
-    private final List<ValidationMessage> validationMessages = new ArrayList<ValidationMessage>();
+      
+    private final List<Exception> exceptions = new ArrayList<>();
+    private final List<ValidationMessage> validationMessages = new ArrayList<>();
 
     public boolean isValid() {
         return exceptions.isEmpty() && validationMessages.isEmpty();

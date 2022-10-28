@@ -100,14 +100,9 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
         // All the keys are Strings in this app
         streamProps.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
 
-        // Configure the state store location
-        if (SystemUtils.IS_OS_WINDOWS) {
-            // For dev testing on Windows
-            streamProps.put(StreamsConfig.STATE_DIR_CONFIG, "C:\\Temp\\ode\\kafka-streams");
-        } else {
-            // Non-default location on linux so the store won't get deleted
-            streamProps.put(StreamsConfig.STATE_DIR_CONFIG, "/var/lib/ode/kafka-streams");
-        }
+
+        streamProps.put(StreamsConfig.STATE_DIR_CONFIG, "/var/lib/ode/kafka-streams");
+        
 
         return streamProps;
     }

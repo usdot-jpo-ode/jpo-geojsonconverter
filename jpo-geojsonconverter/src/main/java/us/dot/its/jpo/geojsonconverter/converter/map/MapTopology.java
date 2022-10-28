@@ -40,23 +40,14 @@ public class MapTopology {
         // Passes the raw JSON along unchanged, even if there are validation errors.
         KStream<Void, Bytes> validatedOdeMapStream = rawOdeMapStream.peek(
             (Void key, Bytes value) -> {
-                if (value == null || value.get() == null) {
-                    logger.warn("Null MAP message value encountered.");
-                    return;
-                }
                 JsonValidatorResult validationResults = mapJsonValidator.validate(value.get());
-                if (validationResults.isValid()) {
-                    logger.info(validationResults.describeResults());
-                } else {
-                    logger.warn(validationResults.describeResults());
-                }
+                logger.info(validationResults.describeResults());
             }
         );
 
         // Deserialize the raw JSON bytes to an OdeMapData object
         KStream<Void, OdeMapData> odeMapStream =
             validatedOdeMapStream.mapValues((Bytes value) -> {
-                if (value == null || value.get() == null) return null;
                 return JsonSerdes.OdeMap().deserializer().deserialize(mapOdeJsonTopic, value.get());
             });
 

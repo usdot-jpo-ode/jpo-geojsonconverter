@@ -26,7 +26,7 @@ public abstract class AbstractJsonValidator {
      * Add an <code>@Value("${schema.resourceName}")</code> annotation to this argument
      * in implementing classes to specify the schema location.
      */
-    public AbstractJsonValidator(Resource jsonSchemaResource) {
+    protected AbstractJsonValidator(Resource jsonSchemaResource) {
         this.jsonSchemaResource = jsonSchemaResource;
     }
 
@@ -44,7 +44,7 @@ public abstract class AbstractJsonValidator {
     }
 
 
-    public JsonSchema getJsonSchema() {
+    public JsonSchema getJsonSchema() throws IOException {
         if (jsonSchema == null) {
             try (var inputStream = jsonSchemaResource.getInputStream()) {
                 JsonNode schemaNode = mapper.readTree(inputStream);
@@ -53,9 +53,7 @@ public abstract class AbstractJsonValidator {
                 JsonSchemaFactory factory = JsonSchemaFactory.getInstance(SpecVersion.VersionFlag.V201909);
 
                 jsonSchema = factory.getSchema(schemaNode);
-            } catch (Exception ex) {
-                throw new RuntimeException(String.format("Failed to load json schema from resource '%s'", jsonSchemaResource), ex);
-            }
+            } 
         }
         return jsonSchema;
     }
@@ -66,7 +64,7 @@ public abstract class AbstractJsonValidator {
             JsonNode node = mapper.readTree(json);
             Set<ValidationMessage> validationMessages = getJsonSchema().validate(node);
             result.addValidationMessages(validationMessages);
-        } catch (JsonProcessingException e) {
+        } catch (IOException e) {
             result.addException(e);
         }
         return result;
@@ -80,6 +78,7 @@ public abstract class AbstractJsonValidator {
             result.addValidationMessages(validationMessages);
         } catch (IOException e) {
             result.addException(e);
+
         }
         return result;
     }

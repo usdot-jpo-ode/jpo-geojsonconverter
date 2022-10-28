@@ -56,10 +56,6 @@ public class SpatTopology {
         KStream<Void, Bytes> validatedOdeSpatStream = 
             rawOdeSpatStream.peek(
                 (Void key, Bytes value) -> {
-                    if (value == null || value.get() == null) {
-                        logger.warn("Null SPAT message value encountered");
-                        return;
-                    }
                     JsonValidatorResult validationResults = spatJsonValidator.validate(value.get());
                     if (validationResults.isValid()) {
                         logger.info(validationResults.describeResults());
@@ -73,7 +69,6 @@ public class SpatTopology {
         KStream<Void, OdeSpatData> odeSpatStream =
                 validatedOdeSpatStream.mapValues(
                     (Bytes value) -> {
-                        if (value == null || value.get() == null) return null;
                         return JsonSerdes.OdeSpat().deserializer().deserialize(spatOdeJsonTopic, value.get());
                     }
                 );

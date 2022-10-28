@@ -5,6 +5,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertTrue;
 
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 import org.apache.commons.io.IOUtils;
@@ -13,7 +14,7 @@ import org.springframework.core.io.Resource;
 /**
  * Base class for Json Validator tests
  */
-public abstract class BaseJsonValidatorTest {
+public abstract class AbstractJsonValidatorTest {
 
     protected void testJsonSchemaResourceLoaded(AbstractJsonValidator validator) {
         var resource = validator.getJsonSchemaResource();
@@ -21,7 +22,7 @@ public abstract class BaseJsonValidatorTest {
         assertTrue("Resource does not exist", resource.exists());
     }
 
-    protected void testJsonSchemaLoaded(AbstractJsonValidator validator) {
+    protected void testJsonSchemaLoaded(AbstractJsonValidator validator) throws IOException {
         var jsonSchema = validator.getJsonSchema();
         assertThat(jsonSchema, notNullValue());
     }
@@ -46,6 +47,8 @@ public abstract class BaseJsonValidatorTest {
         assertThat(String.format("Validation result:%n%s", result.describeResults()), result.isValid(), equalTo(expectValid));
         System.out.println(result.describeResults());
     }
+
+    
     
     protected String getTestJson(Resource jsonResource) {
         try (var is = jsonResource.getInputStream()) {
