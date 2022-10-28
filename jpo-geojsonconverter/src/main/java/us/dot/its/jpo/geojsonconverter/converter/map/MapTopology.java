@@ -47,9 +47,9 @@ public class MapTopology {
 
         // Deserialize the raw JSON bytes to an OdeMapData object
         KStream<Void, OdeMapData> odeMapStream =
-            validatedOdeMapStream.mapValues((Bytes value) -> {
-                return JsonSerdes.OdeMap().deserializer().deserialize(mapOdeJsonTopic, value.get());
-            });
+            validatedOdeMapStream.mapValues(
+                (Bytes value) -> JsonSerdes.OdeMap().deserializer().deserialize(mapOdeJsonTopic, value.get())
+            );
 
         // Convert ODE MAP to GeoJSON
         KStream<String, MapFeatureCollection> geoJsonMapStream =

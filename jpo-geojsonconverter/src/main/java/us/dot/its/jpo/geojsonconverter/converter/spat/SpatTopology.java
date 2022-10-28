@@ -47,9 +47,7 @@ public class SpatTopology {
                     Serdes.Void(),  // Raw topic has no key
                     Serdes.Bytes()  // Raw JSON bytes
                 )
-            ).peek((key, value) -> {
-                logger.info("Received raw spat");
-            });
+            );
 
         // Validate the JSON and write validation errors to the log at warn level
         // Passes the raw JSON along unchanged, even if there are validation errors.

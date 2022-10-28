@@ -26,7 +26,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import org.apache.commons.lang3.SystemUtils;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.StreamsConfig;
