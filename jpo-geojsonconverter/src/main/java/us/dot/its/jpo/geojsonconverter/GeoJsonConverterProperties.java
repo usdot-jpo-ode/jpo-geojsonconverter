@@ -26,6 +26,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.apache.commons.lang3.SystemUtils;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.StreamsConfig;
@@ -100,7 +101,13 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
         streamProps.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
 
         // Configure the state store location
-        streamProps.put(StreamsConfig.STATE_DIR_CONFIG, "/var/lib/odd/kafka-streams");
+        if (SystemUtils.IS_OS_WINDOWS) {
+            // For dev testing on Windows
+            streamProps.put(StreamsConfig.STATE_DIR_CONFIG, "C:\\Temp\\ode\\kafka-streams");
+        } else {
+            // Non-default location on linux so the store won't get deleted
+            streamProps.put(StreamsConfig.STATE_DIR_CONFIG, "/var/lib/ode/kafka-streams");
+        }
 
         return streamProps;
     }
