@@ -1,9 +1,17 @@
 package us.dot.its.jpo.geojsonconverter.validator;
 
 import java.util.Collection;
+import java.util.Formatter;
 import java.util.List;
+import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 
+import com.jayway.jsonpath.Configuration;
+import com.jayway.jsonpath.JsonPath;
+import com.jayway.jsonpath.spi.json.JacksonJsonProvider;
+import com.jayway.jsonpath.spi.mapper.JacksonMappingProvider;
+import com.networknt.schema.I18nSupport;
 import com.networknt.schema.ValidationMessage;
 
 public class JsonValidatorResult {
@@ -40,18 +48,25 @@ public class JsonValidatorResult {
         
     }
 
+    
     public String describeResults() {
         var sb = new StringBuilder();
-        sb.append(String.format("Json Validator result: isValid = %s%n", isValid()));
+        try (var fmt = new Formatter(sb)) {
+            fmt.format("Json Validator result: isValid = %s%n", isValid());
 
-        for (var exception : getExceptions()) {
-            sb.append(String.format("JsonProcessingException: %s%n", exception.getMessage()));
+            if (!isValid()) {
+                fmt.format("Validation Errors:%n");
+                
+                for (var exception : getExceptions()) {
+                    fmt.format("JsonProcessingException: %s%n", exception.getMessage());
+                }
+
+                for (ValidationMessage vm : getValidationMessages()) {
+                    fmt.format("At path %s (Schema: %s)%n", vm.getMessage(), vm.getSchemaPath());
+                }
+            }
+            fmt.format("%n");
         }
-
-        for (var validationMessage : getValidationMessages()) {
-            sb.append(String.format("JSON Validation Message: %s%n", validationMessage.getMessage()));
-        }
-
         return sb.toString();
     }
 

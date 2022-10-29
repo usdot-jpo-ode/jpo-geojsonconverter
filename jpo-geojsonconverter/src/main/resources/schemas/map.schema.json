@@ -155,7 +155,9 @@
                         {
                             "$ref": "#/$defs/J2735DataParameters"
                         },
-                        { "type": "null" }
+                        {
+                            "type": "null"
+                        }
                     ]
                 },
                 "intersections": {
@@ -164,8 +166,12 @@
                 },
                 "layerID": {
                     "oneOf": [
-                        {"$ref": "#/$defs/J2735LayerID" },
-                        {"type": "null"}
+                        {
+                            "$ref": "#/$defs/J2735LayerID"
+                        },
+                        {
+                            "type": "null"
+                        }
                     ]
                 },
                 "layerType": {
@@ -173,7 +179,9 @@
                         {
                             "$ref": "#/$defs/J2735LayerType"
                         },
-                        { "type": "null" }
+                        {
+                            "type": "null"
+                        }
                     ]
                 },
                 "msgIssueRevision": {
@@ -184,7 +192,9 @@
                         {
                             "$ref": "#/$defs/J2735RestrictionClassList"
                         },
-                        { "type": "null" }
+                        {
+                            "type": "null"
+                        }
                     ]
                 },
                 "roadSegments": {
@@ -192,7 +202,9 @@
                         {
                             "$ref": "#/$defs/J2735RoadSegmentList"
                         },
-                        { "type": "null" }
+                        {
+                            "type": "null"
+                        }
                     ]
                 },
                 "timeStamp": {
@@ -200,7 +212,9 @@
                         {
                             "$ref": "#/$defs/J2735MinuteOfTheYear"
                         },
-                        { "type": "null"}
+                        {
+                            "type": "null"
+                        }
                     ]
                 }
             },
@@ -263,7 +277,9 @@
                         {
                             "$ref": "#/$defs/J2735DescriptiveName"
                         },
-                        { "type": "null" }
+                        {
+                            "type": "null"
+                        }
                     ]
                 },
                 "refPoint": {
@@ -317,14 +333,22 @@
                 },
                 "laneWidth": {
                     "oneOf": [
-                        { "$ref": "#/$defs/J2735LaneWidth" },
-                        { "type": "null" }
+                        {
+                            "$ref": "#/$defs/J2735LaneWidth"
+                        },
+                        {
+                            "type": "null"
+                        }
                     ]
                 },
                 "name": {
                     "oneOf": [
-                        {"$ref": "#/$defs/J2735DescriptiveName" },
-                        {"type": "null"}
+                        {
+                            "$ref": "#/$defs/J2735DescriptiveName"
+                        },
+                        {
+                            "type": "null"
+                        }
                     ]
                 },
                 "refPoint": {
@@ -351,7 +375,9 @@
                         {
                             "$ref": "#/$defs/J2735SpeedLimitList"
                         },
-                        { "type": "null" }
+                        {
+                            "type": "null"
+                        }
                     ]
                 }
             },
@@ -372,7 +398,9 @@
                         {
                             "$ref": "#/$defs/J2735RoadRegulatorID"
                         },
-                        { "type": "null" }
+                        {
+                            "type": "null"
+                        }
                     ]
                 }
             },
@@ -391,8 +419,12 @@
             "properties": {
                 "geoidUsed": {
                     "oneOf": [
-                        { "$ref": "#/$defs/IA5String" },
-                        { "type": "null" }
+                        {
+                            "$ref": "#/$defs/IA5String"
+                        },
+                        {
+                            "type": "null"
+                        }
                     ]
                 },
                 "lastCheckedDate": {
@@ -591,8 +623,12 @@
                 },
                 "egressApproach": {
                     "oneOf": [
-                        { "$ref": "#/$defs/J2735ApproachID" },
-                        { "type": "null" }
+                        {
+                            "$ref": "#/$defs/J2735ApproachID"
+                        },
+                        {
+                            "type": "null"
+                        }
                     ]
                 },
                 "ingressApproach": {
@@ -614,8 +650,12 @@
                 },
                 "name": {
                     "oneOf": [
-                        { "$ref": "#/$defs/J2735DescriptiveName" },
-                        { "type": "null" }
+                        {
+                            "$ref": "#/$defs/J2735DescriptiveName"
+                        },
+                        {
+                            "type": "null"
+                        }
                     ]
                 },
                 "nodeList": {
@@ -623,8 +663,12 @@
                 },
                 "overlays": {
                     "oneOf": [
-                        { "$ref": "#/$defs/J2735OverlayLaneList" },
-                        { "type": "null" }
+                        {
+                            "$ref": "#/$defs/J2735OverlayLaneList"
+                        },
+                        {
+                            "type": "null"
+                        }
                     ]
                 }
             },
@@ -659,15 +703,23 @@
                 },
                 "connectionID": {
                     "oneOf": [
-                        { "$ref": "#/$defs/J2735LaneConnectionID" },
-                        { "type": "null" }
+                        {
+                            "$ref": "#/$defs/J2735LaneConnectionID"
+                        },
+                        {
+                            "type": "null"
+                        }
                     ],
                     "description": "DE_LaneConnectionID.  Optional, may be null"
                 },
                 "remoteIntersection": {
                     "oneOf": [
-                        { "$ref": "#/$defs/J2735IntersectionReferenceID" },
-                        { "type": "null" }
+                        {
+                            "$ref": "#/$defs/J2735IntersectionReferenceID"
+                        },
+                        {
+                            "type": "null"
+                        }
                     ],
                     "description": "DE_IntersectionReferenceID.  Optional, may be null"
                 },
@@ -677,8 +729,12 @@
                 },
                 "userClass": {
                     "oneOf": [
-                        { "$ref": "#/$defs/J2735RestrictionClassID" },
-                        { "type": "null" }
+                        {
+                            "$ref": "#/$defs/J2735RestrictionClassID"
+                        },
+                        {
+                            "type": "null"
+                        }
                     ],
                     "description": "DE_RestrictionClassID.  Optional, may be null"
                 }
@@ -833,7 +889,14 @@
         "J2735NodeXY": {
             "properties": {
                 "attributes": {
-                    "$ref": "#/$defs/J2735NodeAttributeSetXY"
+                    "oneOf": [
+                        {
+                            "$ref": "#/$defs/J2735NodeAttributeSetXY"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "delta": {
                     "$ref": "#/$defs/J2735NodeOffsetPointXY"
@@ -847,31 +910,67 @@
         "J2735NodeAttributeSetXY": {
             "properties": {
                 "dElevation": {
-                    "type": "number"
+                    "oneOf": [
+                        {
+                            "$ref": "#/$defs/J2735Offset-B10"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "dWidth": {
-                    "type": "null"
+                    "oneOf": [
+                        {
+                            "$ref": "#/$defs/J2735Offset-B10"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "data": {
-                    "type": "null"
+                    "oneOf": [
+                        { 
+                            "type": "object" 
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "disabled": {
-                    "type": "null"
+                    "oneOf": [
+                        {
+                            "type": "object"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "enabled": {
-                    "type": "null"
+                    "oneOf": [
+                        {
+                            "type": "object"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "localNode": {
-                    "type": "null"
+                    "oneOf": [
+                        {
+                            "type": "object"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 }
             },
-            "required": [
-                "dElevation"
-            ],
-            "type": [
-                "object",
-                "null"
-            ]
+            "type": "object"
         },
         "J2735NodeOffsetPointXY": {
             "oneOf": [
@@ -1311,7 +1410,9 @@
                             "type": "null"
                         }
                     },
-                    "required": [ "crosswalk" ],
+                    "required": [
+                        "crosswalk"
+                    ],
                     "type": "object",
                     "additionalProperties": false
                 },
@@ -1375,7 +1476,9 @@
                             "type": "null"
                         }
                     },
-                    "required": [ "parking" ],
+                    "required": [
+                        "parking"
+                    ],
                     "type": "object",
                     "additionalProperties": false
                 },
@@ -1406,7 +1509,9 @@
                             "type": "null"
                         }
                     },
-                    "required": [ "sidewalk" ],
+                    "required": [
+                        "sidewalk"
+                    ],
                     "type": "object",
                     "additionalProperties": false
                 },
@@ -1437,7 +1542,9 @@
                             "type": "null"
                         }
                     },
-                    "required": [ "striping" ],
+                    "required": [
+                        "striping"
+                    ],
                     "type": "object",
                     "additionalProperties": false
                 },
@@ -1468,7 +1575,9 @@
                             "type": "null"
                         }
                     },
-                    "required": [ "trackedVehicle" ],
+                    "required": [
+                        "trackedVehicle"
+                    ],
                     "type": "object",
                     "additionalProperties": false
                 },
@@ -1499,7 +1608,9 @@
                             "type": "null"
                         }
                     },
-                    "required": [ "vehicle" ],
+                    "required": [
+                        "vehicle"
+                    ],
                     "type": "object",
                     "additionalProperties": false
                 }
@@ -1633,7 +1744,7 @@
                 "rfSignalRequestPresent",
                 "unsignalizedSegmentsPresent"
             ],
-            "type":  "object"
+            "type": "object"
         },
         "J2735LaneAttributes-Bike": {
             "properties": {

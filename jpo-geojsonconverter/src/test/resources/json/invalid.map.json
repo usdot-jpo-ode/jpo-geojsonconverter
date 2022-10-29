@@ -854,7 +854,7 @@
 									"overlays": null
 								},
 								{
-									"laneID": 6,
+									"laneID": 6000,
 									"name": null,
 									"ingressApproach": null,
 									"egressApproach": 2,
@@ -2290,8 +2290,8 @@
 														"nodeXY4": null,
 														"nodeXY5": null,
 														"nodeXY6": {
-															"x": -2337,
-															"y": -656
+															"x": -2337999999999,
+															"y": 6569999999999
 														},
 														"nodeLatLon": null
 													},
@@ -2300,8 +2300,8 @@
 														"disabled": null,
 														"enabled": null,
 														"data": null,
-														"dWidth": null,
-														"dElevation": 10
+														"dWidth": 10000000000,
+														"dElevation": 109999999999
 													}
 												},
 												{
@@ -2322,7 +2322,7 @@
 														"disabled": null,
 														"enabled": null,
 														"data": null,
-														"dWidth": null,
+														"dWidth": 10,
 														"dElevation": 50
 													}
 												},

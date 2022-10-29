@@ -493,7 +493,12 @@
             "type": "integer",
             "minimum": 0,
             "maximum": 36001,
-            "description": "Tenths of a second in the the hour"
+            "description": "Tenths of a second in the the hour",
+            "message": {
+                "type": "DE_TimeMark is missing",
+                "minimum": "DE_TimeMark is negative",
+                "maximum": "DE_TimeMark > 36001"
+            }
         },
         "J2735AdvisorySpeedList": {
             "type": "object",

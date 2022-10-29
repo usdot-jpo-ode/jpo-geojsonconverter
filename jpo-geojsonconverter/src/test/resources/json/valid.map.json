@@ -1200,7 +1200,7 @@
 														"disabled": null,
 														"enabled": null,
 														"data": null,
-														"dWidth": null,
+														"dWidth": 10,
 														"dElevation": -10
 													}
 												},
@@ -1640,7 +1640,7 @@
 														"disabled": null,
 														"enabled": null,
 														"data": null,
-														"dWidth": null,
+														"dWidth": 10,
 														"dElevation": 10
 													}
 												},
