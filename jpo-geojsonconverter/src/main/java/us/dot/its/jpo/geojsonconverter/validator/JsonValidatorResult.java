@@ -1,17 +1,10 @@
 package us.dot.its.jpo.geojsonconverter.validator;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Formatter;
 import java.util.List;
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
 
-import com.jayway.jsonpath.Configuration;
-import com.jayway.jsonpath.JsonPath;
-import com.jayway.jsonpath.spi.json.JacksonJsonProvider;
-import com.jayway.jsonpath.spi.mapper.JacksonMappingProvider;
-import com.networknt.schema.I18nSupport;
 import com.networknt.schema.ValidationMessage;
 
 public class JsonValidatorResult {
