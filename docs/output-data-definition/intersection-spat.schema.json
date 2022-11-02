@@ -1,0 +1,63 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "$id": "https://example.com/intersection-spat.schema.json",
+    "type": "object",
+    "properties": {
+        "messageType": {
+            "type": "string",
+            "const": "SPAT"
+        },
+        "odeReceivedAt": {
+            "type": "date-time"
+        },
+        "originIp": {
+            "oneOf": [
+                { "type": "ipv4" },
+                { "type": "ipv6" }
+            ]
+        },
+        "name": {
+            "$ref": "#/$defs/J2735DescriptiveName"
+        },
+        "region": {
+            "$ref": "#/$defs/J2735RoadRegulatorID"
+        },
+        "intersectionId": {
+            "$ref": "#/$defs/J2735IntersectionID"
+        },
+        "cti4501Conformant": {
+            "type": "boolean"
+        },
+        "validationMessages": {
+            "type": "array"
+        }
+    },
+    "required": [
+        "messageType",
+        "odeReceivedAt",
+        "originIp",
+        "region",
+        "intersectionId",
+        "cti4501Conformant"
+    ],
+    "$defs": {
+        "J2735DescriptiveName": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 63,
+            "description": "Optional name for debugging, may be null"
+        },
+        "J2735RoadRegulatorID": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 65535,
+            "description": "DE_RoadRegulatorID"
+        },
+        "J2735IntersectionID": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 65535,
+            "description": "DE_IntersectionID"
+        }
+    }
+}

@@ -1,0 +1,52 @@
+{
+    "messageType": "SPAT",
+    "odeReceivedAt": "2022-10-31T15:40:26.687292Z",
+    "originIp": "172.19.0.1",
+    "name": null,
+    "region": null,
+    "intersectionId": 12111,
+    "valid":true,
+    "validationMessages":[
+        { },
+        { }
+    ],
+    "revision": 0,
+    "status": {
+        "manualControlIsEnabled": true,
+        "stopTimeIsActivated": false,
+        "failureFlash": false,
+        "preemptIsActive": false,
+        "signalPriorityIsActive": false,
+        "fixedTimeOperation": false,
+        "trafficDependentOperation": false,
+        "standbyOperation": false,
+        "failureMode": false,
+        "off": false,
+        "recentMAPmessageUpdate": false,
+        "recentChangeInMAPassignedLanesIDsUsed": false,
+        "noValidMAPisAvailableAtThisTime": false,
+        "noValidSPATisAvailableAtThisTime": false
+    },
+    "utcTimeStamp": "2022-10-31T15:40:26.687292Z",
+    "enabledLanes": [ 1, 2, 3],
+    "states":[
+        {
+            "movementName": null,
+            "signalGroup": 2,
+            "stateTimeSpeed": [  
+                {
+                    "eventState": "PROTECTED_MOVEMENT_ALLOWED",
+                    "timing": {
+                        "startTime": null,
+                        "minEndTime": "2022-10-31T15:40:26.687292Z", 
+                        "maxEndTime": "2022-10-31T15:40:26.687292Z",
+                        "likelyTime": null,
+                        "confidence": null,
+                        "nextTime": null
+                    },
+                    "speeds": null
+                }
+            ]
+        }
+    ]
+}

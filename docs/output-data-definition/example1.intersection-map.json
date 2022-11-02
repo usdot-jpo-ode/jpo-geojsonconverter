@@ -1,0 +1,95 @@
+{
+    
+    "type": "FeatureCollection",
+    "features": [
+        { 
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        -105.09115232580189,
+                        39.59533762007272,
+                        5000  
+                    ] 
+                ]
+            },
+            "properties": {
+                "nodes": [
+                    {
+                        "delta": [ 1234, 5678 ],
+                        "dWidth": 5,  
+                        "dElevation": -10,   
+                        "stopLine": true  
+                    }
+                ],
+                                    
+                "messageType": "MAP",
+                "odeReceivedAt": "2022-10-31T15:40:26.687292Z",
+                "originIp": "172.19.0.1",
+                "intersectionName": null,  
+                "region": null,  
+                "intersectionId": 12110,
+                "refPoint": {
+                    "latitude": 39.5952649,
+                    "longitude": -105.0914122,
+                    "elevation": 1677
+                },
+                "CIGuideConformant": true,
+                "valid": true,
+                "validationMessages": [
+			{ },
+                    { }
+                ],
+                "laneWidth": 366,
+                "speedLimits": null,
+                "mapSource": "RSU",
+                "timeStamp": 35176, 
+
+                "laneID": 2,
+                "laneName": null,  
+                "egressApproach": 0,
+                "ingressApproach": 1,
+                "ingressPath": true,
+                "egressPath": false,
+                "maneuvers": {
+                    "maneuverStraightAllowed": true,
+                    "maneuverNoStoppingAllowed": false,
+                    "goWithHalt": false,
+                    "maneuverLeftAllowed": false,
+                    "maneuverUTurnAllowed": false,
+                    "maneuverLeftTurnOnRedAllowed": false,
+                    "reserved1": false,
+                    "maneuverRightAllowed": false,
+                    "maneuverLaneChangeAllowed": false,
+                    "yieldAllwaysRequired": false,
+                    "maneuverRightTurnOnRedAllowed": false,
+                    "caution": false
+                },
+                "connectsTo": [
+                    {
+                        "lane":19,
+                        "maneuver": {
+                            "maneuverStraightAllowed": true,
+                            "maneuverNoStoppingAllowed": false,
+                            "goWithHalt": false,
+                            "maneuverLeftAllowed": false,
+                            "maneuverUTurnAllowed": false,
+                            "maneuverLeftTurnOnRedAllowed": false,
+                            "reserved1": false,
+                            "maneuverRightAllowed": false,
+                            "maneuverLaneChangeAllowed": false,
+                            "yieldAllwaysRequired": false,
+                            "maneuverRightTurnOnRedAllowed": false,
+                            "caution": false
+                        },
+                        "remoteIntersection": null,
+                        "signalGroup": 4,
+                        "userClass": null,
+                        "connectionID": 1
+                    }
+                ]
+            }
+        }
+    ]
+}
