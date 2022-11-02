@@ -1,0 +1,654 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "$id": "https://example.com/spat.schema.json",
+    "type": "object",
+    "properties": {
+        "metadata": {
+            "$ref": "#/$defs/OdeSpatMetadata"
+        },
+        "payload": {
+            "$ref": "#/$defs/OdeSpatPayload"
+        }
+    },
+    "required": [
+        "metadata",
+        "payload"
+    ],
+    "$defs": {
+        "OdeSpatMetadata": {
+            "type": "object",
+            "properties": {
+                "spatSource": {
+                    "enum": [
+                        "RSU",
+                        "V2X",
+                        "MMITSS",
+                        "unknown"
+                    ]
+                },
+                "isCertPresent": {
+                    "type": "boolean"
+                },
+                "originIp": {
+                    "type": "string"
+                },
+                "logFileName": {
+                    "type": "string"
+                },
+                "recordType": {
+                    "type": "string",
+                    "const": "spatTx"
+                },
+                "securityResultCode": {
+                    "type": "string"
+                },
+                "receivedMessageDetails": {
+                    "type": "object",
+                    "properties": {
+                        "locationData": {
+                            "type": "null"
+                        },
+                        "rxSource": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "locationData",
+                        "rxSource"
+                    ]
+                },
+                "encodings": {
+                    "type": "null"
+                },
+                "payloadType": {
+                    "type": "string",
+                    "const": "us.dot.its.jpo.ode.model.OdeSpatPayload"
+                },
+                "serialId": {
+                    "type": "object",
+                    "properties": {
+                        "streamId": {
+                            "type": "string"
+                        },
+                        "bundleSize": {
+                            "type": "integer"
+                        },
+                        "bundleId": {
+                            "type": "integer"
+                        },
+                        "recordId": {
+                            "type": "integer"
+                        },
+                        "serialNumber": {
+                            "type": "integer"
+                        }
+                    },
+                    "required": [
+                        "streamId",
+                        "bundleSize",
+                        "bundleId",
+                        "recordId",
+                        "serialNumber"
+                    ]
+                },
+                "odeReceivedAt": {
+                    "type": "string"
+                },
+                "schemaVersion": {
+                    "type": "integer"
+                },
+                "maxDurationTime": {
+                    "type": "integer"
+                },
+                "odePacketID": {
+                    "type": "string"
+                },
+                "odeTimStartDateTime": {
+                    "type": "string"
+                },
+                "recordGeneratedAt": {
+                    "type": "string"
+                },
+                "recordGeneratedBy": {
+                    "type": "null"
+                },
+                "sanitized": {
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "spatSource",
+                "isCertPresent",
+                "originIp",
+                "logFileName",
+                "recordType",
+                "securityResultCode",
+                "receivedMessageDetails",
+                "encodings",
+                "payloadType",
+                "serialId",
+                "odeReceivedAt",
+                "schemaVersion",
+                "maxDurationTime",
+                "odePacketID",
+                "odeTimStartDateTime",
+                "recordGeneratedAt",
+                "recordGeneratedBy",
+                "sanitized"
+            ],
+            "additionalProperties": false
+        },
+        "OdeSpatPayload": {
+            "type": "object",
+            "properties": {
+                "dataType": {
+                    "type": "string",
+                    "const": "us.dot.its.jpo.ode.plugin.j2735.J2735SPAT"
+                },
+                "data": {
+                    "$ref": "#/$defs/J2735SPAT"
+                }
+            },
+            "required": [
+                "dataType",
+                "data"
+            ],
+            "additionalProperties": false
+        },
+        "J2735SPAT": {
+            "type": "object",
+            "properties": {
+                "timeStamp": {
+                    "$ref": "#/$defs/J2735MinuteOfTheYear",
+                    "description": "J2735 MinuteOfTheYear. Optional per SAE J2735, but mandatory per CI Implementation Guide CTI 4501 v1.00"
+                },
+                "name": {
+                    "oneOf": [
+                        {
+                            "$ref": "#/$defs/J2735DescriptiveName"
+                        },
+                        { "type": "null"}
+                    ]
+                },
+                "intersectionStateList": {
+                    "$ref": "#/$defs/J2735IntersectionStateList"
+                }
+            },
+            "required": [
+                "timeStamp",
+                "intersectionStateList"
+            ]
+        },
+        "J2735IntersectionStateList": {
+            "type": "object",
+            "properties": {
+                "intersectionStatelist": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/J2735IntersectionState"
+                    },
+                    "minItems": 1,
+                    "maxItems": 32
+                }
+            },
+            "required": [
+                "intersectionStatelist"
+            ],
+            "additionalProperties": false
+        },
+        "J2735IntersectionState": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "oneOf": [
+                        {
+                            "$ref": "#/$defs/J2735DescriptiveName"
+                        },
+                        { "type": "null" }
+                    ]
+                },
+                "id": {
+                    "$ref": "#/$defs/J2735IntersectionReferenceID"
+                },
+                "revision": {
+                    "$ref": "#/$defs/J2735MsgCount"
+                },
+                "status": {
+                    "$ref": "#/$defs/J2735IntersectionStatusObject"
+                },
+                "moy": {
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "description": "J2735 MinuteOfTheYear. Optional.",
+                    "minimum": 0,
+                    "maximum": 527040
+                },
+                "timeStamp": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 65535,
+                    "description": "DE_DSecond. Milliseconds in minute. Optional in J2735, but mandatory in CI Implementation Guide."
+                },
+                "enabledLanes": {
+                    "oneOf": [
+                        {
+                            "$ref": "#/$defs/J2735EnabledLaneList"
+                        },
+                        { "type": "null" }
+                    ],
+                    "description": "CI Implementation Guide: Conditionally required if a revocable lane is active (enabled) in the corresponding MAP.  Optional in J2735."
+                },
+                "states": {
+                    "$ref": "#/$defs/J2735MovementList"
+                },
+                "maneuverAssistList": {
+                    "type": "null"
+                }
+            },
+            "required": [
+                "id",
+                "revision",
+                "status",
+                "timeStamp",
+                "states"
+            ]
+        },
+        "J2735IntersectionStatusObject": {
+            "type": "object",
+            "properties": {
+                "manualControlIsEnabled": {
+                    "type": "boolean"
+                },
+                "stopTimeIsActivated": {
+                    "type": "boolean"
+                },
+                "failureFlash": {
+                    "type": "boolean"
+                },
+                "preemptIsActive": {
+                    "type": "boolean"
+                },
+                "signalPriorityIsActive": {
+                    "type": "boolean"
+                },
+                "fixedTimeOperation": {
+                    "type": "boolean"
+                },
+                "trafficDependentOperation": {
+                    "type": "boolean"
+                },
+                "standbyOperation": {
+                    "type": "boolean"
+                },
+                "failureMode": {
+                    "type": "boolean"
+                },
+                "off": {
+                    "type": "boolean"
+                },
+                "recentMAPmessageUpdate": {
+                    "type": "boolean"
+                },
+                "recentChangeInMAPassignedLanesIDsUsed": {
+                    "type": "boolean"
+                },
+                "noValidMAPisAvailableAtThisTime": {
+                    "type": "boolean"
+                },
+                "noValidSPATisAvailableAtThisTime": {
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "manualControlIsEnabled",
+                "stopTimeIsActivated",
+                "failureFlash",
+                "preemptIsActive",
+                "signalPriorityIsActive",
+                "fixedTimeOperation",
+                "trafficDependentOperation",
+                "standbyOperation",
+                "failureMode",
+                "off",
+                "recentMAPmessageUpdate",
+                "recentChangeInMAPassignedLanesIDsUsed",
+                "noValidMAPisAvailableAtThisTime",
+                "noValidSPATisAvailableAtThisTime"
+            ],
+            "additionalProperties": false
+        },
+        "J2735EnabledLaneList": {
+            "type": "object",
+            "properties": {
+                "enabledLaneList": {
+                    "type": "array",
+                    "minItems": 1,
+                    "maxItems": 16,
+                    "items": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 255,
+                        "description": "J2735 DE_LaneId"
+                    }
+                }
+            },
+            "required": [
+                "enabledLaneList"
+            ],
+            "additionalProperties": false
+        },
+        "J2735MovementList": {
+            "type": "object",
+            "properties": {
+                "movementList": {
+                    "type": "array",
+                    "minItems": 1,
+                    "maxItems": 255,
+                    "items": {
+                        "$ref": "#/$defs/J2735MovementState"
+                    }
+                }
+            },
+            "required": [
+                "movementList"
+            ],
+            "additionalProperties": false
+        },
+        "J2735MovementState": {
+            "type": "object",
+            "properties": {
+                "movementName": {
+                    "oneOf": [
+                        {
+                            "$ref": "#/$defs/J2735DescriptiveName"
+                        },
+                        { "type": "null" }
+                    ]
+                },
+                "signalGroup": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 255,
+                    "description": "DE_SignalGroupID"
+                },
+                "state_time_speed": {
+                    "$ref": "#/$defs/J2735MovementEventList"
+                },
+                "maneuverAssistList": {
+                    "type": "null"
+                }
+            },
+            "required": [
+                "signalGroup",
+                "state_time_speed"
+            ]
+        },
+        "J2735MovementEventList": {
+            "type": "object",
+            "properties": {
+                "movementEventList": {
+                    "type": "array",
+                    "minItems": 1,
+                    "maxItems": 16,
+                    "items": {
+                        "$ref": "#/$defs/J2735MovementEvent"
+                    }
+                }
+            },
+            "required": [
+                "movementEventList"
+            ],
+            "additionalProperties": false
+        },
+        "J2735MovementEvent": {
+            "type": "object",
+            "properties": {
+                "eventState": {
+                    "$ref": "#/$defs/J2735MovementPhaseState"
+                },
+                "timing": {
+                    "$ref": "#/$defs/J2735TimeChangeDetails",
+                    "description": "Optional in J2735, but mandatory in CI Implementation Guide"
+                },
+                "speeds": {
+                    "oneOf": [
+                        {
+                            "$ref": "#/$defs/J2735AdvisorySpeedList"
+                        },
+                        { "type": "null" }
+                    ]
+                }
+            },
+            "required": [
+                "eventState",
+                "timing"
+            ]
+        },
+        "J2735MovementPhaseState": {
+            "type": "string",
+            "enum": [
+                "UNAVAILABLE",
+                "DARK",
+                "STOP_THEN_PROCEED",
+                "STOP_AND_REMAIN",
+                "PRE_MOVEMENT",
+                "PERMISSIVE_MOVEMENT_ALLOWED",
+                "PROTECTED_MOVEMENT_ALLOWED",
+                "PERMISSIVE_CLEARANCE",
+                "PROTECTED_CLEARANCE",
+                "CAUTION_CONFLICTING_TRAFFIC"
+            ]
+        },
+        "J2735TimeChangeDetails": {
+            "type": "object",
+            "properties": {
+                "startTime": {
+                    "$ref": "#/$defs/J2735TimeMark",
+                    "description": "Optional in J2735, but mandatory in CI Implementation Guide"
+                },
+                "minEndTime": {
+                    "$ref": "#/$defs/J2735TimeMark",
+                    "description": "Mandatory"
+                },
+                "maxEndTime": {
+                    "$ref": "#/$defs/J2735TimeMark",
+                    "description": "Optional in J2735, but mandatory in CI Implementation Guide"
+                },
+                "likelyTime": {
+                    "oneOf": [
+                        {
+                            "$ref": "#/$defs/J2735TimeMark"
+                        },
+                        { "type": "null" }
+                    ],
+                    "description": "Optional"
+                },
+                "confidence": {
+                    "oneOf": [
+                        {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 15
+                        },
+                        { "type": "null" }
+                    ],
+                    "description": "DE_TimeIntervalConfidence. Optional."
+                },
+                "nextTime": {
+                    "$ref": "#/$defs/J2735TimeMark",
+                    "description": "Optional in J2735, but mandatory in CI Implementation Guide"
+                }
+            },
+            "required": [
+                "startTime",
+                "minEndTime",
+                "maxEndTime",
+                "nextTime"
+            ],
+            "additionalProperties": false
+        },
+        "J2735TimeMark": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 36001,
+            "description": "Tenths of a second in the the hour",
+            "message": {
+                "type": "DE_TimeMark is missing",
+                "minimum": "DE_TimeMark is negative",
+                "maximum": "DE_TimeMark > 36001"
+            }
+        },
+        "J2735AdvisorySpeedList": {
+            "type": "object",
+            "properties": {
+                "advisorySpeedList": {
+                    "type": "array",
+                    "minItems": 1,
+                    "maxItems": 16,
+                    "items": {
+                        "$ref": "#/$defs/J2735AdvisorySpeed"
+                    }
+                }
+            },
+            "required": [
+                "advisorySpeedList"
+            ],
+            "additionalProperties": false
+        },
+        "J2735AdvisorySpeed": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "enum": [
+                        "NONE",
+                        "GREENWAVE",
+                        "ECODRIVE",
+                        "TRANSIT"
+                    ],
+                    "description": "DE_AdvisorySpeedType"
+                },
+                "speed": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 500,
+                    "description": "DE_SpeedAdvice"
+                },
+                "confidence": {
+                    "type": "string",
+                    "enum": [
+                        "UNAVAILABLE",
+                        "PREC100MS",
+                        "PREC10MS",
+                        "PREC5MS",
+                        "PREC1MS",
+                        "PREC0_1MS",
+                        "PREC0_05MS",
+                        "PREC0_01MS"
+                    ],
+                    "description": "DE_SpeedConfidence"
+                },
+                "distance": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 10000,
+                    "description": "DE_ZoneLength"
+                },
+                "classId": {
+                    "$ref": "#/$defs/J2735RestrictionClassID"
+                }
+            },
+            "required": [
+                "type"
+            ]
+        },
+        "J2735LaneID": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 255,
+            "description": "DE_LaneID"
+        },
+        "J2735SignalGroupID": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 255,
+            "description": "DE_SignalGroupID"
+        },
+        "J2735MsgCount": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 127,
+            "description": "DE_MsgCount"
+        },
+        "J2735DescriptiveName": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 63,
+            "description": "Optional name for debugging, may be null"
+        },
+        "J2735IntersectionReferenceID": {
+            "type": "object",
+            "properties": {
+                "region": {
+                    "$ref": "#/$defs/J2735RoadRegulatorID",
+                    "description": "Optional in J2735, but mandatory in CI Implementation Guide."
+                },
+                "id": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 65535,
+                    "description": "DE_IntersectionID"
+                }
+            },
+            "required": [
+                "region",
+                "id"
+            ],
+            "additionalProperties": false
+        },
+        "J2735RoadRegulatorID": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 65535,
+            "description": "DE_RoadRegulatorID"
+        },
+        "J2735RestrictionClassID": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 255,
+            "description": "DE_RestrictionClassID"
+        },
+        "J2735MinuteOfTheYear": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 527040,
+            "description": "DE_MinuteOfTheYear"
+        },
+        "OdePosition3D": {
+            "title": "us.dot.its.jpo.ode.plugin.J2735.OdePosition3D",
+            "description": "This structure is obtained from a J2735 Position3D data structure converted into conventional lon/lat decimal coordinates.",
+            "properties": {
+                "elevation": {
+                    "type": "number",
+                    "description": "Elevation in meters. Mandatory in the CI Implementation Guide.  Optional in J2735."
+                },
+                "latitude": {
+                    "type": "number",
+                    "description": "Latitude in degrees"
+                },
+                "longitude": {
+                    "type": "number",
+                    "description": "Longitude in degrees"
+                }
+            },
+            "required": [
+                "elevation",
+                "latitude",
+                "longitude"
+            ],
+            "type": "object"
+        }
+    }
+}
