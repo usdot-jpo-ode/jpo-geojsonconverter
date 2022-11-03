@@ -2,6 +2,7 @@
     "$schema": "https://json-schema.org/draft/2019-09/schema",
     "$id": "https://example.com/intersection-spat.schema.json",
     "type": "object",
+    "description": "Feature collection for a MAP for one intersection",
     "properties": {
         "type": {
             "type": "string",
@@ -11,7 +12,7 @@
             "type": "array",
             "minItems": 1,
             "items": {
-                "$ref": "#/$defs/IntersectionSpatFeature"
+                "$ref": "#/$defs/MapFeature"
             }
         }
     },
@@ -21,8 +22,9 @@
     ],
     "additionalProperties": false,
     "$defs": {
-        "IntersectionSpatFeature": {
+        "MapFeature": {
             "type": "object",
+            "description": "Feature for one lane of an intersection",
             "properties": {
                 "type": {
                     "type": "string",
@@ -195,7 +197,7 @@
         "items": {
 
         },
-        
+
     },
     "Connection": {
 
