@@ -56,7 +56,8 @@
                     "type": "array",
                     "items": {
                         "$ref": "#/$defs/Coordinate"
-                    }
+                    },
+                    "minItems": 2
                 }
             },
             "required": [
