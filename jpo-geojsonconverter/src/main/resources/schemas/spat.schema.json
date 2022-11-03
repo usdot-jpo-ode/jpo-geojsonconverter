@@ -234,14 +234,14 @@
                 "enabledLanes": {
                     "oneOf": [
                         {
-                            "$ref": "#/$defs/J2735EnabledLaneList"
+                            "$ref": "#/$defs/J2735EnabledLaneList_Wrapper"
                         },
                         { "type": "null" }
                     ],
                     "description": "CI Implementation Guide: Conditionally required if a revocable lane is active (enabled) in the corresponding MAP.  Optional in J2735."
                 },
                 "states": {
-                    "$ref": "#/$defs/J2735MovementList"
+                    "$ref": "#/$defs/J2735MovementList_Wrapper"
                 },
                 "maneuverAssistList": {
                     "type": "null"
@@ -319,19 +319,11 @@
             ],
             "additionalProperties": false
         },
-        "J2735EnabledLaneList": {
+        "J2735EnabledLaneList_Wrapper": {
             "type": "object",
             "properties": {
                 "enabledLaneList": {
-                    "type": "array",
-                    "minItems": 1,
-                    "maxItems": 16,
-                    "items": {
-                        "type": "integer",
-                        "minimum": 0,
-                        "maximum": 255,
-                        "description": "J2735 DE_LaneId"
-                    }
+                    "$ref": "#/$defs/J2735EnabledLaneList"
                 }
             },
             "required": [
@@ -339,22 +331,36 @@
             ],
             "additionalProperties": false
         },
-        "J2735MovementList": {
+        "J2735EnabledLaneList": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 16,
+            "items": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 255,
+                "description": "J2735 DE_LaneId"
+            }
+        },
+        "J2735MovementList_Wrapper": {
             "type": "object",
             "properties": {
                 "movementList": {
-                    "type": "array",
-                    "minItems": 1,
-                    "maxItems": 255,
-                    "items": {
-                        "$ref": "#/$defs/J2735MovementState"
-                    }
+                    "$ref": "#/$defs/J2735MovementList"
                 }
             },
             "required": [
                 "movementList"
             ],
             "additionalProperties": false
+        },
+        "J2735MovementList": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 255,
+            "items": {
+                "$ref": "#/$defs/J2735MovementState"
+            }
         },
         "J2735MovementState": {
             "type": "object",
@@ -374,7 +380,7 @@
                     "description": "DE_SignalGroupID"
                 },
                 "state_time_speed": {
-                    "$ref": "#/$defs/J2735MovementEventList"
+                    "$ref": "#/$defs/J2735MovementEventList_Wrapper"
                 },
                 "maneuverAssistList": {
                     "type": "null"
@@ -385,22 +391,25 @@
                 "state_time_speed"
             ]
         },
-        "J2735MovementEventList": {
+        "J2735MovementEventList_Wrapper": {
             "type": "object",
             "properties": {
                 "movementEventList": {
-                    "type": "array",
-                    "minItems": 1,
-                    "maxItems": 16,
-                    "items": {
-                        "$ref": "#/$defs/J2735MovementEvent"
-                    }
+                    "$ref": "#/$defs/J2735MovementEventList"
                 }
             },
             "required": [
                 "movementEventList"
             ],
             "additionalProperties": false
+        },
+        "J2735MovementEventList": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 16,
+            "items": {
+                "$ref": "#/$defs/J2735MovementEvent"
+            }
         },
         "J2735MovementEvent": {
             "type": "object",
@@ -596,10 +605,7 @@
                     "description": "Optional in J2735, but mandatory in CI Implementation Guide."
                 },
                 "id": {
-                    "type": "integer",
-                    "minimum": 0,
-                    "maximum": 65535,
-                    "description": "DE_IntersectionID"
+                    "$ref": "#/$defs/J2735IntersectionID"
                 }
             },
             "required": [
@@ -607,6 +613,12 @@
                 "id"
             ],
             "additionalProperties": false
+        },
+        "J2735IntersectionID": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 65535,
+            "description": "DE_IntersectionID"
         },
         "J2735RoadRegulatorID": {
             "type": "integer",

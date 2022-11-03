@@ -3,19 +3,19 @@
 	"json.schemas": [
         {
             "fileMatch": [ "/*.map.json" ],
-            "url": "./jpo-geojsonconverter/src/resources/map.schema.json"
+            "url": "./jpo-geojsonconverter/src/main/resources/schemas/map.schema.json"
         },
         {
             "fileMatch": [ "/*.spat.json" ],
-            "url": "./jpo-geojsonconverter/src/resources/spat.schema.json"
+            "url": "./jpo-geojsonconverter/src/main/resources/schemas/spat.schema.json"
         },
 		{
 			"fileMatch": [ "**/*.intersection-map.json" ],
-			"url": "./docs/output-data-definition/intersection-map.schema.json"
+			"url": "./jpo-geojsonconverter/src/main/resources/schemas/intersection-map.schema.json"
 		},
 		{
 			"fileMatch": [ "**/*.intersection-spat.json" ],
-			"url": "./docs/output-data-definition/intersection-spat.schema.json"
+			"url": "./jpo-geojsonconverter/src/main/resources/schemas/intersection-spat.schema.json"
 		}
     ]
 }
