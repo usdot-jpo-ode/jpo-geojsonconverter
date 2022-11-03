@@ -1976,10 +1976,7 @@
                     "description": "Optional in J2735, but mandatory in CI Implementation Guide."
                 },
                 "id": {
-                    "type": "integer",
-                    "minimum": 0,
-                    "maximum": 65535,
-                    "description": "DE_IntersectionID"
+                    "$ref": "#/$defs/J2735IntersectionID"
                 }
             },
             "required": [
@@ -1987,6 +1984,12 @@
                 "id"
             ],
             "additionalProperties": false
+        },
+        "J2735IntersectionID": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 65535,
+            "description": "DE_IntersectionID"
         },
         "J2735RoadRegulatorID": {
             "type": "integer",

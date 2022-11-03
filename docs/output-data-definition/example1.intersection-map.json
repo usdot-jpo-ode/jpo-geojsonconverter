@@ -28,26 +28,29 @@
                 "odeReceivedAt": "2022-10-31T15:40:26.687292Z",
                 "originIp": "172.19.0.1",
                 "intersectionName": null,  
-                "region": null,  
+                "region": 0,  
                 "intersectionId": 12110,
+                "msgIssueRevision": 1,
+                "revision": 1,
                 "refPoint": {
                     "latitude": 39.5952649,
                     "longitude": -105.0914122,
                     "elevation": 1677
                 },
-                "CIGuideConformant": true,
-                "valid": true,
+                "cti4501Conformant": true,
                 "validationMessages": [
-			{ },
-                    { }
+			        { "message": "validation message" },
+                    { "message": "validation message" }
                 ],
                 "laneWidth": 366,
                 "speedLimits": null,
                 "mapSource": "RSU",
                 "timeStamp": 35176, 
 
-                "laneID": 2,
+                "laneId": 2,
                 "laneName": null,  
+                "laneType": null,
+                "sharedWith": null,
                 "egressApproach": 0,
                 "ingressApproach": 1,
                 "ingressPath": true,

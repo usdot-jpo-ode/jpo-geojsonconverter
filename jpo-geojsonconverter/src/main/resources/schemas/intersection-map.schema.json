@@ -1,0 +1,203 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "$id": "https://example.com/intersection-spat.schema.json",
+    "type": "object",
+    "properties": {
+        "type": {
+            "type": "string",
+            "const": "FeatureCollection"
+        },
+        "features": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+                "$ref": "#/$defs/IntersectionSpatFeature"
+            }
+        }
+    },
+    "required": [
+        "type",
+        "features"
+    ],
+    "additionalProperties": false,
+    "$defs": {
+        "IntersectionSpatFeature": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "const": "Feature"
+                },
+                "properties": {
+                    "$ref": "#/$defs/MapProperties",
+                    "description": "Intersection and Lane properties"
+                },
+                "geometry": {
+                    "$ref": "#/$defs/LineStringGeometry"
+                }
+            },
+            "required": [
+                "type",
+                "properties",
+                "geometry"
+            ],
+            "additionalProperties": false
+        },
+        "LineStringGeometry": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "const": "LineString"
+                },
+                "coordinates": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/Coordinate"
+                    }
+                }
+            },
+            "required": [
+                "type",
+                "coordinates"
+            ],
+            "additionalProperties": false
+        },
+        "Coordinate": {
+            "type": "array",
+            "items": "number",
+            "minItems": 2,
+            "maxItems": 3,
+            "description": "Lon/Lat coordinate with optional elevation"
+        },
+        "MapProperties": {
+            "type": "object",
+            "properties": {
+                "messageType": {
+                    "type": "string",
+                    "const": "MAP"
+                },
+                "nodes": {
+                    "type": "array"
+                },
+                "odeReceivedAt": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "originIp": {
+                    "$ref": "intersection-common.schema.json#/$defs/IPAddress"
+                },
+                "intersectionName": {
+                    "oneOf": [
+                        { "$ref": "map.schema.json#/$defs/J2735DescriptiveName" },
+                        { "type": "null" }
+                    ]
+                },
+                "region": {
+                    "$ref": "map.schema.json#/$defs/J2735RoadRegulatorID"
+                },
+                "intersectionId": {
+                    "$ref": "map.schema.json#/$defs/J2735IntersectionID"
+                },
+                "msgIssueRevision": {
+                    "$ref": "map.schema.json#/$defs/J2735MsgCount",
+                    "description": "DE_MsgCount for MAP"
+                },
+                "revision": {
+                    "$ref": "map.schema.json#/$defs/J2735MsgCount",
+                    "description": "DE_MsgCount for intersection"
+                },
+                "refPoint": {
+                    "$ref": "map.schema.json#/$defs/OdePosition3D"
+                },
+                "cti4501Conformant": {
+                    "type": "boolean"
+                },
+                "validationMessages": {
+                    "$ref": "intersection-common.schema.json#/$defs/ValidationMessageList"
+                },
+                "laneWidth": {
+                    "type": "number"
+                },
+                "speedLimits": {
+                    "$ref": "map.schema.json#/$defs/J2735SpeedLimitList",
+                    "description": "DF_SpeedLimitList.  Mandatory in CI Implementation Guide.  Optional in J2735."
+                },
+                "mapSource": {
+                    "type": "string"
+                },
+                "timeStamp": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "laneName": {
+                    "oneOf": [
+                        { "$ref": "map.schema.json#/$defs/J2735DescriptiveName" },
+                        { "type": "null" }
+                    ]
+                },
+                "laneId": {
+                    "$ref": "map.schema.json#/$defs/J2735LaneID"
+                },
+                "laneType": {
+                    "$ref": "map.schema.json#/$defs/J2735LaneTypeAttributes"
+                },
+                "sharedWith": {
+                    "$ref": "map.schema.json#/$defs/J2735LaneSharing"
+                },
+                "egressApproach": {
+                    "$ref": "map.schema.json#/$defs/J2735ApproachID"
+                },
+                "ingressApproach": {
+                    "$ref": "map.schema.json#/$defs/J2735ApproachID"
+                },
+                "ingressPath": {
+                    "type": "boolean",
+                    "description": "From directionalUse=DE_LaneDirection"
+                },
+                "egressPath": {
+                    "type": "boolean",
+                    "description": "From directionalUse=DE_LaneDirection"
+                },
+                "maneuvers": {
+                    "$ref": "map.schema.json#/$defs/J2735AllowedManeuvers"
+                },
+                "connectsTo": {
+                    "$ref": "map.schema.json#/$defs/J2735ConnectsToList"
+                }
+            },
+            "required": [
+                "messageType",
+                "nodes",
+                "odeReceivedAt",
+                "originIp",
+                "region",
+                "intersectionId",
+                "revision",
+                "refPoint",
+                "cti4501Conformant",
+                "laneWidth",
+                "speedLimits",
+                "laneId",
+                "laneType",
+                "sharedWith",
+                "maneuvers",
+                "egressPath",
+                "ingressPath",
+                "connectsTo"
+                
+            ],
+            "additionalProperties": false
+        }
+    },
+    "ConnectsToList": {
+        "type": "array",
+        "items": {
+
+        },
+        
+    },
+    "Connection": {
+
+    }
+}
