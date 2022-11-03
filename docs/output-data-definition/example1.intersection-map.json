@@ -9,8 +9,7 @@
                 "coordinates": [
                     [
                         -105.09115232580189,
-                        39.59533762007272,
-                        5000  
+                        39.59533762007272
                     ] 
                 ]
             },
@@ -21,6 +20,9 @@
                         "dWidth": 5,  
                         "dElevation": -10,   
                         "stopLine": true  
+                    },
+                    {
+                        "delta": [ 1000, 5000 ]
                     }
                 ],
                                     
@@ -43,14 +45,45 @@
                     { "message": "validation message" }
                 ],
                 "laneWidth": 366,
-                "speedLimits": null,
+                "speedLimits": [
+                    {
+                        "speed": 500,
+                        "type": "maxSpeedInConstructionZone"
+                    },
+                    { 
+                        "speed": 1000,
+                        "type": "vehicleMaxSpeed"
+                    }
+                ],
                 "mapSource": "RSU",
-                "timeStamp": 35176, 
+                "timeStamp": "2022-10-31T15:40:26.687292Z", 
 
                 "laneId": 2,
                 "laneName": null,  
-                "laneType": null,
-                "sharedWith": null,
+                "laneType": {
+                    "vehicle": {
+                        "isVehicleRevocableLane": true,
+                        "hasIRbeaconCoverage": false,
+                        "hovLaneUseOnly": false,
+                        "isVehicleFlyOverLane": false,
+                        "permissionOnRequest": false,
+                        "restrictedFromPublicUse": false,
+                        "restrictedToBusUse": false,
+                        "restrictedToTaxiUse": false
+                    }
+                },
+                "sharedWith": {
+                    "busVehicleTraffic": true,
+                    "cyclistVehicleTraffic": true,
+                    "individualMotorizedVehicleTraffic": true,
+                    "multipleLanesTreatedAsOneLane": false,
+                    "otherNonMotorizedTrafficTypes": false,
+                    "overlappingLaneDescriptionProvided": false,
+                    "pedestrianTraffic": false,
+                    "pedestriansTraffic": false,
+                    "taxiVehicleTraffic": false,
+                    "trackedVehicleTraffic": false
+                },
                 "egressApproach": 0,
                 "ingressApproach": 1,
                 "ingressPath": true,
@@ -89,7 +122,7 @@
                         "remoteIntersection": null,
                         "signalGroup": 4,
                         "userClass": null,
-                        "connectionID": 1
+                        "connectionId": 1
                     }
                 ]
             }
