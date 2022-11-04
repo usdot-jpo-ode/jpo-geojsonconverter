@@ -1,0 +1,59 @@
+{
+    "messageType": "SPAT",
+    "odeReceivedAt": "2022-10-31T15:40:26.687292Z",
+    "originIp": "172.19.0.1",
+    "name": null,
+    "region": 0,
+    "intersectionId": 12111,
+    "cti4501Conformant": true,
+    "validationMessages":[
+        {
+            "message": "At path $.payload.data.intersectionStateList.intersectionStatelist[0].id.region: null found, integer expected (Schema: #/$defs/J2735RoadRegulatorID/type)",
+            "jsonPath": "$.payload.data.intersectionStateList.intersectionStatelist[0].id.region",
+            "schemaPath": "#/$defs/J2735RoadRegulatorID/type"
+         },
+        { 
+            "message": "Some java exception was thrown",
+            "exception": "java.lang.Exception: exception details..."
+        }
+    ],
+    "revision": 0,
+    "status": {
+        "manualControlIsEnabled": true,
+        "stopTimeIsActivated": false,
+        "failureFlash": false,
+        "preemptIsActive": false,
+        "signalPriorityIsActive": false,
+        "fixedTimeOperation": false,
+        "trafficDependentOperation": false,
+        "standbyOperation": false,
+        "failureMode": false,
+        "off": false,
+        "recentMAPmessageUpdate": false,
+        "recentChangeInMAPassignedLanesIDsUsed": false,
+        "noValidMAPisAvailableAtThisTime": false,
+        "noValidSPATisAvailableAtThisTime": false
+    },
+    "utcTimeStamp": "2022-10-31T15:40:26.687292Z",
+    "enabledLanes": [ 1, 2, 3],
+    "states":[
+        {
+            "movementName": null,
+            "signalGroup": 2,
+            "stateTimeSpeed": [  
+                {
+                    "eventState": "PROTECTED_MOVEMENT_ALLOWED",
+                    "timing": {
+                        "startTime": "2022-10-31T15:40:26.687292Z",
+                        "minEndTime": "2022-10-31T15:40:26.687292Z", 
+                        "maxEndTime": "2022-10-31T15:40:26.687292Z",
+                        "likelyTime": null,
+                        "confidence": null,
+                        "nextTime": "2022-10-31T15:40:26.687292Z"
+                    },
+                    "speeds": null
+                }
+            ]
+        }
+    ]
+}

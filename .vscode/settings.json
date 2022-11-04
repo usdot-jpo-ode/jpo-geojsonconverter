@@ -1,3 +1,21 @@
 {
-	"java.configuration.updateBuildConfiguration": "automatic"
+	"java.configuration.updateBuildConfiguration": "automatic",
+	"json.schemas": [
+        {
+            "fileMatch": [ "/*.map.json" ],
+            "url": "./jpo-geojsonconverter/src/main/resources/schemas/map.schema.json"
+        },
+        {
+            "fileMatch": [ "/*.spat.json" ],
+            "url": "./jpo-geojsonconverter/src/main/resources/schemas/spat.schema.json"
+        },
+		{
+			"fileMatch": [ "**/*.intersection-map.json" ],
+			"url": "./jpo-geojsonconverter/src/main/resources/schemas/intersection-map.schema.json"
+		},
+		{
+			"fileMatch": [ "**/*.intersection-spat.json" ],
+			"url": "./jpo-geojsonconverter/src/main/resources/schemas/intersection-spat.schema.json"
+		}
+    ]
 }

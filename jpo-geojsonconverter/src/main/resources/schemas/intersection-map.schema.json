@@ -1,0 +1,343 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "$id": "https://example.com/intersection-map.schema.json",
+    "type": "object",
+    "description": "MAP object containing both FeatureCollections for lane data and another for connecting lane geometry for a single intersection",
+    "properties": {
+        "mapFeatureCollection": {
+            "$ref": "#/$defs/MapFeatureCollection"
+        },
+        "connectingLanesFeatureCollection": {
+            "$ref": "#/$defs/ConnectingLanesFeatureCollection"
+        }
+    },
+    "required": [
+        "mapFeatureCollection",
+        "connectingLanesFeatureCollection"
+    ],
+    "additionalProperties": false,
+    "$defs": {
+        "MapFeatureCollection": {
+            "type": "object",
+            "description": "Feature collection for a MAP for one intersection",
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "const": "FeatureCollection"
+                },
+                "features": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                        "$ref": "#/$defs/MapFeature"
+                    }
+                }
+            },
+            "required": [
+                "type",
+                "features"
+            ],
+            "additionalProperties": false
+        },
+        "MapFeature": {
+            "type": "object",
+            "description": "Feature for one lane of an intersection",
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "const": "Feature"
+                },
+                "properties": {
+                    "$ref": "#/$defs/MapProperties",
+                    "description": "Intersection and Lane properties"
+                },
+                "geometry": {
+                    "$ref": "#/$defs/LineStringGeometry"
+                }
+            },
+            "required": [
+                "type",
+                "properties",
+                "geometry"
+            ],
+            "additionalProperties": false
+        },
+        "LineStringGeometry": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "const": "LineString"
+                },
+                "coordinates": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/Coordinate"
+                    },
+                    "minItems": 2
+                }
+            },
+            "required": [
+                "type",
+                "coordinates"
+            ],
+            "additionalProperties": false
+        },
+        "Coordinate": {
+            "type": "array",
+            "items": "number",
+            "minItems": 2,
+            "maxItems": 3,
+            "description": "Lon/Lat coordinate with optional elevation"
+        },
+        "MapProperties": {
+            "type": "object",
+            "properties": {
+                "messageType": {
+                    "type": "string",
+                    "const": "MAP"
+                },
+                "nodes": {
+                    "type": "array"
+                },
+                "odeReceivedAt": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "originIp": {
+                    "$ref": "intersection-common.schema.json#/$defs/IPAddress"
+                },
+                "intersectionName": {
+                    "oneOf": [
+                        { "$ref": "map.schema.json#/$defs/J2735DescriptiveName" },
+                        { "type": "null" }
+                    ]
+                },
+                "region": {
+                    "$ref": "map.schema.json#/$defs/J2735RoadRegulatorID"
+                },
+                "intersectionId": {
+                    "$ref": "map.schema.json#/$defs/J2735IntersectionID"
+                },
+                "msgIssueRevision": {
+                    "$ref": "map.schema.json#/$defs/J2735MsgCount",
+                    "description": "DE_MsgCount for MAP"
+                },
+                "revision": {
+                    "$ref": "map.schema.json#/$defs/J2735MsgCount",
+                    "description": "DE_MsgCount for intersection"
+                },
+                "refPoint": {
+                    "$ref": "map.schema.json#/$defs/OdePosition3D"
+                },
+                "cti4501Conformant": {
+                    "type": "boolean"
+                },
+                "validationMessages": {
+                    "$ref": "intersection-common.schema.json#/$defs/ValidationMessageList"
+                },
+                "laneWidth": {
+                    "type": "number"
+                },
+                "speedLimits": {
+                    "$ref": "map.schema.json#/$defs/J2735SpeedLimitList",
+                    "description": "DF_SpeedLimitList.  Mandatory in CI Implementation Guide.  Optional in J2735."
+                },
+                "mapSource": {
+                    "type": "string"
+                },
+                "timeStamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Derived from the MapData timestamp=DE_MinuteOfTheYear field if available, othewise from OdeReceivedAt."
+                },
+                "laneName": {
+                    "oneOf": [
+                        { "$ref": "map.schema.json#/$defs/J2735DescriptiveName" },
+                        { "type": "null" }
+                    ]
+                },
+                "laneId": {
+                    "$ref": "map.schema.json#/$defs/J2735LaneID"
+                },
+                "laneType": {
+                    "$ref": "map.schema.json#/$defs/J2735LaneTypeAttributes"
+                },
+                "sharedWith": {
+                    "$ref": "map.schema.json#/$defs/J2735LaneSharing"
+                },
+                "egressApproach": {
+                    "$ref": "map.schema.json#/$defs/J2735ApproachID"
+                },
+                "ingressApproach": {
+                    "$ref": "map.schema.json#/$defs/J2735ApproachID"
+                },
+                "ingressPath": {
+                    "type": "boolean",
+                    "description": "From directionalUse=DE_LaneDirection"
+                },
+                "egressPath": {
+                    "type": "boolean",
+                    "description": "From directionalUse=DE_LaneDirection"
+                },
+                "maneuvers": {
+                    "$ref": "map.schema.json#/$defs/J2735AllowedManeuvers"
+                },
+                "connectsTo": {
+                    "$ref": "#/$defs/ConnectsToList"
+                }
+            },
+            "required": [
+                "messageType",
+                "nodes",
+                "odeReceivedAt",
+                "timeStamp",
+                "originIp",
+                "region",
+                "intersectionId",
+                "revision",
+                "refPoint",
+                "cti4501Conformant",
+                "laneWidth",
+                "speedLimits",
+                "laneId",
+                "laneType",
+                "sharedWith",
+                "maneuvers",
+                "egressPath",
+                "ingressPath",
+                "connectsTo"
+                
+            ],
+            "additionalProperties": false
+        },
+        "ConnectsToList": {
+            "items": {
+                "$ref": "#/$defs/Connection"
+            },
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 16
+        },
+        "Connection": {
+            "properties": {
+                "lane": {
+                    "$ref": "map.schema.json#/$defs/J2735LaneID"
+                },
+                "maneuver": {
+                    "$ref": "map.schema.json#/$defs/J2735AllowedManeuvers",
+                    "description": "DE_AllowedManeuvers.  Mandatory in CI Implementation Guide.  Optional in J2735."
+                },
+                "connectionId": {
+                    "oneOf": [
+                        {
+                            "$ref": "map.schema.json#/$defs/J2735LaneConnectionID"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "DE_LaneConnectionID.  Optional, may be null"
+                },
+                "remoteIntersection": {
+                    "oneOf": [
+                        {
+                            "$ref": "map.schema.json#/$defs/J2735IntersectionReferenceID"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "DE_IntersectionReferenceID.  Optional, may be null"
+                },
+                "signalGroup": {
+                    "$ref": "map.schema.json#/$defs/J2735SignalGroupID",
+                    "description": "DE_SignalGroupID.  Mandatory in CI Implementation Guide.  Optional in J2735"
+                },
+                "userClass": {
+                    "oneOf": [
+                        {
+                            "$ref": "map.schema.json#/$defs/J2735RestrictionClassID"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "DE_RestrictionClassID.  Optional, may be null"
+                }
+            },
+            "required": [
+                "lane",
+                "maneuver",
+                "signalGroup"
+            ],
+            "type": "object",
+            "additionalProperties": false
+        },
+        "ConnectingLanesFeatureCollection": {
+            "type": "object",
+            "description": "Feature collection for a MAP's connecting lane geometry to define routes of travel through an intersection relative to a signal group",
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "const": "FeatureCollection"
+                },
+                "features": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                        "$ref": "#/$defs/ConnectingLanesFeature"
+                    }
+                }
+            },
+            "required": [
+                "type",
+                "features"
+            ],
+            "additionalProperties": false
+        },
+        "ConnectingLanesFeature": {
+            "type": "object",
+            "description": "Feature for one connecting ingress lane to one egress lane for an intersection",
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "const": "Feature"
+                },
+                "properties": {
+                    "$ref": "#/$defs/ConnectingLanesProperties",
+                    "description": "Intersection connecting lanes properties"
+                },
+                "geometry": {
+                    "$ref": "#/$defs/LineStringGeometry"
+                }
+            },
+            "required": [
+                "type",
+                "properties",
+                "geometry"
+            ],
+            "additionalProperties": false
+        },
+        "ConnectingLanesProperties": {
+            "type": "object",
+            "properties": {
+                "signalGroupId": {
+                    "$ref": "map.schema.json#/$defs/J2735SignalGroupID"
+                },
+                "ingressLaneId": {
+                    "$ref": "map.schema.json#/$defs/J2735LaneID"
+                },
+                "egressLaneId": {
+                    "$ref": "map.schema.json#/$defs/J2735LaneID"
+                }
+            },
+            "required": [
+                "signalGroupId",
+                "ingressLaneId",
+                "egressLaneId"
+            ],
+            "additionalProperties": false
+        }
+    }
+}

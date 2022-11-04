@@ -1,0 +1,193 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "$id": "https://example.com/intersection-spat.schema.json",
+    "type": "object",
+    "properties": {
+        "messageType": {
+            "type": "string",
+            "const": "SPAT"
+        },
+        "odeReceivedAt": {
+            "type": "string",
+            "format": "date-time"
+        },
+        "utcTimeStamp": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp derived from the timestamp=DE_MinuteOfTheYear of the top level of the spat message and the timeStamp=DE_Dsecond of the IntersectionState."
+        },
+        "originIp": {
+            "$ref": "intersection-common.schema.json#/$defs/IPAddress"
+        },
+        "name": {
+            "oneOf": [
+                { "$ref": "spat.schema.json#/$defs/J2735DescriptiveName" },
+                { "type": "null" }
+            ]
+        },
+        "region": {
+            "$ref": "spat.schema.json#/$defs/J2735RoadRegulatorID"
+        },
+        "intersectionId": {
+            "$ref": "spat.schema.json#/$defs/J2735IntersectionID"
+        },
+        "cti4501Conformant": {
+            "type": "boolean"
+        },
+        "validationMessages": {
+            "$ref": "intersection-common.schema.json#/$defs/ValidationMessageList"
+        },
+        "revision": {
+            "$ref": "spat.schema.json#/$defs/J2735MsgCount"
+        },
+        "status": {
+            "$ref": "spat.schema.json#/$defs/J2735IntersectionStatusObject"
+        },
+        "enabledLanes": {
+            "$ref": "spat.schema.json#/$defs/J2735EnabledLaneList",
+            "description": "Conditionally required"
+        },
+        "states": {
+            "$ref": "#/$defs/MovementList"
+        }
+    },
+    "required": [
+        "messageType",
+        "odeReceivedAt",
+        "utcTimeStamp",
+        "originIp",
+        "region",
+        "intersectionId",
+        "cti4501Conformant",
+        "revision",
+        "status",
+        "enabledLanes",
+        "states"
+    ],
+    "additionalProperties": false,
+    "$defs": {
+        "MovementList": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 255,
+            "items": {
+                "$ref": "#/$defs/MovementState"
+            }
+        },
+        "MovementState": {
+            "type": "object",
+            "properties": {
+                "movementName": {
+                    "oneOf": [
+                        { "$ref": "spat.schema.json#/$defs/J2735DescriptiveName" },
+                        { "type": "null" }
+                    ]
+                },
+                "signalGroup": {
+                    "$ref": "intersection-common.schema.json#/$defs/J2735SignalGroupID"
+                },
+                "stateTimeSpeed": {
+                    "$ref": "#/$defs/MovementEventList"
+                },
+                "maneuverAssistList": {
+                    "oneOf": [ 
+                        { "type": "null" }, 
+                        { "type": "object" } 
+                    ]
+                }
+            },
+            "required": [
+                "signalGroup",
+                "stateTimeSpeed"
+            ],
+            "additionalProperties": false
+        },
+        "MovementEventList": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 16,
+            "items": {
+                "$ref": "#/$defs/MovementEvent"
+            }
+        },
+        "MovementEvent": {
+            "type": "object",
+            "properties": {
+                "eventState": {
+                    "$ref": "spat.schema.json#/$defs/J2735MovementPhaseState"
+                },
+                "timing": {
+                    "$ref": "#/$defs/TimeChangeDetails",
+                    "description": "Optional in J2735, but mandatory in CI Implementation Guide"
+                },
+                "speeds": {
+                    "oneOf": [
+                        {
+                            "$ref": "spat.schema.json#/$defs/J2735AdvisorySpeedList"
+                        },
+                        { "type": "null" }
+                    ]
+                }
+            },
+            "required": [
+                "eventState",
+                "timing"
+            ],
+            "additionalProperties": false
+        },
+        "TimeChangeDetails": {
+            "type": "object",
+            "description": "Derived from J2735TimeChangeDetails with DE_TimeMark fields converted to UTC strings",
+            "properties": {
+                "startTime": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Optional in J2735, but mandatory in CI Implementation Guide"
+                },
+                "minEndTime": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Mandatory in both J2735 and CI Guide"
+                },
+                "maxEndTime": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Optional in J2735, but mandatory in CI Implementation Guide"
+                },
+                "likelyTime": {
+                    "oneOf": [
+                        {
+                            "type": "string",
+                            "format": "date-time"
+                        },
+                        { "type": "null" }
+                    ],
+                    "description": "Optional"
+                },
+                "confidence": {
+                    "oneOf": [
+                        {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 15
+                        },
+                        { "type": "null" }
+                    ],
+                    "description": "DE_TimeIntervalConfidence. Optional."
+                },
+                "nextTime": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Optional in J2735, but mandatory in CI Implementation Guide"
+                }
+            },
+            "required": [
+                "startTime",
+                "minEndTime",
+                "maxEndTime",
+                "nextTime"
+            ],
+            "additionalProperties": false
+        }
+    }
+}

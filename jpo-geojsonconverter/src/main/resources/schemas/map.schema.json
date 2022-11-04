@@ -289,7 +289,7 @@
                     "$ref": "#/$defs/J2735MsgCount"
                 },
                 "speedLimits": {
-                    "$ref": "#/$defs/J2735SpeedLimitList",
+                    "$ref": "#/$defs/J2735SpeedLimitList_Wrapper",
                     "description": "DF_SpeedLimitList.  Mandatory in CI Implementation Guide.  Optional in J2735."
                 }
             },
@@ -373,7 +373,7 @@
                 "speedLimits": {
                     "oneOf": [
                         {
-                            "$ref": "#/$defs/J2735SpeedLimitList"
+                            "$ref": "#/$defs/J2735SpeedLimitList_Wrapper"
                         },
                         {
                             "type": "null"
@@ -560,21 +560,24 @@
             ],
             "type": "object"
         },
-        "J2735SpeedLimitList": {
+        "J2735SpeedLimitList_Wrapper": {
             "properties": {
                 "speedLimits": {
-                    "items": {
-                        "$ref": "#/$defs/J2735RegulatorySpeedLimit"
-                    },
-                    "type": "array",
-                    "minItems": 1,
-                    "maxItems": 9
+                    "$ref": "#/$defs/J2735SpeedLimitList"
                 }
             },
             "required": [
                 "speedLimits"
             ],
             "type": "object"
+        },
+        "J2735SpeedLimitList": {
+            "items": {
+                "$ref": "#/$defs/J2735RegulatorySpeedLimit"
+            },
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 9
         },
         "J2735RegulatorySpeedLimit": {
             "properties": {
@@ -618,7 +621,7 @@
                     "$ref": "#/$defs/J2735LaneID"
                 },
                 "connectsTo": {
-                    "$ref": "#/$defs/J2735ConnectsToList",
+                    "$ref": "#/$defs/J2735ConnectsToList_Wrapper",
                     "description": "DF_ConnectsToList.  Mandatory in CI Implementation Guide.  Optional in J2735."
                 },
                 "egressApproach": {
@@ -681,13 +684,10 @@
             ],
             "type": "object"
         },
-        "J2735ConnectsToList": {
+        "J2735ConnectsToList_Wrapper": {
             "properties": {
                 "connectsTo": {
-                    "items": {
-                        "$ref": "#/$defs/J2735Connection"
-                    },
-                    "type": "array"
+                    "$ref": "#/$defs/J2735ConnectsToList"
                 }
             },
             "required": [
@@ -695,6 +695,14 @@
             ],
             "type": "object",
             "additionalProperties": false
+        },
+        "J2735ConnectsToList": {
+            "items": {
+                "$ref": "#/$defs/J2735Connection"
+            },
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 16
         },
         "J2735Connection": {
             "properties": {
@@ -1976,10 +1984,7 @@
                     "description": "Optional in J2735, but mandatory in CI Implementation Guide."
                 },
                 "id": {
-                    "type": "integer",
-                    "minimum": 0,
-                    "maximum": 65535,
-                    "description": "DE_IntersectionID"
+                    "$ref": "#/$defs/J2735IntersectionID"
                 }
             },
             "required": [
@@ -1987,6 +1992,12 @@
                 "id"
             ],
             "additionalProperties": false
+        },
+        "J2735IntersectionID": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 65535,
+            "description": "DE_IntersectionID"
         },
         "J2735RoadRegulatorID": {
             "type": "integer",
