@@ -1,9 +1,9 @@
-package us.dot.its.jpo.geojsonconverter.geojson.map;
+package us.dot.its.jpo.geojsonconverter.pojos.geojson.map;
 
 import com.fasterxml.jackson.annotation.*;
 
-import us.dot.its.jpo.geojsonconverter.geojson.BaseFeature;
-import us.dot.its.jpo.geojsonconverter.geojson.LineString;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.BaseFeature;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.LineString;
 
 public class MapFeature extends BaseFeature<Integer, LineString, MapProperties> {
     @JsonCreator

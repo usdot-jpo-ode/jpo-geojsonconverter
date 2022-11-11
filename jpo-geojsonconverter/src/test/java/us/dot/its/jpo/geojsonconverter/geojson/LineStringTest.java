@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.Test;
 
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.LineString;
+
 public class LineStringTest {
     @Test
     public void testConstructor() {

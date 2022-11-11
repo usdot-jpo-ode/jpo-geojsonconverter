@@ -17,14 +17,14 @@ import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.KTable;
 import org.apache.kafka.streams.kstream.Materialized;
 
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.Point;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.MapFeature;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.MapFeatureCollection;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.spat.SpatFeature;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.spat.SpatFeatureCollection;
 import us.dot.its.jpo.geojsonconverter.serialization.JsonSerdes;
 import us.dot.its.jpo.geojsonconverter.validator.JsonValidatorResult;
 import us.dot.its.jpo.geojsonconverter.validator.SpatJsonValidator;
-import us.dot.its.jpo.geojsonconverter.geojson.Point;
-import us.dot.its.jpo.geojsonconverter.geojson.map.MapFeature;
-import us.dot.its.jpo.geojsonconverter.geojson.map.MapFeatureCollection;
-import us.dot.its.jpo.geojsonconverter.geojson.spat.SpatFeature;
-import us.dot.its.jpo.geojsonconverter.geojson.spat.SpatFeatureCollection;
 import us.dot.its.jpo.ode.model.OdeSpatData;
 
 /**
@@ -83,7 +83,7 @@ public class SpatTopology {
         // Convert ODE SPaT to GeoJSON
         KStream<String, SpatFeatureCollection> geoJsonSpatStream =
             odeSpatStream.transform(
-                () -> new SpatGeoJsonConverter()
+                () -> new SpatGeoJsonConverter() // change this converter to something else NOT GEOJSON
             );
 
         // Join SPaT GeoJSON stream with the MapGeoJSON table to populate feature geometry

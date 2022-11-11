@@ -1,4 +1,4 @@
-package us.dot.its.jpo.geojsonconverter.geojson.spat;
+package us.dot.its.jpo.geojsonconverter.pojos.geojson.spat;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

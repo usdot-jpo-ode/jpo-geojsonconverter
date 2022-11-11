@@ -5,6 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.Test;
 
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.spat.SpatMovementEvent;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.spat.SpatProperties;
+
 public class SpatPropertiesTest {
     @Test
     public void testSignalGroupId() {

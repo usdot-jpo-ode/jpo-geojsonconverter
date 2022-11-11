@@ -10,7 +10,7 @@ import org.apache.kafka.streams.processor.ProcessorContext;
 import org.junit.Before;
 import org.junit.Test;
 
-import us.dot.its.jpo.geojsonconverter.geojson.spat.SpatFeatureCollection;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.spat.SpatFeatureCollection;
 import us.dot.its.jpo.geojsonconverter.serialization.deserializers.OdeSpatDataJsonDeserializer;
 import us.dot.its.jpo.ode.model.OdeSpatData;
 

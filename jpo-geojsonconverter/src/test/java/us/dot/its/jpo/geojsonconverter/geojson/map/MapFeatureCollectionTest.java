@@ -6,7 +6,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import us.dot.its.jpo.geojsonconverter.geojson.LineString;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.LineString;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.MapFeature;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.MapFeatureCollection;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.MapProperties;
 
 public class MapFeatureCollectionTest {
     MapFeature feature;

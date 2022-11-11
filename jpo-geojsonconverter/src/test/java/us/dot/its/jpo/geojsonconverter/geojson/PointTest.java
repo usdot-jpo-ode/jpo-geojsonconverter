@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.Test;
 
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.Point;
+
 public class PointTest {
     @Test
     public void testNonListConstructor() {

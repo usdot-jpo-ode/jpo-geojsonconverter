@@ -1,8 +1,8 @@
-package us.dot.its.jpo.geojsonconverter.geojson.spat;
+package us.dot.its.jpo.geojsonconverter.pojos.geojson.spat;
 
 import com.fasterxml.jackson.annotation.*;
 
-import us.dot.its.jpo.geojsonconverter.geojson.BaseFeatureCollection;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.BaseFeatureCollection;
 
 public class SpatFeatureCollection extends BaseFeatureCollection<SpatFeature> {
     @JsonCreator

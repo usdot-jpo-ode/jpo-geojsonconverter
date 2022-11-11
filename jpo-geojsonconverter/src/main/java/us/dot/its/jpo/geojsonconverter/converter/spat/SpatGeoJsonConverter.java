@@ -1,6 +1,6 @@
 package us.dot.its.jpo.geojsonconverter.converter.spat;
 
-import us.dot.its.jpo.geojsonconverter.geojson.spat.*;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.spat.*;
 import us.dot.its.jpo.ode.model.*;
 import us.dot.its.jpo.ode.plugin.j2735.J2735IntersectionState;
 import us.dot.its.jpo.ode.plugin.j2735.J2735MovementEvent;

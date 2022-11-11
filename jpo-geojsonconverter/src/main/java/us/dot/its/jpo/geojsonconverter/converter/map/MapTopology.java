@@ -10,10 +10,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.kafka.streams.kstream.KStream;
 
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.MapFeatureCollection;
 import us.dot.its.jpo.geojsonconverter.serialization.JsonSerdes;
 import us.dot.its.jpo.geojsonconverter.validator.JsonValidatorResult;
 import us.dot.its.jpo.geojsonconverter.validator.MapJsonValidator;
-import us.dot.its.jpo.geojsonconverter.geojson.map.MapFeatureCollection;
 import us.dot.its.jpo.ode.model.OdeMapData;
 
 /**

@@ -18,7 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import us.dot.its.jpo.geojsonconverter.geojson.spat.SpatFeatureCollection;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.spat.SpatFeatureCollection;
 import us.dot.its.jpo.geojsonconverter.serialization.JsonSerdes;
 import us.dot.its.jpo.geojsonconverter.validator.SpatJsonValidator;
 

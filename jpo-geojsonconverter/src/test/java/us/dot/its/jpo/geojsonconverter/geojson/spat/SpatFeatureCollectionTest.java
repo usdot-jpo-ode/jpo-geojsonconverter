@@ -6,7 +6,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import us.dot.its.jpo.geojsonconverter.geojson.Point;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.Point;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.spat.SpatFeature;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.spat.SpatFeatureCollection;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.spat.SpatMovementEvent;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.spat.SpatProperties;
 
 public class SpatFeatureCollectionTest {
     SpatFeature feature;

@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.Test;
 
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.MapProperties;
+
 public class MapPropertiesTest {
     @Test
     public void testLaneId() {
