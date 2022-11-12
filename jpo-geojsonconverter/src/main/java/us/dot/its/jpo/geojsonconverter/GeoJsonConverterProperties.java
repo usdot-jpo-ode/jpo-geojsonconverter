@@ -51,7 +51,7 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
 
     //SPAT
     private String kafkaTopicOdeSpatJson = "topic.OdeSpatJson";
-    private String kafkaTopicSpatGeoJson = "topic.SpatGeoJson";
+    private String kafkaTopicProcessedSpat = "topic.ProcessedSpat";
 
     //MAP
     private String kafkaTopicOdeMapJson = "topic.OdeMapJson";
@@ -136,11 +136,11 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
 	}
 
     public String getKafkaTopicSpatGeoJson() {
-		return kafkaTopicSpatGeoJson;
+		return kafkaTopicProcessedSpat;
 	}
 
 	public void setKafkaTopicSpatGeoJson(String kafkaTopicSpatGeoJson) {
-		this.kafkaTopicSpatGeoJson = kafkaTopicSpatGeoJson;
+		this.kafkaTopicProcessedSpat = kafkaTopicSpatGeoJson;
 	}
 
 	public String getKafkaTopicOdeMapJson() {

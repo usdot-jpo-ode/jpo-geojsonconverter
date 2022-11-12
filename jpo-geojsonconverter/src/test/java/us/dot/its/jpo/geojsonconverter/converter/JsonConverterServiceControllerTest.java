@@ -15,8 +15,8 @@ import us.dot.its.jpo.geojsonconverter.validator.SpatJsonValidator;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class GeoJsonConverterServiceControllerTest {
-    GeoJsonConverterServiceController geoJsonConverterServiceController;
+public class JsonConverterServiceControllerTest {
+    JsonConverterServiceController geoJsonConverterServiceController;
     GeoJsonConverterProperties props;
 
     @Autowired 
@@ -33,7 +33,7 @@ public class GeoJsonConverterServiceControllerTest {
 
     @Test
     public void testSpringBootLoaded() {
-        geoJsonConverterServiceController = new GeoJsonConverterServiceController(props, mapJsonValidator, spatJsonValidator);
+        geoJsonConverterServiceController = new JsonConverterServiceController(props, mapJsonValidator, spatJsonValidator);
         assertNotNull(geoJsonConverterServiceController);
     }
 }

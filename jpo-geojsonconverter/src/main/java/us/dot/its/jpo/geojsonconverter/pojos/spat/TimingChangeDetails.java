@@ -1,21 +1,9 @@
 
 package us.dot.its.jpo.geojsonconverter.pojos.spat;
 
-import javax.annotation.Generated;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-    "startTime",
-    "minEndTime",
-    "maxEndTime",
-    "likelyTime",
-    "confidence",
-    "nextTime"
-})
-@Generated("jsonschema2pojo")
+
 public class TimingChangeDetails {
 
     @JsonProperty("startTime")
@@ -25,7 +13,7 @@ public class TimingChangeDetails {
     @JsonProperty("maxEndTime")
     private String maxEndTime;
     @JsonProperty("likelyTime")
-    private Integer likelyTime;
+    private String likelyTime;
     @JsonProperty("confidence")
     private Integer confidence;
     @JsonProperty("nextTime")
@@ -62,12 +50,12 @@ public class TimingChangeDetails {
     }
 
     @JsonProperty("likelyTime")
-    public Integer getLikelyTime() {
+    public String getLikelyTime() {
         return likelyTime;
     }
 
     @JsonProperty("likelyTime")
-    public void setLikelyTime(Integer likelyTime) {
+    public void setLikelyTime(String likelyTime) {
         this.likelyTime = likelyTime;
     }
 

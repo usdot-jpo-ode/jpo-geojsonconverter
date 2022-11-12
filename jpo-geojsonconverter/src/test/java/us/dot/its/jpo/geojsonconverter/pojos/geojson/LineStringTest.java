@@ -1,4 +1,4 @@
-package us.dot.its.jpo.geojsonconverter.geojson;
+package us.dot.its.jpo.geojsonconverter.pojos.geojson;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;

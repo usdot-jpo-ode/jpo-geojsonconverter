@@ -1,59 +1,39 @@
 
 package us.dot.its.jpo.geojsonconverter.pojos.spat;
 
-import javax.annotation.Generated;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import us.dot.its.jpo.ode.plugin.j2735.J2735IntersectionStatusObject;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-    "manualControlIsEnabled",
-    "stopTimeIsActivated",
-    "failureFlash",
-    "preemptIsActive",
-    "signalPriorityIsActive",
-    "fixedTimeOperation",
-    "trafficDependentOperation",
-    "standbyOperation",
-    "failureMode",
-    "off",
-    "recentMAPmessageUpdate",
-    "recentChangeInMAPassignedLanesIDsUsed",
-    "noValidMAPisAvailableAtThisTime",
-    "noValidSPATisAvailableAtThisTime"
-})
-@Generated("jsonschema2pojo")
 public class IntersectionStatusObject {
 
     @JsonProperty("manualControlIsEnabled")
-    private Boolean manualControlIsEnabled;
+    private Boolean manualControlIsEnabled = false;
     @JsonProperty("stopTimeIsActivated")
-    private Boolean stopTimeIsActivated;
+    private Boolean stopTimeIsActivated = false;
     @JsonProperty("failureFlash")
-    private Boolean failureFlash;
+    private Boolean failureFlash = false;
     @JsonProperty("preemptIsActive")
-    private Boolean preemptIsActive;
+    private Boolean preemptIsActive = false;
     @JsonProperty("signalPriorityIsActive")
-    private Boolean signalPriorityIsActive;
+    private Boolean signalPriorityIsActive = false;
     @JsonProperty("fixedTimeOperation")
-    private Boolean fixedTimeOperation;
+    private Boolean fixedTimeOperation = false;
     @JsonProperty("trafficDependentOperation")
-    private Boolean trafficDependentOperation;
+    private Boolean trafficDependentOperation = false;
     @JsonProperty("standbyOperation")
-    private Boolean standbyOperation;
+    private Boolean standbyOperation = false;
     @JsonProperty("failureMode")
-    private Boolean failureMode;
+    private Boolean failureMode = false;
     @JsonProperty("off")
-    private Boolean off;
+    private Boolean off = false;
     @JsonProperty("recentMAPmessageUpdate")
-    private Boolean recentMAPmessageUpdate;
+    private Boolean recentMAPmessageUpdate = false;
     @JsonProperty("recentChangeInMAPassignedLanesIDsUsed")
-    private Boolean recentChangeInMAPassignedLanesIDsUsed;
+    private Boolean recentChangeInMAPassignedLanesIDsUsed = false;
     @JsonProperty("noValidMAPisAvailableAtThisTime")
-    private Boolean noValidMAPisAvailableAtThisTime;
+    private Boolean noValidMAPisAvailableAtThisTime = false;
     @JsonProperty("noValidSPATisAvailableAtThisTime")
-    private Boolean noValidSPATisAvailableAtThisTime;
+    private Boolean noValidSPATisAvailableAtThisTime = false;
 
     @JsonProperty("manualControlIsEnabled")
     public Boolean getManualControlIsEnabled() {
@@ -193,6 +173,53 @@ public class IntersectionStatusObject {
     @JsonProperty("noValidSPATisAvailableAtThisTime")
     public void setNoValidSPATisAvailableAtThisTime(Boolean noValidSPATisAvailableAtThisTime) {
         this.noValidSPATisAvailableAtThisTime = noValidSPATisAvailableAtThisTime;
+    }
+
+    public void setStatus(J2735IntersectionStatusObject status){
+        switch(status){
+            case MANUALCONTROLISENABLED:
+                setManualControlIsEnabled(true);
+                break;
+            case STOPTIMEISACTIVATED:
+                setStopTimeIsActivated(true);
+                break;
+            case FAILUREFLASH:
+                setFailureFlash(true);
+                break;
+            case PREEMPTISACTIVE:
+                setPreemptIsActive(true);
+                break;
+            case SIGNALPRIORITYISACTIVE:
+                setSignalPriorityIsActive(true);
+                break;
+            case FIXEDTIMEOPERATION:
+                setFixedTimeOperation(true);
+                break;
+            case TRAFFICDEPENDENTOPERATION:
+                setTrafficDependentOperation(true);
+                break;
+            case STANDBYOPERATION:
+                setStandbyOperation(true);
+                break;
+            case FAILUREMODE:
+                setFailureMode(true);
+                break;
+            case OFF:
+                setOff(true);
+                break;
+            case RECENTMAPMESSAGEUPDATE:
+                setRecentMAPmessageUpdate(true);
+                break;
+            case RECENTCHANGEINMAPASSIGNEDLANESIDSUSED:
+                setRecentChangeInMAPassignedLanesIDsUsed(true);
+                break;
+            case NOVALIDMAPISAVAILABLEATTHISTIME:
+                setNoValidMAPisAvailableAtThisTime(true);
+                break;
+            case NOVALIDSPATISAVAILABLEATTHISTIME:
+                setNoValidSPATisAvailableAtThisTime(true);
+                break;
+        }
     }
 
 }

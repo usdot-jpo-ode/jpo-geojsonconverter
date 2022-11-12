@@ -2,18 +2,8 @@
 package us.dot.its.jpo.geojsonconverter.pojos.spat;
 
 import java.util.List;
-import javax.annotation.Generated;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-    "movementName",
-    "signalGroup",
-    "stateTimeSpeed"
-})
-@Generated("jsonschema2pojo")
 public class MovementState {
 
     @JsonProperty("movementName")
@@ -21,7 +11,7 @@ public class MovementState {
     @JsonProperty("signalGroup")
     private Integer signalGroup;
     @JsonProperty("stateTimeSpeed")
-    private List<MovementEventList> stateTimeSpeed = null;
+    private List<MovementEvent> stateTimeSpeed = null;
 
     @JsonProperty("movementName")
     public String getMovementName() {
@@ -44,12 +34,12 @@ public class MovementState {
     }
 
     @JsonProperty("stateTimeSpeed")
-    public List<MovementEventList> getStateTimeSpeed() {
+    public List<MovementEvent> getStateTimeSpeed() {
         return stateTimeSpeed;
     }
 
     @JsonProperty("stateTimeSpeed")
-    public void setStateTimeSpeed(List<MovementEventList> stateTimeSpeed) {
+    public void setStateTimeSpeed(List<MovementEvent> stateTimeSpeed) {
         this.stateTimeSpeed = stateTimeSpeed;
     }
 

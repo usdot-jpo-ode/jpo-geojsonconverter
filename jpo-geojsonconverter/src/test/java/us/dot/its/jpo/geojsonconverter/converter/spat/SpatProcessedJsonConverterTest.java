@@ -10,12 +10,12 @@ import org.apache.kafka.streams.processor.ProcessorContext;
 import org.junit.Before;
 import org.junit.Test;
 
-import us.dot.its.jpo.geojsonconverter.pojos.geojson.spat.SpatFeatureCollection;
+import us.dot.its.jpo.geojsonconverter.pojos.spat.ProcessedSpat;
 import us.dot.its.jpo.geojsonconverter.serialization.deserializers.OdeSpatDataJsonDeserializer;
 import us.dot.its.jpo.ode.model.OdeSpatData;
 
-public class SpatGeoJsonConverterTest {
-    SpatGeoJsonConverter spatGeoJsonConverter;
+public class SpatProcessedJsonConverterTest {
+    SpatProcessedJsonConverter spatProcessedJsonConverter;
     OdeSpatData odeSpatPojo;
 
     @Before
@@ -24,42 +24,42 @@ public class SpatGeoJsonConverterTest {
         try (OdeSpatDataJsonDeserializer odeSpatDeserializer = new OdeSpatDataJsonDeserializer()) {
             odeSpatPojo = odeSpatDeserializer.deserialize("test-topic", odeSpatJsonString.getBytes());
         }
-        spatGeoJsonConverter = new SpatGeoJsonConverter();
+        spatProcessedJsonConverter = new SpatProcessedJsonConverter();
     }
 
     @Test
     public void testConstructor() {
-        assertNotNull(spatGeoJsonConverter);
+        assertNotNull(spatProcessedJsonConverter);
     }
 
     @Test
     public void testInit() {
         ProcessorContext mockContext = mock(ProcessorContext.class);
-        spatGeoJsonConverter.init(mockContext);
-        assertNotNull(spatGeoJsonConverter);
+        spatProcessedJsonConverter.init(mockContext);
+        assertNotNull(spatProcessedJsonConverter);
     }
 
     @Test
     public void testTransform() {
-        KeyValue<String, SpatFeatureCollection> spatFeatureCollection = spatGeoJsonConverter.transform(null, odeSpatPojo);
-        assertNotNull(spatFeatureCollection.key);
-        assertEquals("172.19.0.1:12110", spatFeatureCollection.key);
-        assertNotNull(spatFeatureCollection.value);
-        assertEquals(8, spatFeatureCollection.value.getFeatures().length);
+        KeyValue<String, ProcessedSpat> processedSpat = spatProcessedJsonConverter.transform(null, odeSpatPojo);
+        assertNotNull(processedSpat.key);
+        assertEquals("172.19.0.1:12110", processedSpat.key);
+        assertNotNull(processedSpat.value);
+        assertEquals(8, processedSpat.value.getStates().size());
     }
 
     @Test
     public void testTransformException() {
-        KeyValue<String, SpatFeatureCollection> spatFeatureCollection = spatGeoJsonConverter.transform(null, null);
-        assertNotNull(spatFeatureCollection.key);
-        assertEquals("ERROR", spatFeatureCollection.key);
-        assertNull(spatFeatureCollection.value);
+        KeyValue<String, ProcessedSpat> processedSpat = spatProcessedJsonConverter.transform(null, null);
+        assertNotNull(processedSpat.key);
+        assertEquals("ERROR", processedSpat.key);
+        assertNull(processedSpat.value);
     }
 
     @Test
     public void testClose() {
         // Should do nothing, but required override
-        spatGeoJsonConverter.close();
-        assertNotNull(spatGeoJsonConverter);
+        spatProcessedJsonConverter.close();
+        assertNotNull(spatProcessedJsonConverter);
     }
 }

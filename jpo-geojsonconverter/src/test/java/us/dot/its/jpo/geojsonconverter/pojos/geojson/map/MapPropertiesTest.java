@@ -1,4 +1,4 @@
-package us.dot.its.jpo.geojsonconverter.geojson.map;
+package us.dot.its.jpo.geojsonconverter.pojos.geojson.map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

@@ -2,32 +2,12 @@
 package us.dot.its.jpo.geojsonconverter.pojos.spat;
 
 import java.util.List;
-import javax.annotation.Generated;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-    "messageType",
-    "odeReceivedAt",
-    "originIp",
-    "name",
-    "region",
-    "intersectionId",
-    "cti4501Conformant",
-    "validationMessages",
-    "revision",
-    "status",
-    "utcTimeStamp",
-    "enabledLanes",
-    "states"
-})
-@Generated("jsonschema2pojo")
 public class ProcessedSpat {
 
     @JsonProperty("messageType")
-    private String messageType;
+    private String messageType = "SPAT";
     @JsonProperty("odeReceivedAt")
     private String odeReceivedAt;
     @JsonProperty("originIp")
@@ -39,7 +19,7 @@ public class ProcessedSpat {
     @JsonProperty("intersectionId")
     private Integer intersectionId;
     @JsonProperty("cti4501Conformant")
-    private Boolean cti4501Conformant;
+    private Boolean cti4501Conformant = true;
     @JsonProperty("validationMessages")
     private List<ProcessedSpatValidationMessage> validationMessages = null;
     @JsonProperty("revision")
