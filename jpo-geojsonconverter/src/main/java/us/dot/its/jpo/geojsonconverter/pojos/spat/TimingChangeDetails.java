@@ -1,82 +1,103 @@
-
 package us.dot.its.jpo.geojsonconverter.pojos.spat;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import java.time.ZonedDateTime;
+import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class TimingChangeDetails {
+    private static Logger logger = LoggerFactory.getLogger(TimingChangeDetails.class);
 
-    @JsonProperty("startTime")
-    private String startTime;
-    @JsonProperty("minEndTime")
-    private String minEndTime;
-    @JsonProperty("maxEndTime")
-    private String maxEndTime;
-    @JsonProperty("likelyTime")
-    private String likelyTime;
-    @JsonProperty("confidence")
-    private Integer confidence;
-    @JsonProperty("nextTime")
-    private String nextTime;
+    private ZonedDateTime startTime;
+    private ZonedDateTime minEndTime;
+    private ZonedDateTime maxEndTime;
+    private ZonedDateTime likelyTime;
+    private int confidence;
+    private ZonedDateTime nextTime;
 
-    @JsonProperty("startTime")
-    public String getStartTime() {
-        return startTime;
+    public ZonedDateTime getStartTime() {
+        return this.startTime;
     }
 
-    @JsonProperty("startTime")
-    public void setStartTime(String startTime) {
+    public void setStartTime(ZonedDateTime startTime) {
         this.startTime = startTime;
     }
 
-    @JsonProperty("minEndTime")
-    public String getMinEndTime() {
-        return minEndTime;
+    public ZonedDateTime getMinEndTime() {
+        return this.minEndTime;
     }
 
-    @JsonProperty("minEndTime")
-    public void setMinEndTime(String minEndTime) {
+    public void setMinEndTime(ZonedDateTime minEndTime) {
         this.minEndTime = minEndTime;
     }
 
-    @JsonProperty("maxEndTime")
-    public String getMaxEndTime() {
-        return maxEndTime;
+    public ZonedDateTime getMaxEndTime() {
+        return this.maxEndTime;
     }
 
-    @JsonProperty("maxEndTime")
-    public void setMaxEndTime(String maxEndTime) {
+    public void setMaxEndTime(ZonedDateTime maxEndTime) {
         this.maxEndTime = maxEndTime;
     }
 
-    @JsonProperty("likelyTime")
-    public String getLikelyTime() {
-        return likelyTime;
+    public ZonedDateTime getLikelyTime() {
+        return this.likelyTime;
     }
 
-    @JsonProperty("likelyTime")
-    public void setLikelyTime(String likelyTime) {
+    public void setLikelyTime(ZonedDateTime likelyTime) {
         this.likelyTime = likelyTime;
     }
 
-    @JsonProperty("confidence")
-    public Integer getConfidence() {
-        return confidence;
+    public int getConfidence() {
+        return this.confidence;
     }
 
-    @JsonProperty("confidence")
-    public void setConfidence(Integer confidence) {
+    public void setConfidence(int confidence) {
         this.confidence = confidence;
     }
 
-    @JsonProperty("nextTime")
-    public String getNextTime() {
-        return nextTime;
+    public ZonedDateTime getNextTime() {
+        return this.nextTime;
     }
 
-    @JsonProperty("nextTime")
-    public void setNextTime(String nextTime) {
+    public void setNextTime(ZonedDateTime nextTime) {
         this.nextTime = nextTime;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof TimingChangeDetails)) {
+            return false;
+        }
+        TimingChangeDetails timingChangeDetails = (TimingChangeDetails) o;
+        return Objects.equals(startTime, timingChangeDetails.startTime) && Objects.equals(minEndTime, timingChangeDetails.minEndTime) && Objects.equals(maxEndTime, timingChangeDetails.maxEndTime) && Objects.equals(likelyTime, timingChangeDetails.likelyTime) && Objects.equals(confidence, timingChangeDetails.confidence) && Objects.equals(nextTime, timingChangeDetails.nextTime);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(startTime, minEndTime, maxEndTime, likelyTime, confidence, nextTime);
+    }
+
+    @Override
+    public String toString() {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        String testReturn = "";
+        try {
+            testReturn = (mapper.writeValueAsString(this));
+        } catch (JsonProcessingException e) {
+            logger.error(e.getMessage(), e);
+        }
+        return testReturn;
+    }
 }

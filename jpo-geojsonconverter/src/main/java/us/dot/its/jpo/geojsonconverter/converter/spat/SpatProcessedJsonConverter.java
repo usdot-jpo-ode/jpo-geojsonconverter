@@ -12,9 +12,9 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Calendar;
 
 import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.kstream.Transformer;
@@ -66,7 +66,11 @@ public class SpatProcessedJsonConverter implements Transformer<Void, OdeSpatData
         processedSpat.setOdeReceivedAt(metadata.getOdeReceivedAt()); // ISO 8601: 2022-11-11T16:36:10.529530Z
         processedSpat.setOriginIp(metadata.getOriginIp());
         processedSpat.setName(intersectionState.getName());
-        processedSpat.setRegion(intersectionState.getId().getRegion());
+        if (intersectionState.getId().getRegion() != null) {
+            processedSpat.setRegion(intersectionState.getId().getRegion());
+        } else {
+            processedSpat.setRegion(0);
+        }
         processedSpat.setIntersectionId(intersectionState.getId().getId());
 
         List<ProcessedSpatValidationMessage> processedSpatValidationMessages = new ArrayList<ProcessedSpatValidationMessage>();
@@ -99,16 +103,19 @@ public class SpatProcessedJsonConverter implements Transformer<Void, OdeSpatData
             if (signalGroupState.getState_time_speed() != null) {
                 for (J2735MovementEvent incomingMovementEvent : signalGroupState.getState_time_speed().getMovementEventList()) {
 					MovementEvent spatMovementEvent = new MovementEvent();
-                    spatMovementEvent.setEventState(incomingMovementEvent.getEventState().toString());
+                    spatMovementEvent.setEventState(incomingMovementEvent.getEventState());
 
                     TimingChangeDetails spatTimingDetails = new TimingChangeDetails();
                     spatTimingDetails.setStartTime(generateOffsetUTCTimestamp(utcTimestamp,incomingMovementEvent.getTiming().getStartTime()));
                     spatTimingDetails.setMinEndTime(generateOffsetUTCTimestamp(utcTimestamp,incomingMovementEvent.getTiming().getMinEndTime()));
                     spatTimingDetails.setMaxEndTime(generateOffsetUTCTimestamp(utcTimestamp,incomingMovementEvent.getTiming().getMaxEndTime()));
                     spatTimingDetails.setLikelyTime(generateOffsetUTCTimestamp(utcTimestamp,incomingMovementEvent.getTiming().getLikelyTime()));
-                    spatTimingDetails.setConfidence(incomingMovementEvent.getTiming().getConfidence());
+                    if (intersectionState.getEnabledLanes()!=null) {
+                        spatTimingDetails.setConfidence(incomingMovementEvent.getTiming().getConfidence());
+                    } else {
+                        spatTimingDetails.setConfidence(0);
+                    }
                     spatTimingDetails.setNextTime(generateOffsetUTCTimestamp(utcTimestamp,incomingMovementEvent.getTiming().getNextTime()));
-                    
                     spatMovementEvent.setTiming(spatTimingDetails);
                     movementEventList.add(spatMovementEvent);
 				}
@@ -137,7 +144,6 @@ public class SpatProcessedJsonConverter implements Transformer<Void, OdeSpatData
                 dateString = String.format("%d-%d-%dT%d:%d:00.00Z", year, odeDate.getMonthValue(), odeDate.getDayOfMonth(), odeDate.getHour(), odeDate.getMinute());
             }
                         
-            // String boyString = String.format("%d-01-01T00:00:00.00Z", year);
             date = Instant.parse(dateString).plusMillis(milliseconds).atZone(ZoneId.of("UTC"));
             formatted = date.format(DateTimeFormatter.ISO_INSTANT);
         } catch (Exception e) {
@@ -147,26 +153,23 @@ public class SpatProcessedJsonConverter implements Transformer<Void, OdeSpatData
         return formatted;
     }
 
-    public String generateOffsetUTCTimestamp(String originTimestamp, Integer timeMark){
-        ZonedDateTime date;
-        String formatted = null;
-
+    public ZonedDateTime generateOffsetUTCTimestamp(String originTimestamp, Integer timeMark){
         try {
             if (timeMark != null){
-                long seconds = timeMark/10;
-                long nanos = (timeMark - seconds*10) * 100000000;
-                date = Instant.parse(originTimestamp).atZone(ZoneId.of("UTC"));
+                long millis = timeMark*100;
+                ZonedDateTime date = Instant.parse(originTimestamp).atZone(ZoneId.of("UTC"));
                 date = date.withMinute(0);
                 date = date.withSecond(0);
                 date = date.withNano(0);
-                date = date.plusSeconds(seconds);
-                date = date.plusNanos(nanos);
-                formatted = date.format(DateTimeFormatter.ISO_INSTANT);
+                date = date.plus(millis, ChronoUnit.MILLIS);
+                return date;
+            } else {
+                logger.warn("TimeMark field is null, setting utcTimestamp to originTimestamp. generateOffsetUTCTimestamp - SpatProcessedJsonConverter");
+                return null;
             }
         } catch (Exception e) {
             logger.error("Failed to generateOffsetUTCTimestamp - SpatProcessedJsonConverter", e);
-        }
-        
-        return formatted;
+            return null;
+        }               
     }
 }

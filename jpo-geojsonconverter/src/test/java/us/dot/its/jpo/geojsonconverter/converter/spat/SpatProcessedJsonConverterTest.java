@@ -62,4 +62,6 @@ public class SpatProcessedJsonConverterTest {
         spatProcessedJsonConverter.close();
         assertNotNull(spatProcessedJsonConverter);
     }
+
+    
 }

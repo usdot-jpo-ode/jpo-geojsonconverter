@@ -10,7 +10,8 @@
         {
             "message": "At path $.payload.data.intersectionStateList.intersectionStatelist[0].id.region: null found, integer expected (Schema: #/$defs/J2735RoadRegulatorID/type)",
             "jsonPath": "$.payload.data.intersectionStateList.intersectionStatelist[0].id.region",
-            "schemaPath": "#/$defs/J2735RoadRegulatorID/type"
+            "schemaPath": "#/$defs/J2735RoadRegulatorID/type",
+            "exception": ""
          },
         { 
             "message": "Some java exception was thrown",

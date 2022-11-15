@@ -4,14 +4,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.Test;
 
+import us.dot.its.jpo.ode.plugin.j2735.J2735MovementPhaseState;
+
 public class MovementEventTest {
     @Test
     public void testGettersSetters() {
         MovementEvent object = new MovementEvent();
 
-        object.setEventState("state");
-        String stateResponse = object.getEventState();
-        assertEquals(stateResponse, "state");
+        J2735MovementPhaseState phaseState = J2735MovementPhaseState.UNAVAILABLE;
+        object.setEventState(phaseState);
+        J2735MovementPhaseState stateResponse = object.getEventState();
+        assertEquals(stateResponse, phaseState);
 
         TimingChangeDetails timing = new TimingChangeDetails();
         object.setTiming(timing);

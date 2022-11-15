@@ -1,45 +1,79 @@
 
 package us.dot.its.jpo.geojsonconverter.pojos.spat;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import us.dot.its.jpo.ode.plugin.j2735.J2735MovementPhaseState;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class MovementEvent {
+    private static Logger logger = LoggerFactory.getLogger(MovementEvent.class);
 
-    @JsonProperty("eventState")
-    private String eventState;
-    @JsonProperty("timing")
+    private J2735MovementPhaseState eventState;
     private TimingChangeDetails timing;
-    @JsonProperty("speeds")
-    private Double speeds;
+    private double speeds;
 
-    @JsonProperty("eventState")
-    public String getEventState() {
+    public J2735MovementPhaseState getEventState() {
         return eventState;
     }
 
-    @JsonProperty("eventState")
-    public void setEventState(String eventState) {
+    public void setEventState(J2735MovementPhaseState eventState) {
         this.eventState = eventState;
     }
 
-    @JsonProperty("timing")
     public TimingChangeDetails getTiming() {
         return timing;
     }
 
-    @JsonProperty("timing")
     public void setTiming(TimingChangeDetails timing) {
         this.timing = timing;
     }
 
-    @JsonProperty("speeds")
-    public Double getSpeeds() {
+    public double getSpeeds() {
         return speeds;
     }
 
-    @JsonProperty("speeds")
-    public void setSpeeds(Double speeds) {
+    public void setSpeeds(double speeds) {
         this.speeds = speeds;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof MovementEvent)) {
+            return false;
+        }
+        MovementEvent movementEvent = (MovementEvent) o;
+        return Objects.equals(eventState, movementEvent.eventState) && Objects.equals(timing, movementEvent.timing) && speeds == movementEvent.speeds;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(eventState, timing, speeds);
+    }
+
+    @Override
+    public String toString() {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        String testReturn = "";
+        try {
+            testReturn = (mapper.writeValueAsString(this));
+        } catch (JsonProcessingException e) {
+            logger.error(e.getMessage(), e);
+        }
+        return testReturn;
     }
 
 }
