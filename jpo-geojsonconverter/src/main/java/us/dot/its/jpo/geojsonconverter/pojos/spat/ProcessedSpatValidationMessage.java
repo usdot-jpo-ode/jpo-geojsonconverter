@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import us.dot.its.jpo.geojsonconverter.DateJsonMapper;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -69,7 +71,7 @@ public class ProcessedSpatValidationMessage {
 
     @Override
     public String toString() {
-        ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper mapper = DateJsonMapper.getInstance();
         String testReturn = "";
         try {
             testReturn = (mapper.writeValueAsString(this));

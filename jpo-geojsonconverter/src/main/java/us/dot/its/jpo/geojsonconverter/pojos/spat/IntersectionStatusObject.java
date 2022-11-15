@@ -10,7 +10,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import us.dot.its.jpo.geojsonconverter.DateJsonMapper;
 import us.dot.its.jpo.ode.plugin.j2735.J2735IntersectionStatusObject;
+
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class IntersectionStatusObject {
@@ -208,7 +210,7 @@ public class IntersectionStatusObject {
 
     @Override
     public String toString() {
-        ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper mapper = DateJsonMapper.getInstance();
         String testReturn = "";
         try {
             testReturn = (mapper.writeValueAsString(this));

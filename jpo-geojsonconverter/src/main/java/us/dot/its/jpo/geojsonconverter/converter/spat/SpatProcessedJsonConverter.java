@@ -116,6 +116,7 @@ public class SpatProcessedJsonConverter implements Transformer<Void, OdeSpatData
                         spatTimingDetails.setConfidence(0);
                     }
                     spatTimingDetails.setNextTime(generateOffsetUTCTimestamp(utcTimestamp,incomingMovementEvent.getTiming().getNextTime()));
+                    spatTimingDetails.toString();
                     spatMovementEvent.setTiming(spatTimingDetails);
                     movementEventList.add(spatMovementEvent);
 				}
