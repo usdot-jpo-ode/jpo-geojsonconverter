@@ -164,12 +164,15 @@ public class SpatProcessedJsonConverter implements Transformer<Void, Deserialize
             if (moy != null){
                 milliseconds = moy*60*1000+dSecond; // milliseconds from beginning of year
                 dateString = String.format("%d-01-01T00:00:00.00Z", year);
+                date = Instant.parse(dateString).plusMillis(milliseconds).atZone(ZoneId.of("UTC"));
             } else {
+                date = odeDate;
                 milliseconds = dSecond; // milliseconds from beginning of minute
-                dateString = String.format("%d-%d-%dT%d:%d:00.00Z", year, odeDate.getMonthValue(), odeDate.getDayOfMonth(), odeDate.getHour(), odeDate.getMinute());
+                date = date.withSecond(0);
+                date = date.withNano(0);
+                date = date.plus(milliseconds, ChronoUnit.MILLIS);
             }
                         
-            date = Instant.parse(dateString).plusMillis(milliseconds).atZone(ZoneId.of("UTC"));
             formatted = date.format(DateTimeFormatter.ISO_INSTANT);
         } catch (Exception e) {
             logger.error("Failed to generateUTCTimestamp - SpatProcessedJsonConverter", e);
