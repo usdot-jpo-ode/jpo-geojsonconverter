@@ -5,13 +5,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.mock;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.processor.ProcessorContext;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.networknt.schema.ValidationMessage;
+
+import us.dot.its.jpo.geojsonconverter.pojos.spat.DeserializedRawSpat;
 import us.dot.its.jpo.geojsonconverter.pojos.spat.ProcessedSpat;
 import us.dot.its.jpo.geojsonconverter.serialization.deserializers.OdeSpatDataJsonDeserializer;
+import us.dot.its.jpo.geojsonconverter.validator.JsonValidatorResult;
 import us.dot.its.jpo.ode.model.OdeSpatData;
 
 public class SpatProcessedJsonConverterTest {
@@ -41,11 +48,22 @@ public class SpatProcessedJsonConverterTest {
 
     @Test
     public void testTransform() {
-        KeyValue<String, ProcessedSpat> processedSpat = spatProcessedJsonConverter.transform(null, odeSpatPojo);
+        JsonValidatorResult validatorResults = new JsonValidatorResult();
+        Exception exception = new Exception("test_exception");
+        validatorResults.addException(exception);
+        List<ValidationMessage> validationMessages = new ArrayList<>();
+        validatorResults.addValidationMessages(validationMessages);
+
+        DeserializedRawSpat deserializedRawSpat = new DeserializedRawSpat();
+        deserializedRawSpat.setOdeSpatOdeSpatData(odeSpatPojo);
+        deserializedRawSpat.setValidatorResults(validatorResults);
+
+        KeyValue<String, ProcessedSpat> processedSpat = spatProcessedJsonConverter.transform(null, deserializedRawSpat);
         assertNotNull(processedSpat.key);
         assertEquals("172.19.0.1:12110", processedSpat.key);
         assertNotNull(processedSpat.value);
         assertEquals(8, processedSpat.value.getStates().size());
+        assertEquals("test_exception", processedSpat.value.getValidationMessages().get(0).getException());
     }
 
     @Test

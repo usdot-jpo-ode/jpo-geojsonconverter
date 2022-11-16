@@ -1,5 +1,6 @@
 package us.dot.its.jpo.geojsonconverter.pojos.spat;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -22,12 +23,12 @@ public class ProcessedSpat {
     private String name;
     private int region;
     private int intersectionId;
-    private boolean cti4501Conformant; // TODO: look at output of validator - property name is valid
+    private boolean cti4501Conformant;
     private List<ProcessedSpatValidationMessage> validationMessages = null;
     private int revision;
     private IntersectionStatusObject status;
     private String utcTimeStamp;
-    private List<Integer> enabledLanes = null;
+    private List<Integer> enabledLanes = new ArrayList<>();
     private List<MovementState> states = null;
 
     public String getMessageType() {

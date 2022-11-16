@@ -9,7 +9,10 @@ import org.apache.kafka.streams.kstream.Produced;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.kafka.streams.kstream.KStream;
+
+import us.dot.its.jpo.geojsonconverter.pojos.spat.DeserializedRawSpat;
 import us.dot.its.jpo.geojsonconverter.pojos.spat.ProcessedSpat;
+import us.dot.its.jpo.geojsonconverter.pojos.spat.ValidationRawSpat;
 import us.dot.its.jpo.geojsonconverter.serialization.JsonSerdes;
 import us.dot.its.jpo.geojsonconverter.validator.JsonValidatorResult;
 import us.dot.its.jpo.geojsonconverter.validator.SpatJsonValidator;
@@ -39,23 +42,30 @@ public class SpatTopology {
 
         // Validate the JSON and write validation errors to the log at warn level
         // Passes the raw JSON along unchanged, even if there are validation errors.
-        KStream<Void, Bytes> validatedOdeSpatStream = 
-            rawOdeSpatStream.peek(
+        KStream<Void, ValidationRawSpat> validatedOdeSpatStream = 
+            rawOdeSpatStream.mapValues(
                 (Void key, Bytes value) -> {
                     JsonValidatorResult validationResults = spatJsonValidator.validate(value.get());
+                    ValidationRawSpat validationRawSpat = new ValidationRawSpat();
+                    validationRawSpat.setOdeSpatBytes(value);
+                    validationRawSpat.setValidatorResults(validationResults);
                     if (validationResults.isValid()) {
                         logger.info(validationResults.describeResults());
                     } else {
                         logger.warn(validationResults.describeResults());
                     }
+                    return validationRawSpat;
                 }
             );
 
         // Deserialize the raw JSON bytes to SPAT after validation
-        KStream<Void, OdeSpatData> odeSpatStream =
+        KStream<Void, DeserializedRawSpat> odeSpatStream =
                 validatedOdeSpatStream.mapValues(
-                    (Bytes value) -> {
-                        return JsonSerdes.OdeSpat().deserializer().deserialize(spatOdeJsonTopic, value.get());
+                    (ValidationRawSpat validationRawSpat) -> {
+                        DeserializedRawSpat deserializedRawSpat = new DeserializedRawSpat();
+                        deserializedRawSpat.setOdeSpatOdeSpatData(JsonSerdes.OdeSpat().deserializer().deserialize(spatOdeJsonTopic, validationRawSpat.getOdeSpatBytes().get()));
+                        deserializedRawSpat.setValidatorResults(validationRawSpat.getValidatorResults());
+                        return deserializedRawSpat;
                     }
                 );
 

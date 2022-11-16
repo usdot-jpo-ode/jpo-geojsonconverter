@@ -14,7 +14,6 @@ import us.dot.its.jpo.geojsonconverter.DateJsonMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class TimingChangeDetails {
     private static Logger logger = LoggerFactory.getLogger(TimingChangeDetails.class);
 
