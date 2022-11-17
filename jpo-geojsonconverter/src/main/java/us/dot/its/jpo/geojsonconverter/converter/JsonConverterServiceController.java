@@ -29,8 +29,7 @@ public class JsonConverterServiceController {
 
         try {
             logger.info("Starting {}", this.getClass().getSimpleName());
-            Topology topology;
-            KafkaStreams streams;
+            
 
             // MAP
             logger.info("Creating the MAP geoJSON Kafka-Streams topology");
