@@ -162,7 +162,7 @@ public class IntersectionStatusObjectTest {
     public void testHashCode() {
         IntersectionStatusObject object = new IntersectionStatusObject();
 
-        int hash = object.hashCode();
+        Integer hash = object.hashCode();
         assertNotNull(hash);
     }
 

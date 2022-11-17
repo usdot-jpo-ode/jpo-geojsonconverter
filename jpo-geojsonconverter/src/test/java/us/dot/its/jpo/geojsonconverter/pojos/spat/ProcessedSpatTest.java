@@ -90,7 +90,7 @@ public class ProcessedSpatTest {
     public void testHashCode() {
         ProcessedSpat object = new ProcessedSpat();
 
-        int hash = object.hashCode();
+        Integer hash = object.hashCode();
         assertNotNull(hash);
     }
     

@@ -50,7 +50,7 @@ public class ProcessedSpatValidationMessageTest {
     public void testHashCode() {
         ProcessedSpatValidationMessage object = new ProcessedSpatValidationMessage();
 
-        int hash = object.hashCode();
+        Integer hash = object.hashCode();
         assertNotNull(hash);
     }
     

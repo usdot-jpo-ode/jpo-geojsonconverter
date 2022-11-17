@@ -47,7 +47,7 @@ public class MovementStateTest {
     public void testHashCode() {
         MovementState object = new MovementState();
 
-        int hash = object.hashCode();
+        Integer hash = object.hashCode();
         assertNotNull(hash);
     }
 

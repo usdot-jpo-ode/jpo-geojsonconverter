@@ -45,7 +45,7 @@ public class ValidationRawSpatTest {
     public void testHashCode() {
         ValidationRawSpat object = new ValidationRawSpat();
 
-        int hash = object.hashCode();
+        Integer hash = object.hashCode();
         assertNotNull(hash);
     }
     

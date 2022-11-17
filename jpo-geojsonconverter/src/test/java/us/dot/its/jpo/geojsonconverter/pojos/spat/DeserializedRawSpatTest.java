@@ -43,7 +43,7 @@ public class DeserializedRawSpatTest {
     public void testHashCode() {
         DeserializedRawSpat object = new DeserializedRawSpat();
 
-        int hash = object.hashCode();
+        Integer hash = object.hashCode();
         assertNotNull(hash);
     }
 

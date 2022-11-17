@@ -50,7 +50,7 @@ public class MovementEventTest {
     public void testHashCode() {
         MovementEvent object = new MovementEvent();
 
-        int hash = object.hashCode();
+        Integer hash = object.hashCode();
         assertNotNull(hash);
     }
 

@@ -58,7 +58,7 @@ public class TimingChangeDetailsTest {
     public void testHashCode() {
         TimingChangeDetails object = new TimingChangeDetails();
 
-        int hash = object.hashCode();
+        Integer hash = object.hashCode();
         assertNotNull(hash);
     }
     

@@ -163,7 +163,7 @@ public class SpatProcessedJsonConverter implements Transformer<Void, Deserialize
             String dateString;
             long milliseconds;
             if (moy != null){
-                milliseconds = moy*60*1000+dSecond; // milliseconds from beginning of year
+                milliseconds = moy*60*1000+Long.valueOf(dSecond); // milliseconds from beginning of year
                 dateString = String.format("%d-01-01T00:00:00.00Z", year);
                 date = Instant.parse(dateString).plusMillis(milliseconds).atZone(ZoneId.of("UTC"));
             } else {
@@ -185,7 +185,7 @@ public class SpatProcessedJsonConverter implements Transformer<Void, Deserialize
     public ZonedDateTime generateOffsetUTCTimestamp(String originTimestamp, Integer timeMark){
         try {
             if (timeMark != null){
-                long millis = timeMark*100;
+                long millis = Long.valueOf(timeMark)*100;
                 ZonedDateTime date = Instant.parse(originTimestamp).atZone(ZoneId.of("UTC"));
                 date = date.withMinute(0);
                 date = date.withSecond(0);
