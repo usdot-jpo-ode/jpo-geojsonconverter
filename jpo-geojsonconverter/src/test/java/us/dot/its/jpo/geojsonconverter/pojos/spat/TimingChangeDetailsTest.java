@@ -1,5 +1,6 @@
 package us.dot.its.jpo.geojsonconverter.pojos.spat;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.ZonedDateTime;
@@ -35,5 +36,37 @@ public class TimingChangeDetailsTest {
         object.setNextTime(date);
         ZonedDateTime nextTimeResponse = object.getNextTime();
         assertEquals(nextTimeResponse, date);
+    }
+
+    @Test
+    public void testEquals() {
+        TimingChangeDetails object = new TimingChangeDetails();
+        TimingChangeDetails otherObject = new TimingChangeDetails();
+        boolean equals = object.equals(object);
+        assertEquals(equals, true);
+        
+        boolean otherEquals = object.equals(otherObject);
+        assertEquals(otherEquals, true);
+
+        String string = "string";
+        boolean notEquals = otherObject.equals(string);
+        assertEquals(notEquals, false);
+    }
+
+
+    @Test
+    public void testHashCode() {
+        TimingChangeDetails object = new TimingChangeDetails();
+
+        int hash = object.hashCode();
+        assertNotNull(hash);
+    }
+    
+    @Test
+    public void testToString() {
+        TimingChangeDetails object = new TimingChangeDetails();
+
+        String string = object.toString();
+        assertNotNull(string);
     }
 }

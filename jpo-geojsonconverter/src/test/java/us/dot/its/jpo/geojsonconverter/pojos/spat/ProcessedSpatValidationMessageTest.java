@@ -1,5 +1,6 @@
 package us.dot.its.jpo.geojsonconverter.pojos.spat;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
@@ -27,5 +28,37 @@ public class ProcessedSpatValidationMessageTest {
         object.setException("exception");
         String exceptionResponse = object.getException();
         assertEquals(exceptionResponse, "exception");
+    }
+
+    @Test
+    public void testEquals() {
+        ProcessedSpatValidationMessage object = new ProcessedSpatValidationMessage();
+        ProcessedSpatValidationMessage otherObject = new ProcessedSpatValidationMessage();
+        boolean equals = object.equals(object);
+        assertEquals(equals, true);
+        
+        boolean otherEquals = object.equals(otherObject);
+        assertEquals(otherEquals, true);
+
+        String string = "string";
+        boolean notEquals = otherObject.equals(string);
+        assertEquals(notEquals, false);
+    }
+
+
+    @Test
+    public void testHashCode() {
+        ProcessedSpatValidationMessage object = new ProcessedSpatValidationMessage();
+
+        int hash = object.hashCode();
+        assertNotNull(hash);
+    }
+    
+    @Test
+    public void testToString() {
+        ProcessedSpatValidationMessage object = new ProcessedSpatValidationMessage();
+
+        String string = object.toString();
+        assertNotNull(string);
     }
 }

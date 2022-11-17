@@ -16,7 +16,6 @@ import us.dot.its.jpo.geojsonconverter.pojos.spat.ValidationRawSpat;
 import us.dot.its.jpo.geojsonconverter.serialization.JsonSerdes;
 import us.dot.its.jpo.geojsonconverter.validator.JsonValidatorResult;
 import us.dot.its.jpo.geojsonconverter.validator.SpatJsonValidator;
-import us.dot.its.jpo.ode.model.OdeSpatData;
 
 /**
  * Kafka Streams Topology builder for processing SPaT messages from

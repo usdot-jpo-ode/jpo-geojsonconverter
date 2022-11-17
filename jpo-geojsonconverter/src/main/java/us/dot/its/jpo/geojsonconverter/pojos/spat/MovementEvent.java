@@ -1,7 +1,6 @@
 
 package us.dot.its.jpo.geojsonconverter.pojos.spat;
 
-import java.util.List;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -12,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import us.dot.its.jpo.geojsonconverter.DateJsonMapper;
-import us.dot.its.jpo.ode.plugin.j2735.J2735AdvisorySpeed;
+import us.dot.its.jpo.ode.plugin.j2735.J2735AdvisorySpeedList;
 import us.dot.its.jpo.ode.plugin.j2735.J2735MovementPhaseState;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -21,7 +20,7 @@ public class MovementEvent {
 
     private J2735MovementPhaseState eventState;
     private TimingChangeDetails timing;
-    private List<J2735AdvisorySpeed> speeds;
+    private J2735AdvisorySpeedList speeds;
 
     public J2735MovementPhaseState getEventState() {
         return eventState;
@@ -39,11 +38,11 @@ public class MovementEvent {
         this.timing = timing;
     }
 
-    public List<J2735AdvisorySpeed> getSpeeds() {
+    public J2735AdvisorySpeedList getSpeeds() {
         return speeds;
     }
 
-    public void setSpeeds(List<J2735AdvisorySpeed> speeds) {
+    public void setSpeeds(J2735AdvisorySpeedList speeds) {
         this.speeds = speeds;
     }
 

@@ -1,5 +1,6 @@
 package us.dot.its.jpo.geojsonconverter.pojos.spat;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.Test;
@@ -142,4 +143,34 @@ public class IntersectionStatusObjectTest {
         assertEquals(response, true);
     }
 
+    @Test
+    public void testEquals() {
+        IntersectionStatusObject object = new IntersectionStatusObject();
+        IntersectionStatusObject otherObject = new IntersectionStatusObject();
+        boolean equals = object.equals(object);
+        assertEquals(equals, true);
+        
+        boolean otherEquals = object.equals(otherObject);
+        assertEquals(otherEquals, true);
+
+        String string = "string";
+        boolean notEquals = otherObject.equals(string);
+        assertEquals(notEquals, false);
+    }
+
+    @Test
+    public void testHashCode() {
+        IntersectionStatusObject object = new IntersectionStatusObject();
+
+        int hash = object.hashCode();
+        assertNotNull(hash);
+    }
+
+    @Test
+    public void testToString() {
+        IntersectionStatusObject object = new IntersectionStatusObject();
+
+        String string = object.toString();
+        assertNotNull(string);
+    }
 }

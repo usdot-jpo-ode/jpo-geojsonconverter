@@ -140,8 +140,9 @@ public class SpatProcessedJsonConverter implements Transformer<Void, Deserialize
                         spatTimingDetails.setConfidence(0);
                     }
                     spatTimingDetails.setNextTime(generateOffsetUTCTimestamp(utcTimestamp,incomingMovementEvent.getTiming().getNextTime()));
-                    spatTimingDetails.toString();
                     spatMovementEvent.setTiming(spatTimingDetails);
+                    spatMovementEvent.setSpeeds(incomingMovementEvent.getSpeeds());
+
                     movementEventList.add(spatMovementEvent);
 				}
             }

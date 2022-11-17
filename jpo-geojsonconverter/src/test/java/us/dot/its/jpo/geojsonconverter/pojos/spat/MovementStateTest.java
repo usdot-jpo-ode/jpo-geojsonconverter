@@ -1,5 +1,6 @@
 package us.dot.its.jpo.geojsonconverter.pojos.spat;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
@@ -24,5 +25,37 @@ public class MovementStateTest {
         object.setStateTimeSpeed(movementEvent);
         List<MovementEvent> movementResponse = object.getStateTimeSpeed();
         assertEquals(movementResponse, movementEvent);
+    }
+
+    @Test
+    public void testEquals() {
+        MovementState object = new MovementState();
+        MovementState otherObject = new MovementState();
+        boolean equals = object.equals(object);
+        assertEquals(equals, true);
+        
+        boolean otherEquals = object.equals(otherObject);
+        assertEquals(otherEquals, true);
+
+        String string = "string";
+        boolean notEquals = otherObject.equals(string);
+        assertEquals(notEquals, false);
+    }
+
+
+    @Test
+    public void testHashCode() {
+        MovementState object = new MovementState();
+
+        int hash = object.hashCode();
+        assertNotNull(hash);
+    }
+
+    @Test
+    public void testToString() {
+        MovementState object = new MovementState();
+
+        String string = object.toString();
+        assertNotNull(string);
     }
 }
