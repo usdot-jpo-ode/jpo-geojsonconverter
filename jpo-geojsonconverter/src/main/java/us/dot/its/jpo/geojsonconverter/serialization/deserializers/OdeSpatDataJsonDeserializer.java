@@ -24,7 +24,7 @@ public class OdeSpatDataJsonDeserializer implements Deserializer<OdeSpatData> {
 
     private static Logger logger = LoggerFactory.getLogger(OdeSpatDataJsonDeserializer.class);
 
-    protected final ObjectMapper mapper = DateJsonMapper.getInstance();
+    protected final ObjectMapper mapper = new ObjectMapper();
 
     @Override
     public OdeSpatData deserialize(String topic, byte[] data) {
