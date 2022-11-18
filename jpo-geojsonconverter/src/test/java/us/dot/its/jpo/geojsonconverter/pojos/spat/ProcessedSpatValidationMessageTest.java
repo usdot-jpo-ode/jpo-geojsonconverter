@@ -3,9 +3,6 @@ package us.dot.its.jpo.geojsonconverter.pojos.spat;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Test;
 
 public class ProcessedSpatValidationMessageTest {

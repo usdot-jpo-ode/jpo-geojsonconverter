@@ -11,7 +11,6 @@ import us.dot.its.jpo.ode.plugin.j2735.J2735MovementState;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
