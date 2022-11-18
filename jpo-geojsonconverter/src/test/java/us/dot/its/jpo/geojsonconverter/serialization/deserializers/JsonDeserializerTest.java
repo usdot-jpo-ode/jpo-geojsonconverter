@@ -4,11 +4,27 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.fail;
 
+import java.io.BufferedInputStream;
 import java.io.UnsupportedEncodingException;
 
+import org.apache.commons.io.IOUtils;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.io.Resource;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.junit4.SpringRunner;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import us.dot.its.jpo.geojsonconverter.DateJsonMapper;
+import us.dot.its.jpo.geojsonconverter.pojos.spat.ProcessedSpat;
+
+@SpringBootTest(
+    "processed.spat.json=classpath:json/sample.processed.spat.json")
+@RunWith(SpringRunner.class)
 public class JsonDeserializerTest {
     @Test
     public void deserializeTest() {
@@ -45,6 +61,25 @@ public class JsonDeserializerTest {
             assertNull(result);
         }
     }
+
+    @Test
+    public void testProcessedSpatDeserializer() {
+        try (JsonDeserializer<ProcessedSpat> serializer = new JsonDeserializer<ProcessedSpat>(ProcessedSpat.class)) {
+            byte[] spatBytes = IOUtils.toByteArray(validSpatJsonResource.getInputStream()); 
+            String spatString = new String(spatBytes).strip().replace("\n", "").replace("\r", "").replace(" ", "");
+
+            ProcessedSpat spat = serializer.deserialize("the_topic", spatBytes);
+            assertNotNull(spat);
+            assertEquals(spat.getCti4501Conformant(), false);
+            assertEquals(spat.getUtcTimeStamp().toString(), "2022-11-17T22:55:28.744Z[UTC]");
+            assertEquals(spat.toString().replace(" ", ""), spatString);
+        } catch (Exception e) {
+            fail("Unexpected exception: " + e);
+        }
+    }
+    
+    @Value("${processed.spat.json}")
+    private Resource validSpatJsonResource;
 
     private class BadClass {
         // Private inner class to break Jackson deserialization

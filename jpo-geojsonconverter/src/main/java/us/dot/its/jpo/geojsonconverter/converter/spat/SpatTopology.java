@@ -12,7 +12,6 @@ import org.apache.kafka.streams.kstream.KStream;
 
 import us.dot.its.jpo.geojsonconverter.pojos.spat.DeserializedRawSpat;
 import us.dot.its.jpo.geojsonconverter.pojos.spat.ProcessedSpat;
-import us.dot.its.jpo.geojsonconverter.pojos.spat.ValidationRawSpat;
 import us.dot.its.jpo.geojsonconverter.serialization.JsonSerdes;
 import us.dot.its.jpo.geojsonconverter.validator.JsonValidatorResult;
 import us.dot.its.jpo.geojsonconverter.validator.SpatJsonValidator;
@@ -41,36 +40,25 @@ public class SpatTopology {
 
         // Validate the JSON and write validation errors to the log at warn level
         // Passes the raw JSON along unchanged, even if there are validation errors.
-        KStream<Void, ValidationRawSpat> validatedOdeSpatStream = 
+        KStream<Void, DeserializedRawSpat> validatedOdeSpatStream = 
             rawOdeSpatStream.mapValues(
                 (Void key, Bytes value) -> {
+                    DeserializedRawSpat deserializedRawSpat = new DeserializedRawSpat();
                     JsonValidatorResult validationResults = spatJsonValidator.validate(value.get());
-                    ValidationRawSpat validationRawSpat = new ValidationRawSpat();
-                    validationRawSpat.setOdeSpatBytes(value);
-                    validationRawSpat.setValidatorResults(validationResults);
+                    deserializedRawSpat.setOdeSpatOdeSpatData(JsonSerdes.OdeSpat().deserializer().deserialize(spatOdeJsonTopic, value.get()));
+                    deserializedRawSpat.setValidatorResults(validationResults);
                     if (validationResults.isValid()) {
                         logger.info(validationResults.describeResults());
                     } else {
                         logger.warn(validationResults.describeResults());
                     }
-                    return validationRawSpat;
+                    return deserializedRawSpat;
                 }
             );
 
-        // Deserialize the raw JSON bytes to SPAT after validation
-        KStream<Void, DeserializedRawSpat> odeSpatStream =
-                validatedOdeSpatStream.mapValues(
-                    (ValidationRawSpat validationRawSpat) -> {
-                        DeserializedRawSpat deserializedRawSpat = new DeserializedRawSpat();
-                        deserializedRawSpat.setOdeSpatOdeSpatData(JsonSerdes.OdeSpat().deserializer().deserialize(spatOdeJsonTopic, validationRawSpat.getOdeSpatBytes().get()));
-                        deserializedRawSpat.setValidatorResults(validationRawSpat.getValidatorResults());
-                        return deserializedRawSpat;
-                    }
-                );
-
         // Convert ODE SPaT to GeoJSON
         KStream<String, ProcessedSpat> processedJsonSpatStream =
-            odeSpatStream.transform(
+            validatedOdeSpatStream.transform(
                 () -> new SpatProcessedJsonConverter() // change this converter to something else NOT GEOJSON
             );
 

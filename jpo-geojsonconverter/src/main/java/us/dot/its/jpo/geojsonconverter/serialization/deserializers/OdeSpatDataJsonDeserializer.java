@@ -2,7 +2,6 @@ package us.dot.its.jpo.geojsonconverter.serialization.deserializers;
 
 import java.io.IOException;
 
-import us.dot.its.jpo.geojsonconverter.DateJsonMapper;
 import us.dot.its.jpo.ode.model.OdeSpatData;
 import us.dot.its.jpo.ode.model.OdeSpatMetadata;
 import us.dot.its.jpo.ode.model.OdeSpatPayload;
@@ -24,7 +23,7 @@ public class OdeSpatDataJsonDeserializer implements Deserializer<OdeSpatData> {
 
     private static Logger logger = LoggerFactory.getLogger(OdeSpatDataJsonDeserializer.class);
 
-    protected final ObjectMapper mapper = DateJsonMapper.getInstance();
+    protected final ObjectMapper mapper = new ObjectMapper();
 
     @Override
     public OdeSpatData deserialize(String topic, byte[] data) {

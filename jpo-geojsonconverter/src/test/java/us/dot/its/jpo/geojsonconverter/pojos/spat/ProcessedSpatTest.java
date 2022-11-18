@@ -3,6 +3,7 @@ package us.dot.its.jpo.geojsonconverter.pojos.spat;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,9 +56,10 @@ public class ProcessedSpatTest {
         IntersectionStatusObject statusResponse = object.getStatus();
         assertEquals(statusResponse, statusObject);
 
-        object.setUtcTimeStamp("ts");
-        String tsResponse = object.getUtcTimeStamp();
-        assertEquals(tsResponse, "ts");
+        ZonedDateTime dateTime = ZonedDateTime.now();
+        object.setUtcTimeStamp(dateTime);
+        ZonedDateTime tsResponse = object.getUtcTimeStamp();
+        assertEquals(tsResponse, dateTime);
 
         List<Integer> enabledLanes = new ArrayList<Integer>();
         object.setEnabledLanes(enabledLanes);

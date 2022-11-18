@@ -63,7 +63,7 @@ public class SpatProcessedJsonConverterTest {
         assertEquals("172.19.0.1:12110", processedSpat.key);
         assertNotNull(processedSpat.value);
         assertEquals(8, processedSpat.value.getStates().size());
-        assertEquals("test_exception", processedSpat.value.getValidationMessages().get(0).getException());
+        assertEquals("test_exception", processedSpat.value.getValidationMessages().get(0).getMessage());
     }
 
     @Test

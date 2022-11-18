@@ -4,10 +4,28 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.io.BufferedInputStream;
+
 import static org.junit.Assert.fail;
 
+import org.apache.commons.io.IOUtils;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.io.Resource;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.junit4.SpringRunner;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import us.dot.its.jpo.geojsonconverter.DateJsonMapper;
+import us.dot.its.jpo.geojsonconverter.pojos.spat.ProcessedSpat;
+
+
+@SpringBootTest(
+    "processed.spat.json=classpath:json/sample.processed.spat.json")
+@RunWith(SpringRunner.class)
 public class JsonSerializerTest {
     @Test
     public void testSerialize() {
@@ -30,6 +48,26 @@ public class JsonSerializerTest {
             fail("Unexpected exception: " + e);
         }
     }
+
+    @Test
+    public void testProcessedSpatSerializer() {
+        try (JsonSerializer<ProcessedSpat> serializer = new JsonSerializer<ProcessedSpat>()) {
+            BufferedInputStream inputStream = new BufferedInputStream(validSpatJsonResource.getInputStream());
+            String spatString = IOUtils.toString(inputStream, "UTF-8"); 
+            ObjectMapper mapper = DateJsonMapper.getInstance();
+            ProcessedSpat spat = mapper.readValue(spatString, ProcessedSpat.class);
+            
+            byte[] bytes = serializer.serialize("the_topic", spat);
+            assertNotNull(bytes);
+            assertTrue(bytes.length > 0);
+            assertEquals(spat.toString(), new String(bytes));
+        } catch (Exception e) {
+            fail("Unexpected exception: " + e);
+        }
+    }
+
+    @Value("${processed.spat.json}")
+    private Resource validSpatJsonResource;
 
     private class BadClass {
         // Class with no properties to break Jackson serialization
