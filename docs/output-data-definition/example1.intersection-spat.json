@@ -51,7 +51,22 @@
                         "confidence": 1,
                         "nextTime": "2022-10-31T15:40:26.687292Z"
                     },
-                    "speeds": "J2735AdvisorySpeedList"
+                    "speeds": [
+                        {
+                            "type": "GREENWAVE",
+                            "speed": 10,
+                            "confidence": "PREC1MS",
+                            "distance": 1000,
+                            "classId": 0
+                        },
+                        {
+                            "type": "ECODRIVE",
+                            "speed": 10,
+                            "confidence": "PREC1MS",
+                            "distance": 1000,
+                            "classId": 0
+                        }
+                    ]
                 }
             ]
         }

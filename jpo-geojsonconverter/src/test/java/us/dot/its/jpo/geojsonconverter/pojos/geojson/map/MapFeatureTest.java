@@ -7,8 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.LineString;
-import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.MapFeature;
-import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.MapProperties;
 
 public class MapFeatureTest {
     MapProperties properties;

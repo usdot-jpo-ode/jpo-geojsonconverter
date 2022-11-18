@@ -1,7 +1,6 @@
 package us.dot.its.jpo.geojsonconverter.converter;
 
 import org.apache.kafka.streams.KafkaStreams;
-import org.apache.kafka.streams.Topology;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

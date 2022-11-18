@@ -1,0 +1,254 @@
+{
+    "messageType": "SPAT",
+    "odeReceivedAt": "2022-11-17T22:55:16.330328Z",
+    "originIp": "172.18.0.1",
+    "region": 0,
+    "intersectionId": 12110,
+    "cti4501Conformant": false,
+    "validationMessages": [
+      {
+        "message": "$.payload.data.timeStamp: null found, integer expected",
+        "jsonPath": "$.payload.data.timeStamp",
+        "schemaPath": "#/$defs/J2735MinuteOfTheYear/type"
+      },
+      {
+        "message": "$.payload.data.intersectionStateList.intersectionStatelist[0].id.region: null found, integer expected",
+        "jsonPath": "$.payload.data.intersectionStateList.intersectionStatelist[0].id.region",
+        "schemaPath": "#/$defs/J2735RoadRegulatorID/type"
+      },
+      {
+        "message": "$.payload.data.intersectionStateList.intersectionStatelist[0].status: string found, object expected",
+        "jsonPath": "$.payload.data.intersectionStateList.intersectionStatelist[0].status",
+        "schemaPath": "#/$defs/J2735IntersectionStatusObject/type"
+      },
+      {
+        "message": "$.payload.data.intersectionStateList.intersectionStatelist[0].states.movementList[0].state_time_speed.movementEventList[0].timing.startTime: null found, integer expected",
+        "jsonPath": "$.payload.data.intersectionStateList.intersectionStatelist[0].states.movementList[0].state_time_speed.movementEventList[0].timing.startTime",
+        "schemaPath": "#/$defs/J2735TimeMark/type"
+      },
+      {
+        "message": "$.payload.data.intersectionStateList.intersectionStatelist[0].states.movementList[0].state_time_speed.movementEventList[0].timing.nextTime: null found, integer expected",
+        "jsonPath": "$.payload.data.intersectionStateList.intersectionStatelist[0].states.movementList[0].state_time_speed.movementEventList[0].timing.nextTime",
+        "schemaPath": "#/$defs/J2735TimeMark/type"
+      },
+      {
+        "message": "$.payload.data.intersectionStateList.intersectionStatelist[0].states.movementList[1].state_time_speed.movementEventList[0].timing.startTime: null found, integer expected",
+        "jsonPath": "$.payload.data.intersectionStateList.intersectionStatelist[0].states.movementList[1].state_time_speed.movementEventList[0].timing.startTime",
+        "schemaPath": "#/$defs/J2735TimeMark/type"
+      },
+      {
+        "message": "$.payload.data.intersectionStateList.intersectionStatelist[0].states.movementList[1].state_time_speed.movementEventList[0].timing.nextTime: null found, integer expected",
+        "jsonPath": "$.payload.data.intersectionStateList.intersectionStatelist[0].states.movementList[1].state_time_speed.movementEventList[0].timing.nextTime",
+        "schemaPath": "#/$defs/J2735TimeMark/type"
+      },
+      {
+        "message": "$.payload.data.intersectionStateList.intersectionStatelist[0].states.movementList[2].state_time_speed.movementEventList[0].timing.startTime: null found, integer expected",
+        "jsonPath": "$.payload.data.intersectionStateList.intersectionStatelist[0].states.movementList[2].state_time_speed.movementEventList[0].timing.startTime",
+        "schemaPath": "#/$defs/J2735TimeMark/type"
+      },
+      {
+        "message": "$.payload.data.intersectionStateList.intersectionStatelist[0].states.movementList[2].state_time_speed.movementEventList[0].timing.nextTime: null found, integer expected",
+        "jsonPath": "$.payload.data.intersectionStateList.intersectionStatelist[0].states.movementList[2].state_time_speed.movementEventList[0].timing.nextTime",
+        "schemaPath": "#/$defs/J2735TimeMark/type"
+      },
+      {
+        "message": "$.payload.data.intersectionStateList.intersectionStatelist[0].states.movementList[3].state_time_speed.movementEventList[0].timing.startTime: null found, integer expected",
+        "jsonPath": "$.payload.data.intersectionStateList.intersectionStatelist[0].states.movementList[3].state_time_speed.movementEventList[0].timing.startTime",
+        "schemaPath": "#/$defs/J2735TimeMark/type"
+      },
+      {
+        "message": "$.payload.data.intersectionStateList.intersectionStatelist[0].states.movementList[3].state_time_speed.movementEventList[0].timing.nextTime: null found, integer expected",
+        "jsonPath": "$.payload.data.intersectionStateList.intersectionStatelist[0].states.movementList[3].state_time_speed.movementEventList[0].timing.nextTime",
+        "schemaPath": "#/$defs/J2735TimeMark/type"
+      },
+      {
+        "message": "$.payload.data.intersectionStateList.intersectionStatelist[0].states.movementList[4].state_time_speed.movementEventList[0].timing.startTime: null found, integer expected",
+        "jsonPath": "$.payload.data.intersectionStateList.intersectionStatelist[0].states.movementList[4].state_time_speed.movementEventList[0].timing.startTime",
+        "schemaPath": "#/$defs/J2735TimeMark/type"
+      },
+      {
+        "message": "$.payload.data.intersectionStateList.intersectionStatelist[0].states.movementList[4].state_time_speed.movementEventList[0].timing.nextTime: null found, integer expected",
+        "jsonPath": "$.payload.data.intersectionStateList.intersectionStatelist[0].states.movementList[4].state_time_speed.movementEventList[0].timing.nextTime",
+        "schemaPath": "#/$defs/J2735TimeMark/type"
+      },
+      {
+        "message": "$.payload.data.intersectionStateList.intersectionStatelist[0].states.movementList[5].state_time_speed.movementEventList[0].timing.startTime: null found, integer expected",
+        "jsonPath": "$.payload.data.intersectionStateList.intersectionStatelist[0].states.movementList[5].state_time_speed.movementEventList[0].timing.startTime",
+        "schemaPath": "#/$defs/J2735TimeMark/type"
+      },
+      {
+        "message": "$.payload.data.intersectionStateList.intersectionStatelist[0].states.movementList[5].state_time_speed.movementEventList[0].timing.nextTime: null found, integer expected",
+        "jsonPath": "$.payload.data.intersectionStateList.intersectionStatelist[0].states.movementList[5].state_time_speed.movementEventList[0].timing.nextTime",
+        "schemaPath": "#/$defs/J2735TimeMark/type"
+      },
+      {
+        "message": "$.payload.data.intersectionStateList.intersectionStatelist[0].states.movementList[6].state_time_speed.movementEventList[0].timing.startTime: null found, integer expected",
+        "jsonPath": "$.payload.data.intersectionStateList.intersectionStatelist[0].states.movementList[6].state_time_speed.movementEventList[0].timing.startTime",
+        "schemaPath": "#/$defs/J2735TimeMark/type"
+      },
+      {
+        "message": "$.payload.data.intersectionStateList.intersectionStatelist[0].states.movementList[6].state_time_speed.movementEventList[0].timing.nextTime: null found, integer expected",
+        "jsonPath": "$.payload.data.intersectionStateList.intersectionStatelist[0].states.movementList[6].state_time_speed.movementEventList[0].timing.nextTime",
+        "schemaPath": "#/$defs/J2735TimeMark/type"
+      },
+      {
+        "message": "$.payload.data.intersectionStateList.intersectionStatelist[0].states.movementList[7].state_time_speed.movementEventList[0].timing.startTime: null found, integer expected",
+        "jsonPath": "$.payload.data.intersectionStateList.intersectionStatelist[0].states.movementList[7].state_time_speed.movementEventList[0].timing.startTime",
+        "schemaPath": "#/$defs/J2735TimeMark/type"
+      },
+      {
+        "message": "$.payload.data.intersectionStateList.intersectionStatelist[0].states.movementList[7].state_time_speed.movementEventList[0].timing.nextTime: null found, integer expected",
+        "jsonPath": "$.payload.data.intersectionStateList.intersectionStatelist[0].states.movementList[7].state_time_speed.movementEventList[0].timing.nextTime",
+        "schemaPath": "#/$defs/J2735TimeMark/type"
+      }
+    ],
+    "revision": 0,
+    "status": {
+      "manualControlIsEnabled": true,
+      "stopTimeIsActivated": false,
+      "failureFlash": false,
+      "preemptIsActive": false,
+      "signalPriorityIsActive": false,
+      "fixedTimeOperation": false,
+      "trafficDependentOperation": false,
+      "standbyOperation": false,
+      "failureMode": false,
+      "off": false,
+      "recentMAPmessageUpdate": false,
+      "recentChangeInMAPassignedLanesIDsUsed": false,
+      "noValidMAPisAvailableAtThisTime": false,
+      "noValidSPATisAvailableAtThisTime": false
+    },
+    "utcTimeStamp": "2022-11-17T22:55:28.744Z",
+    "enabledLanes": [],
+    "states": [
+      {
+        "signalGroup": 1,
+        "stateTimeSpeed": [
+          {
+            "eventState": "STOP_AND_REMAIN",
+            "timing": {
+              "startTime": null,
+              "minEndTime": "2022-11-17T22:03:48.1Z",
+              "maxEndTime": "2022-11-17T22:03:48.1Z",
+              "likelyTime": null,
+              "confidence": 0,
+              "nextTime": null
+            }
+          }
+        ]
+      },
+      {
+        "signalGroup": 2,
+        "stateTimeSpeed": [
+          {
+            "eventState": "STOP_AND_REMAIN",
+            "timing": {
+              "startTime": null,
+              "minEndTime": "2022-11-17T22:03:05.1Z",
+              "maxEndTime": "2022-11-17T22:03:05.1Z",
+              "likelyTime": null,
+              "confidence": 0,
+              "nextTime": null
+            }
+          }
+        ]
+      },
+      {
+        "signalGroup": 3,
+        "stateTimeSpeed": [
+          {
+            "eventState": "STOP_AND_REMAIN",
+            "timing": {
+              "startTime": null,
+              "minEndTime": "2022-11-17T22:03:48.1Z",
+              "maxEndTime": "2022-11-17T22:03:48.1Z",
+              "likelyTime": null,
+              "confidence": 0,
+              "nextTime": null
+            }
+          }
+        ]
+      },
+      {
+        "signalGroup": 4,
+        "stateTimeSpeed": [
+          {
+            "eventState": "STOP_AND_REMAIN",
+            "timing": {
+              "startTime": null,
+              "minEndTime": "2022-11-17T22:02:38.1Z",
+              "maxEndTime": "2022-11-17T22:02:38.1Z",
+              "likelyTime": null,
+              "confidence": 0,
+              "nextTime": null
+            }
+          }
+        ]
+      },
+      {
+        "signalGroup": 5,
+        "stateTimeSpeed": [
+          {
+            "eventState": "STOP_AND_REMAIN",
+            "timing": {
+              "startTime": null,
+              "minEndTime": "2022-11-17T22:03:05.1Z",
+              "maxEndTime": "2022-11-17T22:03:05.1Z",
+              "likelyTime": null,
+              "confidence": 0,
+              "nextTime": null
+            }
+          }
+        ]
+      },
+      {
+        "signalGroup": 6,
+        "stateTimeSpeed": [
+          {
+            "eventState": "STOP_AND_REMAIN",
+            "timing": {
+              "startTime": null,
+              "minEndTime": "2022-11-17T22:03:20.1Z",
+              "maxEndTime": "2022-11-17T22:03:20.1Z",
+              "likelyTime": null,
+              "confidence": 0,
+              "nextTime": null
+            }
+          }
+        ]
+      },
+      {
+        "signalGroup": 7,
+        "stateTimeSpeed": [
+          {
+            "eventState": "PROTECTED_MOVEMENT_ALLOWED",
+            "timing": {
+              "startTime": null,
+              "minEndTime": "2022-11-17T22:02:28Z",
+              "maxEndTime": "2022-11-17T22:02:40.1Z",
+              "likelyTime": null,
+              "confidence": 0,
+              "nextTime": null
+            }
+          }
+        ]
+      },
+      {
+        "signalGroup": 8,
+        "stateTimeSpeed": [
+          {
+            "eventState": "STOP_AND_REMAIN",
+            "timing": {
+              "startTime": null,
+              "minEndTime": "2022-11-17T22:02:45.1Z",
+              "maxEndTime": "2022-11-17T22:02:45.1Z",
+              "likelyTime": null,
+              "confidence": 0,
+              "nextTime": null
+            }
+          }
+        ]
+      }
+    ]
+  }

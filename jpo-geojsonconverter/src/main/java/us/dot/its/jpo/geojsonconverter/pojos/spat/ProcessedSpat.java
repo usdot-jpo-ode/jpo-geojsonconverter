@@ -1,5 +1,6 @@
 package us.dot.its.jpo.geojsonconverter.pojos.spat;
 
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -27,7 +28,7 @@ public class ProcessedSpat {
     private List<ProcessedSpatValidationMessage> validationMessages = null;
     private int revision;
     private IntersectionStatusObject status;
-    private String utcTimeStamp;
+    private ZonedDateTime utcTimeStamp;
     private List<Integer> enabledLanes = new ArrayList<>();
     private List<MovementState> states = null;
 
@@ -111,11 +112,11 @@ public class ProcessedSpat {
         this.status = status;
     }
 
-    public String getUtcTimeStamp() {
+    public ZonedDateTime getUtcTimeStamp() {
         return utcTimeStamp;
     }
 
-    public void setUtcTimeStamp(String utcTimeStamp) {
+    public void setUtcTimeStamp(ZonedDateTime utcTimeStamp) {
         this.utcTimeStamp = utcTimeStamp;
     }
 

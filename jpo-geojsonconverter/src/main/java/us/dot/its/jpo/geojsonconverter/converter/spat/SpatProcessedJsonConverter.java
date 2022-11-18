@@ -11,7 +11,6 @@ import us.dot.its.jpo.ode.plugin.j2735.J2735MovementState;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
@@ -82,8 +81,8 @@ public class SpatProcessedJsonConverter implements Transformer<Void, Deserialize
         List<ProcessedSpatValidationMessage> processedSpatValidationMessages = new ArrayList<ProcessedSpatValidationMessage>();
         for (Exception exception : validationMessages.getExceptions()){
             ProcessedSpatValidationMessage object = new ProcessedSpatValidationMessage();
-            object.setMessage("An exception was thrown.");
-            object.setException(exception.getMessage());
+            object.setMessage(exception.getMessage());
+            object.setException(exception.getStackTrace().toString());
             processedSpatValidationMessages.add(object);
         }
         for (ValidationMessage vm : validationMessages.getValidationMessages()){
@@ -105,7 +104,7 @@ public class SpatProcessedJsonConverter implements Transformer<Void, Deserialize
 
         Integer moyTimestamp = intersectionState.getMoy(); // Minute of the year, elapsed minutes since January in UTC time
         Integer dSecond = intersectionState.getTimeStamp(); // milliseconds within the current minute
-        String utcTimestamp = generateUTCTimestamp(moyTimestamp, dSecond, metadata.getOdeReceivedAt());
+        ZonedDateTime utcTimestamp = generateUTCTimestamp(moyTimestamp, dSecond, metadata.getOdeReceivedAt());
         processedSpat.setUtcTimeStamp(utcTimestamp);
         if (intersectionState.getEnabledLanes()!=null) {
             processedSpat.setEnabledLanes(intersectionState.getEnabledLanes().getEnabledLaneList());
@@ -154,9 +153,8 @@ public class SpatProcessedJsonConverter implements Transformer<Void, Deserialize
         return processedSpat;
     }
 
-    public String generateUTCTimestamp(Integer moy, Integer dSecond, String odeTimestamp){ //2022-10-31T15:40:26.687292Z
-        ZonedDateTime date;
-        String formatted = null;
+    public ZonedDateTime generateUTCTimestamp(Integer moy, Integer dSecond, String odeTimestamp){ //2022-10-31T15:40:26.687292Z
+        ZonedDateTime date = null;
         try {
             ZonedDateTime odeDate = Instant.parse(odeTimestamp).atZone(ZoneId.of("UTC"));
             int year = odeDate.getYear();
@@ -174,19 +172,18 @@ public class SpatProcessedJsonConverter implements Transformer<Void, Deserialize
                 date = date.plus(milliseconds, ChronoUnit.MILLIS);
             }
                         
-            formatted = date.format(DateTimeFormatter.ISO_INSTANT);
         } catch (Exception e) {
             logger.error("Failed to generateUTCTimestamp - SpatProcessedJsonConverter", e);
         }
         
-        return formatted;
+        return date;
     }
 
-    public ZonedDateTime generateOffsetUTCTimestamp(String originTimestamp, Integer timeMark){
+    public ZonedDateTime generateOffsetUTCTimestamp(ZonedDateTime originTimestamp, Integer timeMark){
         try {
             if (timeMark != null){
                 long millis = Long.valueOf(timeMark)*100;
-                ZonedDateTime date = Instant.parse(originTimestamp).atZone(ZoneId.of("UTC"));
+                ZonedDateTime date = originTimestamp;
                 date = date.withMinute(0);
                 date = date.withSecond(0);
                 date = date.withNano(0);

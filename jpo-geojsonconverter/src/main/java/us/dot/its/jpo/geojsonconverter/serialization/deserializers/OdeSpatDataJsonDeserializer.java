@@ -2,7 +2,6 @@ package us.dot.its.jpo.geojsonconverter.serialization.deserializers;
 
 import java.io.IOException;
 
-import us.dot.its.jpo.geojsonconverter.DateJsonMapper;
 import us.dot.its.jpo.ode.model.OdeSpatData;
 import us.dot.its.jpo.ode.model.OdeSpatMetadata;
 import us.dot.its.jpo.ode.model.OdeSpatPayload;
