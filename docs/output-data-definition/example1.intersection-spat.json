@@ -2,7 +2,7 @@
     "messageType": "SPAT",
     "odeReceivedAt": "2022-10-31T15:40:26.687292Z",
     "originIp": "172.19.0.1",
-    "name": null,
+    "name": "name",
     "region": 0,
     "intersectionId": 12111,
     "cti4501Conformant": true,
@@ -38,7 +38,7 @@
     "enabledLanes": [ 1, 2, 3],
     "states":[
         {
-            "movementName": null,
+            "movementName": "name",
             "signalGroup": 2,
             "stateTimeSpeed": [  
                 {
@@ -47,11 +47,26 @@
                         "startTime": "2022-10-31T15:40:26.687292Z",
                         "minEndTime": "2022-10-31T15:40:26.687292Z", 
                         "maxEndTime": "2022-10-31T15:40:26.687292Z",
-                        "likelyTime": null,
-                        "confidence": null,
+                        "likelyTime": "2022-10-31T15:40:26.687292Z",
+                        "confidence": 1,
                         "nextTime": "2022-10-31T15:40:26.687292Z"
                     },
-                    "speeds": null
+                    "speeds": [
+                        {
+                            "type": "GREENWAVE",
+                            "speed": 10,
+                            "confidence": "PREC1MS",
+                            "distance": 1000,
+                            "classId": 0
+                        },
+                        {
+                            "type": "ECODRIVE",
+                            "speed": 10,
+                            "confidence": "PREC1MS",
+                            "distance": 1000,
+                            "classId": 0
+                        }
+                    ]
                 }
             ]
         }
