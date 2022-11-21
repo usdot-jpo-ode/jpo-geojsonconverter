@@ -244,7 +244,10 @@
                     "$ref": "#/$defs/J2735MovementList_Wrapper"
                 },
                 "maneuverAssistList": {
-                    "type": "null"
+                    "oneOf": [ 
+                        {"$ref": "#/$defs/J2735ManeuverAssistList_Wrapper"}, 
+                        { "type": "null" } 
+                    ] 
                 }
             },
             "required": [
@@ -254,6 +257,53 @@
                 "timeStamp",
                 "states"
             ]
+        },
+        "J2735ManeuverAssistList_Wrapper": {
+            "type": "object",
+            "properties": {
+                "maneuverAssistList": {
+                    "$ref": "#/$defs/J2735ManeuverAssistList"
+                }
+            },
+            "required": [ "maneuverAssistList" ],
+            "additionalProperties": false
+        },
+        "J2735ManeuverAssistList": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/J2735ConnectionManeuverAssist"
+            },
+            "minItems": 1,
+            "maxItems": 16
+        },
+        "J2735ConnectionManeuverAssist": {
+            "type": "object",
+            "properties": {
+                "connectionID": {
+                    "$ref": "#/$defs/J2735LaneConnectionID"
+                },
+                "queueLength": {
+                    "$ref": "#/$defs/J2735ZoneLength"
+                },
+                "availableStorageLength": {
+                    "$ref": "#/$defs/J2735ZoneLength"
+                },
+                "waitOnStop": {
+                    "type": "boolean"
+                },
+                "pedBicycleDetect": {
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "connectionID"
+            ]
+        },
+        "J2735LaneConnectionID": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 255,
+            "description": "DE_LaneConnectionID"
         },
         "J2735IntersectionStatusObject": {
             "type": "object",
@@ -383,7 +433,10 @@
                     "$ref": "#/$defs/J2735MovementEventList_Wrapper"
                 },
                 "maneuverAssistList": {
-                    "type": "null"
+                    "oneOf": [
+                        { "$ref": "#/$defs/J2735ManeuverAssistList_Wrapper" },
+                        { "type": "null" }
+                    ]
                 }
             },
             "required": [
@@ -563,10 +616,7 @@
                     "description": "DE_SpeedConfidence"
                 },
                 "distance": {
-                    "type": "integer",
-                    "minimum": 0,
-                    "maximum": 10000,
-                    "description": "DE_ZoneLength"
+                    "$ref": "#/$defs/J2735ZoneLength"
                 },
                 "classId": {
                     "$ref": "#/$defs/J2735RestrictionClassID"
@@ -575,6 +625,12 @@
             "required": [
                 "type"
             ]
+        },
+        "J2735ZoneLength": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10000,
+            "description": "DE_ZoneLength"
         },
         "J2735LaneID": {
             "type": "integer",

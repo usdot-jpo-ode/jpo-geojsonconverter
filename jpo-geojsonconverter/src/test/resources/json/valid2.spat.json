@@ -1,0 +1,376 @@
+{
+	"metadata": {
+		"logFileName": "",
+		"recordType": "spatTx",
+		"securityResultCode": "success",
+		"receivedMessageDetails": {
+			"locationData": null,
+			"rxSource": "NA"
+		},
+		"encodings": null,
+		"payloadType": "us.dot.its.jpo.ode.model.OdeSpatPayload",
+		"serialId": {
+			"streamId": "0da430cd-8a07-4319-af8e-9ea59f90eb82",
+			"bundleSize": 1,
+			"bundleId": 0,
+			"recordId": 0,
+			"serialNumber": 0
+		},
+		"odeReceivedAt": "2022-11-21T02:47:47.936137Z",
+		"schemaVersion": 6,
+		"maxDurationTime": 0,
+		"recordGeneratedAt": "",
+		"recordGeneratedBy": null,
+		"sanitized": false,
+		"odePacketID": "",
+		"odeTimStartDateTime": "",
+		"spatSource": "V2X",
+		"originIp": "172.30.0.1",
+		"isCertPresent": false
+	},
+	"payload": {
+		"data": {
+			"timeStamp": 400000,
+			"name": "Example Name",
+			"intersectionStateList": {
+				"intersectionStatelist": [
+					{
+						"name": null,
+						"id": {
+							"region": 0,
+							"id": 12111
+						},
+						"revision": 0,
+						"status": {
+							"manualControlIsEnabled": true,
+							"stopTimeIsActivated": true,
+							"failureFlash": true,
+							"preemptIsActive": true,
+							"signalPriorityIsActive": true,
+							"fixedTimeOperation": true,
+							"trafficDependentOperation": true,
+							"standbyOperation": true,
+							"failureMode": true,
+							"off": true,
+							"recentMAPmessageUpdate": true,
+							"recentChangeInMAPassignedLanesIDsUsed": true,
+							"noValidMAPisAvailableAtThisTime": true,
+							"noValidSPATisAvailableAtThisTime": true
+						},
+						"moy": 400000,
+						"timeStamp": 35176,
+						"enabledLanes": {
+							"enabledLaneList": [
+								1
+							]
+						},
+						"states": {
+							"movementList": [
+								{
+									"movementName": null,
+									"signalGroup": 2,
+									"state_time_speed": {
+										"movementEventList": [
+											{
+												"eventState": "PROTECTED_MOVEMENT_ALLOWED",
+												"timing": {
+													"startTime": 22120,
+													"minEndTime": 22120,
+													"maxEndTime": 22121,
+													"likelyTime": 22120,
+													"confidence": 15,
+													"nextTime": 22220
+												},
+												"speeds": {
+													"advisorySpeedList": [
+														{
+															"type": "TRANSIT",
+															"speed": 250,
+															"confidence": "PREC1MS",
+															"distance": 100,
+															"classId": 1
+														},
+														{
+															"type": "GREENWAVE",
+															"speed": 250,
+															"confidence": "PREC100MS",
+															"distance": 50,
+															"classId": 1
+														}
+													]
+												}
+											}
+										]
+									},
+									"maneuverAssistList": {
+										"maneuverAssistList": [
+											{
+												"connectionID": 1,
+												"queueLength": 0,
+												"availableStorageLength": 0,
+												"waitOnStop": true,
+												"pedBicycleDetect": true
+											},
+											{
+												"connectionID": 2,
+												"queueLength": 0,
+												"availableStorageLength": 0,
+												"waitOnStop": true,
+												"pedBicycleDetect": true
+											}
+										]
+									}
+								},
+								{
+									"movementName": null,
+									"signalGroup": 4,
+									"state_time_speed": {
+										"movementEventList": [
+											{
+												"eventState": "STOP_AND_REMAIN",
+												"timing": {
+													"startTime": 22120,
+													"minEndTime": 22120,
+													"maxEndTime": 22121,
+													"likelyTime": 22120,
+													"confidence": 15,
+													"nextTime": 22220
+												},
+												"speeds": {
+													"advisorySpeedList": [
+														{
+															"type": "TRANSIT",
+															"speed": 250,
+															"confidence": "PREC1MS",
+															"distance": 100,
+															"classId": 1
+														},
+														{
+															"type": "GREENWAVE",
+															"speed": 250,
+															"confidence": "PREC100MS",
+															"distance": 50,
+															"classId": 1
+														}
+													]
+												}
+											}
+										]
+									},
+									"maneuverAssistList": {
+										"maneuverAssistList": [
+											{
+												"connectionID": 1,
+												"queueLength": 0,
+												"availableStorageLength": 0,
+												"waitOnStop": true,
+												"pedBicycleDetect": true
+											},
+											{
+												"connectionID": 2,
+												"queueLength": 0,
+												"availableStorageLength": 0,
+												"waitOnStop": true,
+												"pedBicycleDetect": true
+											}
+										]
+									}
+								},
+								{
+									"movementName": null,
+									"signalGroup": 6,
+									"state_time_speed": {
+										"movementEventList": [
+											{
+												"eventState": "PROTECTED_MOVEMENT_ALLOWED",
+												"timing": {
+													"startTime": 22120,
+													"minEndTime": 22120,
+													"maxEndTime": 22121,
+													"likelyTime": 22120,
+													"confidence": 15,
+													"nextTime": 22220
+												},
+												"speeds": {
+													"advisorySpeedList": [
+														{
+															"type": "TRANSIT",
+															"speed": 250,
+															"confidence": "PREC1MS",
+															"distance": 100,
+															"classId": 1
+														}
+													]
+												}
+											}
+										]
+									},
+									"maneuverAssistList": {
+										"maneuverAssistList": [
+											{
+												"connectionID": 1,
+												"queueLength": 0,
+												"availableStorageLength": 0,
+												"waitOnStop": true,
+												"pedBicycleDetect": true
+											},
+											{
+												"connectionID": 2,
+												"queueLength": 0,
+												"availableStorageLength": 0,
+												"waitOnStop": true,
+												"pedBicycleDetect": true
+											}
+										]
+									}
+								},
+								{
+									"movementName": null,
+									"signalGroup": 8,
+									"state_time_speed": {
+										"movementEventList": [
+											{
+												"eventState": "STOP_AND_REMAIN",
+												"timing": {
+													"startTime": 22120,
+													"minEndTime": 22120,
+													"maxEndTime": 22121,
+													"likelyTime": 22120,
+													"confidence": 15,
+													"nextTime": 22220
+												},
+												"speeds": {
+													"advisorySpeedList": [
+														{
+															"type": "TRANSIT",
+															"speed": 250,
+															"confidence": "PREC1MS",
+															"distance": 100,
+															"classId": 1
+														}
+													]
+												}
+											}
+										]
+									},
+									"maneuverAssistList": {
+										"maneuverAssistList": [
+											{
+												"connectionID": 1,
+												"queueLength": 0,
+												"availableStorageLength": 0,
+												"waitOnStop": true,
+												"pedBicycleDetect": true
+											}
+										]
+									}
+								},
+								{
+									"movementName": null,
+									"signalGroup": 1,
+									"state_time_speed": {
+										"movementEventList": [
+											{
+												"eventState": "STOP_AND_REMAIN",
+												"timing": {
+													"startTime": 22120,
+													"minEndTime": 22120,
+													"maxEndTime": 22121,
+													"likelyTime": 22120,
+													"confidence": 15,
+													"nextTime": 22220
+												},
+												"speeds": {
+													"advisorySpeedList": [
+														{
+															"type": "TRANSIT",
+															"speed": 250,
+															"confidence": "PREC1MS",
+															"distance": 100,
+															"classId": 1
+														}
+													]
+												}
+											}
+										]
+									},
+									"maneuverAssistList": {
+										"maneuverAssistList": [
+											{
+												"connectionID": 1,
+												"queueLength": 0,
+												"availableStorageLength": 0,
+												"waitOnStop": true,
+												"pedBicycleDetect": true
+											}
+										]
+									}
+								},
+								{
+									"movementName": null,
+									"signalGroup": 5,
+									"state_time_speed": {
+										"movementEventList": [
+											{
+												"eventState": "STOP_AND_REMAIN",
+												"timing": {
+													"startTime": 22120,
+													"minEndTime": 22120,
+													"maxEndTime": 22121,
+													"likelyTime": 22120,
+													"confidence": 15,
+													"nextTime": 22220
+												},
+												"speeds": {
+													"advisorySpeedList": [
+														{
+															"type": "TRANSIT",
+															"speed": 250,
+															"confidence": "PREC1MS",
+															"distance": 100,
+															"classId": 1
+														}
+													]
+												}
+											}
+										]
+									},
+									"maneuverAssistList": {
+										"maneuverAssistList": [
+											{
+												"connectionID": 1,
+												"queueLength": 0,
+												"availableStorageLength": 0,
+												"waitOnStop": true,
+												"pedBicycleDetect": true
+											}
+										]
+									}
+								}
+							]
+						},
+						"maneuverAssistList": {
+							"maneuverAssistList": [
+								{
+									"connectionID": 1,
+									"queueLength": 0,
+									"availableStorageLength": 0,
+									"waitOnStop": true,
+									"pedBicycleDetect": true
+								},
+								{
+									"connectionID": 2,
+									"queueLength": 0,
+									"availableStorageLength": 0,
+									"waitOnStop": true,
+									"pedBicycleDetect": true
+								}
+							]
+						}
+					}
+				]
+			}
+		},
+		"dataType": "us.dot.its.jpo.ode.plugin.j2735.J2735SPAT"
+	}
+}
