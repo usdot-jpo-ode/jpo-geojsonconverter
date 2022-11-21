@@ -51,11 +51,11 @@
 						"speedLimits": {
 							"speedLimits": [
 								{
-									"speed": 100,
+									"speed": 163.8,
 									"type": "vehicleMaxSpeed"
 								},
 								{
-									"speed": 200,
+									"speed": 125,
 									"type": "truckMaxSpeed"
 								}
 							]
