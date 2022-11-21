@@ -582,17 +582,7 @@
         "J2735RegulatorySpeedLimit": {
             "properties": {
                 "speed": {
-                    "oneOf": [
-                        {
-                            "type": "number",
-                            "minimum": 0,
-                            "maximum": 163.8,
-                            "description": "Speed in meters per second.  Converted from J2735 DE_Velocity, integer units of 0.02 m/s between 0 and 8190."},
-                        { 
-                            "type": "null",
-                            "description": "May be null if speed is unavailable (DE_Velocity=8191)."
-                        }
-                    ]
+                    "$ref": "#/$defs/OdeVelocity"
                 },
                 "type": {
                     "$ref": "#/$defs/J2735SpeedLimitType"
@@ -2047,6 +2037,20 @@
                 "longitude"
             ],
             "type": "object"
+        },
+        "OdeVelocity": {
+            "oneOf": [
+                {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 163.8,
+                    "description": "Speed in meters per second.  Converted from J2735 DE_Velocity, integer units of 0.02 m/s between 0 and 8190."
+                },
+                { 
+                    "type": "null",
+                    "description": "May be null if speed is unavailable (DE_Velocity=8191)."
+                }
+            ]
         }
     }
 }
