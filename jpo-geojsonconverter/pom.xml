@@ -218,24 +218,6 @@
                 </executions>
             </plugin>
            
-
-            <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-jar-plugin</artifactId>
-            <version>3.3.0</version>
-            <executions>
-                <execution>
-                    <goals>
-                        <goal>jar</goal>
-                    </goals>
-                    <phase>package</phase>
-                    <configuration>
-                        <!--to be imported on other projects-->
-                        <classifier>jpo-geojsonconverter</classifier>
-                    </configuration>
-                </execution>
-            </executions>
-            </plugin>
         </plugins>
     </build>
 </project>
