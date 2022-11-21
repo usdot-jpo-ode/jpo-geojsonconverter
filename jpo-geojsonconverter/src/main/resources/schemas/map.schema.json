@@ -200,7 +200,7 @@
                 "roadSegments": {
                     "oneOf": [
                         {
-                            "$ref": "#/$defs/J2735RoadSegmentList"
+                            "$ref": "#/$defs/J2735RoadSegmentList_Wrapper"
                         },
                         {
                             "type": "null"
@@ -310,21 +310,24 @@
             "maximum": 32767,
             "description": "DE_LaneWidth (cm)"
         },
-        "J2735RoadSegmentList": {
+        "J2735RoadSegmentList_Wrapper": {
             "properties": {
-                "roadSegmentList": {
-                    "items": {
-                        "$ref": "#/$defs/J2735RoadSegment"
-                    },
-                    "type": "array",
-                    "minItems": 1,
-                    "maxItems": 32
+                "roadSegList": {
+                    "$ref": "#/$defs/J2735RoadSegmentList"
                 }
             },
             "required": [
-                "roadSegmentList"
+                "roadSegList"
             ],
             "type": "object"
+        },
+        "J2735RoadSegmentList": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/J2735RoadSegment"
+            },
+            "minItems": 1,
+            "maxItems": 32
         },
         "J2735RoadSegment": {
             "properties": {
