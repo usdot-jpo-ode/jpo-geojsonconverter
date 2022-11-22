@@ -16,7 +16,8 @@ public class RsuIntersectionKey implements RsuIdKey {
     
     private String rsuId;
     private int intersectionId;
-
+ 
+    
     private static final Logger logger = LoggerFactory.getLogger(RsuIntersectionKey.class);
 
     @Override
@@ -37,7 +38,7 @@ public class RsuIntersectionKey implements RsuIdKey {
         this.intersectionId = intersectionId;
     }
 
-
+ 
     @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -45,14 +46,15 @@ public class RsuIntersectionKey implements RsuIdKey {
         if (!(o instanceof RsuIntersectionKey)) {
             return false;
         }
-        RsuIntersectionKey processedSpatKey = (RsuIntersectionKey) o;
-        return Objects.equals(rsuId, processedSpatKey.rsuId) && intersectionId == processedSpatKey.intersectionId;
+        RsuIntersectionKey rsuIntersectionKey = (RsuIntersectionKey) o;
+        return Objects.equals(rsuId, rsuIntersectionKey.rsuId) && intersectionId == rsuIntersectionKey.intersectionId;
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(rsuId, intersectionId);
     }
+    
 
 
     @Override
