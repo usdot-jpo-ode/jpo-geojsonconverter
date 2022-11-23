@@ -1,5 +1,6 @@
 package us.dot.its.jpo.geojsonconverter.converter.map;
 
+import us.dot.its.jpo.geojsonconverter.partitioner.RsuIntersectionKey;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.LineString;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.*;
 import us.dot.its.jpo.ode.model.*;
@@ -21,7 +22,7 @@ import org.apache.kafka.streams.processor.ProcessorContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class MapGeoJsonConverter implements Transformer<Void, OdeMapData, KeyValue<String, MapFeatureCollection>> {
+public class MapGeoJsonConverter implements Transformer<Void, OdeMapData, KeyValue<RsuIntersectionKey, MapFeatureCollection>> {
     private static final Logger logger = LoggerFactory.getLogger(MapGeoJsonConverter.class);
 
     @Override
@@ -35,7 +36,7 @@ public class MapGeoJsonConverter implements Transformer<Void, OdeMapData, KeyVal
      * @return A key value pair: the key is the RSU IP concatenated with the intersection ID and the value is the GeoJSON FeatureCollection POJO
      */
     @Override
-    public KeyValue<String, MapFeatureCollection> transform(Void rawKey, OdeMapData rawValue) {
+    public KeyValue<RsuIntersectionKey, MapFeatureCollection> transform(Void rawKey, OdeMapData rawValue) {
         try {
             OdeMapMetadata mapMetadata = (OdeMapMetadata)rawValue.getMetadata();
             OdeMapPayload mapPayload = (OdeMapPayload)rawValue.getPayload();
@@ -43,14 +44,18 @@ public class MapGeoJsonConverter implements Transformer<Void, OdeMapData, KeyVal
 
 			MapFeatureCollection mapFeatureCollection = createFeatureCollection(intersection, mapMetadata);
             
-            String key = mapMetadata.getOriginIp() + ":" + intersection.getId().getId().toString();
-            logger.info("Successfully created MAP GeoJSON for " + key);
+            var key = new RsuIntersectionKey();
+            key.setRsuId(mapMetadata.getOriginIp());
+            key.setIntersectionId(intersection.getId().getId());
+            logger.info("Successfully created MAP GeoJSON for {}", key);
             return KeyValue.pair(key, mapFeatureCollection);
         } catch (Exception e) {
             String errMsg = String.format("Exception converting ODE MAP to GeoJSON! Message: %s", e.getMessage());
             logger.error(errMsg, e);
             // KafkaStreams knows to remove null responses before allowing further steps from occurring
-            return KeyValue.pair("ERROR", null);
+            var key = new RsuIntersectionKey();
+            key.setRsuId("ERROR");
+            return KeyValue.pair(key, null);
         }
     }
 

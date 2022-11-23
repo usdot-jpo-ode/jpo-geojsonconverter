@@ -10,6 +10,7 @@ import org.apache.kafka.streams.processor.ProcessorContext;
 import org.junit.Before;
 import org.junit.Test;
 
+import us.dot.its.jpo.geojsonconverter.partitioner.RsuIntersectionKey;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.MapFeatureCollection;
 import us.dot.its.jpo.geojsonconverter.serialization.deserializers.OdeMapDataJsonDeserializer;
 import us.dot.its.jpo.ode.model.OdeMapData;
@@ -41,18 +42,19 @@ public class MapGeoJsonConverterTest {
 
     @Test
     public void testTransform() {
-        KeyValue<String, MapFeatureCollection> mapFeatureCollection = mapGeoJsonConverter.transform(null, odeMapPojo);
+        KeyValue<RsuIntersectionKey, MapFeatureCollection> mapFeatureCollection = mapGeoJsonConverter.transform(null, odeMapPojo);
         assertNotNull(mapFeatureCollection.key);
-        assertEquals("172.19.0.1:12110", mapFeatureCollection.key);
+        assertEquals("172.19.0.1", mapFeatureCollection.key.getRsuId());
+        assertEquals(12110, mapFeatureCollection.key.getIntersectionId());
         assertNotNull(mapFeatureCollection.value);
         assertEquals(2, mapFeatureCollection.value.getFeatures().length);
     }
 
     @Test
     public void testTransformException() {
-        KeyValue<String, MapFeatureCollection> mapFeatureCollection = mapGeoJsonConverter.transform(null, null);
+        KeyValue<RsuIntersectionKey, MapFeatureCollection> mapFeatureCollection = mapGeoJsonConverter.transform(null, null);
         assertNotNull(mapFeatureCollection.key);
-        assertEquals("ERROR", mapFeatureCollection.key);
+        assertEquals("ERROR", mapFeatureCollection.key.getRsuId());
         assertNull(mapFeatureCollection.value);
     }
 

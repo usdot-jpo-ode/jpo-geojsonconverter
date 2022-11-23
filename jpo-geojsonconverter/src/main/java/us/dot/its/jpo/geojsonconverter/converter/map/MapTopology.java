@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.kafka.streams.kstream.KStream;
 
+import us.dot.its.jpo.geojsonconverter.partitioner.RsuIntersectionKey;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.MapFeatureCollection;
 import us.dot.its.jpo.geojsonconverter.serialization.JsonSerdes;
 import us.dot.its.jpo.geojsonconverter.validator.JsonValidatorResult;
@@ -52,7 +53,7 @@ public class MapTopology {
             );
 
         // Convert ODE MAP to GeoJSON
-        KStream<String, MapFeatureCollection> geoJsonMapStream =
+        KStream<RsuIntersectionKey, MapFeatureCollection> geoJsonMapStream =
             odeMapStream.transform(
                 () -> new MapGeoJsonConverter()
             );
@@ -61,7 +62,7 @@ public class MapTopology {
         geoJsonMapStream.to(
             mapGeoJsonTopic, 
             Produced.with(
-                Serdes.String(), // Key is now the "RSU-IP:Intersection-ID"
+                JsonSerdes.RsuIntersectionKey(), // Key is now an RsuIntersectionKey object
                 JsonSerdes.MapGeoJson())  // Value serializer for MAP GeoJSON
             );
         
