@@ -10,7 +10,13 @@ public class RsuIntersectionKey implements RsuIdKey {
     
     private String rsuId;
     private int intersectionId;
+
+    public RsuIntersectionKey() {}
  
+    public RsuIntersectionKey(String rsuId, int intersectionId) {
+        this.rsuId = rsuId;
+        this.intersectionId = intersectionId;
+    }
 
     @Override
     public String getRsuId() {

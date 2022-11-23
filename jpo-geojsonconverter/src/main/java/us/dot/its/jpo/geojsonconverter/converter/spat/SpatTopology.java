@@ -71,7 +71,8 @@ public class SpatTopology {
             Produced.with(
                 JsonSerdes.RsuIntersectionKey(),
                 JsonSerdes.ProcessedSpat(), 
-                new RsuIdPartitioner<RsuIntersectionKey, ProcessedSpat>()));
+                new RsuIdPartitioner<RsuIntersectionKey, ProcessedSpat>())  // Partition by RSU ID
+        );
         
         return builder.build();
     }

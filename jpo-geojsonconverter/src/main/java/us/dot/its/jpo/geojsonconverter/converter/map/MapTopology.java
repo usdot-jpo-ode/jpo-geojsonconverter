@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.kafka.streams.kstream.KStream;
 
+import us.dot.its.jpo.geojsonconverter.partitioner.RsuIdPartitioner;
 import us.dot.its.jpo.geojsonconverter.partitioner.RsuIntersectionKey;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.MapFeatureCollection;
 import us.dot.its.jpo.geojsonconverter.serialization.JsonSerdes;
@@ -63,7 +64,8 @@ public class MapTopology {
             mapGeoJsonTopic, 
             Produced.with(
                 JsonSerdes.RsuIntersectionKey(), // Key is now an RsuIntersectionKey object
-                JsonSerdes.MapGeoJson())  // Value serializer for MAP GeoJSON
+                JsonSerdes.MapGeoJson(),        // Value serializer for MAP GeoJSON
+                new RsuIdPartitioner<RsuIntersectionKey, MapFeatureCollection>())   // Partition by RSU ID
             );
         
         return builder.build();

@@ -16,34 +16,23 @@ public class RsuIntersectionKeyTest {
     final static int intersectionId = 10001; 
     
     @Test
-    public void testEquality() {
-        
+    public void testEquality() {        
         
         var key = new RsuIntersectionKey();
         key.setRsuId(ipAddress);
         key.setIntersectionId(intersectionId);
 
-        var keyValue = new RsuIntersectionKey();
-        keyValue.setRsuId(ipAddress);
-        keyValue.setIntersectionId(intersectionId);
-
+        var keyValue = new RsuIntersectionKey(ipAddress, intersectionId);
         var keyRef = key;
-
-        Object obj = new Object();
-
-        var otherValue1 = new RsuIntersectionKey();
-        otherValue1.setRsuId(ipAddress);
-        otherValue1.setIntersectionId(99);
-
-        var otherValue2 = new RsuIntersectionKey();
-        otherValue2.setRsuId("0.0.0.0");
-        otherValue2.setIntersectionId(99);
+        Object otherObject = new Object();
+        var otherValue1 = new RsuIntersectionKey(ipAddress, 99);
+        var otherValue2 = new RsuIntersectionKey("0.0.0.0", 99);
 
         assertTrue("Value equality", key.equals(keyValue));
         assertFalse("Value inequality branch 1", key.equals(otherValue1));
         assertFalse("Value inequality branch 2", key.equals(otherValue2));
         assertTrue("Reference equality", key.equals(keyRef));
-        assertFalse("Reference inequality", key.equals(obj));
+        assertFalse("Reference inequality", key.equals(otherObject));
         assertEquals("Hash code values equal", key.hashCode(), keyValue.hashCode());
 
         // Getter coverage
