@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.Test;
 
+import us.dot.its.jpo.ode.plugin.j2735.J2735BitString;
 import us.dot.its.jpo.ode.plugin.j2735.J2735IntersectionStatusObject;
 
 public class IntersectionStatusObjectTest {
@@ -69,80 +70,49 @@ public class IntersectionStatusObjectTest {
     @Test
     public void testSetStatus() {
         IntersectionStatusObject object = new IntersectionStatusObject();
-        Boolean response;
-        J2735IntersectionStatusObject status;
-
-        status = J2735IntersectionStatusObject.MANUALCONTROLISENABLED;
+        
+        // Set all status bits to true
+        var status = new J2735BitString();
+        for (var enumValue : J2735IntersectionStatusObject.values()) {
+            status.put(enumValue.toString(), true);
+        }
+        
         object.setStatus(status);
-        response = object.getManualControlIsEnabled();
-        assertEquals(response, true);
+        
+        assertEquals(object.getManualControlIsEnabled(), true);
+        assertEquals(object.getStopTimeIsActivated(), true);
+        assertEquals(object.getFailureFlash(), true);
+        assertEquals(object.getPreemptIsActive(), true);
+        assertEquals(object.getSignalPriorityIsActive(), true);
+        assertEquals(object.getFixedTimeOperation(), true);
+        assertEquals(object.getTrafficDependentOperation(), true);
+        assertEquals(object.getStandbyOperation(), true);
+        assertEquals(object.getFailureMode(), true);
+        assertEquals(object.getOff(), true);
+        assertEquals(object.getRecentMAPmessageUpdate(), true);
+        assertEquals(object.getRecentChangeInMAPassignedLanesIDsUsed(), true);
+        assertEquals(object.getNoValidMAPisAvailableAtThisTime(), true);
+        assertEquals(object.getNoValidSPATisAvailableAtThisTime(), true);
 
-        status = J2735IntersectionStatusObject.STOPTIMEISACTIVATED;
-        object.setStatus(status);
-        response = object.getStopTimeIsActivated();
-        assertEquals(response, true);
-
-        status = J2735IntersectionStatusObject.FAILUREFLASH;
-        object.setStatus(status);
-        response = object.getFailureFlash();
-        assertEquals(response, true);
-
-        status = J2735IntersectionStatusObject.PREEMPTISACTIVE;
-        object.setStatus(status);
-        response = object.getPreemptIsActive();
-        assertEquals(response, true);
-
-        status = J2735IntersectionStatusObject.SIGNALPRIORITYISACTIVE;
-        object.setStatus(status);
-        response = object.getSignalPriorityIsActive();
-        assertEquals(response, true);
-
-        status = J2735IntersectionStatusObject.FIXEDTIMEOPERATION;
-        object.setStatus(status);
-        response = object.getFixedTimeOperation();
-        assertEquals(response, true);
-
-        status = J2735IntersectionStatusObject.TRAFFICDEPENDENTOPERATION;
-        object.setStatus(status);
-        response = object.getTrafficDependentOperation();
-        assertEquals(response, true);
-
-        status = J2735IntersectionStatusObject.STANDBYOPERATION;
-        object.setStatus(status);
-        response = object.getStandbyOperation();
-        assertEquals(response, true);
-
-        status = J2735IntersectionStatusObject.FAILUREMODE;
-        object.setStatus(status);
-        response = object.getFailureMode();
-        assertEquals(response, true);
-
-        status = J2735IntersectionStatusObject.OFF;
-        object.setStatus(status);
-        response = object.getOff();
-        assertEquals(response, true);
-
-        status = J2735IntersectionStatusObject.RECENTMAPMESSAGEUPDATE;
-        object.setStatus(status);
-        response = object.getRecentMAPmessageUpdate();
-        assertEquals(response, true);
-
-        status = J2735IntersectionStatusObject.RECENTCHANGEINMAPASSIGNEDLANESIDSUSED;
-        object.setStatus(status);
-        response = object.getRecentChangeInMAPassignedLanesIDsUsed();
-        assertEquals(response, true);
-
-        status = J2735IntersectionStatusObject.NOVALIDMAPISAVAILABLEATTHISTIME;
-        object.setStatus(status);
-        response = object.getNoValidMAPisAvailableAtThisTime();
-        assertEquals(response, true);
-
-        status = J2735IntersectionStatusObject.NOVALIDSPATISAVAILABLEATTHISTIME;
-        object.setStatus(status);
-        response = object.getNoValidSPATisAvailableAtThisTime();
-        assertEquals(response, true);
+        // Test that setting a null status resets all properties to false
+        object.setStatus(null);
+        assertEquals(object.getManualControlIsEnabled(), false);
+        assertEquals(object.getStopTimeIsActivated(), false);
+        assertEquals(object.getFailureFlash(), false);
+        assertEquals(object.getPreemptIsActive(), false);
+        assertEquals(object.getSignalPriorityIsActive(), false);
+        assertEquals(object.getFixedTimeOperation(), false);
+        assertEquals(object.getTrafficDependentOperation(), false);
+        assertEquals(object.getStandbyOperation(), false);
+        assertEquals(object.getFailureMode(), false);
+        assertEquals(object.getOff(), false);
+        assertEquals(object.getRecentMAPmessageUpdate(), false);
+        assertEquals(object.getRecentChangeInMAPassignedLanesIDsUsed(), false);
+        assertEquals(object.getNoValidMAPisAvailableAtThisTime(), false);
+        assertEquals(object.getNoValidSPATisAvailableAtThisTime(), false);
     }
 
+    
     @Test
     public void testEquals() {
         IntersectionStatusObject object = new IntersectionStatusObject();

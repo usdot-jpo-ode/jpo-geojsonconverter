@@ -3,6 +3,7 @@ package us.dot.its.jpo.geojsonconverter.converter.spat;
 import us.dot.its.jpo.geojsonconverter.pojos.spat.*;
 import us.dot.its.jpo.geojsonconverter.validator.JsonValidatorResult;
 import us.dot.its.jpo.ode.model.*;
+import us.dot.its.jpo.ode.plugin.j2735.J2735BitString;
 import us.dot.its.jpo.ode.plugin.j2735.J2735IntersectionState;
 import us.dot.its.jpo.ode.plugin.j2735.J2735IntersectionStatusObject;
 import us.dot.its.jpo.ode.plugin.j2735.J2735MovementEvent;
@@ -97,7 +98,7 @@ public class SpatProcessedJsonConverter implements Transformer<Void, Deserialize
 
         processedSpat.setRevision(intersectionState.getRevision());
 
-        J2735IntersectionStatusObject status = intersectionState.getStatus();
+        J2735BitString status = intersectionState.getStatus();
         IntersectionStatusObject intersectionStatus = new IntersectionStatusObject();
         intersectionStatus.setStatus(status);
         processedSpat.setStatus(intersectionStatus);

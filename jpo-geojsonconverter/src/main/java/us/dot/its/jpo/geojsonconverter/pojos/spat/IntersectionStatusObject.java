@@ -2,15 +2,18 @@
 package us.dot.its.jpo.geojsonconverter.pojos.spat;
 
 import java.util.Objects;
+import java.util.Map.Entry;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.apache.commons.beanutils.BeanMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import us.dot.its.jpo.geojsonconverter.DateJsonMapper;
+import us.dot.its.jpo.ode.plugin.j2735.J2735BitString;
 import us.dot.its.jpo.ode.plugin.j2735.J2735IntersectionStatusObject;
 
 
@@ -145,52 +148,22 @@ public class IntersectionStatusObject {
         this.noValidSPATisAvailableAtThisTime = noValidSPATisAvailableAtThisTime;
     }
 
-    public void setStatus(J2735IntersectionStatusObject status){
-        switch(status){
-            case MANUALCONTROLISENABLED:
-                setManualControlIsEnabled(true);
-                break;
-            case STOPTIMEISACTIVATED:
-                setStopTimeIsActivated(true);
-                break;
-            case FAILUREFLASH:
-                setFailureFlash(true);
-                break;
-            case PREEMPTISACTIVE:
-                setPreemptIsActive(true);
-                break;
-            case SIGNALPRIORITYISACTIVE:
-                setSignalPriorityIsActive(true);
-                break;
-            case FIXEDTIMEOPERATION:
-                setFixedTimeOperation(true);
-                break;
-            case TRAFFICDEPENDENTOPERATION:
-                setTrafficDependentOperation(true);
-                break;
-            case STANDBYOPERATION:
-                setStandbyOperation(true);
-                break;
-            case FAILUREMODE:
-                setFailureMode(true);
-                break;
-            case OFF:
-                setOff(true);
-                break;
-            case RECENTMAPMESSAGEUPDATE:
-                setRecentMAPmessageUpdate(true);
-                break;
-            case RECENTCHANGEINMAPASSIGNEDLANESIDSUSED:
-                setRecentChangeInMAPassignedLanesIDsUsed(true);
-                break;
-            case NOVALIDMAPISAVAILABLEATTHISTIME:
-                setNoValidMAPisAvailableAtThisTime(true);
-                break;
-            case NOVALIDSPATISAVAILABLEATTHISTIME:
-                setNoValidSPATisAvailableAtThisTime(true);
-                break;
+    public void setStatus(J2735BitString status) {
+        var propertyMap = new BeanMap(this);
+        if (status != null) {
+            // Set each boolean property to the value from the status Bit String
+            propertyMap.putAll(status);
+        } else {
+            // The Bit String is null, so set all the properties to false
+            for (var enumValue : J2735IntersectionStatusObject.values()) {
+                String propertyName = enumValue.toString();
+                propertyMap.put(propertyName, false);
+            }
         }
+
+        
     }
+
 
     @Override
     public boolean equals(Object o) {
@@ -207,6 +180,7 @@ public class IntersectionStatusObject {
     public int hashCode() {
         return Objects.hash(manualControlIsEnabled, stopTimeIsActivated, failureFlash, preemptIsActive, signalPriorityIsActive, fixedTimeOperation, trafficDependentOperation, standbyOperation, failureMode, off, recentMAPmessageUpdate, recentChangeInMAPassignedLanesIDsUsed, noValidMAPisAvailableAtThisTime, noValidSPATisAvailableAtThisTime);
     }
+    
 
     @Override
     public String toString() {

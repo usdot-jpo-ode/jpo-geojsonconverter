@@ -30,6 +30,7 @@ public class OdeSpatDataJsonDeserializer implements Deserializer<OdeSpatData> {
         if (data == null) {
             return null;
         }
+        OdeSpatData returnData = new OdeSpatData();
         try {
             JsonNode actualObj = mapper.readTree(data);
 
@@ -37,18 +38,19 @@ public class OdeSpatDataJsonDeserializer implements Deserializer<OdeSpatData> {
             JsonNode metadataNode = actualObj.get("metadata");
             String metadataString = metadataNode.toString();
             OdeSpatMetadata metadataObject = (OdeSpatMetadata) JsonUtils.fromJson(metadataString, OdeSpatMetadata.class);
+            returnData.setMetadata(metadataObject);
 
             // Deserialize the payload
             JsonNode payloadNode = actualObj.get("payload");
             String payloadString = payloadNode.toString();
             OdeSpatPayload mapPayload = (OdeSpatPayload) JsonUtils.fromJson(payloadString, OdeSpatPayload.class);
+            returnData.setPayload(mapPayload);
 
-            OdeSpatData returnData = new OdeSpatData(metadataObject, mapPayload);
             return returnData;
-        } catch (IOException e) {
+        } catch (Exception e) {
             String errMsg = String.format("Exception deserializing for topic %s: %s", topic, e.getMessage());
             logger.error(errMsg, e);
-            throw new RuntimeException(errMsg, e);
+            return returnData;
         }
     }
 }
