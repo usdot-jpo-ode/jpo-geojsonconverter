@@ -228,7 +228,7 @@
                     "$ref": "map.schema.json#/$defs/J2735AllowedManeuvers",
                     "description": "DE_AllowedManeuvers.  Mandatory in CI Implementation Guide.  Optional in J2735."
                 },
-                "connectionId": {
+                "connectionID": {
                     "oneOf": [
                         {
                             "$ref": "map.schema.json#/$defs/J2735LaneConnectionID"

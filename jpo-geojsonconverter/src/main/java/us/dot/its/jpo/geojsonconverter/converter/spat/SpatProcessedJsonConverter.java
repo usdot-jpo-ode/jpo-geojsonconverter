@@ -1,5 +1,6 @@
 package us.dot.its.jpo.geojsonconverter.converter.spat;
 
+import us.dot.its.jpo.geojsonconverter.pojos.ProcessedValidationMessage;
 import us.dot.its.jpo.geojsonconverter.pojos.spat.*;
 import us.dot.its.jpo.geojsonconverter.validator.JsonValidatorResult;
 import us.dot.its.jpo.ode.model.*;
@@ -78,15 +79,15 @@ public class SpatProcessedJsonConverter implements Transformer<Void, Deserialize
         processedSpat.setIntersectionId(intersectionState.getId().getId());
         processedSpat.setCti4501Conformant(validationMessages.isValid());
 
-        List<ProcessedSpatValidationMessage> processedSpatValidationMessages = new ArrayList<ProcessedSpatValidationMessage>();
+        List<ProcessedValidationMessage> processedSpatValidationMessages = new ArrayList<ProcessedValidationMessage>();
         for (Exception exception : validationMessages.getExceptions()){
-            ProcessedSpatValidationMessage object = new ProcessedSpatValidationMessage();
+            ProcessedValidationMessage object = new ProcessedValidationMessage();
             object.setMessage(exception.getMessage());
             object.setException(exception.getStackTrace().toString());
             processedSpatValidationMessages.add(object);
         }
         for (ValidationMessage vm : validationMessages.getValidationMessages()){
-            ProcessedSpatValidationMessage object = new ProcessedSpatValidationMessage();
+            ProcessedValidationMessage object = new ProcessedValidationMessage();
             object.setMessage(vm.getMessage());
             object.setSchemaPath(vm.getSchemaPath());
             object.setJsonPath(vm.getPath());

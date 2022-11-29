@@ -67,7 +67,7 @@ public class MapGeoJsonConverter implements Transformer<Void, OdeMapData, KeyVal
         for (int i = 0; i < intersection.getLaneSet().getLaneSet().size(); i++) {
             // Create MAP properties
             MapProperties mapProps = new MapProperties();
-            mapProps.setIp(metadata.getOriginIp());
+            mapProps.setOriginIp(metadata.getOriginIp());
             mapProps.setOdeReceivedAt(metadata.getOdeReceivedAt());
 
 			J2735GenericLane lane = intersection.getLaneSet().getLaneSet().get(i);
@@ -76,15 +76,6 @@ public class MapGeoJsonConverter implements Transformer<Void, OdeMapData, KeyVal
             mapProps.setEgressPath(lane.getLaneAttributes().getDirectionalUse().get("egressPath"));
             mapProps.setIngressApproach(lane.getIngressApproach() != null ? lane.getIngressApproach() : 0);
 			mapProps.setEgressApproach(lane.getEgressApproach() != null ? lane.getEgressApproach() : 0);
-
-            List<Integer> connectsToLaneList = new ArrayList<>();
-            if (lane.getConnectsTo() != null) {
-                for (int x = 0; x < lane.getConnectsTo().getConnectsTo().size(); x++) {
-					Integer connectsToLane = lane.getConnectsTo().getConnectsTo().get(x).getConnectingLane().getLane();
-					connectsToLaneList.add(connectsToLane);
-				}
-            }
-            mapProps.setConnectedLanes(connectsToLaneList.toArray(new Integer[0]));
 
             // Create MAP geometry
             LineString geometry = createGeometry(lane, refPoint);

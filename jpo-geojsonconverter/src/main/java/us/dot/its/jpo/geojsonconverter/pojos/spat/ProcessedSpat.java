@@ -10,6 +10,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import us.dot.its.jpo.geojsonconverter.DateJsonMapper;
+import us.dot.its.jpo.geojsonconverter.pojos.ProcessedValidationMessage;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +26,7 @@ public class ProcessedSpat {
     private int region;
     private int intersectionId;
     private boolean cti4501Conformant;
-    private List<ProcessedSpatValidationMessage> validationMessages = null;
+    private List<ProcessedValidationMessage> validationMessages = null;
     private int revision;
     private IntersectionStatusObject status;
     private ZonedDateTime utcTimeStamp;
@@ -88,11 +89,11 @@ public class ProcessedSpat {
         this.cti4501Conformant = cti4501Conformant;
     }
 
-    public List<ProcessedSpatValidationMessage> getValidationMessages() {
+    public List<ProcessedValidationMessage> getValidationMessages() {
         return validationMessages;
     }
 
-    public void setValidationMessages(List<ProcessedSpatValidationMessage> validationMessages) {
+    public void setValidationMessages(List<ProcessedValidationMessage> validationMessages) {
         this.validationMessages = validationMessages;
     }
 

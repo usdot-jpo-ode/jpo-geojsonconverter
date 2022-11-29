@@ -5,10 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.Test;
 
+import us.dot.its.jpo.geojsonconverter.pojos.ProcessedValidationMessage;
+
 public class ProcessedSpatValidationMessageTest {
     @Test
     public void testGettersSetters() {
-        ProcessedSpatValidationMessage object = new ProcessedSpatValidationMessage();
+        ProcessedValidationMessage object = new ProcessedValidationMessage();
 
         object.setMessage("msg");
         String msgResponse = object.getMessage();
@@ -29,8 +31,8 @@ public class ProcessedSpatValidationMessageTest {
 
     @Test
     public void testEquals() {
-        ProcessedSpatValidationMessage object = new ProcessedSpatValidationMessage();
-        ProcessedSpatValidationMessage otherObject = new ProcessedSpatValidationMessage();
+        ProcessedValidationMessage object = new ProcessedValidationMessage();
+        ProcessedValidationMessage otherObject = new ProcessedValidationMessage();
         boolean equals = object.equals(object);
         assertEquals(equals, true);
         
@@ -45,7 +47,7 @@ public class ProcessedSpatValidationMessageTest {
 
     @Test
     public void testHashCode() {
-        ProcessedSpatValidationMessage object = new ProcessedSpatValidationMessage();
+        ProcessedValidationMessage object = new ProcessedValidationMessage();
 
         Integer hash = object.hashCode();
         assertNotNull(hash);
@@ -53,7 +55,7 @@ public class ProcessedSpatValidationMessageTest {
     
     @Test
     public void testToString() {
-        ProcessedSpatValidationMessage object = new ProcessedSpatValidationMessage();
+        ProcessedValidationMessage object = new ProcessedValidationMessage();
 
         String string = object.toString();
         assertNotNull(string);

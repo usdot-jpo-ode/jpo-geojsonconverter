@@ -9,6 +9,8 @@ import java.util.List;
 
 import org.junit.Test;
 
+import us.dot.its.jpo.geojsonconverter.pojos.ProcessedValidationMessage;
+
 public class ProcessedSpatTest {
     @Test
     public void testGettersSetters() {
@@ -42,9 +44,9 @@ public class ProcessedSpatTest {
         Boolean ctiResponse = object.getCti4501Conformant();
         assertEquals(ctiResponse, true);
 
-        List<ProcessedSpatValidationMessage> validationMessages = new ArrayList<ProcessedSpatValidationMessage>();
+        List<ProcessedValidationMessage> validationMessages = new ArrayList<ProcessedValidationMessage>();
         object.setValidationMessages(validationMessages);
-        List<ProcessedSpatValidationMessage> vmResponse = object.getValidationMessages();
+        List<ProcessedValidationMessage> vmResponse = object.getValidationMessages();
         assertEquals(vmResponse, validationMessages);
 
         object.setRevision(1);

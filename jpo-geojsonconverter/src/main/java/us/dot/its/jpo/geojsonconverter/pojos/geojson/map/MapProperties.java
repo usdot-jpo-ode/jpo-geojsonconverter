@@ -1,49 +1,166 @@
 package us.dot.its.jpo.geojsonconverter.pojos.geojson.map;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
 
 import us.dot.its.jpo.ode.plugin.j2735.OdePosition3D;
+import us.dot.its.jpo.geojsonconverter.pojos.ProcessedValidationMessage;
+import us.dot.its.jpo.ode.plugin.j2735.J2735RegulatorySpeedLimit;
+import us.dot.its.jpo.ode.plugin.j2735.J2735BitString;
 
 public class MapProperties {
-    @JsonProperty("nodes")
-    private MapNode[] nodes;
-    @JsonProperty("messageType")
+    private List<MapNode> nodes;
     private String messageType;
-    @JsonProperty("odeReceivedAt")
     private String odeReceivedAt;
-    @JsonProperty("originIp")
     private String originIp;
-    @JsonProperty("intersectionName")
     private String intersectionName;
-    @JsonProperty("region")
     private Integer region;
-    @JsonProperty("intersectionId")
     private Integer intersectionId;
-    @JsonProperty("msgIssueRevision")
     private Integer msgIssueRevision;
-    @JsonProperty("revision")
     private Integer revision;
-    @JsonProperty("refPoint")
     private OdePosition3D refPoint;
-    @JsonProperty("cti4501Conformant")
     private Boolean cti4501Conformant;
-
-
-
-    @JsonProperty("lane_id")
+    private List<ProcessedValidationMessage> validationMessages;
+    private Integer laneWidth;
+    private List<J2735RegulatorySpeedLimit> speedLimits;
+    private String mapSource;
+    private String timeStamp;
     private Integer laneId;
-    @JsonProperty("ip")
-    private String ip;
-    @JsonProperty("egress_approach")
+    private String laneName;
+    private J2735BitString sharedWith;  // enum is of type J2735LaneSharing
     private Integer egressApproach;
-    @JsonProperty("ingress_approach")
     private Integer ingressApproach;
-    @JsonProperty("ingress_path")
     private Boolean ingressPath;
-    @JsonProperty("egress_path")
     private Boolean egressPath;
-    @JsonProperty("connected_lanes")
-    private Integer[] connectedLanes;
+    private J2735BitString maneuvers;  // enum is of type J2735AllowedManeuvers
+    private List<MapConnection> connectsTo;
+
+    public void setNodes(List<MapNode> nodes) {
+        this.nodes = nodes;
+    }
+
+    public List<MapNode> getNodes() {
+        return this.nodes;
+    }
+
+    public void setMessageType(String messageType) {
+        this.messageType = messageType;
+    }
+
+    public String getMessageType() {
+        return this.messageType;
+    }
+
+    public void setOdeReceivedAt(String odeReceivedAt) {
+        this.odeReceivedAt = odeReceivedAt;
+    }
+
+    public String getOdeReceivedAt() {
+        return this.odeReceivedAt;
+    }
+
+    public void setOriginIp(String originIp) {
+        this.originIp = originIp;
+    }
+
+    public String getOriginIp() {
+        return this.originIp;
+    }
+
+    public void setIntersectionName(String intersectionName) {
+        this.intersectionName = intersectionName;
+    }
+
+    public String getIntersectionName() {
+        return this.intersectionName;
+    }
+
+    public void setRegion(Integer region) {
+        this.region = region;
+    }
+
+    public Integer getRegion() {
+        return this.region;
+    }
+
+    public void setIntersectionId(Integer intersectionId) {
+        this.intersectionId = intersectionId;
+    }
+
+    public Integer getIntersectionId() {
+        return this.intersectionId;
+    }
+
+    public void setMsgIssueRevision(Integer msgIssueRevision) {
+        this.msgIssueRevision = msgIssueRevision;
+    }
+
+    public Integer getMsgIssueRevision() {
+        return this.msgIssueRevision;
+    }
+
+    public void setRevision(Integer revision) {
+        this.revision = revision;
+    }
+
+    public Integer getRevision() {
+        return this.revision;
+    }
+
+    public void setRefPoint(OdePosition3D refPoint) {
+        this.refPoint = refPoint;
+    }
+
+    public OdePosition3D getRefPoint() {
+        return this.refPoint;
+    }
+
+    public void setCti4501Conformant(Boolean cti4501Conformant) {
+        this.cti4501Conformant = cti4501Conformant;
+    }
+
+    public Boolean getCti4501Conformant() {
+        return this.cti4501Conformant;
+    }
+
+    public void setValidationMessages(List<ProcessedValidationMessage> validationMessages) {
+        this.validationMessages = validationMessages;
+    }
+
+    public List<ProcessedValidationMessage> getValidationMessages() {
+        return this.validationMessages;
+    }
+
+    public void setLaneWidth(Integer laneWidth) {
+        this.laneWidth = laneWidth;
+    }
+
+    public Integer getLaneWidth() {
+        return this.laneWidth;
+    }
+
+    public void setSpeedLimits(List<J2735RegulatorySpeedLimit> speedLimits) {
+        this.speedLimits = speedLimits;
+    }
+
+    public List<J2735RegulatorySpeedLimit> getSpeedLimits() {
+        return this.speedLimits;
+    }
+
+    public void setMapSource(String mapSource) {
+        this.mapSource = mapSource;
+    }
+
+    public String getMapSource() {
+        return this.mapSource;
+    }
+
+    public void setTimeStamp(String timeStamp) {
+        this.timeStamp = timeStamp;
+    }
+
+    public String getTimeStamp() {
+        return this.timeStamp;
+    }
 
     public void setLaneId(Integer laneId) {
         this.laneId = laneId;
@@ -53,20 +170,20 @@ public class MapProperties {
         return this.laneId;
     }
 
-    public void setIp(String ip) {
-        this.ip = ip;
+    public void setLaneName(String laneName) {
+        this.laneName = laneName;
     }
 
-    public String getIp() {
-        return this.ip;
+    public String getLaneName() {
+        return this.laneName;
     }
 
-    public void setOdeReceivedAt(String odeReceivedAt) {
-        this.odeReceivedAt = odeReceivedAt;
+    public void setSharedWith(J2735BitString sharedWith) {
+        this.sharedWith = sharedWith;
     }
 
-    public String getOdeReceivedAt() {
-        return this.odeReceivedAt;
+    public J2735BitString getSharedWith() {
+        return this.sharedWith;
     }
 
     public void setEgressApproach(Integer egressApproach) {
@@ -101,11 +218,19 @@ public class MapProperties {
         return this.egressPath;
     }
 
-    public void setConnectedLanes(Integer[] connectedLanes) {
-        this.connectedLanes = connectedLanes;
+    public void setManeuvers(J2735BitString maneuvers) {
+        this.maneuvers = maneuvers;
     }
 
-    public Integer[] getConnectedLanes() {
-        return this.connectedLanes;
+    public J2735BitString getManeuvers() {
+        return this.maneuvers;
+    }
+
+    public void setConnectsTo(List<MapConnection> connectsTo) {
+        this.connectsTo = connectsTo;
+    }
+
+    public List<MapConnection> getConnectsTo() {
+        return this.connectsTo;
     }
 }
