@@ -17,8 +17,8 @@ public class MapPropertiesTest {
     public void testIp() {
         String expectedIp = "10.0.0.1";
         MapProperties mapProperties = new MapProperties();
-        mapProperties.setIp(expectedIp);
-        assertEquals(expectedIp, mapProperties.getIp());
+        mapProperties.setOriginIp(expectedIp);
+        assertEquals(expectedIp, mapProperties.getOriginIp());
     }
 
     @Test
@@ -59,15 +59,5 @@ public class MapPropertiesTest {
         MapProperties mapProperties = new MapProperties();
         mapProperties.setEgressPath(expectedEgressPath);
         assertEquals(expectedEgressPath, mapProperties.getEgressPath());
-    }
-
-    @Test
-    public void testConnectedLanes() {
-        Integer[] expectedConnectedLanes = new Integer[] { 3, 12 };
-        MapProperties mapProperties = new MapProperties();
-        mapProperties.setConnectedLanes(expectedConnectedLanes);
-        assertEquals(expectedConnectedLanes.length, mapProperties.getConnectedLanes().length);
-        assertEquals(expectedConnectedLanes[0], mapProperties.getConnectedLanes()[0]);
-        assertEquals(expectedConnectedLanes[1], mapProperties.getConnectedLanes()[1]);
     }
 }

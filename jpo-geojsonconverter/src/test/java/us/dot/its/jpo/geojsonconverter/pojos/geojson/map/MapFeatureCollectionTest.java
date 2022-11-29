@@ -15,14 +15,12 @@ public class MapFeatureCollectionTest {
     public void setup() {
         MapProperties properties = new MapProperties();
         properties.setLaneId(2);
-        properties.setIp("10.0.0.1");
+        properties.setOriginIp("10.0.0.1");
         properties.setOdeReceivedAt("2022-01-01T00:00:00");
         properties.setEgressApproach(1);
         properties.setIngressApproach(0);
         properties.setIngressPath(false);
         properties.setEgressPath(true);
-        Integer[] cLanes = new Integer[] { 3, 12 };
-        properties.setConnectedLanes(cLanes);
 
         double[][] coordinates = new double[][] { { 39.7392, 104.9903 }, { 39.7390, 104.9907 } };
         LineString geometry = new LineString(coordinates);
