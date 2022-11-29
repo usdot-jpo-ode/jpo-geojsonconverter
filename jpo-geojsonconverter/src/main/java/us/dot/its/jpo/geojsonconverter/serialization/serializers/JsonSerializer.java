@@ -3,6 +3,8 @@ package us.dot.its.jpo.geojsonconverter.serialization.serializers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import us.dot.its.jpo.geojsonconverter.DateJsonMapper;
+
 import org.apache.kafka.common.serialization.Serializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +19,8 @@ public class JsonSerializer<T> implements Serializer<T> {
 
     private static Logger logger = LoggerFactory.getLogger(JsonSerializer.class);
 
-    private final ObjectMapper mapper = new ObjectMapper();
+    private final ObjectMapper mapper = DateJsonMapper.getInstance();
+
 
     @Override
     public byte[] serialize(String topic, T data) {

@@ -1,7 +1,7 @@
 package us.dot.its.jpo.geojsonconverter.serialization;
 
-import us.dot.its.jpo.geojsonconverter.geojson.map.MapFeatureCollection;
-import us.dot.its.jpo.geojsonconverter.geojson.spat.SpatFeatureCollection;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.MapFeatureCollection;
+import us.dot.its.jpo.geojsonconverter.pojos.spat.*;
 import us.dot.its.jpo.geojsonconverter.serialization.deserializers.*;
 import us.dot.its.jpo.geojsonconverter.serialization.serializers.*;
 import us.dot.its.jpo.ode.model.OdeMapData;
@@ -33,9 +33,9 @@ public class JsonSerdes {
             new OdeSpatDataJsonDeserializer());
     }
 
-    public static Serde<SpatFeatureCollection> SpatGeoJson() {
+    public static Serde<ProcessedSpat> ProcessedSpat() {
         return Serdes.serdeFrom(
-            new JsonSerializer<SpatFeatureCollection>(), 
-            new JsonDeserializer<>(SpatFeatureCollection.class));
+            new JsonSerializer<ProcessedSpat>(), 
+            new JsonDeserializer<>(ProcessedSpat.class));
     }
 }

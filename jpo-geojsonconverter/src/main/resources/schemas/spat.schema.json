@@ -424,7 +424,7 @@
                 "speeds": {
                     "oneOf": [
                         {
-                            "$ref": "#/$defs/J2735AdvisorySpeedList"
+                            "$ref": "#/$defs/J2735AdvisorySpeedList_Wrapped"
                         },
                         { "type": "null" }
                     ]
@@ -509,22 +509,25 @@
                 "maximum": "DE_TimeMark > 36001"
             }
         },
-        "J2735AdvisorySpeedList": {
+        "J2735AdvisorySpeedList_Wrapped": {
             "type": "object",
             "properties": {
                 "advisorySpeedList": {
-                    "type": "array",
-                    "minItems": 1,
-                    "maxItems": 16,
-                    "items": {
-                        "$ref": "#/$defs/J2735AdvisorySpeed"
-                    }
+                    "$ref": "#/$defs/J2735AdvisorySpeedList"
                 }
             },
             "required": [
                 "advisorySpeedList"
             ],
             "additionalProperties": false
+        },
+        "J2735AdvisorySpeedList": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 16,
+            "items": {
+                "$ref": "#/$defs/J2735AdvisorySpeed"
+            }
         },
         "J2735AdvisorySpeed": {
             "type": "object",

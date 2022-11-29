@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import us.dot.its.jpo.geojsonconverter.DateJsonMapper;
+
 import org.apache.kafka.common.serialization.Deserializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +13,7 @@ import org.slf4j.LoggerFactory;
 public class JsonDeserializer<T> implements Deserializer<T> {
     private static Logger logger = LoggerFactory.getLogger(JsonDeserializer.class);
 
-    protected final ObjectMapper mapper = new ObjectMapper();
+    protected final ObjectMapper mapper = DateJsonMapper.getInstance();
 
     private Class<T> destinationClass;
 

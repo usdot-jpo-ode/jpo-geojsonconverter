@@ -1,7 +1,7 @@
 package us.dot.its.jpo.geojsonconverter.converter.map;
 
-import us.dot.its.jpo.geojsonconverter.geojson.LineString;
-import us.dot.its.jpo.geojsonconverter.geojson.map.*;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.LineString;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.*;
 import us.dot.its.jpo.ode.model.*;
 import us.dot.its.jpo.ode.plugin.j2735.J2735IntersectionGeometry;
 import us.dot.its.jpo.ode.plugin.j2735.J2735GenericLane;
