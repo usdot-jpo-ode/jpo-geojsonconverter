@@ -2,13 +2,38 @@ package us.dot.its.jpo.geojsonconverter.geojson.map;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import us.dot.its.jpo.ode.plugin.j2735.OdePosition3D;
+
 public class MapProperties {
+    @JsonProperty("nodes")
+    private MapNode[] nodes;
+    @JsonProperty("messageType")
+    private String messageType;
+    @JsonProperty("odeReceivedAt")
+    private String odeReceivedAt;
+    @JsonProperty("originIp")
+    private String originIp;
+    @JsonProperty("intersectionName")
+    private String intersectionName;
+    @JsonProperty("region")
+    private Integer region;
+    @JsonProperty("intersectionId")
+    private Integer intersectionId;
+    @JsonProperty("msgIssueRevision")
+    private Integer msgIssueRevision;
+    @JsonProperty("revision")
+    private Integer revision;
+    @JsonProperty("refPoint")
+    private OdePosition3D refPoint;
+    @JsonProperty("cti4501Conformant")
+    private Boolean cti4501Conformant;
+
+
+
     @JsonProperty("lane_id")
     private Integer laneId;
     @JsonProperty("ip")
     private String ip;
-    @JsonProperty("ode_received_at")
-    private String odeReceivedAt;
     @JsonProperty("egress_approach")
     private Integer egressApproach;
     @JsonProperty("ingress_approach")
