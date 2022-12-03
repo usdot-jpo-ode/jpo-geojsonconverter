@@ -1,7 +1,12 @@
 package us.dot.its.jpo.geojsonconverter.converter.map;
 
+import us.dot.its.jpo.geojsonconverter.pojos.ProcessedValidationMessage;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.LineString;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.connectinglanes.ConnectingLanesFeature;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.connectinglanes.ConnectingLanesFeatureCollection;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.connectinglanes.ConnectingLanesProperties;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.*;
+import us.dot.its.jpo.geojsonconverter.validator.JsonValidatorResult;
 import us.dot.its.jpo.ode.model.*;
 import us.dot.its.jpo.ode.plugin.j2735.J2735IntersectionGeometry;
 import us.dot.its.jpo.ode.plugin.j2735.J2735GenericLane;
@@ -13,6 +18,9 @@ import us.dot.its.jpo.ode.plugin.j2735.J2735Node_XY;
 import java.util.ArrayList;
 import java.util.List;
 import java.math.BigDecimal;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.kstream.Transformer;
@@ -21,8 +29,10 @@ import org.apache.kafka.streams.processor.ProcessorContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class MapGeoJsonConverter implements Transformer<Void, OdeMapData, KeyValue<String, MapFeatureCollection>> {
-    private static final Logger logger = LoggerFactory.getLogger(MapGeoJsonConverter.class);
+import com.networknt.schema.ValidationMessage;
+
+public class MapProcessedJsonConverter implements Transformer<Void, DeserializedRawMap, KeyValue<String, ProcessedMapPojo>> {
+    private static final Logger logger = LoggerFactory.getLogger(MapProcessedJsonConverter.class);
 
     @Override
     public void init(ProcessorContext arg0) {}
@@ -35,17 +45,22 @@ public class MapGeoJsonConverter implements Transformer<Void, OdeMapData, KeyVal
      * @return A key value pair: the key is the RSU IP concatenated with the intersection ID and the value is the GeoJSON FeatureCollection POJO
      */
     @Override
-    public KeyValue<String, MapFeatureCollection> transform(Void rawKey, OdeMapData rawValue) {
+    public KeyValue<String, ProcessedMapPojo> transform(Void rawKey, DeserializedRawMap rawValue) {
         try {
-            OdeMapMetadata mapMetadata = (OdeMapMetadata)rawValue.getMetadata();
-            OdeMapPayload mapPayload = (OdeMapPayload)rawValue.getPayload();
+            OdeMapMetadata mapMetadata = (OdeMapMetadata)rawValue.getOdeMapOdeMapData().getMetadata();
+            OdeMapPayload mapPayload = (OdeMapPayload)rawValue.getOdeMapOdeMapData().getPayload();
             J2735IntersectionGeometry intersection = mapPayload.getMap().getIntersections().getIntersections().get(0);
 
-			MapFeatureCollection mapFeatureCollection = createFeatureCollection(intersection, mapMetadata);
-            
+			MapFeatureCollection mapFeatureCollection = createFeatureCollection(mapPayload, mapMetadata, intersection, rawValue.getValidatorResults());
+            ConnectingLanesFeatureCollection connectingLanesFeatureCollection = createConnectingLanesFeatureCollection(mapPayload, mapMetadata, intersection);
+
+            ProcessedMapPojo processedMapObject = new ProcessedMapPojo();
+            processedMapObject.setMapFeatureCollection(mapFeatureCollection);
+            processedMapObject.setConnectingLanesFeatureCollection(connectingLanesFeatureCollection);
+
             String key = mapMetadata.getOriginIp() + ":" + intersection.getId().getId().toString();
-            logger.info("Successfully created MAP GeoJSON for " + key);
-            return KeyValue.pair(key, mapFeatureCollection);
+            logger.info("Successfully created processed MAP for " + key);
+            return KeyValue.pair(key, processedMapObject);
         } catch (Exception e) {
             String errMsg = String.format("Exception converting ODE MAP to GeoJSON! Message: %s", e.getMessage());
             logger.error(errMsg, e);
@@ -59,32 +74,91 @@ public class MapGeoJsonConverter implements Transformer<Void, OdeMapData, KeyVal
         // Nothing to do here
     }
 
-    public MapFeatureCollection createFeatureCollection(J2735IntersectionGeometry intersection, OdeMapMetadata metadata) {
+    public MapFeatureCollection createFeatureCollection(OdeMapPayload mapPayload, OdeMapMetadata metadata, J2735IntersectionGeometry intersection, JsonValidatorResult validationMessages) {
         // Save for geometry calculations
         OdePosition3D refPoint = intersection.getRefPoint();
 
+        String odeTimestamp = metadata.getOdeReceivedAt();
+        ZonedDateTime odeDate = Instant.parse(odeTimestamp).atZone(ZoneId.of("UTC"));
+
+        // Creating Validation Messages object
+        List<ProcessedValidationMessage> processedSpatValidationMessages = new ArrayList<ProcessedValidationMessage>();
+        for (Exception exception : validationMessages.getExceptions()){
+            ProcessedValidationMessage object = new ProcessedValidationMessage();
+            object.setMessage(exception.getMessage());
+            object.setException(exception.getStackTrace().toString());
+            processedSpatValidationMessages.add(object);
+        }
+        for (ValidationMessage vm : validationMessages.getValidationMessages()){
+            ProcessedValidationMessage object = new ProcessedValidationMessage();
+            object.setMessage(vm.getMessage());
+            object.setSchemaPath(vm.getSchemaPath());
+            object.setJsonPath(vm.getPath());
+
+            processedSpatValidationMessages.add(object);
+        }
+
         List<MapFeature> mapFeatures = new ArrayList<>();
-        for (int i = 0; i < intersection.getLaneSet().getLaneSet().size(); i++) {
+        for (J2735GenericLane lane : intersection.getLaneSet().getLaneSet()) {
             // Create MAP properties
             MapProperties mapProps = new MapProperties();
             mapProps.setOriginIp(metadata.getOriginIp());
-            mapProps.setOdeReceivedAt(metadata.getOdeReceivedAt());
+            mapProps.setOdeReceivedAt(odeDate);
+            mapProps.setIntersectionName(intersection.getName());
+            mapProps.setRegion(intersection.getId().getRegion());
+            mapProps.setIntersectionId(intersection.getId().getId());
+            mapProps.setMsgIssueRevision(mapPayload.getMap().getMsgIssueRevision());
+            mapProps.setRevision(intersection.getRevision());
+            mapProps.setRefPoint(refPoint);
+            mapProps.setLaneWidth(intersection.getLaneWidth());
+            mapProps.setSpeedLimits(intersection.getSpeedLimits().getSpeedLimits());
+            mapProps.setMapSource(metadata.getMapSource());
+            if (mapPayload.getMap().getTimeStamp()!=null){
+                // TODO: Add logic to this method for when the timestamp field isn't null
+                // Timestamp field is the MOY time, so we need to figure out how to get the seconds in that minute.
+                mapProps.setTimeStamp(null);
+            } else {
+                mapProps.setTimeStamp(odeDate);
+            }
 
-			J2735GenericLane lane = intersection.getLaneSet().getLaneSet().get(i);
             mapProps.setLaneId(lane.getLaneID());
+            mapProps.setLaneName(lane.getName());
+            mapProps.setSharedWith(lane.getLaneAttributes().getShareWith());
             mapProps.setIngressPath(lane.getLaneAttributes().getDirectionalUse().get("ingressPath"));
             mapProps.setEgressPath(lane.getLaneAttributes().getDirectionalUse().get("egressPath"));
             mapProps.setIngressApproach(lane.getIngressApproach() != null ? lane.getIngressApproach() : 0);
 			mapProps.setEgressApproach(lane.getEgressApproach() != null ? lane.getEgressApproach() : 0);
+            
+            mapProps.setManeuvers(lane.getManeuvers());
+            mapProps.setConnectsTo(lane.getConnectsTo().getConnectsTo());
 
             // Create MAP geometry
             LineString geometry = createGeometry(lane, refPoint);
+
+            // Setting validation fields
+            mapProps.setValidationMessages(processedSpatValidationMessages);
+            mapProps.setCti4501Conformant(validationMessages.isValid());
 
             // Create MAP feature and add it to the feature list
             mapFeatures.add(new MapFeature(mapProps.getLaneId(), geometry, mapProps));
         }
 
         return new MapFeatureCollection(mapFeatures.toArray(new MapFeature[0]));
+    }
+
+    public ConnectingLanesFeatureCollection createConnectingLanesFeatureCollection(OdeMapPayload mapPayload, OdeMapMetadata metadata, J2735IntersectionGeometry intersection) {
+        // Save for geometry calculations
+        OdePosition3D refPoint = intersection.getRefPoint();
+
+        List<ConnectingLanesFeature> lanesFeatures = new ArrayList<>();
+        for (J2735GenericLane lane : intersection.getLaneSet().getLaneSet()) {
+            ConnectingLanesProperties laneProps = new ConnectingLanesProperties();
+
+            // laneProps.setSignalGroupId(lane.get);
+            // lanesFeatures.add(laneProps.getLaneId(), geometry, mapProps))
+        }
+
+        return new ConnectingLanesFeatureCollection(lanesFeatures.toArray(new ConnectingLanesFeature[0]));
     }
 
     public LineString createGeometry(J2735GenericLane lane, OdePosition3D refPoint) {
@@ -131,7 +205,7 @@ public class MapGeoJsonConverter implements Transformer<Void, OdeMapData, KeyVal
                     continue;
                 
                 // Calculate offset lon,lat values
-                // Equations may become less accurate the futher N/S the coordinate is
+                // Equations may become less accurate the further N/S the coordinate is
                 double offsetX = nodexy.getX().doubleValue();
                 double offsetY = nodexy.getY().doubleValue();
 
@@ -167,4 +241,5 @@ public class MapGeoJsonConverter implements Transformer<Void, OdeMapData, KeyVal
 
         return new LineString(coordinatesArray);
     }
+
 }

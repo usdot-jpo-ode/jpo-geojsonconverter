@@ -15,7 +15,7 @@ import us.dot.its.jpo.geojsonconverter.serialization.deserializers.OdeMapDataJso
 import us.dot.its.jpo.ode.model.OdeMapData;
 
 public class MapGeoJsonConverterTest {
-    MapGeoJsonConverter mapGeoJsonConverter;
+    MapProcessedJsonConverter mapGeoJsonConverter;
     OdeMapData odeMapPojo;
 
     @Before
@@ -24,7 +24,7 @@ public class MapGeoJsonConverterTest {
         try (OdeMapDataJsonDeserializer odeMapDeserializer = new OdeMapDataJsonDeserializer()) {
             odeMapPojo = odeMapDeserializer.deserialize("test-topic", odeMapJsonString.getBytes());
         }
-        mapGeoJsonConverter = new MapGeoJsonConverter();
+        mapGeoJsonConverter = new MapProcessedJsonConverter();
     }
 
     @Test

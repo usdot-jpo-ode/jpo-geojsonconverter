@@ -3,6 +3,10 @@ package us.dot.its.jpo.geojsonconverter.pojos.geojson.map;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,7 +21,8 @@ public class MapFeatureTest {
         properties = new MapProperties();
         properties.setLaneId(2);
         properties.setOriginIp("10.0.0.1");
-        properties.setOdeReceivedAt("2022-01-01T00:00:00");
+        ZonedDateTime testDate = Instant.parse("2022-01-01T00:00:00Z").atZone(ZoneId.of("UTC"));
+        properties.setOdeReceivedAt(testDate);
         properties.setEgressApproach(1);
         properties.setIngressApproach(0);
         properties.setIngressPath(false);

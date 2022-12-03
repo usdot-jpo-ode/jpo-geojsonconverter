@@ -1,16 +1,19 @@
 package us.dot.its.jpo.geojsonconverter.pojos.geojson.map;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 import us.dot.its.jpo.ode.plugin.j2735.OdePosition3D;
 import us.dot.its.jpo.geojsonconverter.pojos.ProcessedValidationMessage;
 import us.dot.its.jpo.ode.plugin.j2735.J2735RegulatorySpeedLimit;
+import us.dot.its.jpo.ode.model.OdeMapMetadata.MapSource;
 import us.dot.its.jpo.ode.plugin.j2735.J2735BitString;
+import us.dot.its.jpo.ode.plugin.j2735.J2735Connection;
 
 public class MapProperties {
     private List<MapNode> nodes;
-    private String messageType;
-    private String odeReceivedAt;
+    private String messageType = "MAP";
+    private ZonedDateTime odeReceivedAt;
     private String originIp;
     private String intersectionName;
     private Integer region;
@@ -22,8 +25,8 @@ public class MapProperties {
     private List<ProcessedValidationMessage> validationMessages;
     private Integer laneWidth;
     private List<J2735RegulatorySpeedLimit> speedLimits;
-    private String mapSource;
-    private String timeStamp;
+    private MapSource mapSource;
+    private ZonedDateTime timeStamp;
     private Integer laneId;
     private String laneName;
     private J2735BitString sharedWith;  // enum is of type J2735LaneSharing
@@ -32,7 +35,7 @@ public class MapProperties {
     private Boolean ingressPath;
     private Boolean egressPath;
     private J2735BitString maneuvers;  // enum is of type J2735AllowedManeuvers
-    private List<MapConnection> connectsTo;
+    private List<J2735Connection> connectsTo;
 
     public void setNodes(List<MapNode> nodes) {
         this.nodes = nodes;
@@ -50,11 +53,11 @@ public class MapProperties {
         return this.messageType;
     }
 
-    public void setOdeReceivedAt(String odeReceivedAt) {
+    public void setOdeReceivedAt(ZonedDateTime odeReceivedAt) {
         this.odeReceivedAt = odeReceivedAt;
     }
 
-    public String getOdeReceivedAt() {
+    public ZonedDateTime getOdeReceivedAt() {
         return this.odeReceivedAt;
     }
 
@@ -146,19 +149,19 @@ public class MapProperties {
         return this.speedLimits;
     }
 
-    public void setMapSource(String mapSource) {
+    public void setMapSource(MapSource mapSource) {
         this.mapSource = mapSource;
     }
 
-    public String getMapSource() {
+    public MapSource getMapSource() {
         return this.mapSource;
     }
 
-    public void setTimeStamp(String timeStamp) {
+    public void setTimeStamp(ZonedDateTime timeStamp) {
         this.timeStamp = timeStamp;
     }
 
-    public String getTimeStamp() {
+    public ZonedDateTime getTimeStamp() {
         return this.timeStamp;
     }
 
@@ -226,11 +229,11 @@ public class MapProperties {
         return this.maneuvers;
     }
 
-    public void setConnectsTo(List<MapConnection> connectsTo) {
+    public void setConnectsTo(List<J2735Connection> connectsTo) {
         this.connectsTo = connectsTo;
     }
 
-    public List<MapConnection> getConnectsTo() {
+    public List<J2735Connection> getConnectsTo() {
         return this.connectsTo;
     }
 }
