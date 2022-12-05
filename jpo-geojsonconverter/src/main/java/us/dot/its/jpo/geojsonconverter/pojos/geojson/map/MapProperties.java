@@ -2,15 +2,25 @@ package us.dot.its.jpo.geojsonconverter.pojos.geojson.map;
 
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Objects;
 
 import us.dot.its.jpo.ode.plugin.j2735.OdePosition3D;
+import us.dot.its.jpo.geojsonconverter.DateJsonMapper;
 import us.dot.its.jpo.geojsonconverter.pojos.ProcessedValidationMessage;
 import us.dot.its.jpo.ode.plugin.j2735.J2735RegulatorySpeedLimit;
 import us.dot.its.jpo.ode.model.OdeMapMetadata.MapSource;
 import us.dot.its.jpo.ode.plugin.j2735.J2735BitString;
 import us.dot.its.jpo.ode.plugin.j2735.J2735Connection;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public class MapProperties {
+    private static Logger logger = LoggerFactory.getLogger(MapProperties.class);
+
     private List<MapNode> nodes;
     private String messageType = "MAP";
     private ZonedDateTime odeReceivedAt;
@@ -235,5 +245,33 @@ public class MapProperties {
 
     public List<J2735Connection> getConnectsTo() {
         return this.connectsTo;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof MapProperties)) {
+            return false;
+        }
+        MapProperties mapProperties = (MapProperties) o;
+        return Objects.equals(nodes, mapProperties.nodes) && Objects.equals(messageType, mapProperties.messageType) && Objects.equals(odeReceivedAt, mapProperties.odeReceivedAt) && Objects.equals(originIp, mapProperties.originIp) && Objects.equals(intersectionName, mapProperties.intersectionName) && Objects.equals(region, mapProperties.region) && Objects.equals(intersectionId, mapProperties.intersectionId) && Objects.equals(msgIssueRevision, mapProperties.msgIssueRevision) && Objects.equals(revision, mapProperties.revision) && Objects.equals(refPoint, mapProperties.refPoint) && Objects.equals(cti4501Conformant, mapProperties.cti4501Conformant) && Objects.equals(validationMessages, mapProperties.validationMessages) && Objects.equals(laneWidth, mapProperties.laneWidth) && Objects.equals(speedLimits, mapProperties.speedLimits) && Objects.equals(mapSource, mapProperties.mapSource) && Objects.equals(timeStamp, mapProperties.timeStamp) && Objects.equals(laneId, mapProperties.laneId) && Objects.equals(laneName, mapProperties.laneName) && Objects.equals(sharedWith, mapProperties.sharedWith) && Objects.equals(egressApproach, mapProperties.egressApproach) && Objects.equals(ingressApproach, mapProperties.ingressApproach) && Objects.equals(ingressPath, mapProperties.ingressPath) && Objects.equals(egressPath, mapProperties.egressPath) && Objects.equals(maneuvers, mapProperties.maneuvers) && Objects.equals(connectsTo, mapProperties.connectsTo);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nodes, messageType, odeReceivedAt, originIp, intersectionName, region, intersectionId, msgIssueRevision, revision, refPoint, cti4501Conformant, validationMessages, laneWidth, speedLimits, mapSource, timeStamp, laneId, laneName, sharedWith, egressApproach, ingressApproach, ingressPath, egressPath, maneuvers, connectsTo);
+    }
+
+    @Override
+    public String toString() {
+        ObjectMapper mapper = DateJsonMapper.getInstance();
+        String testReturn = "";
+        try {
+            testReturn = (mapper.writeValueAsString(this));
+        } catch (JsonProcessingException e) {
+            logger.error(e.getMessage(), e);
+        }
+        return testReturn;
     }
 }

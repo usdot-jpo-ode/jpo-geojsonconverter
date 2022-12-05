@@ -9,6 +9,7 @@ import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.*;
 import us.dot.its.jpo.geojsonconverter.validator.JsonValidatorResult;
 import us.dot.its.jpo.ode.model.*;
 import us.dot.its.jpo.ode.plugin.j2735.J2735IntersectionGeometry;
+import us.dot.its.jpo.ode.plugin.j2735.J2735Connection;
 import us.dot.its.jpo.ode.plugin.j2735.J2735GenericLane;
 import us.dot.its.jpo.ode.plugin.j2735.OdePosition3D;
 import us.dot.its.jpo.ode.plugin.j2735.J2735NodeOffsetPointXY;
@@ -111,16 +112,13 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
             mapProps.setRevision(intersection.getRevision());
             mapProps.setRefPoint(refPoint);
             mapProps.setLaneWidth(intersection.getLaneWidth());
-            mapProps.setSpeedLimits(intersection.getSpeedLimits().getSpeedLimits());
+            mapProps.setSpeedLimits(intersection.getSpeedLimits() != null ? intersection.getSpeedLimits().getSpeedLimits() : null);
             mapProps.setMapSource(metadata.getMapSource());
-            if (mapPayload.getMap().getTimeStamp()!=null){
-                // TODO: Add logic to this method for when the timestamp field isn't null
-                // Timestamp field is the MOY time, so we need to figure out how to get the seconds in that minute.
-                mapProps.setTimeStamp(null);
-            } else {
-                mapProps.setTimeStamp(odeDate);
-            }
 
+            // TODO: change true step from null -> convert the incoming timestamp to a date
+            // Need to figure out seconds in current minute
+            mapProps.setTimeStamp(generateUTCTimestamp(mapPayload.getMap().getTimeStamp(), odeDate)); 
+            
             mapProps.setLaneId(lane.getLaneID());
             mapProps.setLaneName(lane.getName());
             mapProps.setSharedWith(lane.getLaneAttributes().getShareWith());
@@ -130,14 +128,14 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
 			mapProps.setEgressApproach(lane.getEgressApproach() != null ? lane.getEgressApproach() : 0);
             
             mapProps.setManeuvers(lane.getManeuvers());
-            mapProps.setConnectsTo(lane.getConnectsTo().getConnectsTo());
+            mapProps.setConnectsTo(lane.getConnectsTo() != null? lane.getConnectsTo().getConnectsTo() : null);
 
             // Create MAP geometry
             LineString geometry = createGeometry(lane, refPoint);
 
             // Setting validation fields
             mapProps.setValidationMessages(processedSpatValidationMessages);
-            mapProps.setCti4501Conformant(validationMessages.isValid());
+            mapProps.setCti4501Conformant(validationMessages != null ? validationMessages.isValid() : null);
 
             // Create MAP feature and add it to the feature list
             mapFeatures.add(new MapFeature(mapProps.getLaneId(), geometry, mapProps));
@@ -152,10 +150,20 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
 
         List<ConnectingLanesFeature> lanesFeatures = new ArrayList<>();
         for (J2735GenericLane lane : intersection.getLaneSet().getLaneSet()) {
-            ConnectingLanesProperties laneProps = new ConnectingLanesProperties();
+            if (lane.getLaneAttributes().getDirectionalUse().get("ingressPath") == true){
+                logger.info(String.format("ingressPath value: %s", lane.getLaneAttributes().getDirectionalUse().get("ingressPath")));
+                for (J2735Connection connection : lane.getConnectsTo().getConnectsTo()){
+                    ConnectingLanesProperties laneProps = new ConnectingLanesProperties();
 
-            // laneProps.setSignalGroupId(lane.get);
-            // lanesFeatures.add(laneProps.getLaneId(), geometry, mapProps))
+                    laneProps.setIngressLaneId(lane.getLaneID());
+                    laneProps.setEgressLaneId(connection.getConnectingLane().getLane());
+                    laneProps.setSignalGroupId(connection.getSignalGroup());
+
+                    LineString geometry = createGeometry(lane, refPoint);
+
+                    lanesFeatures.add(new ConnectingLanesFeature(laneProps.getEgressLaneId(), geometry, laneProps));
+                }
+            }
         }
 
         return new ConnectingLanesFeatureCollection(lanesFeatures.toArray(new ConnectingLanesFeature[0]));
@@ -240,6 +248,27 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
                         .toArray(double[][]::new);
 
         return new LineString(coordinatesArray);
+    }
+
+    public ZonedDateTime generateUTCTimestamp(Integer moy, ZonedDateTime odeDate){ //2022-10-31T15:40:26.687292Z
+        ZonedDateTime date = null;
+        try {
+            int year = odeDate.getYear();
+            String dateString;
+            long milliseconds;
+            if (moy != null){
+                milliseconds = moy*60*1000; // milliseconds from beginning of year
+                dateString = String.format("%d-01-01T00:00:00.00Z", year);
+                date = Instant.parse(dateString).plusMillis(milliseconds).atZone(ZoneId.of("UTC"));
+            } else {
+                date = odeDate;
+            }
+                        
+        } catch (Exception e) {
+            logger.error("Failed to generateUTCTimestamp - SpatProcessedJsonConverter", e);
+        }
+        
+        return date;
     }
 
 }

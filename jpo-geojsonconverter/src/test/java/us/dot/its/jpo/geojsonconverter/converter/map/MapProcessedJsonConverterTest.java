@@ -5,18 +5,23 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.mock;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.processor.ProcessorContext;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.networknt.schema.ValidationMessage;
+
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.DeserializedRawMap;
-import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.MapFeatureCollection;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.ProcessedMapPojo;
 import us.dot.its.jpo.geojsonconverter.serialization.deserializers.OdeMapDataJsonDeserializer;
+import us.dot.its.jpo.geojsonconverter.validator.JsonValidatorResult;
 import us.dot.its.jpo.ode.model.OdeMapData;
 
-public class MapGeoJsonConverterTest {
+public class MapProcessedJsonConverterTest {
     MapProcessedJsonConverter mapGeoJsonConverter;
     OdeMapData odeMapPojo;
     DeserializedRawMap rawMap;
@@ -27,8 +32,16 @@ public class MapGeoJsonConverterTest {
         try (OdeMapDataJsonDeserializer odeMapDeserializer = new OdeMapDataJsonDeserializer()) {
             odeMapPojo = odeMapDeserializer.deserialize("test-topic", odeMapJsonString.getBytes());
         }
+
+        JsonValidatorResult validatorResults = new JsonValidatorResult();
+        Exception exception = new Exception("test_exception");
+        validatorResults.addException(exception);
+        List<ValidationMessage> validationMessages = new ArrayList<>();
+        validatorResults.addValidationMessages(validationMessages);
+
         rawMap = new DeserializedRawMap();
         rawMap.setOdeMapOdeMapData(odeMapPojo);
+        rawMap.setValidatorResults(validatorResults);
         mapGeoJsonConverter = new MapProcessedJsonConverter();
     }
 

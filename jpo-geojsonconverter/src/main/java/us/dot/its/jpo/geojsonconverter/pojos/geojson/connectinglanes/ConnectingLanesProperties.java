@@ -1,5 +1,7 @@
 package us.dot.its.jpo.geojsonconverter.pojos.geojson.connectinglanes;
 
+import java.util.Objects;
+
 public class ConnectingLanesProperties {
     private Integer signalGroupId;
     private Integer ingressLaneId;
@@ -27,5 +29,30 @@ public class ConnectingLanesProperties {
 
     public Integer getEgressLaneId() {
         return this.egressLaneId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof ConnectingLanesProperties)) {
+            return false;
+        }
+        ConnectingLanesProperties connectingLanesProperties = (ConnectingLanesProperties) o;
+        return Objects.equals(signalGroupId, connectingLanesProperties.signalGroupId) && Objects.equals(ingressLaneId, connectingLanesProperties.ingressLaneId) && Objects.equals(egressLaneId, connectingLanesProperties.egressLaneId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(signalGroupId, ingressLaneId, egressLaneId);
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " signalGroupId='" + getSignalGroupId() + "'" +
+            ", ingressLaneId='" + getIngressLaneId() + "'" +
+            ", egressLaneId='" + getEgressLaneId() + "'" +
+            "}";
     }
 }

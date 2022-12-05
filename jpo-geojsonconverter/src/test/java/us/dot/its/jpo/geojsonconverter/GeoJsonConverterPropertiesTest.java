@@ -79,8 +79,8 @@ public class GeoJsonConverterPropertiesTest {
     @Test
     public void testKafkaTopicMapGeoJsonSetterAndGetter() {
         String testKafkaTopicMapGeoJson = "testKafkaTopicMapGeoJson";
-        testGeoJsonConverterProperties.setKafkaTopicMapGeoJson(testKafkaTopicMapGeoJson);
-        assertEquals("Incorrect KafkaTopicMapGeoJson", testKafkaTopicMapGeoJson, testGeoJsonConverterProperties.getKafkaTopicMapGeoJson());
+        testGeoJsonConverterProperties.setKafkaTopicProcessedMap(testKafkaTopicMapGeoJson);
+        assertEquals("Incorrect KafkaTopicMapGeoJson", testKafkaTopicMapGeoJson, testGeoJsonConverterProperties.getKafkaTopicProcessedMap());
     }
 
     @Test

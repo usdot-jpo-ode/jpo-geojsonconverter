@@ -1,5 +1,7 @@
 package us.dot.its.jpo.geojsonconverter.pojos.geojson.map;
 
+import java.util.Objects;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MapNode {
@@ -42,5 +44,31 @@ public class MapNode {
 
     public Boolean getStopLine() {
         return this.stopLine;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof MapNode)) {
+            return false;
+        }
+        MapNode mapNode = (MapNode) o;
+        return Objects.equals(delta, mapNode.delta) && Objects.equals(dWidth, mapNode.dWidth) && Objects.equals(dElevation, mapNode.dElevation) && Objects.equals(stopLine, mapNode.stopLine);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(delta, dWidth, dElevation, stopLine);
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " delta='" + getDelta() + "'" +
+            ", dWidth='" + getDWidth() + "'" +
+            ", dElevation='" + getDElevation() + "'" +
+            ", stopLine='" + getStopLine() + "'" +
+            "}";
     }
 }

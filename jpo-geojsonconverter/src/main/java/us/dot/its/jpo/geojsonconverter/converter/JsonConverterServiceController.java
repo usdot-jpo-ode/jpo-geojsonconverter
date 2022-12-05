@@ -31,9 +31,9 @@ public class JsonConverterServiceController {
             
 
             // MAP
-            logger.info("Creating the MAP geoJSON Kafka-Streams topology");
-            var mapTopology = MapTopology.build(geojsonProps.getKafkaTopicOdeMapJson(), geojsonProps.getKafkaTopicMapGeoJson(), mapJsonValidator);
-            var mapStreams = new KafkaStreams(mapTopology, geojsonProps.createStreamProperties("mapgeojson"));
+            logger.info("Creating the Processed MAP Kafka-Streams topology");
+            var mapTopology = MapTopology.build(geojsonProps.getKafkaTopicOdeMapJson(), geojsonProps.getKafkaTopicProcessedMap(), mapJsonValidator);
+            var mapStreams = new KafkaStreams(mapTopology, geojsonProps.createStreamProperties("processedmapjson"));
             Runtime.getRuntime().addShutdownHook(               
                 new Thread(() -> {
                     try {
@@ -45,7 +45,7 @@ public class JsonConverterServiceController {
             mapStreams.start();
 
             // SPaT
-            logger.info("Creating the SPaT geoJSON Kafka-Streams topology");
+            logger.info("Creating the Processed SPaT Kafka-Streams topology");
             var spatTopology = SpatTopology.build(geojsonProps.getKafkaTopicOdeSpatJson(), geojsonProps.getKafkaTopicSpatGeoJson(), spatJsonValidator);
             var spatStreams = new KafkaStreams(spatTopology, geojsonProps.createStreamProperties("processedspatjson"));
             Runtime.getRuntime().addShutdownHook(

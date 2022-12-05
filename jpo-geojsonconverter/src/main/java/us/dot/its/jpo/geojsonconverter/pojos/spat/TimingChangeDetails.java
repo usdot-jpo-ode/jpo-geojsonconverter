@@ -19,7 +19,7 @@ public class TimingChangeDetails {
     private ZonedDateTime minEndTime;
     private ZonedDateTime maxEndTime;
     private ZonedDateTime likelyTime;
-    private int confidence;
+    private Integer confidence;
     private ZonedDateTime nextTime;
 
     public ZonedDateTime getStartTime() {
@@ -54,11 +54,11 @@ public class TimingChangeDetails {
         this.likelyTime = likelyTime;
     }
 
-    public int getConfidence() {
+    public Integer getConfidence() {
         return this.confidence;
     }
 
-    public void setConfidence(int confidence) {
+    public void setConfidence(Integer confidence) {
         this.confidence = confidence;
     }
 

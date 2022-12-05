@@ -23,11 +23,11 @@ public class ProcessedSpat {
     private String odeReceivedAt;
     private String originIp;
     private String name;
-    private int region;
-    private int intersectionId;
+    private Integer region;
+    private Integer intersectionId;
     private boolean cti4501Conformant;
     private List<ProcessedValidationMessage> validationMessages = null;
-    private int revision;
+    private Integer revision;
     private IntersectionStatusObject status;
     private ZonedDateTime utcTimeStamp;
     private List<Integer> enabledLanes = new ArrayList<>();
@@ -65,19 +65,19 @@ public class ProcessedSpat {
         this.name = name;
     }
 
-    public int getRegion() {
+    public Integer getRegion() {
         return region;
     }
 
-    public void setRegion(int region) {
+    public void setRegion(Integer region) {
         this.region = region;
     }
 
-    public int getIntersectionId() {
+    public Integer getIntersectionId() {
         return intersectionId;
     }
 
-    public void setIntersectionId(int intersectionId) {
+    public void setIntersectionId(Integer intersectionId) {
         this.intersectionId = intersectionId;
     }
 
@@ -97,11 +97,11 @@ public class ProcessedSpat {
         this.validationMessages = validationMessages;
     }
 
-    public int getRevision() {
+    public Integer getRevision() {
         return revision;
     }
 
-    public void setRevision(int revision) {
+    public void setRevision(Integer revision) {
         this.revision = revision;
     }
 

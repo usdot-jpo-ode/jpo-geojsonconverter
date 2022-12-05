@@ -71,11 +71,7 @@ public class SpatProcessedJsonConverter implements Transformer<Void, Deserialize
         processedSpat.setOdeReceivedAt(metadata.getOdeReceivedAt()); // ISO 8601: 2022-11-11T16:36:10.529530Z
         processedSpat.setOriginIp(metadata.getOriginIp());
         processedSpat.setName(intersectionState.getName());
-        if (intersectionState.getId().getRegion() != null) {
-            processedSpat.setRegion(intersectionState.getId().getRegion());
-        } else {
-            processedSpat.setRegion(0);
-        }
+        processedSpat.setRegion(intersectionState.getId().getRegion());
         processedSpat.setIntersectionId(intersectionState.getId().getId());
         processedSpat.setCti4501Conformant(validationMessages.isValid());
 
@@ -107,11 +103,8 @@ public class SpatProcessedJsonConverter implements Transformer<Void, Deserialize
         Integer dSecond = intersectionState.getTimeStamp(); // milliseconds within the current minute
         ZonedDateTime utcTimestamp = generateUTCTimestamp(moyTimestamp, dSecond, metadata.getOdeReceivedAt());
         processedSpat.setUtcTimeStamp(utcTimestamp);
-        if (intersectionState.getEnabledLanes()!=null) {
-            processedSpat.setEnabledLanes(intersectionState.getEnabledLanes().getEnabledLaneList());
-        } else {
-            logger.warn("ODE Message did not contain enabled lanes object");
-        }
+        processedSpat.setEnabledLanes(intersectionState.getEnabledLanes().getEnabledLaneList());
+
 
         List<MovementState> movementStateList = new ArrayList<MovementState>();
         for (J2735MovementState signalGroupState : intersectionState.getStates().getMovementList()) {           
@@ -134,11 +127,8 @@ public class SpatProcessedJsonConverter implements Transformer<Void, Deserialize
                         generateOffsetUTCTimestamp(utcTimestamp,incomingMovementEvent.getTiming().getMaxEndTime()));
                     spatTimingDetails.setLikelyTime(
                         generateOffsetUTCTimestamp(utcTimestamp,incomingMovementEvent.getTiming().getLikelyTime()));
-                    if (intersectionState.getEnabledLanes()!=null) {
-                        spatTimingDetails.setConfidence(incomingMovementEvent.getTiming().getConfidence());
-                    } else {
-                        spatTimingDetails.setConfidence(0);
-                    }
+                    spatTimingDetails.setConfidence(incomingMovementEvent.getTiming().getConfidence());
+
                     spatTimingDetails.setNextTime(generateOffsetUTCTimestamp(utcTimestamp,incomingMovementEvent.getTiming().getNextTime()));
                     spatMovementEvent.setTiming(spatTimingDetails);
                     spatMovementEvent.setSpeeds(incomingMovementEvent.getSpeeds());
