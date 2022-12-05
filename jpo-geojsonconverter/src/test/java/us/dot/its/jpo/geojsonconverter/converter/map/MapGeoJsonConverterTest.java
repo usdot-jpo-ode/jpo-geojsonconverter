@@ -10,13 +10,16 @@ import org.apache.kafka.streams.processor.ProcessorContext;
 import org.junit.Before;
 import org.junit.Test;
 
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.DeserializedRawMap;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.MapFeatureCollection;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.ProcessedMapPojo;
 import us.dot.its.jpo.geojsonconverter.serialization.deserializers.OdeMapDataJsonDeserializer;
 import us.dot.its.jpo.ode.model.OdeMapData;
 
 public class MapGeoJsonConverterTest {
     MapProcessedJsonConverter mapGeoJsonConverter;
     OdeMapData odeMapPojo;
+    DeserializedRawMap rawMap;
 
     @Before
     public void setup() {
@@ -24,6 +27,8 @@ public class MapGeoJsonConverterTest {
         try (OdeMapDataJsonDeserializer odeMapDeserializer = new OdeMapDataJsonDeserializer()) {
             odeMapPojo = odeMapDeserializer.deserialize("test-topic", odeMapJsonString.getBytes());
         }
+        rawMap = new DeserializedRawMap();
+        rawMap.setOdeMapOdeMapData(odeMapPojo);
         mapGeoJsonConverter = new MapProcessedJsonConverter();
     }
 
@@ -41,16 +46,16 @@ public class MapGeoJsonConverterTest {
 
     @Test
     public void testTransform() {
-        KeyValue<String, MapFeatureCollection> mapFeatureCollection = mapGeoJsonConverter.transform(null, odeMapPojo);
+        KeyValue<String, ProcessedMapPojo> mapFeatureCollection = mapGeoJsonConverter.transform(null, rawMap);
         assertNotNull(mapFeatureCollection.key);
         assertEquals("172.19.0.1:12110", mapFeatureCollection.key);
         assertNotNull(mapFeatureCollection.value);
-        assertEquals(2, mapFeatureCollection.value.getFeatures().length);
+        assertEquals(2, mapFeatureCollection.value.getMapFeatureCollection().getFeatures().length);
     }
 
     @Test
     public void testTransformException() {
-        KeyValue<String, MapFeatureCollection> mapFeatureCollection = mapGeoJsonConverter.transform(null, null);
+        KeyValue<String, ProcessedMapPojo> mapFeatureCollection = mapGeoJsonConverter.transform(null, null);
         assertNotNull(mapFeatureCollection.key);
         assertEquals("ERROR", mapFeatureCollection.key);
         assertNull(mapFeatureCollection.value);

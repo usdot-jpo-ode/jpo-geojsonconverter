@@ -10,8 +10,16 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 import us.dot.its.jpo.geojsonconverter.pojos.ProcessedValidationMessage;
+import us.dot.its.jpo.ode.model.OdeMapMetadata.MapSource;
+import us.dot.its.jpo.ode.plugin.j2735.J2735BitString;
+import us.dot.its.jpo.ode.plugin.j2735.J2735GNSSstatusNames;
+import us.dot.its.jpo.ode.plugin.j2735.J2735RegulatorySpeedLimit;
 import us.dot.its.jpo.ode.plugin.j2735.OdePosition3D;
+import us.dot.its.jpo.ode.plugin.j2735.builders.BitStringBuilder;
+import us.dot.its.jpo.ode.util.JsonUtils;
 
 public class MapPropertiesTest {
     @Test
@@ -107,13 +115,40 @@ public class MapPropertiesTest {
         List<ProcessedValidationMessage> validationMessages = new ArrayList<ProcessedValidationMessage>();
         MapProperties mapProperties = new MapProperties();
         mapProperties.setValidationMessages(validationMessages);
-        assertEquals(cti4501Conformant, mapProperties.getCti4501Conformant());
+        assertEquals(validationMessages, mapProperties.getValidationMessages());
     }
 
+    @Test
+    public void testLaneWidth() {
+        Integer laneWidth = 1;
+        MapProperties mapProperties = new MapProperties();
+        mapProperties.setLaneWidth(laneWidth);
+        assertEquals(laneWidth, mapProperties.getLaneWidth());
+    }
 
+    @Test
+    public void testSpeedLimits() {
+        List<J2735RegulatorySpeedLimit> speedLimits = new ArrayList<J2735RegulatorySpeedLimit>();
+        MapProperties mapProperties = new MapProperties();
+        mapProperties.setSpeedLimits(speedLimits);
+        assertEquals(speedLimits, mapProperties.getSpeedLimits());
+    }
 
+    @Test
+    public void testMapSource() {
+        MapSource mapSourceRsu = MapSource.RSU;
+        MapProperties mapProperties = new MapProperties();
+        mapProperties.setMapSource(mapSourceRsu);
+        assertEquals(mapSourceRsu, mapProperties.getMapSource());
+    }
 
-
+    @Test
+    public void testTimestamp() {
+        ZonedDateTime timestamp = Instant.parse("2022-01-01T00:00:00Z").atZone(ZoneId.of("UTC"));
+        MapProperties mapProperties = new MapProperties();
+        mapProperties.setTimeStamp(timestamp);
+        assertEquals(timestamp, mapProperties.getTimeStamp());
+    }
 
     @Test
     public void testLaneId() {
@@ -121,6 +156,24 @@ public class MapPropertiesTest {
         MapProperties mapProperties = new MapProperties();
         mapProperties.setLaneId(expectedLaneId);
         assertEquals(expectedLaneId, mapProperties.getLaneId());
+    }
+
+    @Test
+    public void testLaneName() {
+        String expectedLaneName = "laneName";
+        MapProperties mapProperties = new MapProperties();
+        mapProperties.setLaneName(expectedLaneName);
+        assertEquals(expectedLaneName, mapProperties.getLaneName());
+    }
+
+    @Test
+    public void testSharedWidth() {
+        JsonNode node = JsonUtils.newNode().put("test", "00000000");
+        J2735BitString actualBitString = BitStringBuilder.genericBitString(node,
+        J2735GNSSstatusNames.values());
+        MapProperties mapProperties = new MapProperties();
+        mapProperties.setSharedWith(actualBitString);
+        assertEquals(actualBitString, mapProperties.getSharedWith());
     }
 
     @Test
