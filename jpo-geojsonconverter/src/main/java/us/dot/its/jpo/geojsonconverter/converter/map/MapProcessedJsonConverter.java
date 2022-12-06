@@ -13,10 +13,13 @@ import us.dot.its.jpo.ode.plugin.j2735.J2735Connection;
 import us.dot.its.jpo.ode.plugin.j2735.J2735GenericLane;
 import us.dot.its.jpo.ode.plugin.j2735.OdePosition3D;
 import us.dot.its.jpo.ode.plugin.j2735.J2735NodeOffsetPointXY;
+import us.dot.its.jpo.ode.plugin.j2735.J2735NodeXY;
 import us.dot.its.jpo.ode.plugin.j2735.J2735NodeLLmD64b;
 import us.dot.its.jpo.ode.plugin.j2735.J2735Node_XY;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -103,7 +106,8 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
         for (J2735GenericLane lane : intersection.getLaneSet().getLaneSet()) {
             // Create MAP properties
             MapProperties mapProps = new MapProperties();
-            // mapProps.setNodes(lane.getNodeList().getNodes().getNodes()); // look at notes to do this
+            if (lane.getNodeList().getNodes() != null)
+                mapProps.setNodes(nodeConversionList(lane.getNodeList().getNodes().getNodes())); // look at notes to do this
             mapProps.setOriginIp(metadata.getOriginIp());
             mapProps.setOdeReceivedAt(odeDate);
             mapProps.setIntersectionName(intersection.getName());
@@ -146,10 +150,31 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
         // Save for geometry calculations
         OdePosition3D refPoint = intersection.getRefPoint();
 
+        HashMap<Integer, double[]> lanePoints = new HashMap<Integer, double[]>();
+        for (J2735GenericLane lane : intersection.getLaneSet().getLaneSet()) {
+            if (!lanePoints.containsKey(lane.getLaneID())){
+                LineString laneGeometry = createGeometry(lane, refPoint);
+
+                double[] longitudes = new double[laneGeometry.getCoordinates().length];
+                double[] latitudes = new double[laneGeometry.getCoordinates().length];
+                for (int i=0; i < laneGeometry.getCoordinates().length; i++) {
+                    longitudes[i] = laneGeometry.getCoordinates()[i][0];
+                    latitudes[i] = laneGeometry.getCoordinates()[i][1];
+                }
+                double longitude = Arrays.stream(longitudes).average().orElse(Double.NaN);
+                double latitude = Arrays.stream(latitudes).average().orElse(Double.NaN);
+
+                double coordinate[] = {longitude,latitude};
+                
+
+                lanePoints.put(lane.getLaneID(), coordinate);
+            }
+        }
+
         List<ConnectingLanesFeature> lanesFeatures = new ArrayList<>();
         for (J2735GenericLane lane : intersection.getLaneSet().getLaneSet()) {
             if (lane.getLaneAttributes().getDirectionalUse().get("ingressPath") == true){
-                logger.info(String.format("ingressPath value: %s", lane.getLaneAttributes().getDirectionalUse().get("ingressPath")));
+                double[] laneCoordinates = lanePoints.get(lane.getLaneID());
                 for (J2735Connection connection : lane.getConnectsTo().getConnectsTo()){
                     ConnectingLanesProperties laneProps = new ConnectingLanesProperties();
 
@@ -157,11 +182,14 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
                     laneProps.setEgressLaneId(connection.getConnectingLane().getLane());
                     laneProps.setSignalGroupId(connection.getSignalGroup());
 
-                    LineString geometry = createGeometry(lane, refPoint); // should only contain 2 points - first point should be the front of the intersection (INGRESS LANE) and the second point is from the EGRESS LANE
-                    // loop through and make a map with the lane associated with a lat long and then iterate through
+                    
+                    // Point
+                    double[] connectionCoordinates = lanePoints.get(connection.getConnectingLane().getLane());
+                    double[][] coordinates = new double[][] {laneCoordinates, connectionCoordinates};
+                    LineString geometry = new LineString(coordinates);
 
-                    // "ID" field = "ingresslane-egresslane"
-                    lanesFeatures.add(new ConnectingLanesFeature(laneProps.getEgressLaneId(), geometry, laneProps));
+                    String id = String.format("%s-%s", laneProps.getIngressLaneId(), laneProps.getEgressLaneId());
+                    lanesFeatures.add(new ConnectingLanesFeature(id, geometry, laneProps));
                 }
             }
         }
@@ -265,10 +293,58 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
             }
                         
         } catch (Exception e) {
-            logger.error("Failed to generateUTCTimestamp - SpatProcessedJsonConverter", e);
+            logger.error("Failed to generateUTCTimestamp - SpatProcessedJsonConverter", e.getMessage());
         }
         
         return date;
+    }
+
+    public List<MapNode> nodeConversionList(List<J2735NodeXY> nodeXYs){ //2022-10-31T15:40:26.687292Z
+        List<MapNode> mapNodes = new ArrayList<MapNode>();
+        try{
+            for (J2735NodeXY nodeXy : nodeXYs){
+                MapNode mapNode = new MapNode();
+                mapNode.setDWidth(nodeXy.getAttributes() != null ? nodeXy.getAttributes().getdWidth() : null);
+                mapNode.setDElevation(nodeXy.getAttributes() != null ? nodeXy.getAttributes().getdElevation() : null);
+
+                Integer offsetX = null;
+                Integer offsetY = null;
+                J2735Node_XY nodexy = null;
+                J2735NodeLLmD64b nodeLatLong = null;
+
+                J2735NodeOffsetPointXY nodeOffset = nodeXy.getDelta();
+                if (nodeOffset.getNodeXY1() != null)
+                    nodexy = nodeOffset.getNodeXY1();
+                else if (nodeOffset.getNodeXY2() != null)
+                    nodexy = nodeOffset.getNodeXY2();
+                else if (nodeOffset.getNodeXY3() != null)
+                    nodexy = nodeOffset.getNodeXY3();
+                else if (nodeOffset.getNodeXY4() != null)
+                    nodexy = nodeOffset.getNodeXY4();
+                else if (nodeOffset.getNodeXY5() != null)
+                    nodexy = nodeOffset.getNodeXY5();
+                else if (nodeOffset.getNodeXY6() != null)
+                    nodexy = nodeOffset.getNodeXY6();
+                else if (nodeOffset.getNodeLatLon() != null)
+                    nodeLatLong = nodeOffset.getNodeLatLon();
+                else
+                    continue;
+                if (nodexy != null) {
+                    offsetX = nodexy.getX().intValue();
+                    offsetY = nodexy.getY().intValue();
+                }
+                else if (nodeLatLong != null) {
+                    offsetX = nodeLatLong.getLon().divide(new BigDecimal("10000000")).intValue();
+                    offsetY = nodeLatLong.getLat().divide(new BigDecimal("10000000")).intValue();
+                }
+                Integer[] delta = {offsetX,offsetY};
+                mapNode.setDelta(delta);
+                mapNodes.add(mapNode);
+            }
+        } catch (Exception e) {
+            logger.error("Failed to nodeConversionList - SpatProcessedJsonConverter", e.getMessage());
+        }
+        return mapNodes;
     }
 
 }
