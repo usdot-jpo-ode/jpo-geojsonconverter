@@ -34,4 +34,22 @@ public class LineStringTest {
         LineString geometry = new LineString(coordinates);
         assertEquals("LineString", geometry.getGeoJSONType());
     }
+
+    @Test
+    public void testHashCode() {
+        double[][] coordinates = new double[][] { { 39.7392, 104.9903 }, { 39.7390, 104.9907 } };
+        LineString geometry = new LineString(coordinates);
+
+        Integer hash = geometry.hashCode();
+        assertNotNull(hash);
+    }
+    
+    @Test
+    public void testToString() {
+        double[][] coordinates = new double[][] { { 39.7392, 104.9903 }, { 39.7390, 104.9907 } };
+        LineString geometry = new LineString(coordinates);
+
+        String string = geometry.toString();
+        assertNotNull(string);
+    }
 }

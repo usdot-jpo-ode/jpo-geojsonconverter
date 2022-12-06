@@ -41,4 +41,22 @@ public class PointTest {
         Point geometry = new Point(coordinates);
         assertEquals("Point", geometry.getGeoJSONType());
     }
+
+    @Test
+    public void testHashCode() {
+        double[] coordinates = new double[] { 39.7392, 104.9903 };
+        Point geometry = new Point(coordinates);
+
+        Integer hash = geometry.hashCode();
+        assertNotNull(hash);
+    }
+    
+    @Test
+    public void testToString() {
+        double[] coordinates = new double[] { 39.7392, 104.9903 };
+        Point geometry = new Point(coordinates);
+
+        String string = geometry.toString();
+        assertNotNull(string);
+    }
 }

@@ -1,13 +1,11 @@
-package us.dot.its.jpo.geojsonconverter.pojos.spat;
+package us.dot.its.jpo.geojsonconverter.pojos;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.Test;
 
-import us.dot.its.jpo.geojsonconverter.pojos.ProcessedValidationMessage;
-
-public class ProcessedSpatValidationMessageTest {
+public class ProcessedValidationMessageTest {
     @Test
     public void testGettersSetters() {
         ProcessedValidationMessage object = new ProcessedValidationMessage();
