@@ -103,6 +103,7 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
         for (J2735GenericLane lane : intersection.getLaneSet().getLaneSet()) {
             // Create MAP properties
             MapProperties mapProps = new MapProperties();
+            // mapProps.setNodes(lane.getNodeList().getNodes().getNodes()); // look at notes to do this
             mapProps.setOriginIp(metadata.getOriginIp());
             mapProps.setOdeReceivedAt(odeDate);
             mapProps.setIntersectionName(intersection.getName());
@@ -114,9 +115,6 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
             mapProps.setLaneWidth(intersection.getLaneWidth());
             mapProps.setSpeedLimits(intersection.getSpeedLimits() != null ? intersection.getSpeedLimits().getSpeedLimits() : null);
             mapProps.setMapSource(metadata.getMapSource());
-
-            // TODO: change true step from null -> convert the incoming timestamp to a date
-            // Need to figure out seconds in current minute
             mapProps.setTimeStamp(generateUTCTimestamp(mapPayload.getMap().getTimeStamp(), odeDate)); 
             
             mapProps.setLaneId(lane.getLaneID());
@@ -159,8 +157,10 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
                     laneProps.setEgressLaneId(connection.getConnectingLane().getLane());
                     laneProps.setSignalGroupId(connection.getSignalGroup());
 
-                    LineString geometry = createGeometry(lane, refPoint);
+                    LineString geometry = createGeometry(lane, refPoint); // should only contain 2 points - first point should be the front of the intersection (INGRESS LANE) and the second point is from the EGRESS LANE
+                    // loop through and make a map with the lane associated with a lat long and then iterate through
 
+                    // "ID" field = "ingresslane-egresslane"
                     lanesFeatures.add(new ConnectingLanesFeature(laneProps.getEgressLaneId(), geometry, laneProps));
                 }
             }

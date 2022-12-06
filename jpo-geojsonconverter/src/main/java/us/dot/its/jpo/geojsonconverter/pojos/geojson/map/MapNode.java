@@ -2,17 +2,11 @@ package us.dot.its.jpo.geojsonconverter.pojos.geojson.map;
 
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 public class MapNode {
-    @JsonProperty("delta")
     private Integer[] delta;
-    @JsonProperty("dWidth")
     private Integer dWidth;
-    @JsonProperty("dElevation")
     private Integer dElevation;
-    @JsonProperty("stopLine")
-    private Boolean stopLine;
+    private Boolean stopLine = null; // TODO: set to null for now, impliment correctly in future
 
     public void setDelta(Integer[] delta) {
         this.delta = delta;
