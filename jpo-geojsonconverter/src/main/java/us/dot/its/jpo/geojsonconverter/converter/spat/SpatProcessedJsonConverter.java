@@ -103,8 +103,7 @@ public class SpatProcessedJsonConverter implements Transformer<Void, Deserialize
         Integer dSecond = intersectionState.getTimeStamp(); // milliseconds within the current minute
         ZonedDateTime utcTimestamp = generateUTCTimestamp(moyTimestamp, dSecond, metadata.getOdeReceivedAt());
         processedSpat.setUtcTimeStamp(utcTimestamp);
-        processedSpat.setEnabledLanes(intersectionState.getEnabledLanes().getEnabledLaneList());
-
+        processedSpat.setEnabledLanes(intersectionState.getEnabledLanes() != null ? intersectionState.getEnabledLanes().getEnabledLaneList() : null);
 
         List<MovementState> movementStateList = new ArrayList<MovementState>();
         for (J2735MovementState signalGroupState : intersectionState.getStates().getMovementList()) {           

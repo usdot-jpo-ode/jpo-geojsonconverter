@@ -44,51 +44,6 @@
                 "stopLine": null,
                 "delevation": -10,
                 "dwidth": null
-              },
-              {
-                "delta": [
-                  10517,
-                  -161
-                ],
-                "stopLine": null,
-                "delevation": -60,
-                "dwidth": null
-              },
-              {
-                "delta": [
-                  2769,
-                  112
-                ],
-                "stopLine": null,
-                "delevation": -10,
-                "dwidth": null
-              },
-              {
-                "delta": [
-                  6142,
-                  -180
-                ],
-                "stopLine": null,
-                "delevation": -30,
-                "dwidth": null
-              },
-              {
-                "delta": [
-                  6636,
-                  -12
-                ],
-                "stopLine": null,
-                "delevation": -20,
-                "dwidth": null
-              },
-              {
-                "delta": [
-                  3804,
-                  -7
-                ],
-                "stopLine": null,
-                "delevation": null,
-                "dwidth": null
               }
             ],
             "messageType": "MAP",

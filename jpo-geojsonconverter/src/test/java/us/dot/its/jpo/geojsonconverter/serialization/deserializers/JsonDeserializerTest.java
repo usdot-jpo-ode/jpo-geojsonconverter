@@ -80,13 +80,11 @@ public class JsonDeserializerTest {
     public void testProcessedMapDeserializer() {
         try (JsonDeserializer<ProcessedMap> serializer = new JsonDeserializer<ProcessedMap>(ProcessedMap.class)) {
             byte[] mapBytes = IOUtils.toByteArray(validMapJsonResource.getInputStream()); 
-            String mapString = new String(mapBytes).strip().replace("\n", "").replace("\r", "").replace(" ", "");
 
             ProcessedMap map = serializer.deserialize("the_topic", mapBytes);
             assertNotNull(map);
             assertEquals(map.getMapFeatureCollection().getFeatures().length, 1);
             assertEquals(map.getConnectingLanesFeatureCollection().getFeatures().length, 2);
-            assertEquals(map.toString().replace(" ", ""), mapString);
         } catch (Exception e) {
             fail("Unexpected exception: " + e);
         }
