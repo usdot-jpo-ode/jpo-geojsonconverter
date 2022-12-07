@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class ProcessedMapPojo {
+public class ProcessedMap {
     private static Logger logger = LoggerFactory.getLogger(MapProperties.class);
 
     MapFeatureCollection mapFeatureCollection;
@@ -37,10 +37,10 @@ public class ProcessedMapPojo {
     public boolean equals(Object o) {
         if (o == this)
             return true;
-        if (!(o instanceof ProcessedMapPojo)) {
+        if (!(o instanceof ProcessedMap)) {
             return false;
         }
-        ProcessedMapPojo processedMapPojo = (ProcessedMapPojo) o;
+        ProcessedMap processedMapPojo = (ProcessedMap) o;
         return Objects.equals(mapFeatureCollection, processedMapPojo.mapFeatureCollection) && Objects.equals(connectingLanesFeatureCollection, processedMapPojo.connectingLanesFeatureCollection);
     }
 

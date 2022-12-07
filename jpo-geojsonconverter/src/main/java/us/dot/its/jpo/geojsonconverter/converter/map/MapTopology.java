@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.apache.kafka.streams.kstream.KStream;
 
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.DeserializedRawMap;
-import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.ProcessedMapPojo;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.ProcessedMap;
 import us.dot.its.jpo.geojsonconverter.serialization.JsonSerdes;
 import us.dot.its.jpo.geojsonconverter.validator.JsonValidatorResult;
 import us.dot.its.jpo.geojsonconverter.validator.MapJsonValidator;
@@ -55,7 +55,7 @@ public class MapTopology {
             );
 
         // Convert ODE MAP to GeoJSON
-        KStream<String, ProcessedMapPojo> geoJsonMapStream =
+        KStream<String, ProcessedMap> geoJsonMapStream =
             validatedOdeMapStream.transform(
                 () -> new MapProcessedJsonConverter()
             );

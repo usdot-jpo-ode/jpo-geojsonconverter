@@ -2,23 +2,13 @@ package us.dot.its.jpo.geojsonconverter.converter.map;
 
 import us.dot.its.jpo.geojsonconverter.pojos.ProcessedValidationMessage;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.LineString;
-import us.dot.its.jpo.geojsonconverter.pojos.geojson.connectinglanes.ConnectingLanesFeature;
-import us.dot.its.jpo.geojsonconverter.pojos.geojson.connectinglanes.ConnectingLanesFeatureCollection;
-import us.dot.its.jpo.geojsonconverter.pojos.geojson.connectinglanes.ConnectingLanesProperties;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.connectinglanes.*;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.*;
 import us.dot.its.jpo.geojsonconverter.validator.JsonValidatorResult;
 import us.dot.its.jpo.ode.model.*;
-import us.dot.its.jpo.ode.plugin.j2735.J2735IntersectionGeometry;
-import us.dot.its.jpo.ode.plugin.j2735.J2735Connection;
-import us.dot.its.jpo.ode.plugin.j2735.J2735GenericLane;
-import us.dot.its.jpo.ode.plugin.j2735.OdePosition3D;
-import us.dot.its.jpo.ode.plugin.j2735.J2735NodeOffsetPointXY;
-import us.dot.its.jpo.ode.plugin.j2735.J2735NodeXY;
-import us.dot.its.jpo.ode.plugin.j2735.J2735NodeLLmD64b;
-import us.dot.its.jpo.ode.plugin.j2735.J2735Node_XY;
+import us.dot.its.jpo.ode.plugin.j2735.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.math.BigDecimal;
@@ -35,7 +25,7 @@ import org.slf4j.LoggerFactory;
 
 import com.networknt.schema.ValidationMessage;
 
-public class MapProcessedJsonConverter implements Transformer<Void, DeserializedRawMap, KeyValue<String, ProcessedMapPojo>> {
+public class MapProcessedJsonConverter implements Transformer<Void, DeserializedRawMap, KeyValue<String, ProcessedMap>> {
     private static final Logger logger = LoggerFactory.getLogger(MapProcessedJsonConverter.class);
 
     @Override
@@ -49,7 +39,7 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
      * @return A key value pair: the key is the RSU IP concatenated with the intersection ID and the value is the GeoJSON FeatureCollection POJO
      */
     @Override
-    public KeyValue<String, ProcessedMapPojo> transform(Void rawKey, DeserializedRawMap rawValue) {
+    public KeyValue<String, ProcessedMap> transform(Void rawKey, DeserializedRawMap rawValue) {
         try {
             OdeMapMetadata mapMetadata = (OdeMapMetadata)rawValue.getOdeMapOdeMapData().getMetadata();
             OdeMapPayload mapPayload = (OdeMapPayload)rawValue.getOdeMapOdeMapData().getPayload();
@@ -58,7 +48,7 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
 			MapFeatureCollection mapFeatureCollection = createFeatureCollection(mapPayload, mapMetadata, intersection, rawValue.getValidatorResults());
             ConnectingLanesFeatureCollection connectingLanesFeatureCollection = createConnectingLanesFeatureCollection(mapPayload, mapMetadata, intersection);
 
-            ProcessedMapPojo processedMapObject = new ProcessedMapPojo();
+            ProcessedMap processedMapObject = new ProcessedMap();
             processedMapObject.setMapFeatureCollection(mapFeatureCollection);
             processedMapObject.setConnectingLanesFeatureCollection(connectingLanesFeatureCollection);
 
@@ -154,19 +144,7 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
         for (J2735GenericLane lane : intersection.getLaneSet().getLaneSet()) {
             if (!lanePoints.containsKey(lane.getLaneID())){
                 LineString laneGeometry = createGeometry(lane, refPoint);
-
-                double[] longitudes = new double[laneGeometry.getCoordinates().length];
-                double[] latitudes = new double[laneGeometry.getCoordinates().length];
-                for (int i=0; i < laneGeometry.getCoordinates().length; i++) {
-                    longitudes[i] = laneGeometry.getCoordinates()[i][0];
-                    latitudes[i] = laneGeometry.getCoordinates()[i][1];
-                }
-                double longitude = Arrays.stream(longitudes).average().orElse(Double.NaN);
-                double latitude = Arrays.stream(latitudes).average().orElse(Double.NaN);
-
-                double coordinate[] = {longitude,latitude};
-                
-
+                double coordinate[] = {laneGeometry.getCoordinates()[0][0],laneGeometry.getCoordinates()[0][1]};
                 lanePoints.put(lane.getLaneID(), coordinate);
             }
         }
@@ -174,17 +152,15 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
         List<ConnectingLanesFeature> lanesFeatures = new ArrayList<>();
         for (J2735GenericLane lane : intersection.getLaneSet().getLaneSet()) {
             if (lane.getLaneAttributes().getDirectionalUse().get("ingressPath") == true){
-                double[] laneCoordinates = lanePoints.get(lane.getLaneID());
+                double[] laneCoordinates = lanePoints.get(lane.getLaneID()); //first poiunt
                 for (J2735Connection connection : lane.getConnectsTo().getConnectsTo()){
                     ConnectingLanesProperties laneProps = new ConnectingLanesProperties();
-
                     laneProps.setIngressLaneId(lane.getLaneID());
                     laneProps.setEgressLaneId(connection.getConnectingLane().getLane());
                     laneProps.setSignalGroupId(connection.getSignalGroup());
 
-                    
                     // Point
-                    double[] connectionCoordinates = lanePoints.get(connection.getConnectingLane().getLane());
+                    double[] connectionCoordinates = lanePoints.get(connection.getConnectingLane().getLane()); // last point
                     double[][] coordinates = new double[][] {laneCoordinates, connectionCoordinates};
                     LineString geometry = new LineString(coordinates);
 

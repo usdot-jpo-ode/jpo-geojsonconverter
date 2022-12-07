@@ -37,15 +37,15 @@ public class ProcessedMapPojoTest {
     public void testMapFeatureCollection() {
         MapFeature[] featureList = new MapFeature[] { feature };
         MapFeatureCollection expectedFeatureCollection = new MapFeatureCollection(featureList);
-        ProcessedMapPojo ProcessedMapPojo = new ProcessedMapPojo();
+        ProcessedMap ProcessedMapPojo = new ProcessedMap();
         ProcessedMapPojo.setMapFeatureCollection(expectedFeatureCollection);
         assertEquals(expectedFeatureCollection, ProcessedMapPojo.getMapFeatureCollection());
     }
 
     @Test
     public void testEquals() {
-        ProcessedMapPojo object = new ProcessedMapPojo();
-        ProcessedMapPojo otherObject = new ProcessedMapPojo();
+        ProcessedMap object = new ProcessedMap();
+        ProcessedMap otherObject = new ProcessedMap();
         boolean equals = object.equals(object);
         assertEquals(equals, true);
         
@@ -59,14 +59,14 @@ public class ProcessedMapPojoTest {
     
     @Test
     public void testHashCode() {
-        ProcessedMapPojo ProcessedMapPojo = new ProcessedMapPojo();
+        ProcessedMap ProcessedMapPojo = new ProcessedMap();
         Integer hash = ProcessedMapPojo.hashCode();
         assertNotNull(hash);
     }
     
     @Test
     public void testToString() {
-        ProcessedMapPojo ProcessedMapPojo = new ProcessedMapPojo();
+        ProcessedMap ProcessedMapPojo = new ProcessedMap();
         String string = ProcessedMapPojo.toString();
         assertNotNull(string);
     }
