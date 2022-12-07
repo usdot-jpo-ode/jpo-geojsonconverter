@@ -151,7 +151,7 @@ public class SpatProcessedJsonConverter implements Transformer<Void, Deserialize
             String dateString;
             long milliseconds;
             if (moy != null){
-                milliseconds = moy*60*1000+Long.valueOf(dSecond); // milliseconds from beginning of year
+                milliseconds = moy*60L*1000L+Long.valueOf(dSecond); // milliseconds from beginning of year
                 dateString = String.format("%d-01-01T00:00:00.00Z", year);
                 date = Instant.parse(dateString).plusMillis(milliseconds).atZone(ZoneId.of("UTC"));
             } else {

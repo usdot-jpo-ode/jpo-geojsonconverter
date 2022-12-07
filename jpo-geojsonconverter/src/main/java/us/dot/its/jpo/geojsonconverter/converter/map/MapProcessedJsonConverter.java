@@ -9,6 +9,7 @@ import us.dot.its.jpo.ode.model.*;
 import us.dot.its.jpo.ode.plugin.j2735.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.math.BigDecimal;
@@ -80,7 +81,7 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
         for (Exception exception : validationMessages.getExceptions()){
             ProcessedValidationMessage object = new ProcessedValidationMessage();
             object.setMessage(exception.getMessage());
-            object.setException(exception.getStackTrace().toString());
+            object.setException(Arrays.toString(exception.getStackTrace()));
             processedSpatValidationMessages.add(object);
         }
         for (ValidationMessage vm : validationMessages.getValidationMessages()){
@@ -261,7 +262,7 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
             String dateString;
             long milliseconds;
             if (moy != null){
-                milliseconds = moy*60*1000; // milliseconds from beginning of year
+                milliseconds = moy*60L*1000L; // milliseconds from beginning of year
                 dateString = String.format("%d-01-01T00:00:00.00Z", year);
                 date = Instant.parse(dateString).plusMillis(milliseconds).atZone(ZoneId.of("UTC"));
             } else {
