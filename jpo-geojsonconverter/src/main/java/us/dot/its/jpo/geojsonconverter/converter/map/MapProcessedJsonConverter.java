@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -46,12 +47,14 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
             OdeMapPayload mapPayload = (OdeMapPayload)rawValue.getOdeMapOdeMapData().getPayload();
             J2735IntersectionGeometry intersection = mapPayload.getMap().getIntersections().getIntersections().get(0);
 
-			MapFeatureCollection mapFeatureCollection = createFeatureCollection(mapPayload, mapMetadata, intersection, rawValue.getValidatorResults());
+            MapSharedProperties sharedProps = createProperties(mapPayload, mapMetadata, intersection, rawValue.getValidatorResults());
+			MapFeatureCollection mapFeatureCollection = createFeatureCollection(intersection);
             ConnectingLanesFeatureCollection connectingLanesFeatureCollection = createConnectingLanesFeatureCollection(mapPayload, mapMetadata, intersection);
 
             ProcessedMap processedMapObject = new ProcessedMap();
             processedMapObject.setMapFeatureCollection(mapFeatureCollection);
             processedMapObject.setConnectingLanesFeatureCollection(connectingLanesFeatureCollection);
+            processedMapObject.setProperties(sharedProps);
 
             String key = mapMetadata.getOriginIp() + ":" + intersection.getId().getId().toString();
             logger.info("Successfully created processed MAP for " + key);
@@ -69,7 +72,7 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
         // Nothing to do here
     }
 
-    public MapFeatureCollection createFeatureCollection(OdeMapPayload mapPayload, OdeMapMetadata metadata, J2735IntersectionGeometry intersection, JsonValidatorResult validationMessages) {
+    public MapSharedProperties createProperties(OdeMapPayload mapPayload, OdeMapMetadata metadata, J2735IntersectionGeometry intersection, JsonValidatorResult validationMessages) {
         // Save for geometry calculations
         OdePosition3D refPoint = intersection.getRefPoint();
 
@@ -92,26 +95,37 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
 
             processedSpatValidationMessages.add(object);
         }
+        MapSharedProperties sharedProps = new MapSharedProperties();
+
+        sharedProps.setOriginIp(metadata.getOriginIp());
+        sharedProps.setOdeReceivedAt(odeDate);
+        sharedProps.setIntersectionName(intersection.getName());
+        sharedProps.setRegion(intersection.getId().getRegion());
+        sharedProps.setIntersectionId(intersection.getId().getId());
+        sharedProps.setMsgIssueRevision(mapPayload.getMap().getMsgIssueRevision());
+        sharedProps.setRevision(intersection.getRevision());
+        sharedProps.setRefPoint(refPoint);
+        sharedProps.setLaneWidth(intersection.getLaneWidth());
+        sharedProps.setSpeedLimits(intersection.getSpeedLimits() != null ? intersection.getSpeedLimits().getSpeedLimits() : null);
+        sharedProps.setMapSource(metadata.getMapSource());
+        sharedProps.setTimeStamp(generateUTCTimestamp(mapPayload.getMap().getTimeStamp(), odeDate)); 
+        // Setting validation fields
+        sharedProps.setValidationMessages(processedSpatValidationMessages);
+        sharedProps.setCti4501Conformant(validationMessages != null ? validationMessages.isValid() : null);
+
+        return sharedProps;
+    }
+
+    public MapFeatureCollection createFeatureCollection(J2735IntersectionGeometry intersection) {
+        // Save for geometry calculations
+        OdePosition3D refPoint = intersection.getRefPoint();
 
         List<MapFeature> mapFeatures = new ArrayList<>();
         for (J2735GenericLane lane : intersection.getLaneSet().getLaneSet()) {
             // Create MAP properties
             MapProperties mapProps = new MapProperties();
             if (lane.getNodeList().getNodes() != null)
-                mapProps.setNodes(nodeConversionList(lane.getNodeList().getNodes().getNodes())); // look at notes to do this
-            mapProps.setOriginIp(metadata.getOriginIp());
-            mapProps.setOdeReceivedAt(odeDate);
-            mapProps.setIntersectionName(intersection.getName());
-            mapProps.setRegion(intersection.getId().getRegion());
-            mapProps.setIntersectionId(intersection.getId().getId());
-            mapProps.setMsgIssueRevision(mapPayload.getMap().getMsgIssueRevision());
-            mapProps.setRevision(intersection.getRevision());
-            mapProps.setRefPoint(refPoint);
-            mapProps.setLaneWidth(intersection.getLaneWidth());
-            mapProps.setSpeedLimits(intersection.getSpeedLimits() != null ? intersection.getSpeedLimits().getSpeedLimits() : null);
-            mapProps.setMapSource(metadata.getMapSource());
-            mapProps.setTimeStamp(generateUTCTimestamp(mapPayload.getMap().getTimeStamp(), odeDate)); 
-            
+                mapProps.setNodes(nodeConversionList(lane.getNodeList().getNodes().getNodes()));            
             mapProps.setLaneId(lane.getLaneID());
             mapProps.setLaneName(lane.getName());
             mapProps.setSharedWith(lane.getLaneAttributes().getShareWith());
@@ -125,10 +139,6 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
 
             // Create MAP geometry
             LineString geometry = createGeometry(lane, refPoint);
-
-            // Setting validation fields
-            mapProps.setValidationMessages(processedSpatValidationMessages);
-            mapProps.setCti4501Conformant(validationMessages != null ? validationMessages.isValid() : null);
 
             // Create MAP feature and add it to the feature list
             mapFeatures.add(new MapFeature(mapProps.getLaneId(), geometry, mapProps));
@@ -236,6 +246,8 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
                 // return (reference_point[0] + dx_deg, reference_point[1] + dy_deg)
                 BigDecimal offsetLong = new BigDecimal(String.valueOf(anchorLong.doubleValue() + offsetXDegrees));
                 BigDecimal offsetLat = new BigDecimal(String.valueOf(anchorLat.doubleValue() + offsetYDegrees));
+                offsetLong = offsetLong.setScale(7, RoundingMode.HALF_UP);
+                offsetLat = offsetLat.setScale(7, RoundingMode.HALF_UP);
 
                 List<Double> coordinate = new ArrayList<>();
                 coordinate.add(offsetLong.doubleValue());

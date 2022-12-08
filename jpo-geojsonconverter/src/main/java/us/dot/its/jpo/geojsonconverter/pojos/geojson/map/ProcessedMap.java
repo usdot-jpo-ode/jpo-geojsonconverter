@@ -14,8 +14,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class ProcessedMap {
     private static Logger logger = LoggerFactory.getLogger(MapProperties.class);
 
+    MapSharedProperties properties;
     MapFeatureCollection mapFeatureCollection;
     ConnectingLanesFeatureCollection connectingLanesFeatureCollection;
+
+    public void setProperties(MapSharedProperties properties) {
+        this.properties = properties;
+    }
+
+    public MapSharedProperties getProperties() {
+        return this.properties;
+    }
 
     public void setMapFeatureCollection(MapFeatureCollection mapFeatureCollection) {
         this.mapFeatureCollection = mapFeatureCollection;
