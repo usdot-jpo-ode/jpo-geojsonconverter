@@ -1,5 +1,7 @@
 package us.dot.its.jpo.geojsonconverter.pojos.geojson;
 
+import java.util.Objects;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,5 +25,29 @@ public class LineString extends Geometry {
 
     public double[] getBbox() {
         return bbox;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof LineString)) {
+            return false;
+        }
+        LineString lineString = (LineString) o;
+        return Objects.equals(coordinates, lineString.coordinates) && Objects.equals(bbox, lineString.bbox);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(coordinates, bbox);
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " coordinates='" + getCoordinates() + "'" +
+            ", bbox='" + getBbox() + "'" +
+            "}";
     }
 }

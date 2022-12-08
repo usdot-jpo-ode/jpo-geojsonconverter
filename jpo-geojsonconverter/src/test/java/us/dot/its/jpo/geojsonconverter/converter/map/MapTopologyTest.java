@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.MapFeatureCollection;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.ProcessedMap;
 import us.dot.its.jpo.geojsonconverter.serialization.JsonSerdes;
 import us.dot.its.jpo.geojsonconverter.validator.MapJsonValidator;
 
@@ -43,24 +43,24 @@ public class MapTopologyTest {
                 kafkaTopicOdeMapJson, 
                 Serdes.Void().serializer(), 
                 Serdes.String().serializer());
-            TestOutputTopic<String, MapFeatureCollection> outputTopic = driver.createOutputTopic(
+            TestOutputTopic<String, ProcessedMap> outputTopic = driver.createOutputTopic(
                 kafkaTopicMapGeoJson, 
                 Serdes.String().deserializer(), 
-                JsonSerdes.MapGeoJson().deserializer());
+                JsonSerdes.ProcessedMap().deserializer());
             
             // Send serialized OdeMapJson to OdeMapJson topic
             inputTopic.pipeInput(odeMapJsonString);
 
             // Check MapGeoJson topic for properly converted message data
-            List<KeyValue<String, MapFeatureCollection>> mapGeoJsonResults = outputTopic.readKeyValuesToList();
+            List<KeyValue<String, ProcessedMap>> mapGeoJsonResults = outputTopic.readKeyValuesToList();
             assertEquals(mapGeoJsonResults.size(), 1);
 
-            KeyValue<String, MapFeatureCollection> mapGeoJson = mapGeoJsonResults.get(0);
+            KeyValue<String, ProcessedMap> mapGeoJson = mapGeoJsonResults.get(0);
             assertNotNull(mapGeoJson.key);
             assertEquals("172.19.0.1:12110", mapGeoJson.key);
             assertNotNull(mapGeoJson.value);
-            assertEquals(2, mapGeoJson.value.getFeatures().length);
-            assertEquals(1, mapGeoJson.value.getFeatures()[0].getProperties().getIngressApproach());
+            assertEquals(2, mapGeoJson.value.getMapFeatureCollection().getFeatures().length);
+            assertEquals(1, mapGeoJson.value.getMapFeatureCollection().getFeatures()[0].getProperties().getIngressApproach());
 
            
         }

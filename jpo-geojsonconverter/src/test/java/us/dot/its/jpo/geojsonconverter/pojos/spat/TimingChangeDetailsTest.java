@@ -42,15 +42,17 @@ public class TimingChangeDetailsTest {
     public void testEquals() {
         TimingChangeDetails object = new TimingChangeDetails();
         TimingChangeDetails otherObject = new TimingChangeDetails();
+        otherObject.setConfidence(5);
+
         boolean equals = object.equals(object);
-        assertEquals(equals, true);
+        assertEquals(true, equals);
         
         boolean otherEquals = object.equals(otherObject);
-        assertEquals(otherEquals, true);
+        assertEquals(false, otherEquals);
 
         String string = "string";
         boolean notEquals = otherObject.equals(string);
-        assertEquals(notEquals, false);
+        assertEquals(false, notEquals);
     }
 
 

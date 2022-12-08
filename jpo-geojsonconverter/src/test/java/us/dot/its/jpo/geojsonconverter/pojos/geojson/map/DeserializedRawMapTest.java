@@ -1,4 +1,4 @@
-package us.dot.its.jpo.geojsonconverter.pojos.spat;
+package us.dot.its.jpo.geojsonconverter.pojos.geojson.map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -6,17 +6,17 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.Test;
 
 import us.dot.its.jpo.geojsonconverter.validator.JsonValidatorResult;
-import us.dot.its.jpo.ode.model.OdeSpatData;
+import us.dot.its.jpo.ode.model.OdeMapData;
 
-public class DeserializedRawSpatTest {
+public class DeserializedRawMapTest {
     @Test
     public void testGettersSetters() {
-        DeserializedRawSpat object = new DeserializedRawSpat();
+        DeserializedRawMap object = new DeserializedRawMap();
         
-        OdeSpatData spatData = new OdeSpatData();
-        object.setOdeSpatOdeSpatData(spatData);
-        OdeSpatData dataResponse = object.getOdeSpatOdeSpatData();
-        assertEquals(dataResponse, spatData);
+        OdeMapData mapData = new OdeMapData();
+        object.setOdeMapOdeMapData(mapData);
+        OdeMapData dataResponse = object.getOdeMapOdeMapData();
+        assertEquals(dataResponse, mapData);
 
         JsonValidatorResult validation = new JsonValidatorResult();
         object.setValidatorResults(validation);
@@ -26,10 +26,10 @@ public class DeserializedRawSpatTest {
 
     @Test
     public void testEquals() {
-        DeserializedRawSpat object = new DeserializedRawSpat();
-        DeserializedRawSpat otherObject = new DeserializedRawSpat();
-        OdeSpatData data = new OdeSpatData();
-        otherObject.setOdeSpatOdeSpatData(data);
+        DeserializedRawMap object = new DeserializedRawMap();
+        DeserializedRawMap otherObject = new DeserializedRawMap();
+        OdeMapData mapData = new OdeMapData();
+        otherObject.setOdeMapOdeMapData(mapData);
 
         boolean equals = object.equals(object);
         assertEquals(true, equals);
@@ -44,7 +44,7 @@ public class DeserializedRawSpatTest {
 
     @Test
     public void testHashCode() {
-        DeserializedRawSpat object = new DeserializedRawSpat();
+        DeserializedRawMap object = new DeserializedRawMap();
 
         Integer hash = object.hashCode();
         assertNotNull(hash);
@@ -52,7 +52,7 @@ public class DeserializedRawSpatTest {
 
     @Test
     public void testToString() {
-        DeserializedRawSpat object = new DeserializedRawSpat();
+        DeserializedRawMap object = new DeserializedRawMap();
 
         String string = object.toString();
         assertNotNull(string);

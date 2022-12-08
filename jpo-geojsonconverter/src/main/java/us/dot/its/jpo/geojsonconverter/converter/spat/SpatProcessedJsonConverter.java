@@ -1,5 +1,6 @@
 package us.dot.its.jpo.geojsonconverter.converter.spat;
 
+import us.dot.its.jpo.geojsonconverter.pojos.ProcessedValidationMessage;
 import us.dot.its.jpo.geojsonconverter.pojos.spat.*;
 import us.dot.its.jpo.geojsonconverter.validator.JsonValidatorResult;
 import us.dot.its.jpo.ode.model.*;
@@ -50,7 +51,8 @@ public class SpatProcessedJsonConverter implements Transformer<Void, Deserialize
 			ProcessedSpat ProcessedSpat = createProcessedSpat(intersectionState, spatMetadata, rawSpat.getValidatorResults());
 
             String id = spatMetadata.getOriginIp() + ":" + intersectionState.getId().getId();
-            logger.info("Successfully created Processed SPaT from " + id);
+            String logMsg = String.format("Successfully created processed SPaT for device: %s", id);
+            logger.info(logMsg);
             return KeyValue.pair(id, ProcessedSpat);
         } catch (Exception e) {
             String errMsg = String.format("Exception converting ODE SPaT to Processed SPaT! Message: %s", e.getMessage());
@@ -70,23 +72,19 @@ public class SpatProcessedJsonConverter implements Transformer<Void, Deserialize
         processedSpat.setOdeReceivedAt(metadata.getOdeReceivedAt()); // ISO 8601: 2022-11-11T16:36:10.529530Z
         processedSpat.setOriginIp(metadata.getOriginIp());
         processedSpat.setName(intersectionState.getName());
-        if (intersectionState.getId().getRegion() != null) {
-            processedSpat.setRegion(intersectionState.getId().getRegion());
-        } else {
-            processedSpat.setRegion(0);
-        }
+        processedSpat.setRegion(intersectionState.getId().getRegion());
         processedSpat.setIntersectionId(intersectionState.getId().getId());
         processedSpat.setCti4501Conformant(validationMessages.isValid());
 
-        List<ProcessedSpatValidationMessage> processedSpatValidationMessages = new ArrayList<ProcessedSpatValidationMessage>();
+        List<ProcessedValidationMessage> processedSpatValidationMessages = new ArrayList<ProcessedValidationMessage>();
         for (Exception exception : validationMessages.getExceptions()){
-            ProcessedSpatValidationMessage object = new ProcessedSpatValidationMessage();
+            ProcessedValidationMessage object = new ProcessedValidationMessage();
             object.setMessage(exception.getMessage());
             object.setException(exception.getStackTrace().toString());
             processedSpatValidationMessages.add(object);
         }
         for (ValidationMessage vm : validationMessages.getValidationMessages()){
-            ProcessedSpatValidationMessage object = new ProcessedSpatValidationMessage();
+            ProcessedValidationMessage object = new ProcessedValidationMessage();
             object.setMessage(vm.getMessage());
             object.setSchemaPath(vm.getSchemaPath());
             object.setJsonPath(vm.getPath());
@@ -106,11 +104,7 @@ public class SpatProcessedJsonConverter implements Transformer<Void, Deserialize
         Integer dSecond = intersectionState.getTimeStamp(); // milliseconds within the current minute
         ZonedDateTime utcTimestamp = generateUTCTimestamp(moyTimestamp, dSecond, metadata.getOdeReceivedAt());
         processedSpat.setUtcTimeStamp(utcTimestamp);
-        if (intersectionState.getEnabledLanes()!=null) {
-            processedSpat.setEnabledLanes(intersectionState.getEnabledLanes().getEnabledLaneList());
-        } else {
-            logger.warn("ODE Message did not contain enabled lanes object");
-        }
+        processedSpat.setEnabledLanes(intersectionState.getEnabledLanes() != null ? intersectionState.getEnabledLanes().getEnabledLaneList() : null);
 
         List<MovementState> movementStateList = new ArrayList<MovementState>();
         for (J2735MovementState signalGroupState : intersectionState.getStates().getMovementList()) {           
@@ -133,11 +127,8 @@ public class SpatProcessedJsonConverter implements Transformer<Void, Deserialize
                         generateOffsetUTCTimestamp(utcTimestamp,incomingMovementEvent.getTiming().getMaxEndTime()));
                     spatTimingDetails.setLikelyTime(
                         generateOffsetUTCTimestamp(utcTimestamp,incomingMovementEvent.getTiming().getLikelyTime()));
-                    if (intersectionState.getEnabledLanes()!=null) {
-                        spatTimingDetails.setConfidence(incomingMovementEvent.getTiming().getConfidence());
-                    } else {
-                        spatTimingDetails.setConfidence(0);
-                    }
+                    spatTimingDetails.setConfidence(incomingMovementEvent.getTiming().getConfidence());
+
                     spatTimingDetails.setNextTime(generateOffsetUTCTimestamp(utcTimestamp,incomingMovementEvent.getTiming().getNextTime()));
                     spatMovementEvent.setTiming(spatTimingDetails);
                     spatMovementEvent.setSpeeds(incomingMovementEvent.getSpeeds());
@@ -161,9 +152,12 @@ public class SpatProcessedJsonConverter implements Transformer<Void, Deserialize
             String dateString;
             long milliseconds;
             if (moy != null){
-                milliseconds = moy*60*1000+Long.valueOf(dSecond); // milliseconds from beginning of year
+                long minutes = moy;
+                milliseconds = (long) dSecond; // milliseconds in current minute
                 dateString = String.format("%d-01-01T00:00:00.00Z", year);
-                date = Instant.parse(dateString).plusMillis(milliseconds).atZone(ZoneId.of("UTC"));
+                date = Instant.parse(dateString).atZone(ZoneId.of("UTC"));
+                date = date.plusMinutes(minutes);
+                date = date.plus(milliseconds,ChronoUnit.MILLIS);
             } else {
                 date = odeDate;
                 milliseconds = dSecond; // milliseconds from beginning of minute
@@ -173,7 +167,8 @@ public class SpatProcessedJsonConverter implements Transformer<Void, Deserialize
             }
                         
         } catch (Exception e) {
-            logger.error("Failed to generateUTCTimestamp - SpatProcessedJsonConverter", e);
+            String errMsg = String.format("Failed to generateUTCTimestamp - SpatProcessedJsonConverter. Message: %s", e.getMessage());
+            logger.error(errMsg, e);
         }
         
         return date;
@@ -193,7 +188,8 @@ public class SpatProcessedJsonConverter implements Transformer<Void, Deserialize
                 return null;
             }
         } catch (Exception e) {
-            logger.error("Failed to generateOffsetUTCTimestamp - SpatProcessedJsonConverter", e);
+            String errMsg = String.format("Failed to generateOffsetUTCTimestamp - SpatProcessedJsonConverter. Message: %s", e.getMessage());
+            logger.error(errMsg, e);
             return null;
         }               
     }
