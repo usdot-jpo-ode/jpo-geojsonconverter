@@ -51,7 +51,8 @@ public class SpatProcessedJsonConverter implements Transformer<Void, Deserialize
 			ProcessedSpat ProcessedSpat = createProcessedSpat(intersectionState, spatMetadata, rawSpat.getValidatorResults());
 
             String id = spatMetadata.getOriginIp() + ":" + intersectionState.getId().getId();
-            logger.info("Successfully created Processed SPaT from " + id);
+            String logMsg = String.format("Successfully created processed SPaT for device: %s", id);
+            logger.info(logMsg);
             return KeyValue.pair(id, ProcessedSpat);
         } catch (Exception e) {
             String errMsg = String.format("Exception converting ODE SPaT to Processed SPaT! Message: %s", e.getMessage());
@@ -163,7 +164,8 @@ public class SpatProcessedJsonConverter implements Transformer<Void, Deserialize
             }
                         
         } catch (Exception e) {
-            logger.error("Failed to generateUTCTimestamp - SpatProcessedJsonConverter", e);
+            String errMsg = String.format("Failed to generateUTCTimestamp - SpatProcessedJsonConverter. Message: %s", e.getMessage());
+            logger.error(errMsg, e);
         }
         
         return date;
@@ -183,7 +185,8 @@ public class SpatProcessedJsonConverter implements Transformer<Void, Deserialize
                 return null;
             }
         } catch (Exception e) {
-            logger.error("Failed to generateOffsetUTCTimestamp - SpatProcessedJsonConverter", e);
+            String errMsg = String.format("Failed to generateOffsetUTCTimestamp - SpatProcessedJsonConverter. Message: %s", e.getMessage());
+            logger.error(errMsg, e);
             return null;
         }               
     }

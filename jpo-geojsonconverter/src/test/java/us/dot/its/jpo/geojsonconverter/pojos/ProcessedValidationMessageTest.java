@@ -12,19 +12,19 @@ public class ProcessedValidationMessageTest {
 
         object.setMessage("msg");
         String msgResponse = object.getMessage();
-        assertEquals(msgResponse, "msg");
+        assertEquals("msg", msgResponse);
 
         object.setJsonPath("json path");
         String jsonPathResponse = object.getJsonPath();
-        assertEquals(jsonPathResponse, "json path");
+        assertEquals("json path", jsonPathResponse);
 
         object.setSchemaPath("schema path");
         String schemaPathResponse = object.getSchemaPath();
-        assertEquals(schemaPathResponse, "schema path");
+        assertEquals("schema path", schemaPathResponse);
 
         object.setException("exception");
         String exceptionResponse = object.getException();
-        assertEquals(exceptionResponse, "exception");
+        assertEquals("exception", exceptionResponse);
     }
 
     @Test
@@ -34,14 +34,14 @@ public class ProcessedValidationMessageTest {
         otherObject.setException("exception");
 
         boolean equals = object.equals(object);
-        assertEquals(equals, true);
+        assertEquals(true, equals);
         
         boolean otherEquals = object.equals(otherObject);
-        assertEquals(otherEquals, false);
+        assertEquals(false, otherEquals);
 
         String string = "string";
         boolean notEquals = otherObject.equals(string);
-        assertEquals(notEquals, false);
+        assertEquals(false, notEquals);
     }
 
 

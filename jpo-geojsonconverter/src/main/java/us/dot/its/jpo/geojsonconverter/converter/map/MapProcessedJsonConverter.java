@@ -49,7 +49,7 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
 
             MapSharedProperties sharedProps = createProperties(mapPayload, mapMetadata, intersection, rawValue.getValidatorResults());
 			MapFeatureCollection mapFeatureCollection = createFeatureCollection(intersection);
-            ConnectingLanesFeatureCollection connectingLanesFeatureCollection = createConnectingLanesFeatureCollection(mapPayload, mapMetadata, intersection);
+            ConnectingLanesFeatureCollection connectingLanesFeatureCollection = createConnectingLanesFeatureCollection(mapMetadata, intersection);
 
             ProcessedMap processedMapObject = new ProcessedMap();
             processedMapObject.setMapFeatureCollection(mapFeatureCollection);
@@ -57,7 +57,8 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
             processedMapObject.setProperties(sharedProps);
 
             String key = mapMetadata.getOriginIp() + ":" + intersection.getId().getId().toString();
-            logger.info("Successfully created processed MAP for " + key);
+            String logMsg = String.format("Successfully created processed MAP for device: %s", key);
+            logger.info(logMsg);
             return KeyValue.pair(key, processedMapObject);
         } catch (Exception e) {
             String errMsg = String.format("Exception converting ODE MAP to GeoJSON! Message: %s", e.getMessage());
@@ -111,7 +112,7 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
         sharedProps.setTimeStamp(generateUTCTimestamp(mapPayload.getMap().getTimeStamp(), odeDate)); 
         // Setting validation fields
         sharedProps.setValidationMessages(processedSpatValidationMessages);
-        sharedProps.setCti4501Conformant(validationMessages != null ? validationMessages.isValid() : null);
+        sharedProps.setCti4501Conformant(validationMessages.isValid());
 
         return sharedProps;
     }
@@ -147,7 +148,7 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
         return new MapFeatureCollection(mapFeatures.toArray(new MapFeature[0]));
     }
 
-    public ConnectingLanesFeatureCollection createConnectingLanesFeatureCollection(OdeMapPayload mapPayload, OdeMapMetadata metadata, J2735IntersectionGeometry intersection) {
+    public ConnectingLanesFeatureCollection createConnectingLanesFeatureCollection(OdeMapMetadata metadata, J2735IntersectionGeometry intersection) {
         // Save for geometry calculations
         OdePosition3D refPoint = intersection.getRefPoint();
 
@@ -282,7 +283,8 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
             }
                         
         } catch (Exception e) {
-            logger.error("Failed to generateUTCTimestamp - SpatProcessedJsonConverter", e.getMessage());
+            String errMsg = String.format("Failed to generateUTCTimestamp - SpatProcessedJsonConverter. Message: %s", e.getMessage());
+            logger.error(errMsg, e);
         }
         
         return date;
@@ -331,7 +333,8 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
                 mapNodes.add(mapNode);
             }
         } catch (Exception e) {
-            logger.error("Failed to nodeConversionList - SpatProcessedJsonConverter", e.getMessage());
+            String errMsg = String.format("Failed to nodeConversionList - SpatProcessedJsonConverter. Message: %s", e.getMessage());
+            logger.error(errMsg, e);
         }
         return mapNodes;
     }
