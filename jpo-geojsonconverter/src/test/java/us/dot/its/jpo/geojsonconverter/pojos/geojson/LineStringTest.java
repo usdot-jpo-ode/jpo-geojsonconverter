@@ -43,6 +43,25 @@ public class LineStringTest {
         Integer hash = geometry.hashCode();
         assertNotNull(hash);
     }
+
+    @Test
+    public void testEquals() {
+        double[][] coordinates = new double[][] { { 39.7392, 104.9903 }, { 39.7390, 104.9907 } };
+        double[][] otherCoordinates = new double[][] { { 1, 1 }, { 2, 2 } };
+
+        LineString object = new LineString(coordinates);
+        LineString otherObject = new LineString(otherCoordinates);
+
+        boolean equals = object.equals(object);
+        assertEquals(equals, true);
+        
+        boolean otherEquals = object.equals(otherObject);
+        assertEquals(otherEquals, false);
+
+        String string = "string";
+        boolean notEquals = otherObject.equals(string);
+        assertEquals(notEquals, false);
+    }
     
     @Test
     public void testToString() {

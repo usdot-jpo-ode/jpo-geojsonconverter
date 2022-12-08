@@ -28,11 +28,14 @@ public class DeserializedRawMapTest {
     public void testEquals() {
         DeserializedRawMap object = new DeserializedRawMap();
         DeserializedRawMap otherObject = new DeserializedRawMap();
+        OdeMapData mapData = new OdeMapData();
+        otherObject.setOdeMapOdeMapData(mapData);
+
         boolean equals = object.equals(object);
         assertEquals(equals, true);
         
         boolean otherEquals = object.equals(otherObject);
-        assertEquals(otherEquals, true);
+        assertEquals(otherEquals, false);
 
         String string = "string";
         boolean notEquals = otherObject.equals(string);

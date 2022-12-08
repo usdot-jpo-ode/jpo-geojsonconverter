@@ -20,7 +20,6 @@ public class MapFeatureTest {
         properties.setIngressApproach(0);
         properties.setIngressPath(false);
         properties.setEgressPath(true);
-        Integer[] cLanes = new Integer[] { 3, 12 };
 
         double[][] coordinates = new double[][] { { 39.7392, 104.9903 }, { 39.7390, 104.9907 } };
         geometry = new LineString(coordinates);

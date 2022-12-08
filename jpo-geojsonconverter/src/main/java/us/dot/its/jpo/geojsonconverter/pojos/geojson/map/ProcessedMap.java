@@ -49,13 +49,13 @@ public class ProcessedMap {
         if (!(o instanceof ProcessedMap)) {
             return false;
         }
-        ProcessedMap processedMapPojo = (ProcessedMap) o;
-        return Objects.equals(mapFeatureCollection, processedMapPojo.mapFeatureCollection) && Objects.equals(connectingLanesFeatureCollection, processedMapPojo.connectingLanesFeatureCollection);
+        ProcessedMap processedMap = (ProcessedMap) o;
+        return Objects.equals(properties, processedMap.properties) && Objects.equals(mapFeatureCollection, processedMap.mapFeatureCollection) && Objects.equals(connectingLanesFeatureCollection, processedMap.connectingLanesFeatureCollection);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mapFeatureCollection, connectingLanesFeatureCollection);
+        return Objects.hash(properties, mapFeatureCollection, connectingLanesFeatureCollection);
     }
 
     @Override

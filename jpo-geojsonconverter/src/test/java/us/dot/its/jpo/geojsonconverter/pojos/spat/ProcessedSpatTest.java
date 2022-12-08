@@ -78,11 +78,13 @@ public class ProcessedSpatTest {
     public void testEquals() {
         ProcessedSpat object = new ProcessedSpat();
         ProcessedSpat otherObject = new ProcessedSpat();
+        otherObject.setCti4501Conformant(true);
+
         boolean equals = object.equals(object);
         assertEquals(equals, true);
         
         boolean otherEquals = object.equals(otherObject);
-        assertEquals(otherEquals, true);
+        assertEquals(otherEquals, false);
 
         String string = "string";
         boolean notEquals = otherObject.equals(string);

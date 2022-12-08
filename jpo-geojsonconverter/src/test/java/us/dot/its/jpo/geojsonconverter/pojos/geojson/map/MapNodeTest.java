@@ -43,11 +43,13 @@ public class MapNodeTest {
     public void testEquals() {
         MapNode object = new MapNode();
         MapNode otherObject = new MapNode();
+        otherObject.setDElevation(1);
+
         boolean equals = object.equals(object);
         assertEquals(equals, true);
         
         boolean otherEquals = object.equals(otherObject);
-        assertEquals(otherEquals, true);
+        assertEquals(otherEquals, false);
 
         String string = "string";
         boolean notEquals = otherObject.equals(string);

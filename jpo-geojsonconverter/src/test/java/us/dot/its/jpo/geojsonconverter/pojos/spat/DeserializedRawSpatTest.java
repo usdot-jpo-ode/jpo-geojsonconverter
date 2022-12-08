@@ -28,11 +28,14 @@ public class DeserializedRawSpatTest {
     public void testEquals() {
         DeserializedRawSpat object = new DeserializedRawSpat();
         DeserializedRawSpat otherObject = new DeserializedRawSpat();
+        OdeSpatData data = new OdeSpatData();
+        otherObject.setOdeSpatOdeSpatData(data);
+
         boolean equals = object.equals(object);
         assertEquals(equals, true);
         
         boolean otherEquals = object.equals(otherObject);
-        assertEquals(otherEquals, true);
+        assertEquals(otherEquals, false);
 
         String string = "string";
         boolean notEquals = otherObject.equals(string);

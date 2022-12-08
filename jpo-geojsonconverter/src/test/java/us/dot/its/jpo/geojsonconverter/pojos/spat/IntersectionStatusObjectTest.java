@@ -147,11 +147,13 @@ public class IntersectionStatusObjectTest {
     public void testEquals() {
         IntersectionStatusObject object = new IntersectionStatusObject();
         IntersectionStatusObject otherObject = new IntersectionStatusObject();
+        otherObject.setFailureFlash(true);
+
         boolean equals = object.equals(object);
         assertEquals(equals, true);
         
         boolean otherEquals = object.equals(otherObject);
-        assertEquals(otherEquals, true);
+        assertEquals(otherEquals, false);
 
         String string = "string";
         boolean notEquals = otherObject.equals(string);

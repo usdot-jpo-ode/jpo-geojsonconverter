@@ -3,10 +3,6 @@ package us.dot.its.jpo.geojsonconverter.pojos.geojson.map;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.time.Instant;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-
 import org.junit.Before;
 import org.junit.Test;
 

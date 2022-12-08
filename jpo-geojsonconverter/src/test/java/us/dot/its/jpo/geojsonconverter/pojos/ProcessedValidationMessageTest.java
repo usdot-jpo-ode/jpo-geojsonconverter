@@ -31,11 +31,13 @@ public class ProcessedValidationMessageTest {
     public void testEquals() {
         ProcessedValidationMessage object = new ProcessedValidationMessage();
         ProcessedValidationMessage otherObject = new ProcessedValidationMessage();
+        otherObject.setException("exception");
+
         boolean equals = object.equals(object);
         assertEquals(equals, true);
         
         boolean otherEquals = object.equals(otherObject);
-        assertEquals(otherEquals, true);
+        assertEquals(otherEquals, false);
 
         String string = "string";
         boolean notEquals = otherObject.equals(string);

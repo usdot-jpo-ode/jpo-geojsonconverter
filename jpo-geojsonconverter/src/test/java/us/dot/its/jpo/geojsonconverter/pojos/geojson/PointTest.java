@@ -52,6 +52,25 @@ public class PointTest {
     }
     
     @Test
+    public void testEquals() {
+        double[] coordinates = new double[] { 39.7392, 104.9903 };
+        double[] otherCoordinates = new double[] { 1, 1 };
+
+        Point object = new Point(coordinates);
+        Point otherObject = new Point(otherCoordinates);
+
+        boolean equals = object.equals(object);
+        assertEquals(equals, true);
+        
+        boolean otherEquals = object.equals(otherObject);
+        assertEquals(otherEquals, false);
+
+        String string = "string";
+        boolean notEquals = otherObject.equals(string);
+        assertEquals(notEquals, false);
+    }
+
+    @Test
     public void testToString() {
         double[] coordinates = new double[] { 39.7392, 104.9903 };
         Point geometry = new Point(coordinates);

@@ -31,11 +31,13 @@ public class MovementStateTest {
     public void testEquals() {
         MovementState object = new MovementState();
         MovementState otherObject = new MovementState();
+        otherObject.setMovementName("name");
+
         boolean equals = object.equals(object);
         assertEquals(equals, true);
         
         boolean otherEquals = object.equals(otherObject);
-        assertEquals(otherEquals, true);
+        assertEquals(otherEquals, false);
 
         String string = "string";
         boolean notEquals = otherObject.equals(string);

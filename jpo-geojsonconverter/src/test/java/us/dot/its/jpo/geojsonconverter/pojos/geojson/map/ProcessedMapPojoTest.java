@@ -39,11 +39,15 @@ public class ProcessedMapPojoTest {
     public void testEquals() {
         ProcessedMap object = new ProcessedMap();
         ProcessedMap otherObject = new ProcessedMap();
+        MapSharedProperties props = new MapSharedProperties();
+        props.setCti4501Conformant(true);
+        otherObject.setProperties(props);
+
         boolean equals = object.equals(object);
         assertEquals(equals, true);
         
         boolean otherEquals = object.equals(otherObject);
-        assertEquals(otherEquals, true);
+        assertEquals(otherEquals, false);
 
         String string = "string";
         boolean notEquals = otherObject.equals(string);

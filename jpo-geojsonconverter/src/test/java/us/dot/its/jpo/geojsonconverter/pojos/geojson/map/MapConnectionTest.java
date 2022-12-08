@@ -55,6 +55,23 @@ public class MapConnectionTest {
         Integer hash = mapConnection.hashCode();
         assertNotNull(hash);
     }
+
+    @Test
+    public void testEquals() {
+        MapConnection object = new MapConnection();
+        MapConnection otherObject = new MapConnection();
+        otherObject.setConnectionID(1);
+
+        boolean equals = object.equals(object);
+        assertEquals(equals, true);
+        
+        boolean otherEquals = object.equals(otherObject);
+        assertEquals(otherEquals, false);
+
+        String string = "string";
+        boolean notEquals = otherObject.equals(string);
+        assertEquals(notEquals, false);
+    }
     
     @Test
     public void testToString() {

@@ -105,11 +105,13 @@ public class MapPropertiesTest {
     public void testEquals() {
         MapProperties object = new MapProperties();
         MapProperties otherObject = new MapProperties();
+        otherObject.setEgressPath(true);
+        
         boolean equals = object.equals(object);
         assertEquals(equals, true);
         
         boolean otherEquals = object.equals(otherObject);
-        assertEquals(otherEquals, true);
+        assertEquals(otherEquals, false);
 
         String string = "string";
         boolean notEquals = otherObject.equals(string);

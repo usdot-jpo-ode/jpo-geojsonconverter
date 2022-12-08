@@ -141,11 +141,13 @@ public class MapSharedPropertiesTest {
     public void testEquals() {
         MapSharedProperties object = new MapSharedProperties();
         MapSharedProperties otherObject = new MapSharedProperties();
+        otherObject.setCti4501Conformant(false);
+
         boolean equals = object.equals(object);
         assertEquals(equals, true);
         
         boolean otherEquals = object.equals(otherObject);
-        assertEquals(otherEquals, true);
+        assertEquals(otherEquals, false);
 
         String string = "string";
         boolean notEquals = otherObject.equals(string);
