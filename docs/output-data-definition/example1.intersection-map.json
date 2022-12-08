@@ -4,6 +4,7 @@
         "features": [
             { 
                 "type": "Feature",
+                "id": 2,
                 "geometry": {
                     "type": "LineString",
                     "coordinates": [
@@ -29,53 +30,8 @@
                             "delta": [ 1000, 5000 ]
                         }
                     ],
-                                        
-                    "messageType": "MAP",
-                    "odeReceivedAt": "2022-10-31T15:40:26.687292Z",
-                    "originIp": "172.19.0.1",
-                    "intersectionName": null,  
-                    "region": 0,  
-                    "intersectionId": 12110,
-                    "msgIssueRevision": 1,
-                    "revision": 1,
-                    "refPoint": {
-                        "latitude": 39.5952649,
-                        "longitude": -105.0914122,
-                        "elevation": 1677
-                    },
-                    "cti4501Conformant": true,
-                    "validationMessages": [
-                        { "message": "validation message" },
-                        { "message": "validation message" }
-                    ],
-                    "laneWidth": 366,
-                    "speedLimits": [
-                        {
-                            "speed": 500,
-                            "type": "maxSpeedInConstructionZone"
-                        },
-                        { 
-                            "speed": 1000,
-                            "type": "vehicleMaxSpeed"
-                        }
-                    ],
-                    "mapSource": "RSU",
-                    "timeStamp": "2022-10-31T15:40:26.687292Z", 
-
                     "laneId": 2,
-                    "laneName": null,  
-                    "laneType": {
-                        "vehicle": {
-                            "isVehicleRevocableLane": true,
-                            "hasIRbeaconCoverage": false,
-                            "hovLaneUseOnly": false,
-                            "isVehicleFlyOverLane": false,
-                            "permissionOnRequest": false,
-                            "restrictedFromPublicUse": false,
-                            "restrictedToBusUse": false,
-                            "restrictedToTaxiUse": false
-                        }
-                    },
+                    "laneName": "name",  
                     "sharedWith": {
                         "busVehicleTraffic": true,
                         "cyclistVehicleTraffic": true,
@@ -108,23 +64,25 @@
                     },
                     "connectsTo": [
                         {
-                            "lane":19,
-                            "maneuver": {
-                                "maneuverStraightAllowed": true,
-                                "maneuverNoStoppingAllowed": false,
-                                "goWithHalt": false,
-                                "maneuverLeftAllowed": false,
-                                "maneuverUTurnAllowed": false,
-                                "maneuverLeftTurnOnRedAllowed": false,
-                                "reserved1": false,
-                                "maneuverRightAllowed": false,
-                                "maneuverLaneChangeAllowed": false,
-                                "yieldAllwaysRequired": false,
-                                "maneuverRightTurnOnRedAllowed": false,
-                                "caution": false
+                            "connectingLane": {
+                                "lane": 12,
+                                "maneuver": {
+                                    "maneuverStraightAllowed": true,
+                                    "maneuverNoStoppingAllowed": false,
+                                    "goWithHalt": false,
+                                    "maneuverLeftAllowed": false,
+                                    "maneuverUTurnAllowed": false,
+                                    "maneuverLeftTurnOnRedAllowed": false,
+                                    "reserved1": false,
+                                    "maneuverRightAllowed": false,
+                                    "maneuverLaneChangeAllowed": false,
+                                    "yieldAllwaysRequired": false,
+                                    "maneuverRightTurnOnRedAllowed": false,
+                                    "caution": false
+                                }
                             },
                             "remoteIntersection": null,
-                            "signalGroup": 4,
+                            "signalGroup": 6,
                             "userClass": null,
                             "connectionID": 1
                         }
@@ -138,6 +96,7 @@
         "features": [
             { 
                 "type": "Feature",
+                "id": "2-19",
                 "geometry": {
                     "type": "LineString",
                     "coordinates": [
@@ -158,5 +117,38 @@
                 }
             }
         ]
+    },
+    "properties": {
+        "messageType": "MAP",
+        "odeReceivedAt": "2022-10-31T15:40:26.687292Z",
+        "originIp": "172.19.0.1",
+        "intersectionName": "name",  
+        "region": 0,  
+        "intersectionId": 12110,
+        "msgIssueRevision": 1,
+        "revision": 1,
+        "refPoint": {
+            "latitude": 39.5952649,
+            "longitude": -105.0914122,
+            "elevation": 1677
+        },
+        "cti4501Conformant": true,
+        "validationMessages": [
+            { "message": "validation message" },
+            { "message": "validation message" }
+        ],
+        "laneWidth": 366,
+        "speedLimits": [
+            {
+                "speed": 500,
+                "type": "maxSpeedInConstructionZone"
+            },
+            { 
+                "speed": 1000,
+                "type": "vehicleMaxSpeed"
+            }
+        ],
+        "mapSource": "RSU",
+        "timeStamp": "2022-10-31T15:40:26.687292Z"
     }
 }
