@@ -5,6 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.mock;
 
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,6 +75,15 @@ public class SpatProcessedJsonConverterTest {
         assertNotNull(processedSpat.key);
         assertEquals("ERROR", processedSpat.key);
         assertNull(processedSpat.value);
+    }
+
+    @Test
+    public void testGenerateUTCTimestampMOY() {
+        ZonedDateTime  moyTime = spatProcessedJsonConverter.generateUTCTimestamp(481801, 30000, "2022-01-01T00:00:00Z");
+
+        assertNotNull(moyTime);
+        assertEquals("DECEMBER", moyTime.getMonth().toString());
+        assertEquals(1, moyTime.getDayOfMonth());
     }
 
     @Test

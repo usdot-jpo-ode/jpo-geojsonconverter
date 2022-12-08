@@ -273,11 +273,12 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
         try {
             int year = odeDate.getYear();
             String dateString;
-            long milliseconds;
+            long minutes;
             if (moy != null){
-                milliseconds = moy*60L*1000L; // milliseconds from beginning of year
+                minutes = moy; // minutes from beginning of year
                 dateString = String.format("%d-01-01T00:00:00.00Z", year);
-                date = Instant.parse(dateString).plusMillis(milliseconds).atZone(ZoneId.of("UTC"));
+                date = Instant.parse(dateString).atZone(ZoneId.of("UTC"));
+                date = date.plusMinutes(minutes);
             } else {
                 date = odeDate;
             }

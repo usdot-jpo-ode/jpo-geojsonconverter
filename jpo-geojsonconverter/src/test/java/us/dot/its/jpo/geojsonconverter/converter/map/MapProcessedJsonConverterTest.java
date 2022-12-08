@@ -5,6 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.mock;
 
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +25,7 @@ import us.dot.its.jpo.geojsonconverter.validator.JsonValidatorResult;
 import us.dot.its.jpo.ode.model.OdeMapData;
 
 public class MapProcessedJsonConverterTest {
-    MapProcessedJsonConverter mapGeoJsonConverter;
+    MapProcessedJsonConverter mapProcessedJsonConverter;
     OdeMapData odeMapPojo;
     DeserializedRawMap rawMap;
 
@@ -42,24 +45,24 @@ public class MapProcessedJsonConverterTest {
         rawMap = new DeserializedRawMap();
         rawMap.setOdeMapOdeMapData(odeMapPojo);
         rawMap.setValidatorResults(validatorResults);
-        mapGeoJsonConverter = new MapProcessedJsonConverter();
+        mapProcessedJsonConverter = new MapProcessedJsonConverter();
     }
 
     @Test
     public void testConstructor() {
-        assertNotNull(mapGeoJsonConverter);
+        assertNotNull(mapProcessedJsonConverter);
     }
 
     @Test
     public void testInit() {
         ProcessorContext mockContext = mock(ProcessorContext.class);
-        mapGeoJsonConverter.init(mockContext);
-        assertNotNull(mapGeoJsonConverter);
+        mapProcessedJsonConverter.init(mockContext);
+        assertNotNull(mapProcessedJsonConverter);
     }
 
     @Test
     public void testTransform() {
-        KeyValue<String, ProcessedMap> mapFeatureCollection = mapGeoJsonConverter.transform(null, rawMap);
+        KeyValue<String, ProcessedMap> mapFeatureCollection = mapProcessedJsonConverter.transform(null, rawMap);
         assertNotNull(mapFeatureCollection.key);
         assertEquals("172.19.0.1:12110", mapFeatureCollection.key);
         assertNotNull(mapFeatureCollection.value);
@@ -68,16 +71,25 @@ public class MapProcessedJsonConverterTest {
 
     @Test
     public void testTransformException() {
-        KeyValue<String, ProcessedMap> mapFeatureCollection = mapGeoJsonConverter.transform(null, null);
+        KeyValue<String, ProcessedMap> mapFeatureCollection = mapProcessedJsonConverter.transform(null, null);
         assertNotNull(mapFeatureCollection.key);
         assertEquals("ERROR", mapFeatureCollection.key);
         assertNull(mapFeatureCollection.value);
     }
 
     @Test
+    public void testGenerateUTCTimestampMOY() {
+        ZonedDateTime odeReceivedAt = Instant.parse("2022-01-01T00:00:00Z").atZone(ZoneId.of("UTC"));
+        ZonedDateTime  moyTime = mapProcessedJsonConverter.generateUTCTimestamp(500000, odeReceivedAt);
+
+        assertNotNull(moyTime);
+        assertEquals("DECEMBER", moyTime.getMonth().toString());
+    }
+
+    @Test
     public void testClose() {
         // Should do nothing, but required override
-        mapGeoJsonConverter.close();
-        assertNotNull(mapGeoJsonConverter);
+        mapProcessedJsonConverter.close();
+        assertNotNull(mapProcessedJsonConverter);
     }
 }

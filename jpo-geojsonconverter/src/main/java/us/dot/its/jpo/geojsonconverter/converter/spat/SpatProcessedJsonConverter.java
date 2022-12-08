@@ -152,9 +152,12 @@ public class SpatProcessedJsonConverter implements Transformer<Void, Deserialize
             String dateString;
             long milliseconds;
             if (moy != null){
-                milliseconds = moy*60L*1000L+Long.valueOf(dSecond); // milliseconds from beginning of year
+                long minutes = moy;
+                milliseconds = Long.valueOf(dSecond); // milliseconds in current minute
                 dateString = String.format("%d-01-01T00:00:00.00Z", year);
-                date = Instant.parse(dateString).plusMillis(milliseconds).atZone(ZoneId.of("UTC"));
+                date = Instant.parse(dateString).atZone(ZoneId.of("UTC"));
+                date = date.plusMinutes(minutes);
+                date = date.plus(milliseconds,ChronoUnit.MILLIS);
             } else {
                 date = odeDate;
                 milliseconds = dSecond; // milliseconds from beginning of minute
