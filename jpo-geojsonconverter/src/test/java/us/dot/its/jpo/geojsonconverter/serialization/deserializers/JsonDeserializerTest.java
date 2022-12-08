@@ -68,9 +68,9 @@ public class JsonDeserializerTest {
 
             ProcessedSpat spat = serializer.deserialize("the_topic", spatBytes);
             assertNotNull(spat);
-            assertEquals(spat.getCti4501Conformant(), false);
-            assertEquals(spat.getUtcTimeStamp().toString(), "2022-11-17T22:55:28.744Z[UTC]");
-            assertEquals(spat.toString().replace(" ", ""), spatString);
+            assertEquals(false, spat.getCti4501Conformant());
+            assertEquals("2022-11-17T22:55:28.744Z[UTC]", spat.getUtcTimeStamp().toString());
+            assertEquals(spatString, spat.toString().replace(" ", ""));
         } catch (Exception e) {
             fail("Unexpected exception: " + e);
         }
@@ -83,8 +83,8 @@ public class JsonDeserializerTest {
 
             ProcessedMap map = serializer.deserialize("the_topic", mapBytes);
             assertNotNull(map);
-            assertEquals(map.getMapFeatureCollection().getFeatures().length, 1);
-            assertEquals(map.getConnectingLanesFeatureCollection().getFeatures().length, 2);
+            assertEquals(1, map.getMapFeatureCollection().getFeatures().length);
+            assertEquals(2, map.getConnectingLanesFeatureCollection().getFeatures().length);
         } catch (Exception e) {
             fail("Unexpected exception: " + e);
         }

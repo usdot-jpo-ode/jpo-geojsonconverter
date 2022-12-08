@@ -19,9 +19,6 @@ public class MapFeatureCollectionTest {
     public void setup() {
         MapProperties properties = new MapProperties();
         properties.setLaneId(2);
-        properties.setOriginIp("10.0.0.1");
-        ZonedDateTime testDate = Instant.parse("2022-01-01T00:00:00Z").atZone(ZoneId.of("UTC"));
-        properties.setOdeReceivedAt(testDate);
         properties.setEgressApproach(1);
         properties.setIngressApproach(0);
         properties.setIngressPath(false);
@@ -58,7 +55,7 @@ public class MapFeatureCollectionTest {
 
     @Test
     public void testToString() {
-        String expectedString = "{\"type\":\"FeatureCollection\",\"features\":[{\"type\":\"Feature\",\"id\":2,\"geometry\":{\"type\":\"LineString\",\"coordinates\":[[39.7392,104.9903],[39.739,104.9907]]},\"properties\":{\"nodes\":null,\"messageType\":\"MAP\",\"odeReceivedAt\":\"2022-01-01T00:00:00Z\",\"originIp\":\"10.0.0.1\",\"intersectionName\":null,\"region\":null,\"intersectionId\":null,\"msgIssueRevision\":null,\"revision\":null,\"refPoint\":null,\"cti4501Conformant\":null,\"validationMessages\":null,\"laneWidth\":null,\"speedLimits\":null,\"mapSource\":null,\"timeStamp\":null,\"laneId\":2,\"laneName\":null,\"sharedWith\":null,\"egressApproach\":1,\"ingressApproach\":0,\"ingressPath\":false,\"egressPath\":true,\"maneuvers\":null,\"connectsTo\":null}}]}";
+        String expectedString = "{\"type\":\"FeatureCollection\",\"features\":[{\"type\":\"Feature\",\"id\":2,\"geometry\":{\"type\":\"LineString\",\"coordinates\":[[39.7392,104.9903],[39.739,104.9907]]},\"properties\":{\"laneId\":2,\"egressApproach\":1,\"ingressApproach\":0,\"ingressPath\":false,\"egressPath\":true}}]}";
         MapFeature[] featureList = new MapFeature[] { feature };
         MapFeatureCollection featureCollection = new MapFeatureCollection(featureList);
         assertEquals(expectedString, featureCollection.toString());

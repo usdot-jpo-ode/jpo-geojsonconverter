@@ -6,10 +6,6 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 import org.junit.Before;
 
-import java.time.Instant;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.LineString;
 
 public class ProcessedMapPojoTest {
@@ -19,9 +15,6 @@ public class ProcessedMapPojoTest {
     public void setup() {
         MapProperties properties = new MapProperties();
         properties.setLaneId(2);
-        properties.setOriginIp("10.0.0.1");
-        ZonedDateTime testDate = Instant.parse("2022-01-01T00:00:00Z").atZone(ZoneId.of("UTC"));
-        properties.setOdeReceivedAt(testDate);
         properties.setEgressApproach(1);
         properties.setIngressApproach(0);
         properties.setIngressPath(false);
