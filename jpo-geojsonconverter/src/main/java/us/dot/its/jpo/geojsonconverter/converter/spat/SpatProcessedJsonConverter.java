@@ -1,5 +1,7 @@
 package us.dot.its.jpo.geojsonconverter.converter.spat;
 
+import us.dot.its.jpo.geojsonconverter.partitioner.RsuIdKey;
+import us.dot.its.jpo.geojsonconverter.partitioner.RsuIntersectionKey;
 import us.dot.its.jpo.geojsonconverter.pojos.ProcessedValidationMessage;
 import us.dot.its.jpo.geojsonconverter.pojos.spat.*;
 import us.dot.its.jpo.geojsonconverter.validator.JsonValidatorResult;
@@ -25,7 +27,7 @@ import org.slf4j.LoggerFactory;
 
 import com.networknt.schema.ValidationMessage;
 
-public class SpatProcessedJsonConverter implements Transformer<Void, DeserializedRawSpat, KeyValue<String, ProcessedSpat>> {
+public class SpatProcessedJsonConverter implements Transformer<Void, DeserializedRawSpat, KeyValue<RsuIntersectionKey, ProcessedSpat>> {
     private static final Logger logger = LoggerFactory.getLogger(SpatProcessedJsonConverter.class);
 
     @Override
@@ -36,10 +38,11 @@ public class SpatProcessedJsonConverter implements Transformer<Void, Deserialize
      * 
      * @param rawKey   - Void type because ODE topics have no specified key
      * @param rawValue - The raw POJO
-     * @return A key value pair: the key is the RSU IP concatenated with the intersection ID and the value is the GeoJSON FeatureCollection POJO
+     * @return A key value pair: the key an {@link RsuIntersectionKey} containing the RSU IP address and Intersection ID
+     *  and the value is the GeoJSON FeatureCollection POJO
      */
     @Override
-    public KeyValue<String, ProcessedSpat> transform(Void rawKey, DeserializedRawSpat rawSpat) {
+    public KeyValue<RsuIntersectionKey, ProcessedSpat> transform(Void rawKey, DeserializedRawSpat rawSpat) {
         try {
             OdeSpatData rawValue = new OdeSpatData();
             rawValue.setMetadata(rawSpat.getOdeSpatOdeSpatData().getMetadata());
@@ -48,17 +51,19 @@ public class SpatProcessedJsonConverter implements Transformer<Void, Deserialize
             OdeSpatPayload spatPayload = (OdeSpatPayload)rawValue.getPayload();
             J2735IntersectionState intersectionState = spatPayload.getSpat().getIntersectionStateList().getIntersectionStatelist().get(0);
 
-			ProcessedSpat ProcessedSpat = createProcessedSpat(intersectionState, spatMetadata, rawSpat.getValidatorResults());
+			ProcessedSpat processedSpat = createProcessedSpat(intersectionState, spatMetadata, rawSpat.getValidatorResults());
 
-            String id = spatMetadata.getOriginIp() + ":" + intersectionState.getId().getId();
-            String logMsg = String.format("Successfully created processed SPaT for device: %s", id);
-            logger.info(logMsg);
-            return KeyValue.pair(id, ProcessedSpat);
+            var key = new RsuIntersectionKey();
+            key.setRsuId(spatMetadata.getOriginIp());
+            key.setIntersectionId(intersectionState.getId().getId());
+            return KeyValue.pair(key, processedSpat);
         } catch (Exception e) {
             String errMsg = String.format("Exception converting ODE SPaT to Processed SPaT! Message: %s", e.getMessage());
             logger.error(errMsg, e);
             // KafkaStreams knows to remove null responses before allowing further steps from occurring
-            return KeyValue.pair("ERROR", null);
+            var key = new RsuIntersectionKey();
+            key.setRsuId("ERROR");
+            return KeyValue.pair(key, null);
         }
     }
 
@@ -95,7 +100,7 @@ public class SpatProcessedJsonConverter implements Transformer<Void, Deserialize
 
         processedSpat.setRevision(intersectionState.getRevision());
 
-        J2735IntersectionStatusObject status = intersectionState.getStatus();
+        J2735IntersectionStatusObject  status = intersectionState.getStatus();
         IntersectionStatusObject intersectionStatus = new IntersectionStatusObject();
         intersectionStatus.setStatus(status);
         processedSpat.setStatus(intersectionStatus);

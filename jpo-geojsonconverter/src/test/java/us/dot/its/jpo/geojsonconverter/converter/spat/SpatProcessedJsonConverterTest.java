@@ -16,6 +16,7 @@ import org.junit.Test;
 
 import com.networknt.schema.ValidationMessage;
 
+import us.dot.its.jpo.geojsonconverter.partitioner.RsuIntersectionKey;
 import us.dot.its.jpo.geojsonconverter.pojos.spat.DeserializedRawSpat;
 import us.dot.its.jpo.geojsonconverter.pojos.spat.ProcessedSpat;
 import us.dot.its.jpo.geojsonconverter.serialization.deserializers.OdeSpatDataJsonDeserializer;
@@ -59,9 +60,10 @@ public class SpatProcessedJsonConverterTest {
         deserializedRawSpat.setOdeSpatOdeSpatData(odeSpatPojo);
         deserializedRawSpat.setValidatorResults(validatorResults);
 
-        KeyValue<String, ProcessedSpat> processedSpat = spatProcessedJsonConverter.transform(null, deserializedRawSpat);
+        KeyValue<RsuIntersectionKey, ProcessedSpat> processedSpat = spatProcessedJsonConverter.transform(null, deserializedRawSpat);
         assertNotNull(processedSpat.key);
-        assertEquals("172.19.0.1:12110", processedSpat.key);
+        assertEquals("172.19.0.1", processedSpat.key.getRsuId());
+        assertEquals(12110, processedSpat.key.getIntersectionId());
         assertNotNull(processedSpat.value);
         assertEquals(8, processedSpat.value.getStates().size());
         assertEquals("test_exception", processedSpat.value.getValidationMessages().get(0).getMessage());
@@ -69,9 +71,9 @@ public class SpatProcessedJsonConverterTest {
 
     @Test
     public void testTransformException() {
-        KeyValue<String, ProcessedSpat> processedSpat = spatProcessedJsonConverter.transform(null, null);
+        KeyValue<RsuIntersectionKey, ProcessedSpat> processedSpat = spatProcessedJsonConverter.transform(null, null);
         assertNotNull(processedSpat.key);
-        assertEquals("ERROR", processedSpat.key);
+        assertEquals("ERROR", processedSpat.key.getRsuId());
         assertNull(processedSpat.value);
     }
 

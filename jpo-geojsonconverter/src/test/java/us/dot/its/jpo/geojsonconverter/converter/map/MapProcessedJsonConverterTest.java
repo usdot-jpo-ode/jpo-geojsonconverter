@@ -18,6 +18,7 @@ import org.junit.Test;
 
 import com.networknt.schema.ValidationMessage;
 
+import us.dot.its.jpo.geojsonconverter.partitioner.RsuIntersectionKey;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.DeserializedRawMap;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.ProcessedMap;
 import us.dot.its.jpo.geojsonconverter.serialization.deserializers.OdeMapDataJsonDeserializer;
@@ -62,18 +63,19 @@ public class MapProcessedJsonConverterTest {
 
     @Test
     public void testTransform() {
-        KeyValue<String, ProcessedMap> mapFeatureCollection = mapProcessedJsonConverter.transform(null, rawMap);
+        KeyValue<RsuIntersectionKey, ProcessedMap> mapFeatureCollection = mapProcessedJsonConverter.transform(null, rawMap);
         assertNotNull(mapFeatureCollection.key);
-        assertEquals("172.19.0.1:12110", mapFeatureCollection.key);
+        assertEquals("172.19.0.1", mapFeatureCollection.key.getRsuId());
+        assertEquals(12110, mapFeatureCollection.key.getIntersectionId());
         assertNotNull(mapFeatureCollection.value);
         assertEquals(2, mapFeatureCollection.value.getMapFeatureCollection().getFeatures().length);
     }
 
     @Test
     public void testTransformException() {
-        KeyValue<String, ProcessedMap> mapFeatureCollection = mapProcessedJsonConverter.transform(null, null);
+        KeyValue<RsuIntersectionKey, ProcessedMap> mapFeatureCollection = mapProcessedJsonConverter.transform(null, null);
         assertNotNull(mapFeatureCollection.key);
-        assertEquals("ERROR", mapFeatureCollection.key);
+        assertEquals("ERROR", mapFeatureCollection.key.getRsuId());
         assertNull(mapFeatureCollection.value);
     }
 

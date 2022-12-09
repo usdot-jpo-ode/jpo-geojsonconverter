@@ -1,5 +1,6 @@
 package us.dot.its.jpo.geojsonconverter.serialization;
 
+import us.dot.its.jpo.geojsonconverter.partitioner.RsuIntersectionKey;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.ProcessedMap;
 import us.dot.its.jpo.geojsonconverter.pojos.spat.*;
 import us.dot.its.jpo.geojsonconverter.serialization.deserializers.*;
@@ -37,5 +38,12 @@ public class JsonSerdes {
         return Serdes.serdeFrom(
             new JsonSerializer<ProcessedSpat>(), 
             new JsonDeserializer<>(ProcessedSpat.class));
+    }
+
+    public static Serde<RsuIntersectionKey> RsuIntersectionKey() {
+        return Serdes.serdeFrom(
+            new JsonSerializer<RsuIntersectionKey>(),
+            new JsonDeserializer<>(RsuIntersectionKey.class)
+        );
     }
 }

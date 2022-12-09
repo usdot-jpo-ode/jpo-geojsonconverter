@@ -1,5 +1,6 @@
 package us.dot.its.jpo.geojsonconverter.converter.map;
 
+import us.dot.its.jpo.geojsonconverter.partitioner.RsuIntersectionKey;
 import us.dot.its.jpo.geojsonconverter.pojos.ProcessedValidationMessage;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.LineString;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.connectinglanes.*;
@@ -27,7 +28,7 @@ import org.slf4j.LoggerFactory;
 
 import com.networknt.schema.ValidationMessage;
 
-public class MapProcessedJsonConverter implements Transformer<Void, DeserializedRawMap, KeyValue<String, ProcessedMap>> {
+public class MapProcessedJsonConverter implements Transformer<Void, DeserializedRawMap, KeyValue<RsuIntersectionKey, ProcessedMap>> {
     private static final Logger logger = LoggerFactory.getLogger(MapProcessedJsonConverter.class);
 
     @Override
@@ -38,10 +39,11 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
      * 
      * @param rawKey   - Void type because ODE topics have no specified key
      * @param rawValue - The raw POJO
-     * @return A key value pair: the key is the RSU IP concatenated with the intersection ID and the value is the GeoJSON FeatureCollection POJO
+     * @return A key value pair: the key an {@link RsuIntersectionKey} containing the RSU IP address and Intersection ID
+     *  and the value is the GeoJSON FeatureCollection POJO
      */
     @Override
-    public KeyValue<String, ProcessedMap> transform(Void rawKey, DeserializedRawMap rawValue) {
+    public KeyValue<RsuIntersectionKey, ProcessedMap> transform(Void rawKey, DeserializedRawMap rawValue) {
         try {
             OdeMapMetadata mapMetadata = (OdeMapMetadata)rawValue.getOdeMapOdeMapData().getMetadata();
             OdeMapPayload mapPayload = (OdeMapPayload)rawValue.getOdeMapOdeMapData().getPayload();
@@ -56,15 +58,18 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
             processedMapObject.setConnectingLanesFeatureCollection(connectingLanesFeatureCollection);
             processedMapObject.setProperties(sharedProps);
 
-            String key = mapMetadata.getOriginIp() + ":" + intersection.getId().getId().toString();
-            String logMsg = String.format("Successfully created processed MAP for device: %s", key);
-            logger.info(logMsg);
+            var key = new RsuIntersectionKey();
+            key.setRsuId(mapMetadata.getOriginIp());
+            key.setIntersectionId(intersection.getId().getId());
+            logger.info("Successfully created MAP GeoJSON for {}", key);
             return KeyValue.pair(key, processedMapObject);
         } catch (Exception e) {
             String errMsg = String.format("Exception converting ODE MAP to GeoJSON! Message: %s", e.getMessage());
             logger.error(errMsg, e);
             // KafkaStreams knows to remove null responses before allowing further steps from occurring
-            return KeyValue.pair("ERROR", null);
+            var key = new RsuIntersectionKey();
+            key.setRsuId("ERROR");
+            return KeyValue.pair(key, null);
         }
     }
 

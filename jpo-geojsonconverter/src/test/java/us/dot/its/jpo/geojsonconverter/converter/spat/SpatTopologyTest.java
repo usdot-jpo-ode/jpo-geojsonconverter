@@ -17,6 +17,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import us.dot.its.jpo.geojsonconverter.partitioner.RsuIntersectionKey;
 import us.dot.its.jpo.geojsonconverter.pojos.spat.ProcessedSpat;
 import us.dot.its.jpo.geojsonconverter.serialization.JsonSerdes;
 import us.dot.its.jpo.geojsonconverter.validator.SpatJsonValidator;
@@ -42,21 +43,22 @@ public class SpatTopologyTest {
                 kafkaTopicOdeSpatJson, 
                 Serdes.Void().serializer(), 
                 Serdes.String().serializer());
-            TestOutputTopic<String, ProcessedSpat> outputTopic = driver.createOutputTopic(
+            TestOutputTopic<RsuIntersectionKey, ProcessedSpat> outputTopic = driver.createOutputTopic(
                 kafkaTopicProcessedSpat, 
-                Serdes.String().deserializer(), 
+                JsonSerdes.RsuIntersectionKey().deserializer(), 
                 JsonSerdes.ProcessedSpat().deserializer());
             
             // Send serialized OdeSpatJson to OdeSpatJson topic
             inputOdeSpatJsonTopic.pipeInput(odeSpatJsonString);
 
             // Check SpatGeoJson topic for properly converted message data
-            List<KeyValue<String, ProcessedSpat>> processedSpatJsonResults = outputTopic.readKeyValuesToList();
+            List<KeyValue<RsuIntersectionKey, ProcessedSpat>> processedSpatJsonResults = outputTopic.readKeyValuesToList();
             assertEquals(processedSpatJsonResults.size(), 1);
 
-            KeyValue<String, ProcessedSpat> processedSpatJson = processedSpatJsonResults.get(0);
+            KeyValue<RsuIntersectionKey, ProcessedSpat> processedSpatJson = processedSpatJsonResults.get(0);
             assertNotNull(processedSpatJson.key);
-            assertEquals("172.19.0.1:12110", processedSpatJson.key);
+            assertEquals("172.19.0.1", processedSpatJson.key.getRsuId());
+            assertEquals(12110, processedSpatJson.key.getIntersectionId());
             assertNotNull(processedSpatJson.value);
             assertEquals(2, processedSpatJson.value.getStates().size());
         }

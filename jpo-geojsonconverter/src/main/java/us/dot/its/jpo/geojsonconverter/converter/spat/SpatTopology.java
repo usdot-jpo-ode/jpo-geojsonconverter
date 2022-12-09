@@ -10,6 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.kafka.streams.kstream.KStream;
 
+import us.dot.its.jpo.geojsonconverter.partitioner.RsuIdPartitioner;
+import us.dot.its.jpo.geojsonconverter.partitioner.RsuIntersectionKey;
 import us.dot.its.jpo.geojsonconverter.pojos.spat.DeserializedRawSpat;
 import us.dot.its.jpo.geojsonconverter.pojos.spat.ProcessedSpat;
 import us.dot.its.jpo.geojsonconverter.serialization.JsonSerdes;
@@ -57,7 +59,7 @@ public class SpatTopology {
             );
 
         // Convert ODE SPaT to GeoJSON
-        KStream<String, ProcessedSpat> processedJsonSpatStream =
+        KStream<RsuIntersectionKey, ProcessedSpat> processedJsonSpatStream =
             validatedOdeSpatStream.transform(
                 () -> new SpatProcessedJsonConverter() // change this converter to something else NOT GEOJSON
             );
@@ -66,8 +68,11 @@ public class SpatTopology {
         processedJsonSpatStream.to(
             // Push the joined GeoJSON stream back out to the SPaT GeoJSON topic 
             spatProcessedJsonTopic, 
-            Produced.with(Serdes.String(),
-                    JsonSerdes.ProcessedSpat()));
+            Produced.with(
+                JsonSerdes.RsuIntersectionKey(),
+                JsonSerdes.ProcessedSpat(), 
+                new RsuIdPartitioner<RsuIntersectionKey, ProcessedSpat>())  // Partition by RSU ID
+        );
         
         return builder.build();
     }
