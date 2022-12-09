@@ -16,10 +16,12 @@ import org.springframework.core.io.Resource;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.ProcessedMap;
 import us.dot.its.jpo.geojsonconverter.pojos.spat.ProcessedSpat;
 
-@SpringBootTest(
-    "processed.spat.json=classpath:json/sample.processed.spat.json")
+@SpringBootTest({
+    "processed.spat.json=classpath:json/sample.processed.spat.json",
+    "processed.map.json=classpath:json/sample.processed.map.json"})
 @RunWith(SpringRunner.class)
 public class JsonDeserializerTest {
     @Test
@@ -66,9 +68,23 @@ public class JsonDeserializerTest {
 
             ProcessedSpat spat = serializer.deserialize("the_topic", spatBytes);
             assertNotNull(spat);
-            assertEquals(spat.getCti4501Conformant(), false);
-            assertEquals(spat.getUtcTimeStamp().toString(), "2022-11-17T22:55:28.744Z[UTC]");
-            assertEquals(spat.toString().replace(" ", ""), spatString);
+            assertEquals(false, spat.getCti4501Conformant());
+            assertEquals("2022-11-17T22:55:28.744Z[UTC]", spat.getUtcTimeStamp().toString());
+            assertEquals(spatString, spat.toString().replace(" ", ""));
+        } catch (Exception e) {
+            fail("Unexpected exception: " + e);
+        }
+    }
+
+    @Test
+    public void testProcessedMapDeserializer() {
+        try (JsonDeserializer<ProcessedMap> serializer = new JsonDeserializer<ProcessedMap>(ProcessedMap.class)) {
+            byte[] mapBytes = IOUtils.toByteArray(validMapJsonResource.getInputStream()); 
+
+            ProcessedMap map = serializer.deserialize("the_topic", mapBytes);
+            assertNotNull(map);
+            assertEquals(1, map.getMapFeatureCollection().getFeatures().length);
+            assertEquals(2, map.getConnectingLanesFeatureCollection().getFeatures().length);
         } catch (Exception e) {
             fail("Unexpected exception: " + e);
         }
@@ -76,6 +92,9 @@ public class JsonDeserializerTest {
     
     @Value("${processed.spat.json}")
     private Resource validSpatJsonResource;
+
+    @Value("${processed.map.json}")
+    private Resource validMapJsonResource;
 
     private class BadClass {
         // Private inner class to break Jackson deserialization

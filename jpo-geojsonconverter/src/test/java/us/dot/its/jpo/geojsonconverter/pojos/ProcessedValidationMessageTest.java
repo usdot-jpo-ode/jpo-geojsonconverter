@@ -1,51 +1,53 @@
-package us.dot.its.jpo.geojsonconverter.pojos.spat;
+package us.dot.its.jpo.geojsonconverter.pojos;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.Test;
 
-public class ProcessedSpatValidationMessageTest {
+public class ProcessedValidationMessageTest {
     @Test
     public void testGettersSetters() {
-        ProcessedSpatValidationMessage object = new ProcessedSpatValidationMessage();
+        ProcessedValidationMessage object = new ProcessedValidationMessage();
 
         object.setMessage("msg");
         String msgResponse = object.getMessage();
-        assertEquals(msgResponse, "msg");
+        assertEquals("msg", msgResponse);
 
         object.setJsonPath("json path");
         String jsonPathResponse = object.getJsonPath();
-        assertEquals(jsonPathResponse, "json path");
+        assertEquals("json path", jsonPathResponse);
 
         object.setSchemaPath("schema path");
         String schemaPathResponse = object.getSchemaPath();
-        assertEquals(schemaPathResponse, "schema path");
+        assertEquals("schema path", schemaPathResponse);
 
         object.setException("exception");
         String exceptionResponse = object.getException();
-        assertEquals(exceptionResponse, "exception");
+        assertEquals("exception", exceptionResponse);
     }
 
     @Test
     public void testEquals() {
-        ProcessedSpatValidationMessage object = new ProcessedSpatValidationMessage();
-        ProcessedSpatValidationMessage otherObject = new ProcessedSpatValidationMessage();
+        ProcessedValidationMessage object = new ProcessedValidationMessage();
+        ProcessedValidationMessage otherObject = new ProcessedValidationMessage();
+        otherObject.setException("exception");
+
         boolean equals = object.equals(object);
-        assertEquals(equals, true);
+        assertEquals(true, equals);
         
         boolean otherEquals = object.equals(otherObject);
-        assertEquals(otherEquals, true);
+        assertEquals(false, otherEquals);
 
         String string = "string";
         boolean notEquals = otherObject.equals(string);
-        assertEquals(notEquals, false);
+        assertEquals(false, notEquals);
     }
 
 
     @Test
     public void testHashCode() {
-        ProcessedSpatValidationMessage object = new ProcessedSpatValidationMessage();
+        ProcessedValidationMessage object = new ProcessedValidationMessage();
 
         Integer hash = object.hashCode();
         assertNotNull(hash);
@@ -53,7 +55,7 @@ public class ProcessedSpatValidationMessageTest {
     
     @Test
     public void testToString() {
-        ProcessedSpatValidationMessage object = new ProcessedSpatValidationMessage();
+        ProcessedValidationMessage object = new ProcessedValidationMessage();
 
         String string = object.toString();
         assertNotNull(string);

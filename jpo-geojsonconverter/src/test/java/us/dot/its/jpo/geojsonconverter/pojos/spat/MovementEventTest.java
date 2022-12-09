@@ -34,15 +34,18 @@ public class MovementEventTest {
     public void testEquals() {
         MovementEvent object = new MovementEvent();
         MovementEvent otherObject = new MovementEvent();
+        TimingChangeDetails timing = new TimingChangeDetails();
+        otherObject.setTiming(timing);
+
         boolean equals = object.equals(object);
-        assertEquals(equals, true);
+        assertEquals(true, equals);
         
         boolean otherEquals = object.equals(otherObject);
-        assertEquals(otherEquals, true);
+        assertEquals(false, otherEquals);
 
         String string = "string";
         boolean notEquals = otherObject.equals(string);
-        assertEquals(notEquals, false);
+        assertEquals(false, notEquals);
     }
 
 

@@ -16,14 +16,10 @@ public class MapFeatureTest {
     public void setup() {
         properties = new MapProperties();
         properties.setLaneId(2);
-        properties.setIp("10.0.0.1");
-        properties.setOdeReceivedAt("2022-01-01T00:00:00");
         properties.setEgressApproach(1);
         properties.setIngressApproach(0);
         properties.setIngressPath(false);
         properties.setEgressPath(true);
-        Integer[] cLanes = new Integer[] { 3, 12 };
-        properties.setConnectedLanes(cLanes);
 
         double[][] coordinates = new double[][] { { 39.7392, 104.9903 }, { 39.7390, 104.9907 } };
         geometry = new LineString(coordinates);
@@ -49,7 +45,7 @@ public class MapFeatureTest {
 
     @Test
     public void testToString() {
-        String expectedString = "{\"type\":\"Feature\",\"id\":2,\"geometry\":{\"type\":\"LineString\",\"coordinates\":[[39.7392,104.9903],[39.739,104.9907]]},\"properties\":{\"lane_id\":2,\"ip\":\"10.0.0.1\",\"ode_received_at\":\"2022-01-01T00:00:00\",\"egress_approach\":1,\"ingress_approach\":0,\"ingress_path\":false,\"egress_path\":true,\"connected_lanes\":[3,12]}}";
+        String expectedString = "{\"type\":\"Feature\",\"id\":2,\"geometry\":{\"type\":\"LineString\",\"coordinates\":[[39.7392,104.9903],[39.739,104.9907]]},\"properties\":{\"laneId\":2,\"egressApproach\":1,\"ingressApproach\":0,\"ingressPath\":false,\"egressPath\":true}}";
         MapFeature feature = new MapFeature(properties.getLaneId(), geometry, properties);
         assertEquals(expectedString, feature.toString());
     }
@@ -71,4 +67,5 @@ public class MapFeatureTest {
         MapFeature feature = new MapFeature(properties.getLaneId(), geometry, properties);
         assertEquals(2, feature.getProperties().getLaneId());
     }
+
 }

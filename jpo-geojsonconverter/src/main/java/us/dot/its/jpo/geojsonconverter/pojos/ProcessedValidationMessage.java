@@ -1,4 +1,4 @@
-package us.dot.its.jpo.geojsonconverter.pojos.spat;
+package us.dot.its.jpo.geojsonconverter.pojos;
 
 import java.util.Objects;
 
@@ -12,8 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ProcessedSpatValidationMessage {
-    private static Logger logger = LoggerFactory.getLogger(ProcessedSpatValidationMessage.class);
+public class ProcessedValidationMessage {
+    private static Logger logger = LoggerFactory.getLogger(ProcessedValidationMessage.class);
 
     private String message;
     private String jsonPath;
@@ -57,10 +57,10 @@ public class ProcessedSpatValidationMessage {
     public boolean equals(Object o) {
         if (o == this)
             return true;
-        if (!(o instanceof ProcessedSpatValidationMessage)) {
+        if (!(o instanceof ProcessedValidationMessage)) {
             return false;
         }
-        ProcessedSpatValidationMessage processedSpatValidationMessage = (ProcessedSpatValidationMessage) o;
+        ProcessedValidationMessage processedSpatValidationMessage = (ProcessedValidationMessage) o;
         return Objects.equals(message, processedSpatValidationMessage.message) && Objects.equals(jsonPath, processedSpatValidationMessage.jsonPath) && Objects.equals(schemaPath, processedSpatValidationMessage.schemaPath) && Objects.equals(exception, processedSpatValidationMessage.exception);
     }
 

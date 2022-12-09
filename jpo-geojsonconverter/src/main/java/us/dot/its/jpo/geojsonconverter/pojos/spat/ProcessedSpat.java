@@ -10,6 +10,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import us.dot.its.jpo.geojsonconverter.DateJsonMapper;
+import us.dot.its.jpo.geojsonconverter.pojos.ProcessedValidationMessage;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,11 +23,11 @@ public class ProcessedSpat {
     private String odeReceivedAt;
     private String originIp;
     private String name;
-    private int region;
-    private int intersectionId;
+    private Integer region;
+    private Integer intersectionId;
     private boolean cti4501Conformant;
-    private List<ProcessedSpatValidationMessage> validationMessages = null;
-    private int revision;
+    private List<ProcessedValidationMessage> validationMessages = null;
+    private Integer revision;
     private IntersectionStatusObject status;
     private ZonedDateTime utcTimeStamp;
     private List<Integer> enabledLanes = new ArrayList<>();
@@ -64,19 +65,19 @@ public class ProcessedSpat {
         this.name = name;
     }
 
-    public int getRegion() {
+    public Integer getRegion() {
         return region;
     }
 
-    public void setRegion(int region) {
+    public void setRegion(Integer region) {
         this.region = region;
     }
 
-    public int getIntersectionId() {
+    public Integer getIntersectionId() {
         return intersectionId;
     }
 
-    public void setIntersectionId(int intersectionId) {
+    public void setIntersectionId(Integer intersectionId) {
         this.intersectionId = intersectionId;
     }
 
@@ -88,19 +89,19 @@ public class ProcessedSpat {
         this.cti4501Conformant = cti4501Conformant;
     }
 
-    public List<ProcessedSpatValidationMessage> getValidationMessages() {
+    public List<ProcessedValidationMessage> getValidationMessages() {
         return validationMessages;
     }
 
-    public void setValidationMessages(List<ProcessedSpatValidationMessage> validationMessages) {
+    public void setValidationMessages(List<ProcessedValidationMessage> validationMessages) {
         this.validationMessages = validationMessages;
     }
 
-    public int getRevision() {
+    public Integer getRevision() {
         return revision;
     }
 
-    public void setRevision(int revision) {
+    public void setRevision(Integer revision) {
         this.revision = revision;
     }
 

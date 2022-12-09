@@ -1,10 +1,30 @@
 package us.dot.its.jpo.geojsonconverter.pojos.geojson.map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Test;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
+import us.dot.its.jpo.ode.plugin.j2735.J2735BitString;
+import us.dot.its.jpo.ode.plugin.j2735.J2735Connection;
+import us.dot.its.jpo.ode.plugin.j2735.J2735GNSSstatusNames;
+import us.dot.its.jpo.ode.plugin.j2735.builders.BitStringBuilder;
+import us.dot.its.jpo.ode.util.JsonUtils;
+
 public class MapPropertiesTest {
+    @Test
+    public void testNodes() {
+        List<MapNode> expectedMapNodeList = new ArrayList<MapNode>();
+        MapProperties mapProperties = new MapProperties();
+        mapProperties.setNodes(expectedMapNodeList);
+        assertEquals(expectedMapNodeList, mapProperties.getNodes());
+    }
+
     @Test
     public void testLaneId() {
         Integer expectedLaneId = 3;
@@ -14,19 +34,21 @@ public class MapPropertiesTest {
     }
 
     @Test
-    public void testIp() {
-        String expectedIp = "10.0.0.1";
+    public void testLaneName() {
+        String expectedLaneName = "laneName";
         MapProperties mapProperties = new MapProperties();
-        mapProperties.setIp(expectedIp);
-        assertEquals(expectedIp, mapProperties.getIp());
+        mapProperties.setLaneName(expectedLaneName);
+        assertEquals(expectedLaneName, mapProperties.getLaneName());
     }
 
     @Test
-    public void testOdeReceivedAt() {
-        String expectedOdeReceivedAt = "testTimestamp";
+    public void testSharedWidth() {
+        JsonNode node = JsonUtils.newNode().put("test", "00000000");
+        J2735BitString actualBitString = BitStringBuilder.genericBitString(node,
+        J2735GNSSstatusNames.values());
         MapProperties mapProperties = new MapProperties();
-        mapProperties.setOdeReceivedAt(expectedOdeReceivedAt);
-        assertEquals(expectedOdeReceivedAt, mapProperties.getOdeReceivedAt());
+        mapProperties.setSharedWith(actualBitString);
+        assertEquals(actualBitString, mapProperties.getSharedWith());
     }
 
     @Test
@@ -62,12 +84,51 @@ public class MapPropertiesTest {
     }
 
     @Test
-    public void testConnectedLanes() {
-        Integer[] expectedConnectedLanes = new Integer[] { 3, 12 };
+    public void testManeuvers() {
+        JsonNode node = JsonUtils.newNode().put("test", "00000000");
+        J2735BitString expectedManeuver = BitStringBuilder.genericBitString(node,
+        J2735GNSSstatusNames.values());
         MapProperties mapProperties = new MapProperties();
-        mapProperties.setConnectedLanes(expectedConnectedLanes);
-        assertEquals(expectedConnectedLanes.length, mapProperties.getConnectedLanes().length);
-        assertEquals(expectedConnectedLanes[0], mapProperties.getConnectedLanes()[0]);
-        assertEquals(expectedConnectedLanes[1], mapProperties.getConnectedLanes()[1]);
+        mapProperties.setManeuvers(expectedManeuver);
+        assertEquals(expectedManeuver, mapProperties.getManeuvers());
+    }
+
+    @Test
+    public void testConnectsTo() {
+        List<J2735Connection> expectedConnectsTo = new ArrayList<J2735Connection>();
+        MapProperties mapProperties = new MapProperties();
+        mapProperties.setConnectsTo(expectedConnectsTo);
+        assertEquals(expectedConnectsTo, mapProperties.getConnectsTo());
+    }
+
+    @Test
+    public void testEquals() {
+        MapProperties object = new MapProperties();
+        MapProperties otherObject = new MapProperties();
+        otherObject.setEgressPath(true);
+        
+        boolean equals = object.equals(object);
+        assertEquals(true, equals);
+        
+        boolean otherEquals = object.equals(otherObject);
+        assertEquals(false, otherEquals);
+
+        String string = "string";
+        boolean notEquals = otherObject.equals(string);
+        assertEquals(false, notEquals);
+    }
+    
+    @Test
+    public void testHashCode() {
+        MapProperties mapProperties = new MapProperties();
+        Integer hash = mapProperties.hashCode();
+        assertNotNull(hash);
+    }
+    
+    @Test
+    public void testToString() {
+        MapProperties mapProperties = new MapProperties();
+        String string = mapProperties.toString();
+        assertNotNull(string);
     }
 }

@@ -18,130 +18,130 @@ import us.dot.its.jpo.ode.plugin.j2735.J2735IntersectionStatusObject;
 public class IntersectionStatusObject {
     private static Logger logger = LoggerFactory.getLogger(IntersectionStatusObject.class);
 
-    private boolean manualControlIsEnabled = false;
-    private boolean stopTimeIsActivated = false;
-    private boolean failureFlash = false;
-    private boolean preemptIsActive = false;
-    private boolean signalPriorityIsActive = false;
-    private boolean fixedTimeOperation = false;
-    private boolean trafficDependentOperation = false;
-    private boolean standbyOperation = false;
-    private boolean failureMode = false;
-    private boolean off = false;
-    private boolean recentMAPmessageUpdate = false;
-    private boolean recentChangeInMAPassignedLanesIDsUsed = false;
-    private boolean noValidMAPisAvailableAtThisTime = false;
-    private boolean noValidSPATisAvailableAtThisTime = false;
+    private Boolean manualControlIsEnabled = false;
+    private Boolean stopTimeIsActivated = false;
+    private Boolean failureFlash = false;
+    private Boolean preemptIsActive = false;
+    private Boolean signalPriorityIsActive = false;
+    private Boolean fixedTimeOperation = false;
+    private Boolean trafficDependentOperation = false;
+    private Boolean standbyOperation = false;
+    private Boolean failureMode = false;
+    private Boolean off = false;
+    private Boolean recentMAPmessageUpdate = false;
+    private Boolean recentChangeInMAPassignedLanesIDsUsed = false;
+    private Boolean noValidMAPisAvailableAtThisTime = false;
+    private Boolean noValidSPATisAvailableAtThisTime = false;
 
-    public boolean getManualControlIsEnabled() {
+    public Boolean getManualControlIsEnabled() {
         return manualControlIsEnabled;
     }
 
-    public void setManualControlIsEnabled(boolean manualControlIsEnabled) {
+    public void setManualControlIsEnabled(Boolean manualControlIsEnabled) {
         this.manualControlIsEnabled = manualControlIsEnabled;
     }
 
-    public boolean getStopTimeIsActivated() {
+    public Boolean getStopTimeIsActivated() {
         return stopTimeIsActivated;
     }
 
-    public void setStopTimeIsActivated(boolean stopTimeIsActivated) {
+    public void setStopTimeIsActivated(Boolean stopTimeIsActivated) {
         this.stopTimeIsActivated = stopTimeIsActivated;
     }
 
-    public boolean getFailureFlash() {
+    public Boolean getFailureFlash() {
         return failureFlash;
     }
 
-    public void setFailureFlash(boolean failureFlash) {
+    public void setFailureFlash(Boolean failureFlash) {
         this.failureFlash = failureFlash;
     }
 
-    public boolean getPreemptIsActive() {
+    public Boolean getPreemptIsActive() {
         return preemptIsActive;
     }
 
-    public void setPreemptIsActive(boolean preemptIsActive) {
+    public void setPreemptIsActive(Boolean preemptIsActive) {
         this.preemptIsActive = preemptIsActive;
     }
 
-    public boolean getSignalPriorityIsActive() {
+    public Boolean getSignalPriorityIsActive() {
         return signalPriorityIsActive;
     }
 
-    public void setSignalPriorityIsActive(boolean signalPriorityIsActive) {
+    public void setSignalPriorityIsActive(Boolean signalPriorityIsActive) {
         this.signalPriorityIsActive = signalPriorityIsActive;
     }
 
-    public boolean getFixedTimeOperation() {
+    public Boolean getFixedTimeOperation() {
         return fixedTimeOperation;
     }
 
-    public void setFixedTimeOperation(boolean fixedTimeOperation) {
+    public void setFixedTimeOperation(Boolean fixedTimeOperation) {
         this.fixedTimeOperation = fixedTimeOperation;
     }
 
-    public boolean getTrafficDependentOperation() {
+    public Boolean getTrafficDependentOperation() {
         return trafficDependentOperation;
     }
 
-    public void setTrafficDependentOperation(boolean trafficDependentOperation) {
+    public void setTrafficDependentOperation(Boolean trafficDependentOperation) {
         this.trafficDependentOperation = trafficDependentOperation;
     }
 
-    public boolean getStandbyOperation() {
+    public Boolean getStandbyOperation() {
         return standbyOperation;
     }
 
-    public void setStandbyOperation(boolean standbyOperation) {
+    public void setStandbyOperation(Boolean standbyOperation) {
         this.standbyOperation = standbyOperation;
     }
 
-    public boolean getFailureMode() {
+    public Boolean getFailureMode() {
         return failureMode;
     }
 
-    public void setFailureMode(boolean failureMode) {
+    public void setFailureMode(Boolean failureMode) {
         this.failureMode = failureMode;
     }
 
-    public boolean getOff() {
+    public Boolean getOff() {
         return off;
     }
 
-    public void setOff(boolean off) {
+    public void setOff(Boolean off) {
         this.off = off;
     }
 
-    public boolean getRecentMAPmessageUpdate() {
+    public Boolean getRecentMAPmessageUpdate() {
         return recentMAPmessageUpdate;
     }
 
-    public void setRecentMAPmessageUpdate(boolean recentMAPmessageUpdate) {
+    public void setRecentMAPmessageUpdate(Boolean recentMAPmessageUpdate) {
         this.recentMAPmessageUpdate = recentMAPmessageUpdate;
     }
 
-    public boolean getRecentChangeInMAPassignedLanesIDsUsed() {
+    public Boolean getRecentChangeInMAPassignedLanesIDsUsed() {
         return recentChangeInMAPassignedLanesIDsUsed;
     }
 
-    public void setRecentChangeInMAPassignedLanesIDsUsed(boolean recentChangeInMAPassignedLanesIDsUsed) {
+    public void setRecentChangeInMAPassignedLanesIDsUsed(Boolean recentChangeInMAPassignedLanesIDsUsed) {
         this.recentChangeInMAPassignedLanesIDsUsed = recentChangeInMAPassignedLanesIDsUsed;
     }
 
-    public boolean getNoValidMAPisAvailableAtThisTime() {
+    public Boolean getNoValidMAPisAvailableAtThisTime() {
         return noValidMAPisAvailableAtThisTime;
     }
 
-    public void setNoValidMAPisAvailableAtThisTime(boolean noValidMAPisAvailableAtThisTime) {
+    public void setNoValidMAPisAvailableAtThisTime(Boolean noValidMAPisAvailableAtThisTime) {
         this.noValidMAPisAvailableAtThisTime = noValidMAPisAvailableAtThisTime;
     }
 
-    public boolean getNoValidSPATisAvailableAtThisTime() {
+    public Boolean getNoValidSPATisAvailableAtThisTime() {
         return noValidSPATisAvailableAtThisTime;
     }
 
-    public void setNoValidSPATisAvailableAtThisTime(boolean noValidSPATisAvailableAtThisTime) {
+    public void setNoValidSPATisAvailableAtThisTime(Boolean noValidSPATisAvailableAtThisTime) {
         this.noValidSPATisAvailableAtThisTime = noValidSPATisAvailableAtThisTime;
     }
 
@@ -200,7 +200,7 @@ public class IntersectionStatusObject {
             return false;
         }
         IntersectionStatusObject intersectionStatusObject = (IntersectionStatusObject) o;
-        return manualControlIsEnabled == intersectionStatusObject.manualControlIsEnabled && stopTimeIsActivated == intersectionStatusObject.stopTimeIsActivated && failureFlash == intersectionStatusObject.failureFlash && preemptIsActive == intersectionStatusObject.preemptIsActive && signalPriorityIsActive == intersectionStatusObject.signalPriorityIsActive && fixedTimeOperation == intersectionStatusObject.fixedTimeOperation && trafficDependentOperation == intersectionStatusObject.trafficDependentOperation && standbyOperation == intersectionStatusObject.standbyOperation && failureMode == intersectionStatusObject.failureMode && off == intersectionStatusObject.off && recentMAPmessageUpdate == intersectionStatusObject.recentMAPmessageUpdate && recentChangeInMAPassignedLanesIDsUsed == intersectionStatusObject.recentChangeInMAPassignedLanesIDsUsed && noValidMAPisAvailableAtThisTime == intersectionStatusObject.noValidMAPisAvailableAtThisTime && noValidSPATisAvailableAtThisTime == intersectionStatusObject.noValidSPATisAvailableAtThisTime;
+        return Objects.equals(manualControlIsEnabled, intersectionStatusObject.manualControlIsEnabled) && Objects.equals(stopTimeIsActivated, intersectionStatusObject.stopTimeIsActivated) && Objects.equals(failureFlash, intersectionStatusObject.failureFlash) && Objects.equals(preemptIsActive, intersectionStatusObject.preemptIsActive) && Objects.equals(signalPriorityIsActive, intersectionStatusObject.signalPriorityIsActive) && Objects.equals(fixedTimeOperation, intersectionStatusObject.fixedTimeOperation) && Objects.equals(trafficDependentOperation, intersectionStatusObject.trafficDependentOperation) && Objects.equals(standbyOperation, intersectionStatusObject.standbyOperation) && Objects.equals(failureMode, intersectionStatusObject.failureMode) && Objects.equals(off, intersectionStatusObject.off) && Objects.equals(recentMAPmessageUpdate, intersectionStatusObject.recentMAPmessageUpdate) && Objects.equals(recentChangeInMAPassignedLanesIDsUsed, intersectionStatusObject.recentChangeInMAPassignedLanesIDsUsed) && Objects.equals(noValidMAPisAvailableAtThisTime, intersectionStatusObject.noValidMAPisAvailableAtThisTime) && Objects.equals(noValidSPATisAvailableAtThisTime, intersectionStatusObject.noValidSPATisAvailableAtThisTime);
     }
 
     @Override

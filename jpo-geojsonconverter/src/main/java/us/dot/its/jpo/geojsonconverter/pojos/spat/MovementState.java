@@ -17,7 +17,7 @@ public class MovementState {
     private static Logger logger = LoggerFactory.getLogger(MovementState.class);
 
     private String movementName;
-    private int signalGroup;
+    private Integer signalGroup;
     private List<MovementEvent> stateTimeSpeed = null;
 
     public String getMovementName() {
@@ -28,11 +28,11 @@ public class MovementState {
         this.movementName = movementName;
     }
 
-    public int getSignalGroup() {
+    public Integer getSignalGroup() {
         return signalGroup;
     }
 
-    public void setSignalGroup(int signalGroup) {
+    public void setSignalGroup(Integer signalGroup) {
         this.signalGroup = signalGroup;
     }
 

@@ -10,13 +10,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.kafka.streams.kstream.KStream;
 
-import us.dot.its.jpo.geojsonconverter.partitioner.RsuIdPartitioner;
-import us.dot.its.jpo.geojsonconverter.partitioner.RsuIntersectionKey;
-import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.MapFeatureCollection;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.DeserializedRawMap;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.ProcessedMap;
 import us.dot.its.jpo.geojsonconverter.serialization.JsonSerdes;
 import us.dot.its.jpo.geojsonconverter.validator.JsonValidatorResult;
 import us.dot.its.jpo.geojsonconverter.validator.MapJsonValidator;
-import us.dot.its.jpo.ode.model.OdeMapData;
 
 /**
  * Kafka Streams Topology builder for processing MAP messages from
@@ -26,7 +24,7 @@ public class MapTopology {
 
     private static final Logger logger = LoggerFactory.getLogger(MapTopology.class);
 
-    public static Topology build(String mapOdeJsonTopic, String mapGeoJsonTopic, MapJsonValidator mapJsonValidator) {
+    public static Topology build(String mapOdeJsonTopic, String processedMapTopic, MapJsonValidator mapJsonValidator) {
         StreamsBuilder builder = new StreamsBuilder();
 
         // Create stream from the ODE MAP topic
@@ -40,32 +38,34 @@ public class MapTopology {
 
         // Validate the JSON and log validation errors at warn level
         // Passes the raw JSON along unchanged, even if there are validation errors.
-        KStream<Void, Bytes> validatedOdeMapStream = rawOdeMapStream.peek(
-            (Void key, Bytes value) -> {
-                JsonValidatorResult validationResults = mapJsonValidator.validate(value.get());
-                logger.info(validationResults.describeResults());
-            }
-        );
-
-        // Deserialize the raw JSON bytes to an OdeMapData object
-        KStream<Void, OdeMapData> odeMapStream =
-            validatedOdeMapStream.mapValues(
-                (Bytes value) -> JsonSerdes.OdeMap().deserializer().deserialize(mapOdeJsonTopic, value.get())
+        KStream<Void, DeserializedRawMap> validatedOdeMapStream = 
+            rawOdeMapStream.mapValues(
+                (Void key, Bytes value) -> {
+                    DeserializedRawMap deserializedRawMap = new DeserializedRawMap();
+                    JsonValidatorResult validationResults = mapJsonValidator.validate(value.get());
+                    deserializedRawMap.setOdeMapOdeMapData(JsonSerdes.OdeMap().deserializer().deserialize(mapOdeJsonTopic, value.get()));
+                    deserializedRawMap.setValidatorResults(validationResults);
+                    if (validationResults.isValid()) {
+                        logger.info(validationResults.describeResults());
+                    } else {
+                        logger.warn(validationResults.describeResults());
+                    }
+                    return deserializedRawMap;
+                }
             );
 
         // Convert ODE MAP to GeoJSON
-        KStream<RsuIntersectionKey, MapFeatureCollection> geoJsonMapStream =
-            odeMapStream.transform(
-                () -> new MapGeoJsonConverter()
+        KStream<String, ProcessedMap> geoJsonMapStream =
+            validatedOdeMapStream.transform(
+                () -> new MapProcessedJsonConverter()
             );
             
         // Push the GeoJSON stream back out to the MAP GeoJSON topic 
         geoJsonMapStream.to(
-            mapGeoJsonTopic, 
+            processedMapTopic, 
             Produced.with(
-                JsonSerdes.RsuIntersectionKey(), // Key is now an RsuIntersectionKey object
-                JsonSerdes.MapGeoJson(),        // Value serializer for MAP GeoJSON
-                new RsuIdPartitioner<RsuIntersectionKey, MapFeatureCollection>())   // Partition by RSU ID
+                Serdes.String(), // Key is now the "RSU-IP:Intersection-ID"
+                JsonSerdes.ProcessedMap())  // Value serializer for MAP GeoJSON
             );
         
         return builder.build();

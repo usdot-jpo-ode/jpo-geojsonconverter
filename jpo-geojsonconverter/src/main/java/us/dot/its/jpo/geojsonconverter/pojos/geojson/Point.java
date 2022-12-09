@@ -1,5 +1,7 @@
 package us.dot.its.jpo.geojsonconverter.pojos.geojson;
 
+import java.util.Objects;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -30,4 +32,29 @@ public class Point extends Geometry {
     public double[] getBbox() {
         return bbox;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof Point)) {
+            return false;
+        }
+        Point point = (Point) o;
+        return Objects.equals(coordinates, point.coordinates) && Objects.equals(bbox, point.bbox);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(coordinates, bbox);
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " coordinates='" + getCoordinates() + "'" +
+            ", bbox='" + getBbox() + "'" +
+            "}";
+    }
+
 }
