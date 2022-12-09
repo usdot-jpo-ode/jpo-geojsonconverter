@@ -2,11 +2,6 @@ package us.dot.its.jpo.geojsonconverter.serialization;
 
 import us.dot.its.jpo.geojsonconverter.partitioner.RsuIntersectionKey;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.ProcessedMap;
-<<<<<<< .mine
-import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.MapFeatureCollection;
-=======
-
->>>>>>> .theirs
 import us.dot.its.jpo.geojsonconverter.pojos.spat.*;
 import us.dot.its.jpo.geojsonconverter.serialization.deserializers.*;
 import us.dot.its.jpo.geojsonconverter.serialization.serializers.*;
