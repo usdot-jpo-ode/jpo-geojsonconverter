@@ -1,6 +1,5 @@
 package us.dot.its.jpo.geojsonconverter.converter.spat;
 
-import us.dot.its.jpo.geojsonconverter.partitioner.RsuIdKey;
 import us.dot.its.jpo.geojsonconverter.partitioner.RsuIntersectionKey;
 import us.dot.its.jpo.geojsonconverter.pojos.ProcessedValidationMessage;
 import us.dot.its.jpo.geojsonconverter.pojos.spat.*;
