@@ -5,6 +5,9 @@ services:
     image: jpo_geojsonconverter:latest
     environment:
       DOCKER_HOST_IP: ${DOCKER_HOST_IP}
+      KAFKA_TYPE: ${KAFKA_TYPE}
+      CONFLUENT_KEY: ${CONFLUENT_KEY}
+      CONFLUENT_SECRET: ${CONFLUENT_SECRET}
     logging: 
       options:
         max-size: "10m"

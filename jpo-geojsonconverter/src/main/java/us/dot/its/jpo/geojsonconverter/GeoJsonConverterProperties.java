@@ -76,10 +76,13 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
             kafkaBrokers = dockerIp + ":" + DEFAULT_KAFKA_PORT;
         }
 
-        confluentCloudEnabled = CommonUtils.getEnvironmentVariable("KAFKA_TYPE").equals("CONFLUENT");
-        if (confluentCloudEnabled) {
-            confluentKey = CommonUtils.getEnvironmentVariable("CONFLUENT_KEY");
-            confluentSecret = CommonUtils.getEnvironmentVariable("CONFLUENT_KEY");
+        String kafkaType = CommonUtils.getEnvironmentVariable("KAFKA_TYPE");
+        if (kafkaType != null) {
+            confluentCloudEnabled = kafkaType.equals("CONFLUENT");
+            if (confluentCloudEnabled) {
+                confluentKey = CommonUtils.getEnvironmentVariable("CONFLUENT_KEY");
+                confluentSecret = CommonUtils.getEnvironmentVariable("CONFLUENT_SECRET");
+            }
         }
     }
 
