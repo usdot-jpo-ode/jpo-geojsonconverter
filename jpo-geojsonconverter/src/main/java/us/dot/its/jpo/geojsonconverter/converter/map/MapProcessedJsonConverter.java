@@ -170,6 +170,9 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
         for (J2735GenericLane lane : intersection.getLaneSet().getLaneSet()) {
             if (lane.getLaneAttributes().getDirectionalUse().get("ingressPath") == true){
                 double[] laneCoordinates = lanePoints.get(lane.getLaneID()); //first poiunt
+                if (lane.getConnectsTo() == null)
+                    continue;
+
                 for (J2735Connection connection : lane.getConnectsTo().getConnectsTo()){
                     ConnectingLanesProperties laneProps = new ConnectingLanesProperties();
                     laneProps.setIngressLaneId(lane.getLaneID());
