@@ -16,6 +16,7 @@ import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.kstream.Transformer;
@@ -99,11 +100,14 @@ public class SpatProcessedJsonConverter implements Transformer<Void, Deserialize
 
         processedSpat.setRevision(intersectionState.getRevision());
 
-        //TODO: Get status set here
-        //J2735IntersectionStatusObject  status = intersectionState.getStatus();
-        //IntersectionStatusObject intersectionStatus = new IntersectionStatusObject();
-        //intersectionStatus.setStatus(status);
-        //processedSpat.setStatus(intersectionStatus);
+        // Iterate through status hash map to pull booleans out
+        IntersectionStatusObject intersectionStatus = new IntersectionStatusObject();
+        for (Map.Entry<String, Boolean> set : intersectionState.getStatus().entrySet()) {
+            if (set.getValue()) {
+                intersectionStatus.setStatus(J2735IntersectionStatusObject.valueOf(set.getKey()));
+            }
+        }
+        processedSpat.setStatus(intersectionStatus);
 
         Integer moyTimestamp = intersectionState.getMoy(); // Minute of the year, elapsed minutes since January in UTC time
         Integer dSecond = intersectionState.getTimeStamp(); // milliseconds within the current minute

@@ -47,11 +47,7 @@ public class MapTopology {
                     JsonValidatorResult validationResults = mapJsonValidator.validate(value.get());
                     deserializedRawMap.setOdeMapOdeMapData(JsonSerdes.OdeMap().deserializer().deserialize(mapOdeJsonTopic, value.get()));
                     deserializedRawMap.setValidatorResults(validationResults);
-                    if (validationResults.isValid()) {
-                        logger.debug(validationResults.describeResults());
-                    } else {
-                        logger.debug(validationResults.describeResults());
-                    }
+                    logger.debug(validationResults.describeResults());
                     return deserializedRawMap;
                 }
             );

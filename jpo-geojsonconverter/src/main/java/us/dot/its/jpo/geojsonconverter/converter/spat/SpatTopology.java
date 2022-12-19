@@ -49,11 +49,7 @@ public class SpatTopology {
                     JsonValidatorResult validationResults = spatJsonValidator.validate(value.get());
                     deserializedRawSpat.setOdeSpatOdeSpatData(JsonSerdes.OdeSpat().deserializer().deserialize(spatOdeJsonTopic, value.get()));
                     deserializedRawSpat.setValidatorResults(validationResults);
-                    if (validationResults.isValid()) {
-                        logger.debug(validationResults.describeResults());
-                    } else {
-                        logger.debug(validationResults.describeResults());
-                    }
+                    logger.debug(validationResults.describeResults());
                     return deserializedRawSpat;
                 }
             );
