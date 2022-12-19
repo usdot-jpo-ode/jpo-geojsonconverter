@@ -147,46 +147,46 @@ public class IntersectionStatusObject {
 
     public void setStatus(J2735IntersectionStatusObject status){
         switch(status){
-            case MANUALCONTROLISENABLED:
+            case manualControlIsEnabled:
                 setManualControlIsEnabled(true);
                 break;
-            case STOPTIMEISACTIVATED:
+            case stopTimeIsActivated:
                 setStopTimeIsActivated(true);
                 break;
-            case FAILUREFLASH:
+            case failureFlash:
                 setFailureFlash(true);
                 break;
-            case PREEMPTISACTIVE:
+            case preemptIsActive:
                 setPreemptIsActive(true);
                 break;
-            case SIGNALPRIORITYISACTIVE:
+            case signalPriorityIsActive:
                 setSignalPriorityIsActive(true);
                 break;
-            case FIXEDTIMEOPERATION:
+            case fixedTimeOperation:
                 setFixedTimeOperation(true);
                 break;
-            case TRAFFICDEPENDENTOPERATION:
+            case trafficDependentOperation:
                 setTrafficDependentOperation(true);
                 break;
-            case STANDBYOPERATION:
+            case standbyOperation:
                 setStandbyOperation(true);
                 break;
-            case FAILUREMODE:
+            case failureMode:
                 setFailureMode(true);
                 break;
-            case OFF:
+            case off:
                 setOff(true);
                 break;
-            case RECENTMAPMESSAGEUPDATE:
+            case recentChangeInMAPassignedLanesIDsUsed:
                 setRecentMAPmessageUpdate(true);
                 break;
-            case RECENTCHANGEINMAPASSIGNEDLANESIDSUSED:
+            case recentMAPmessageUpdate:
                 setRecentChangeInMAPassignedLanesIDsUsed(true);
                 break;
-            case NOVALIDMAPISAVAILABLEATTHISTIME:
+            case noValidMAPisAvailableAtThisTime:
                 setNoValidMAPisAvailableAtThisTime(true);
                 break;
-            case NOVALIDSPATISAVAILABLEATTHISTIME:
+            case noValidSPATisAvailableAtThisTime:
                 setNoValidSPATisAvailableAtThisTime(true);
                 break;
         }

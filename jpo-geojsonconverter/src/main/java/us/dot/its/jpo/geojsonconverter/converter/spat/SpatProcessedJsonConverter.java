@@ -99,10 +99,11 @@ public class SpatProcessedJsonConverter implements Transformer<Void, Deserialize
 
         processedSpat.setRevision(intersectionState.getRevision());
 
-        J2735IntersectionStatusObject  status = intersectionState.getStatus();
-        IntersectionStatusObject intersectionStatus = new IntersectionStatusObject();
-        intersectionStatus.setStatus(status);
-        processedSpat.setStatus(intersectionStatus);
+        //TODO: Get status set here
+        //J2735IntersectionStatusObject  status = intersectionState.getStatus();
+        //IntersectionStatusObject intersectionStatus = new IntersectionStatusObject();
+        //intersectionStatus.setStatus(status);
+        //processedSpat.setStatus(intersectionStatus);
 
         Integer moyTimestamp = intersectionState.getMoy(); // Minute of the year, elapsed minutes since January in UTC time
         Integer dSecond = intersectionState.getTimeStamp(); // milliseconds within the current minute

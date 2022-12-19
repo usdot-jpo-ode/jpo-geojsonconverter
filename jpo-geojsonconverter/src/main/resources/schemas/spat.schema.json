@@ -18,6 +18,9 @@
         "OdeSpatMetadata": {
             "type": "object",
             "properties": {
+                "@class": {
+                    "type": "string"
+                },
                 "spatSource": {
                     "enum": [
                         "RSU",
@@ -117,6 +120,7 @@
                 }
             },
             "required": [
+                "@class",
                 "spatSource",
                 "isCertPresent",
                 "originIp",
@@ -141,6 +145,9 @@
         "OdeSpatPayload": {
             "type": "object",
             "properties": {
+                "@class": {
+                    "type": "string"
+                },
                 "dataType": {
                     "type": "string",
                     "const": "us.dot.its.jpo.ode.plugin.j2735.J2735SPAT"
@@ -150,6 +157,7 @@
                 }
             },
             "required": [
+                "@class",
                 "dataType",
                 "data"
             ],

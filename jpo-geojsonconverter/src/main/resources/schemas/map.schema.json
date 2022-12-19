@@ -17,6 +17,9 @@
     "$defs": {
         "OdeMapMetadata": {
             "properties": {
+                "@class": {
+                    "type": "string"
+                },
                 "encodings": {
                     "type": "null"
                 },
@@ -112,6 +115,7 @@
                 }
             },
             "required": [
+                "@class",
                 "mapSource",
                 "originIp",
                 "logFileName",
@@ -133,6 +137,9 @@
         },
         "OdeMapPayload": {
             "properties": {
+                "@class": {
+                    "type": "string"
+                },
                 "data": {
                     "$ref": "#/$defs/J2735MAP"
                 },
@@ -142,6 +149,7 @@
                 }
             },
             "required": [
+                "@class",
                 "dataType",
                 "data"
             ],
