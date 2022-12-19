@@ -50,9 +50,9 @@ public class SpatTopology {
                     deserializedRawSpat.setOdeSpatOdeSpatData(JsonSerdes.OdeSpat().deserializer().deserialize(spatOdeJsonTopic, value.get()));
                     deserializedRawSpat.setValidatorResults(validationResults);
                     if (validationResults.isValid()) {
-                        logger.info(validationResults.describeResults());
+                        logger.debug(validationResults.describeResults());
                     } else {
-                        logger.warn(validationResults.describeResults());
+                        logger.debug(validationResults.describeResults());
                     }
                     return deserializedRawSpat;
                 }
