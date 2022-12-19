@@ -177,10 +177,10 @@ public class IntersectionStatusObject {
             case off:
                 setOff(true);
                 break;
-            case recentChangeInMAPassignedLanesIDsUsed:
+            case recentMAPmessageUpdate:
                 setRecentMAPmessageUpdate(true);
                 break;
-            case recentMAPmessageUpdate:
+            case recentChangeInMAPassignedLanesIDsUsed:
                 setRecentChangeInMAPassignedLanesIDsUsed(true);
                 break;
             case noValidMAPisAvailableAtThisTime:
