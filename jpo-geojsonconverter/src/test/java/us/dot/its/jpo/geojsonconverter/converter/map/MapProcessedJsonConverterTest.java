@@ -66,7 +66,7 @@ public class MapProcessedJsonConverterTest {
         KeyValue<RsuIntersectionKey, ProcessedMap> mapFeatureCollection = mapProcessedJsonConverter.transform(null, rawMap);
         assertNotNull(mapFeatureCollection.key);
         assertEquals("172.19.0.1", mapFeatureCollection.key.getRsuId());
-        assertEquals(12110, mapFeatureCollection.key.getIntersectionId());
+        assertEquals(12114, mapFeatureCollection.key.getIntersectionId());
         assertNotNull(mapFeatureCollection.value);
         assertEquals(2, mapFeatureCollection.value.getMapFeatureCollection().getFeatures().length);
     }
