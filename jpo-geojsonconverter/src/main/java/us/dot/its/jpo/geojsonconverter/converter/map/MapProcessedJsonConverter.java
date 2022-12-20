@@ -61,7 +61,7 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
             var key = new RsuIntersectionKey();
             key.setRsuId(mapMetadata.getOriginIp());
             key.setIntersectionId(intersection.getId().getId());
-            logger.info("Successfully created MAP GeoJSON for {}", key);
+            logger.debug("Successfully created MAP GeoJSON for {}", key);
             return KeyValue.pair(key, processedMapObject);
         } catch (Exception e) {
             String errMsg = String.format("Exception converting ODE MAP to GeoJSON! Message: %s", e.getMessage());
@@ -170,6 +170,9 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
         for (J2735GenericLane lane : intersection.getLaneSet().getLaneSet()) {
             if (lane.getLaneAttributes().getDirectionalUse().get("ingressPath") == true){
                 double[] laneCoordinates = lanePoints.get(lane.getLaneID()); //first poiunt
+                if (lane.getConnectsTo() == null)
+                    continue;
+
                 for (J2735Connection connection : lane.getConnectsTo().getConnectsTo()){
                     ConnectingLanesProperties laneProps = new ConnectingLanesProperties();
                     laneProps.setIngressLaneId(lane.getLaneID());

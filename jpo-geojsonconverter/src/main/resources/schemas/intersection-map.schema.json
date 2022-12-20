@@ -50,7 +50,9 @@
                     "type": "string",
                     "const": "Feature"
                 },
-                "id": "number",
+                "id": {
+                    "type": "number"
+                },
                 "properties": {
                     "$ref": "#/$defs/MapFeatureProperties",
                     "description": "Intersection and Lane properties"
@@ -90,7 +92,9 @@
         },
         "Coordinate": {
             "type": "array",
-            "items": "number",
+            "items": {
+                "type": "number"
+            },
             "minItems": 2,
             "maxItems": 3,
             "description": "Lon/Lat coordinate with optional elevation"
@@ -300,7 +304,9 @@
                     "type": "string",
                     "const": "Feature"
                 },
-                "id": "string",
+                "id": {
+                    "type": "string"
+                },
                 "properties": {
                     "$ref": "#/$defs/ConnectingLanesProperties",
                     "description": "Intersection connecting lanes properties"

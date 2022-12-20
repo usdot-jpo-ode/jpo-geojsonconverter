@@ -72,72 +72,72 @@ public class IntersectionStatusObjectTest {
         Boolean response;
         J2735IntersectionStatusObject status;
 
-        status = J2735IntersectionStatusObject.MANUALCONTROLISENABLED;
+        status = J2735IntersectionStatusObject.manualControlIsEnabled;
         object.setStatus(status);
         response = object.getManualControlIsEnabled();
         assertEquals(response, true);
 
-        status = J2735IntersectionStatusObject.STOPTIMEISACTIVATED;
+        status = J2735IntersectionStatusObject.stopTimeIsActivated;
         object.setStatus(status);
         response = object.getStopTimeIsActivated();
         assertEquals(response, true);
 
-        status = J2735IntersectionStatusObject.FAILUREFLASH;
+        status = J2735IntersectionStatusObject.failureFlash;
         object.setStatus(status);
         response = object.getFailureFlash();
         assertEquals(response, true);
 
-        status = J2735IntersectionStatusObject.PREEMPTISACTIVE;
+        status = J2735IntersectionStatusObject.preemptIsActive;
         object.setStatus(status);
         response = object.getPreemptIsActive();
         assertEquals(response, true);
 
-        status = J2735IntersectionStatusObject.SIGNALPRIORITYISACTIVE;
+        status = J2735IntersectionStatusObject.signalPriorityIsActive;
         object.setStatus(status);
         response = object.getSignalPriorityIsActive();
         assertEquals(response, true);
 
-        status = J2735IntersectionStatusObject.FIXEDTIMEOPERATION;
+        status = J2735IntersectionStatusObject.fixedTimeOperation;
         object.setStatus(status);
         response = object.getFixedTimeOperation();
         assertEquals(response, true);
 
-        status = J2735IntersectionStatusObject.TRAFFICDEPENDENTOPERATION;
+        status = J2735IntersectionStatusObject.trafficDependentOperation;
         object.setStatus(status);
         response = object.getTrafficDependentOperation();
         assertEquals(response, true);
 
-        status = J2735IntersectionStatusObject.STANDBYOPERATION;
+        status = J2735IntersectionStatusObject.standbyOperation;
         object.setStatus(status);
         response = object.getStandbyOperation();
         assertEquals(response, true);
 
-        status = J2735IntersectionStatusObject.FAILUREMODE;
+        status = J2735IntersectionStatusObject.failureMode;
         object.setStatus(status);
         response = object.getFailureMode();
         assertEquals(response, true);
 
-        status = J2735IntersectionStatusObject.OFF;
+        status = J2735IntersectionStatusObject.off;
         object.setStatus(status);
         response = object.getOff();
         assertEquals(response, true);
 
-        status = J2735IntersectionStatusObject.RECENTMAPMESSAGEUPDATE;
+        status = J2735IntersectionStatusObject.recentMAPmessageUpdate;
         object.setStatus(status);
         response = object.getRecentMAPmessageUpdate();
         assertEquals(response, true);
 
-        status = J2735IntersectionStatusObject.RECENTCHANGEINMAPASSIGNEDLANESIDSUSED;
+        status = J2735IntersectionStatusObject.recentChangeInMAPassignedLanesIDsUsed;
         object.setStatus(status);
         response = object.getRecentChangeInMAPassignedLanesIDsUsed();
         assertEquals(response, true);
 
-        status = J2735IntersectionStatusObject.NOVALIDMAPISAVAILABLEATTHISTIME;
+        status = J2735IntersectionStatusObject.noValidMAPisAvailableAtThisTime;
         object.setStatus(status);
         response = object.getNoValidMAPisAvailableAtThisTime();
         assertEquals(response, true);
 
-        status = J2735IntersectionStatusObject.NOVALIDSPATISAVAILABLEATTHISTIME;
+        status = J2735IntersectionStatusObject.noValidSPATisAvailableAtThisTime;
         object.setStatus(status);
         response = object.getNoValidSPATisAvailableAtThisTime();
         assertEquals(response, true);

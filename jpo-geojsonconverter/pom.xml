@@ -17,9 +17,7 @@
         <java.version>11</java.version>
         <sonar.organization>usdot-jpo-ode</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-        <sonar.exclusions>src/main/**/GeoJsonConverterApplication.java</sonar.exclusions>
-        
-        
+        <sonar.exclusions>src/main/**/GeoJsonConverterApplication.java, src/main/**/GeoJsonConverterProperties.java</sonar.exclusions>
 
         <!-- JaCoCo Properties -->
         <jacoco.version>0.8.8</jacoco.version>
@@ -217,7 +215,6 @@
                     </execution>
                 </executions>
             </plugin>
-           
 
             <plugin>
             <groupId>org.apache.maven.plugins</groupId>

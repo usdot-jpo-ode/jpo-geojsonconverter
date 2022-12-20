@@ -1,7 +1,5 @@
 package us.dot.its.jpo.geojsonconverter.serialization.deserializers;
 
-import java.io.IOException;
-
 import us.dot.its.jpo.ode.model.OdeSpatData;
 import us.dot.its.jpo.ode.model.OdeSpatMetadata;
 import us.dot.its.jpo.ode.model.OdeSpatPayload;
@@ -36,16 +34,16 @@ public class OdeSpatDataJsonDeserializer implements Deserializer<OdeSpatData> {
             // Deserialize the metadata
             JsonNode metadataNode = actualObj.get("metadata");
             String metadataString = metadataNode.toString();
-            OdeSpatMetadata metadataObject = (OdeSpatMetadata) JsonUtils.fromJson(metadataString, OdeSpatMetadata.class);
+            OdeSpatMetadata metadataObject = (OdeSpatMetadata) JsonUtils.jacksonFromJson(metadataString, OdeSpatMetadata.class, true);
 
             // Deserialize the payload
             JsonNode payloadNode = actualObj.get("payload");
             String payloadString = payloadNode.toString();
-            OdeSpatPayload mapPayload = (OdeSpatPayload) JsonUtils.fromJson(payloadString, OdeSpatPayload.class);
+            OdeSpatPayload mapPayload = (OdeSpatPayload) JsonUtils.jacksonFromJson(payloadString, OdeSpatPayload.class, true);
 
             OdeSpatData returnData = new OdeSpatData(metadataObject, mapPayload);
             return returnData;
-        } catch (IOException e) {
+        } catch (Exception e) {
             String errMsg = String.format("Exception deserializing for topic %s: %s", topic, e.getMessage());
             logger.error(errMsg, e);
             throw new RuntimeException(errMsg, e);

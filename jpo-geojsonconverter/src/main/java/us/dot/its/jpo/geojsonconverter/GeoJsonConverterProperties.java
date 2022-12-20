@@ -43,11 +43,14 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
     @Autowired
     private Environment env;
 
-    /*
-    * General Properties
-    */
+    // General Properties
     private String kafkaBrokers = null;
     private static final String DEFAULT_KAFKA_PORT = "9092";
+
+    // Conluent Properties
+    private boolean confluentCloudEnabled = false;
+    private String confluentKey = null;
+    private String confluentSecret = null;
 
     //SPAT
     private String kafkaTopicOdeSpatJson = "topic.OdeSpatJson";
@@ -61,7 +64,7 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
     public void initialize() {
         if (kafkaBrokers == null) {
 
-            logger.info("geojsonconverter.kafkaBrokers property not defined. Will try DOCKER_HOST_IP => {}", kafkaBrokers);
+            logger.warn("geojsonconverter.kafkaBrokers property not defined. Will try DOCKER_HOST_IP => {}", kafkaBrokers);
 
             String dockerIp = CommonUtils.getEnvironmentVariable("DOCKER_HOST_IP");
 
@@ -71,6 +74,15 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
             dockerIp = "localhost";
             }
             kafkaBrokers = dockerIp + ":" + DEFAULT_KAFKA_PORT;
+        }
+
+        String kafkaType = CommonUtils.getEnvironmentVariable("KAFKA_TYPE");
+        if (kafkaType != null) {
+            confluentCloudEnabled = kafkaType.equals("CONFLUENT");
+            if (confluentCloudEnabled) {
+                confluentKey = CommonUtils.getEnvironmentVariable("CONFLUENT_KEY");
+                confluentSecret = CommonUtils.getEnvironmentVariable("CONFLUENT_SECRET");
+            }
         }
     }
 
@@ -101,7 +113,22 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
 
         // Configure the state store location
         streamProps.put(StreamsConfig.STATE_DIR_CONFIG, "/var/lib/ode/kafka-streams");
-        
+
+        if (confluentCloudEnabled) {
+            streamProps.put("ssl.endpoint.identification.algorithm", "https");
+            streamProps.put("security.protocol", "SASL_SSL");
+            streamProps.put("sasl.mechanism", "PLAIN");
+
+            if (confluentKey != null && confluentSecret != null) {
+                String auth = "org.apache.kafka.common.security.plain.PlainLoginModule required " +
+                    "username=\"" + confluentKey + "\" " +
+                    "password=\"" + confluentSecret + "\";";
+                    streamProps.put("sasl.jaas.config", auth);
+            }
+            else {
+                logger.error("Environment variables CONFLUENT_KEY and CONFLUENT_SECRET are not set. Set these in the .env file to use Confluent Cloud");
+            }
+        }
 
         return streamProps;
     }

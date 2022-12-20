@@ -28,7 +28,6 @@ public class JsonDeserializer<T> implements Deserializer<T> {
         }
         try {
             T returnData = mapper.readValue(data, destinationClass);
-            //logger.info("Deserialized value: {} from class {}", returnData, destinationClass);
             return returnData;
         } catch (IOException e) {
             String errMsg = String.format("Exception deserializing for topic %s: %s", topic, e.getMessage());
