@@ -7,6 +7,7 @@ import us.dot.its.jpo.ode.util.JsonUtils;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import org.apache.kafka.common.serialization.Deserializer;
 import org.slf4j.Logger;
@@ -33,13 +34,19 @@ public class OdeSpatDataJsonDeserializer implements Deserializer<OdeSpatData> {
 
             // Deserialize the metadata
             JsonNode metadataNode = actualObj.get("metadata");
+            if (metadataNode.get("@class") != null) {
+                ((ObjectNode)metadataNode).remove("@class");
+            }
             String metadataString = metadataNode.toString();
-            OdeSpatMetadata metadataObject = (OdeSpatMetadata) JsonUtils.jacksonFromJson(metadataString, OdeSpatMetadata.class, true);
+            OdeSpatMetadata metadataObject = (OdeSpatMetadata) JsonUtils.fromJson(metadataString, OdeSpatMetadata.class);
 
             // Deserialize the payload
             JsonNode payloadNode = actualObj.get("payload");
+            if (payloadNode.get("@class") != null) {
+                ((ObjectNode)payloadNode).remove("@class");
+            }
             String payloadString = payloadNode.toString();
-            OdeSpatPayload mapPayload = (OdeSpatPayload) JsonUtils.jacksonFromJson(payloadString, OdeSpatPayload.class, true);
+            OdeSpatPayload mapPayload = (OdeSpatPayload) JsonUtils.fromJson(payloadString, OdeSpatPayload.class);
 
             OdeSpatData returnData = new OdeSpatData(metadataObject, mapPayload);
             return returnData;
