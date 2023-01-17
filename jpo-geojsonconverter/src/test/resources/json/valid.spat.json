@@ -1,6 +1,5 @@
 {
 	"metadata": {
-		"@class": "us.dot.its.jpo.ode.model.OdeSpatMetadata",
 		"logFileName": "",
 		"recordType": "spatTx",
 		"securityResultCode": "success",
@@ -30,7 +29,6 @@
 		"isCertPresent": false
 	},
 	"payload": {
-		"@class": "us.dot.its.jpo.ode.model.OdeSpatPayload",
 		"data": {
 			"timeStamp": 0,
 			"name": null,

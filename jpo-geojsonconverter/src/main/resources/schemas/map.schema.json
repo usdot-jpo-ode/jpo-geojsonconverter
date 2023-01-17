@@ -1,6 +1,6 @@
 {
     "$schema": "https://json-schema.org/draft/2019-09/schema",
-    "$id": "https://example.com/map.schema.json",
+    "$id": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/map.schema.json",
     "type": "object",
     "properties": {
         "metadata": {
@@ -17,9 +17,6 @@
     "$defs": {
         "OdeMapMetadata": {
             "properties": {
-                "@class": {
-                    "type": "string"
-                },
                 "encodings": {
                     "type": "null"
                 },
@@ -115,7 +112,6 @@
                 }
             },
             "required": [
-                "@class",
                 "mapSource",
                 "originIp",
                 "logFileName",
@@ -137,9 +133,6 @@
         },
         "OdeMapPayload": {
             "properties": {
-                "@class": {
-                    "type": "string"
-                },
                 "data": {
                     "$ref": "#/$defs/J2735MAP"
                 },
@@ -149,7 +142,6 @@
                 }
             },
             "required": [
-                "@class",
                 "dataType",
                 "data"
             ],

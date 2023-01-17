@@ -1,6 +1,6 @@
 {
     "$schema": "https://json-schema.org/draft/2019-09/schema",
-    "$id": "https://example.com/intersection-map.schema.json",
+    "$id": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/processed-map.schema.json",
     "type": "object",
     "description": "MAP object containing both FeatureCollections for lane data and another for connecting lane geometry for a single intersection and shared properties",
     "properties": {
@@ -158,7 +158,7 @@
                     "format": "date-time"
                 },
                 "originIp": {
-                    "$ref": "intersection-common.schema.json#/$defs/IPAddress"
+                    "$ref": "#/$defs/IPAddress"
                 },
                 "intersectionName": {
                     "$ref": "map.schema.json#/$defs/J2735DescriptiveName"
@@ -184,7 +184,7 @@
                     "type": "boolean"
                 },
                 "validationMessages": {
-                    "$ref": "intersection-common.schema.json#/$defs/ValidationMessageList"
+                    "$ref": "#/$defs/ValidationMessageList"
                 },
                 "laneWidth": {
                     "type": "number"
@@ -342,6 +342,56 @@
                 "egressLaneId"
             ],
             "additionalProperties": false
+        },
+        "ValidationMessageList": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/ValidationMessage"
+            },
+            "minItems": 0,
+            "description": "A list of validation messages"
+        },
+        "ValidationMessage": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "description": "Description/summary of the validation error"
+                },
+                "jsonPath": {
+                    "type": "string",
+                    "description": "Path in the original ODE JSON message"
+                },
+                "schemaPath": {
+                    "type": "string",
+                    "description": "Path in the json schema of the ODE JSON"
+                },
+                "exception": {
+                    "type": "string",
+                    "description": "Details of java validation exception thrown, if any"
+                }
+            },
+            "required": [
+                "message"
+            ]
+        },
+        "IPAddress": {
+            "oneOf": [
+                { 
+                    "type": "string",
+                    "format": "ipv4"
+                },
+                { 
+                    "type": "string",
+                    "format": "ipv6"
+                }
+            ]
+        },
+        "J2735SignalGroupID": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 255,
+            "description": "DE_SignalGroupID"
         }
     }
 }

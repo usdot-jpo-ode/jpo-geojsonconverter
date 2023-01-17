@@ -19,7 +19,7 @@ public class JsonSerdes {
     public static Serde<OdeMapData> OdeMap() {
         return Serdes.serdeFrom(
             new JsonSerializer<OdeMapData>(), 
-            new OdeMapDataJsonDeserializer());
+            new JsonDeserializer<>(OdeMapData.class));
     }
 
     public static Serde<ProcessedMap> ProcessedMap() {
@@ -31,7 +31,7 @@ public class JsonSerdes {
     public static Serde<OdeSpatData> OdeSpat() {
         return Serdes.serdeFrom(
             new JsonSerializer<OdeSpatData>(), 
-            new OdeSpatDataJsonDeserializer());
+            new JsonDeserializer<>(OdeSpatData.class));
     }
 
     public static Serde<ProcessedSpat> ProcessedSpat() {
