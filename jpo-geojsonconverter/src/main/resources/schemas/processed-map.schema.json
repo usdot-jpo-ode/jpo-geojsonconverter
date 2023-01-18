@@ -1,6 +1,6 @@
 {
     "$schema": "https://json-schema.org/draft/2019-09/schema",
-    "$id": "https://example.com/intersection-map.schema.json",
+    "$id": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/processed-map.schema.json",
     "type": "object",
     "description": "MAP object containing both FeatureCollections for lane data and another for connecting lane geometry for a single intersection and shared properties",
     "properties": {
@@ -106,19 +106,19 @@
                     "type": "array"
                 },
                 "laneId": {
-                    "$ref": "map.schema.json#/$defs/J2735LaneID"
+                    "$ref": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/map.schema.json#/$defs/J2735LaneID"
                 },
                 "laneName": {
-                    "$ref": "map.schema.json#/$defs/J2735DescriptiveName"
+                    "$ref": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/map.schema.json#/$defs/J2735DescriptiveName"
                 },
                 "sharedWith": {
-                    "$ref": "map.schema.json#/$defs/J2735LaneSharing"
+                    "$ref": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/map.schema.json#/$defs/J2735LaneSharing"
                 },
                 "egressApproach": {
-                    "$ref": "map.schema.json#/$defs/J2735ApproachID"
+                    "$ref": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/map.schema.json#/$defs/J2735ApproachID"
                 },
                 "ingressApproach": {
-                    "$ref": "map.schema.json#/$defs/J2735ApproachID"
+                    "$ref": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/map.schema.json#/$defs/J2735ApproachID"
                 },
                 "ingressPath": {
                     "type": "boolean",
@@ -129,7 +129,7 @@
                     "description": "From directionalUse=DE_LaneDirection"
                 },
                 "maneuvers": {
-                    "$ref": "map.schema.json#/$defs/J2735AllowedManeuvers"
+                    "$ref": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/map.schema.json#/$defs/J2735AllowedManeuvers"
                 },
                 "connectsTo": {
                     "$ref": "#/$defs/ConnectsToList"
@@ -158,39 +158,39 @@
                     "format": "date-time"
                 },
                 "originIp": {
-                    "$ref": "intersection-common.schema.json#/$defs/IPAddress"
+                    "$ref": "#/$defs/IPAddress"
                 },
                 "intersectionName": {
-                    "$ref": "map.schema.json#/$defs/J2735DescriptiveName"
+                    "$ref": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/map.schema.json#/$defs/J2735DescriptiveName"
                 },
                 "region": {
-                    "$ref": "map.schema.json#/$defs/J2735RoadRegulatorID"
+                    "$ref": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/map.schema.json#/$defs/J2735RoadRegulatorID"
                 },
                 "intersectionId": {
-                    "$ref": "map.schema.json#/$defs/J2735IntersectionID"
+                    "$ref": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/map.schema.json#/$defs/J2735IntersectionID"
                 },
                 "msgIssueRevision": {
-                    "$ref": "map.schema.json#/$defs/J2735MsgCount",
+                    "$ref": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/map.schema.json#/$defs/J2735MsgCount",
                     "description": "DE_MsgCount for MAP"
                 },
                 "revision": {
-                    "$ref": "map.schema.json#/$defs/J2735MsgCount",
+                    "$ref": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/map.schema.json#/$defs/J2735MsgCount",
                     "description": "DE_MsgCount for intersection"
                 },
                 "refPoint": {
-                    "$ref": "map.schema.json#/$defs/OdePosition3D"
+                    "$ref": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/map.schema.json#/$defs/OdePosition3D"
                 },
                 "cti4501Conformant": {
                     "type": "boolean"
                 },
                 "validationMessages": {
-                    "$ref": "intersection-common.schema.json#/$defs/ValidationMessageList"
+                    "$ref": "#/$defs/ValidationMessageList"
                 },
                 "laneWidth": {
                     "type": "number"
                 },
                 "speedLimits": {
-                    "$ref": "map.schema.json#/$defs/J2735SpeedLimitList",
+                    "$ref": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/map.schema.json#/$defs/J2735SpeedLimitList",
                     "description": "DF_SpeedLimitList.  Mandatory in CI Implementation Guide.  Optional in J2735."
                 },
                 "mapSource": {
@@ -227,12 +227,12 @@
         "Connection": {
             "properties": {
                 "connectingLane": {
-                    "$ref": "map.schema.json#/$defs/J2735ConnectingLane"
+                    "$ref": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/map.schema.json#/$defs/J2735ConnectingLane"
                 },
                 "connectionID": {
                     "oneOf": [
                         {
-                            "$ref": "map.schema.json#/$defs/J2735LaneConnectionID"
+                            "$ref": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/map.schema.json#/$defs/J2735LaneConnectionID"
                         },
                         {
                             "type": "null"
@@ -243,7 +243,7 @@
                 "remoteIntersection": {
                     "oneOf": [
                         {
-                            "$ref": "map.schema.json#/$defs/J2735IntersectionReferenceID"
+                            "$ref": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/map.schema.json#/$defs/J2735IntersectionReferenceID"
                         },
                         {
                             "type": "null"
@@ -252,13 +252,13 @@
                     "description": "DE_IntersectionReferenceID.  Optional, may be null"
                 },
                 "signalGroup": {
-                    "$ref": "map.schema.json#/$defs/J2735SignalGroupID",
+                    "$ref": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/map.schema.json#/$defs/J2735SignalGroupID",
                     "description": "DE_SignalGroupID.  Mandatory in CI Implementation Guide.  Optional in J2735"
                 },
                 "userClass": {
                     "oneOf": [
                         {
-                            "$ref": "map.schema.json#/$defs/J2735RestrictionClassID"
+                            "$ref": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/map.schema.json#/$defs/J2735RestrictionClassID"
                         },
                         {
                             "type": "null"
@@ -327,13 +327,13 @@
             "type": "object",
             "properties": {
                 "signalGroupId": {
-                    "$ref": "map.schema.json#/$defs/J2735SignalGroupID"
+                    "$ref": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/map.schema.json#/$defs/J2735SignalGroupID"
                 },
                 "ingressLaneId": {
-                    "$ref": "map.schema.json#/$defs/J2735LaneID"
+                    "$ref": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/map.schema.json#/$defs/J2735LaneID"
                 },
                 "egressLaneId": {
-                    "$ref": "map.schema.json#/$defs/J2735LaneID"
+                    "$ref": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/map.schema.json#/$defs/J2735LaneID"
                 }
             },
             "required": [
@@ -342,6 +342,56 @@
                 "egressLaneId"
             ],
             "additionalProperties": false
+        },
+        "ValidationMessageList": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/ValidationMessage"
+            },
+            "minItems": 0,
+            "description": "A list of validation messages"
+        },
+        "ValidationMessage": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "description": "Description/summary of the validation error"
+                },
+                "jsonPath": {
+                    "type": "string",
+                    "description": "Path in the original ODE JSON message"
+                },
+                "schemaPath": {
+                    "type": "string",
+                    "description": "Path in the json schema of the ODE JSON"
+                },
+                "exception": {
+                    "type": "string",
+                    "description": "Details of java validation exception thrown, if any"
+                }
+            },
+            "required": [
+                "message"
+            ]
+        },
+        "IPAddress": {
+            "oneOf": [
+                { 
+                    "type": "string",
+                    "format": "ipv4"
+                },
+                { 
+                    "type": "string",
+                    "format": "ipv6"
+                }
+            ]
+        },
+        "J2735SignalGroupID": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 255,
+            "description": "DE_SignalGroupID"
         }
     }
 }
