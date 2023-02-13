@@ -44,10 +44,14 @@ public class MapTopology {
             rawOdeMapStream.mapValues(
                 (Void key, Bytes value) -> {
                     DeserializedRawMap deserializedRawMap = new DeserializedRawMap();
-                    JsonValidatorResult validationResults = mapJsonValidator.validate(value.get());
-                    deserializedRawMap.setOdeMapOdeMapData(JsonSerdes.OdeMap().deserializer().deserialize(mapOdeJsonTopic, value.get()));
-                    deserializedRawMap.setValidatorResults(validationResults);
-                    logger.debug(validationResults.describeResults());
+                    try {
+                        JsonValidatorResult validationResults = mapJsonValidator.validate(value.get());
+                        deserializedRawMap.setOdeMapOdeMapData(JsonSerdes.OdeMap().deserializer().deserialize(mapOdeJsonTopic, value.get()));
+                        deserializedRawMap.setValidatorResults(validationResults);
+                        logger.debug(validationResults.describeResults());
+                    } catch (Exception e) {
+                        logger.error("Error in SpatValue:", e);
+                    }
                     return deserializedRawMap;
                 }
             );
