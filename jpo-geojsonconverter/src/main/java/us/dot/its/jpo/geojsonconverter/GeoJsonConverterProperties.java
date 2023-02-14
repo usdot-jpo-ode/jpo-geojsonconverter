@@ -35,7 +35,7 @@ import org.apache.kafka.streams.processor.LogAndSkipOnInvalidTimestamp;
 import us.dot.its.jpo.ode.util.CommonUtils;
 
 @ConfigurationProperties("geojsonconverter")
-@PropertySource("classpath:application.properties")
+@PropertySource("classpath:application.yaml")
 public class GeoJsonConverterProperties implements EnvironmentAware {
 
     private static final Logger logger = LoggerFactory.getLogger(GeoJsonConverterProperties.class);
