@@ -57,13 +57,17 @@ public class MapTopology {
             );
 
         // Convert ODE MAP to GeoJSON
-        KStream<RsuIntersectionKey, ProcessedMap> geoJsonMapStream =
+        KStream<RsuIntersectionKey, ProcessedMap> processedMapStream =
             validatedOdeMapStream.transform(
                 () -> new MapProcessedJsonConverter()
             );
-            
+
+        // Removes null messages from being posted to output topic.
+        // Helpful to remove generated messages that caused exceptions.
+        processedMapStream = processedMapStream.filter((key, value) -> value != null); 
+
         // Push the GeoJSON stream back out to the MAP GeoJSON topic 
-        geoJsonMapStream.to(
+        processedMapStream.to(
             processedMapTopic, 
             Produced.with(
                 JsonSerdes.RsuIntersectionKey(), // Key is now an RsuIntersectionKey object

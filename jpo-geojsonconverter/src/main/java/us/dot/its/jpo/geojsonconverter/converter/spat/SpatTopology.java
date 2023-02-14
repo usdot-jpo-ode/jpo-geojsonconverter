@@ -64,7 +64,10 @@ public class SpatTopology {
                 () -> new SpatProcessedJsonConverter() // change this converter to something else NOT GEOJSON
             );
 
-        
+        // Removes null messages from being posted to output topic.
+        // Helpful to remove generated messages that caused exceptions.
+        processedJsonSpatStream = processedJsonSpatStream.filter((key, value) -> value != null); 
+
         processedJsonSpatStream.to(
             // Push the joined GeoJSON stream back out to the SPaT GeoJSON topic 
             spatProcessedJsonTopic, 
