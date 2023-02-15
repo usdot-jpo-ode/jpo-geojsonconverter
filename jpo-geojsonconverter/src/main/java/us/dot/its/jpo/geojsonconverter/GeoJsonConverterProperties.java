@@ -64,8 +64,6 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
     public void initialize() {
         if (kafkaBrokers == null) {
 
-            logger.warn("geojsonconverter.kafkaBrokers property not defined. Will try DOCKER_HOST_IP => {}", kafkaBrokers);
-
             String dockerIp = CommonUtils.getEnvironmentVariable("DOCKER_HOST_IP");
 
             if (dockerIp == null) {
@@ -74,6 +72,8 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
             dockerIp = "localhost";
             }
             kafkaBrokers = dockerIp + ":" + DEFAULT_KAFKA_PORT;
+
+            logger.warn("geojsonconverter.kafkaBrokers property not defined. Will try DOCKER_HOST_IP => {}", kafkaBrokers);
         }
 
         String kafkaType = CommonUtils.getEnvironmentVariable("KAFKA_TYPE");
