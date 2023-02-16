@@ -24,6 +24,9 @@ import org.springframework.stereotype.Component;
 @Profile("!test")
 public class KafkaConfiguration {
     
+    @Autowired 
+    private KafkaAdmin admin;
+
     @Profile("!test")
     @Bean(name = "createKafkaTopics")
     public KafkaAdmin.NewTopics createKafkaTopics() {
@@ -133,8 +136,5 @@ public class KafkaConfiguration {
     public void setCreateTopics(List<Map<String, Object>> createTopics) {
         this.createTopics = createTopics;
     }
-
-    @Autowired
-    private KafkaAdmin admin;
 
 }
