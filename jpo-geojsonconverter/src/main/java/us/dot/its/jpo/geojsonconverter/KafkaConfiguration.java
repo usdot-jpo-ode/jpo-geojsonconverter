@@ -23,7 +23,8 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "kafka.topics")
 @Profile("!test")
 public class KafkaConfiguration {
-
+    
+    @Profile("!test")
     @Bean(name = "createKafkaTopics")
     public KafkaAdmin.NewTopics createKafkaTopics() {
         logger.info("createTopic");

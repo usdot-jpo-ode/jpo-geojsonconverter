@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.Resource;
 import org.junit.runner.RunWith;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -28,6 +29,7 @@ import us.dot.its.jpo.geojsonconverter.pojos.spat.ProcessedSpat;
     "processed.spat.json=classpath:json/sample.processed-spat.json",
     "processed.map.json=classpath:json/sample.processed-map.json"})
 @RunWith(SpringRunner.class)
+@ActiveProfiles("test")
 public class JsonSerializerTest {
     @Test
     public void testSerialize() {
