@@ -15,26 +15,26 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
-// commented out for sonarcloud tests
-// @SpringBootTest
-// @RunWith(SpringRunner.class)
-// @EmbeddedKafka(partitions = 1, brokerProperties = { "listeners=PLAINTEXT://localhost:9092", "port=9092"})
-// @DirtiesContext
-// public class KafkaConfigurationTest {
+// excluded from sonar testing
+@SpringBootTest
+@RunWith(SpringRunner.class)
+@EmbeddedKafka(partitions = 1, brokerProperties = { "listeners=PLAINTEXT://localhost:9092", "port=9092"})
+@DirtiesContext
+public class KafkaConfigurationTest {
 
-//     @Autowired
-//     private KafkaConfiguration kafkaConfig;
+    @Autowired
+    private KafkaConfiguration kafkaConfig;
 
-//     @Test
-//     public void testKafkaConfigurationInjected() {
-//         assertThat(kafkaConfig, notNullValue());
-//     }
+    @Test
+    public void testKafkaConfigurationInjected() {
+        assertThat(kafkaConfig, notNullValue());
+    }
 
-//     @Test
-//     public void testConfigurationsLoaded() {
-//         assertThat(kafkaConfig.getNumPartitions(), greaterThan(0));
-//         assertThat(kafkaConfig.getNumReplicas(), greaterThan(0));
-//         assertThat(kafkaConfig.getCreateTopics(), notNullValue());
-//     }
+    @Test
+    public void testConfigurationsLoaded() {
+        assertThat(kafkaConfig.getNumPartitions(), greaterThan(0));
+        assertThat(kafkaConfig.getNumReplicas(), greaterThan(0));
+        assertThat(kafkaConfig.getCreateTopics(), notNullValue());
+    }
     
-// }
+}
