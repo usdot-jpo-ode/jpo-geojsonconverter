@@ -27,72 +27,77 @@ public class KafkaConfiguration {
     @Autowired 
     private KafkaAdmin admin;
 
+    @Autowired
+    private GeoJsonConverterProperties properties;
+
     @Profile("!test")
     @Bean(name = "createKafkaTopics")
     public KafkaAdmin.NewTopics createKafkaTopics() {
         logger.info("createTopic");
         List<NewTopic> newTopics = new ArrayList<>();
         
-        try {
-            for(var propEntry : admin.getConfigurationProperties().entrySet()) {
-                logger.info("KafkaAdmin property {} = {}", propEntry.getKey(), propEntry.getValue());
-            }
+        if(!properties.getConfluentCloudStatus()){
+            try {
+                for(var propEntry : admin.getConfigurationProperties().entrySet()) {
+                    logger.info("KafkaAdmin property {} = {}", propEntry.getKey(), propEntry.getValue());
+                }
 
-            if (!autoCreateTopics) {
-                logger.info("Auto create topics is disabled");
-                return null;
-            }
+                if (!autoCreateTopics) {
+                    logger.info("Auto create topics is disabled");
+                    return null;
+                }
 
-            logger.info("Creating topics: {}", createTopics);
+                logger.info("Creating topics: {}", createTopics);
 
-            List<String> topicNames = new ArrayList<>();
-            for (var topic : createTopics) {
+                List<String> topicNames = new ArrayList<>();
+                for (var topic : createTopics) {
+                    
+                    // Get the name and config settings for the topic
+                    String topicName = (String)topic.getOrDefault("name", null);
+
+                    if (topicName == null) {
+                        logger.error("CreateTopic {} has no topic name", topic);
+                        break;
+                    }
+                    topicNames.add(topicName);
+
+                    Map<String, String> topicConfigs = new HashMap<>();
+                    String cleanupPolicy = (String)topic.getOrDefault("cleanupPolicy", null);
+                    if (cleanupPolicy != null) {
+                        topicConfigs.put("cleanup.policy", cleanupPolicy);
+                    }
+                    Integer retentionMs = (Integer)topic.getOrDefault("retentionMs", null);
+                    if (retentionMs != null) {
+                        topicConfigs.put("retention.ms", retentionMs.toString());
+                    }
+
+                    NewTopic newTopic = TopicBuilder
+                        .name(topicName)
+                        .partitions(numPartitions)
+                        .replicas(numReplicas)
+                        .configs(topicConfigs)
+                        .build();
+                    newTopics.add(newTopic);
+                    logger.info("New Topic: {}", newTopic);
+                }
+
+                // Explicitly create the topics here to prevent error on first run
+                admin.initialize();
+                admin.createOrModifyTopics(newTopics.toArray(new NewTopic[0]));
                 
-                // Get the name and config settings for the topic
-                String topicName = (String)topic.getOrDefault("name", null);
-
-                if (topicName == null) {
-                    logger.error("CreateTopic {} has no topic name", topic);
-                    break;
-                }
-                topicNames.add(topicName);
-
-                Map<String, String> topicConfigs = new HashMap<>();
-                String cleanupPolicy = (String)topic.getOrDefault("cleanupPolicy", null);
-                if (cleanupPolicy != null) {
-                    topicConfigs.put("cleanup.policy", cleanupPolicy);
-                }
-                Integer retentionMs = (Integer)topic.getOrDefault("retentionMs", null);
-                if (retentionMs != null) {
-                    topicConfigs.put("retention.ms", retentionMs.toString());
+                // Check that topics were created
+                var topicDescMap = admin.describeTopics(topicNames.toArray(new String[0]));
+                for (var entry : topicDescMap.entrySet()) {
+                    String topicName = entry.getKey();
+                    var desc = entry.getValue();
+                    logger.info("Created topic {}: {}", topicName, desc);
                 }
 
-                NewTopic newTopic = TopicBuilder
-                    .name(topicName)
-                    .partitions(numPartitions)
-                    .replicas(numReplicas)
-                    .configs(topicConfigs)
-                    .build();
-                newTopics.add(newTopic);
-                logger.info("New Topic: {}", newTopic);
+
+            } catch (Exception e) {
+                logger.error("Exception in createKafkaTopics", e);
+                throw e;
             }
-
-            // Explicitly create the topics here to prevent error on first run
-            admin.initialize();
-            admin.createOrModifyTopics(newTopics.toArray(new NewTopic[0]));
-            
-            // Check that topics were created
-            var topicDescMap = admin.describeTopics(topicNames.toArray(new String[0]));
-            for (var entry : topicDescMap.entrySet()) {
-                String topicName = entry.getKey();
-                var desc = entry.getValue();
-                logger.info("Created topic {}: {}", topicName, desc);
-            }
-
-
-        } catch (Exception e) {
-            logger.error("Exception in createKafkaTopics", e);
-            throw e;
         }
 
         return new NewTopics(newTopics.toArray(NewTopic[]::new));

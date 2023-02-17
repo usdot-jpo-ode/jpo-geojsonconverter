@@ -185,4 +185,9 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
 	public void setKafkaTopicProcessedMap(String kafkaTopicMapGeoJson) {
 		this.kafkaTopicProcessedMap = kafkaTopicMapGeoJson;
 	}
+
+    public Boolean getConfluentCloudStatus() {
+		return confluentCloudEnabled;
+	}
+
 }
