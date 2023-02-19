@@ -24,7 +24,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.EnvironmentAware;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.Serdes;
@@ -35,7 +34,6 @@ import org.apache.kafka.streams.processor.LogAndSkipOnInvalidTimestamp;
 import us.dot.its.jpo.ode.util.CommonUtils;
 
 @ConfigurationProperties("geojsonconverter")
-@PropertySource("classpath:application.yaml")
 public class GeoJsonConverterProperties implements EnvironmentAware {
 
     private static final Logger logger = LoggerFactory.getLogger(GeoJsonConverterProperties.class);
