@@ -3,7 +3,6 @@ package us.dot.its.jpo.geojsonconverter;
 import org.apache.kafka.streams.errors.StreamsUncaughtExceptionHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 
 /**
@@ -19,7 +18,6 @@ public class StreamsExceptionHandler implements StreamsUncaughtExceptionHandler 
 
     final String topology;
     
-    @Autowired
     public StreamsExceptionHandler(String topology) {
         this.topology = topology;
     }
