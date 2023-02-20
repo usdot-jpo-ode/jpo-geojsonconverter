@@ -67,4 +67,34 @@ public class SpatTopologyTest {
         }
         
     }
+
+    @Test
+    public void testTopologyFailure() {
+        Topology topology = SpatTopology.build(kafkaTopicOdeSpatJson, kafkaTopicProcessedSpat, spatJsonValidator);
+        try (TopologyTestDriver driver = new TopologyTestDriver(topology)) {
+            TestInputTopic<Void, String> inputOdeSpatJsonTopic = driver.createInputTopic(
+                kafkaTopicOdeSpatJson, 
+                Serdes.Void().serializer(), 
+                Serdes.String().serializer());
+            TestOutputTopic<RsuIntersectionKey, ProcessedSpat> outputTopic = driver.createOutputTopic(
+                kafkaTopicProcessedSpat, 
+                JsonSerdes.RsuIntersectionKey().deserializer(), 
+                JsonSerdes.ProcessedSpat().deserializer());
+            
+            // Send serialized OdeSpatJson to OdeSpatJson topic
+            inputOdeSpatJsonTopic.pipeInput("{");
+
+            // Check SpatGeoJson topic for properly converted message data
+            List<KeyValue<RsuIntersectionKey, ProcessedSpat>> processedSpatJsonResults = outputTopic.readKeyValuesToList();
+            assertEquals(processedSpatJsonResults.size(), 1);
+
+            KeyValue<RsuIntersectionKey, ProcessedSpat> processedSpatJson = processedSpatJsonResults.get(0);
+            assertNotNull(processedSpatJson.key);
+            assertEquals("Validation Error", processedSpatJson.key.getRsuId());
+            assertEquals(0, processedSpatJson.key.getIntersectionId());
+            assertNotNull(processedSpatJson.value);
+            assertEquals(1, processedSpatJson.value.getValidationMessages().size());
+        }
+        
+    }
 }
