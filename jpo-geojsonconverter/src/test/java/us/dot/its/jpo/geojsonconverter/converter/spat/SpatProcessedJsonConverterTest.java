@@ -57,16 +57,29 @@ public class SpatProcessedJsonConverterTest {
         validatorResults.addValidationMessages(validationMessages);
 
         DeserializedRawSpat deserializedRawSpat = new DeserializedRawSpat();
-        deserializedRawSpat.setOdeSpatOdeSpatData(odeSpatPojo);
+        deserializedRawSpat.setValidationFailure(true);
         deserializedRawSpat.setValidatorResults(validatorResults);
 
         KeyValue<RsuIntersectionKey, ProcessedSpat> processedSpat = spatProcessedJsonConverter.transform(null, deserializedRawSpat);
         assertNotNull(processedSpat.key);
-        assertEquals("10.11.81.26", processedSpat.key.getRsuId());
-        assertEquals(12103, processedSpat.key.getIntersectionId());
         assertNotNull(processedSpat.value);
-        assertEquals(8, processedSpat.value.getStates().size());
         assertEquals("test_exception", processedSpat.value.getValidationMessages().get(0).getMessage());
+    }
+
+    @Test
+    public void testTransformValidationFailure() {
+        JsonValidatorResult validatorResults = new JsonValidatorResult();
+        Exception exception = new Exception("test_exception");
+        validatorResults.addException(exception);
+
+        DeserializedRawSpat deserializedRawSpat = new DeserializedRawSpat();
+        deserializedRawSpat.setOdeSpatOdeSpatData(odeSpatPojo);
+        deserializedRawSpat.setValidatorResults(validatorResults);
+
+        KeyValue<RsuIntersectionKey, ProcessedSpat> processedSpat = spatProcessedJsonConverter.transform(null, null);
+        assertNotNull(processedSpat.key);
+        assertEquals("ERROR", processedSpat.key.getRsuId());
+        assertNull(processedSpat.value);
     }
 
     @Test

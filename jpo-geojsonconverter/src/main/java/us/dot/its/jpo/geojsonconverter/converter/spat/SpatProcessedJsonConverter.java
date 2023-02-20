@@ -12,6 +12,7 @@ import us.dot.its.jpo.ode.plugin.j2735.J2735MovementState;
 
 import java.time.Instant;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -45,18 +46,27 @@ public class SpatProcessedJsonConverter implements Transformer<Void, Deserialize
     public KeyValue<RsuIntersectionKey, ProcessedSpat> transform(Void rawKey, DeserializedRawSpat rawSpat) {
         try {
             OdeSpatData rawValue = new OdeSpatData();
-            rawValue.setMetadata(rawSpat.getOdeSpatOdeSpatData().getMetadata());
-            rawValue.setPayload(rawSpat.getOdeSpatOdeSpatData().getPayload());
-            OdeSpatMetadata spatMetadata = (OdeSpatMetadata)rawValue.getMetadata();
-            OdeSpatPayload spatPayload = (OdeSpatPayload)rawValue.getPayload();
-            J2735IntersectionState intersectionState = spatPayload.getSpat().getIntersectionStateList().getIntersectionStatelist().get(0);
+            if (!rawSpat.getValidationFailure()){
+                rawValue.setMetadata(rawSpat.getOdeSpatOdeSpatData().getMetadata());
+                rawValue.setPayload(rawSpat.getOdeSpatOdeSpatData().getPayload());
+                OdeSpatMetadata spatMetadata = (OdeSpatMetadata)rawValue.getMetadata();
+                OdeSpatPayload spatPayload = (OdeSpatPayload)rawValue.getPayload();
+                J2735IntersectionState intersectionState = spatPayload.getSpat().getIntersectionStateList().getIntersectionStatelist().get(0);
 
-			ProcessedSpat processedSpat = createProcessedSpat(intersectionState, spatMetadata, rawSpat.getValidatorResults());
+                ProcessedSpat processedSpat = createProcessedSpat(intersectionState, spatMetadata, rawSpat.getValidatorResults());
 
-            var key = new RsuIntersectionKey();
-            key.setRsuId(spatMetadata.getOriginIp());
-            key.setIntersectionId(intersectionState.getId().getId());
-            return KeyValue.pair(key, processedSpat);
+                var key = new RsuIntersectionKey();
+                key.setRsuId(spatMetadata.getOriginIp());
+                key.setIntersectionId(intersectionState.getId().getId());
+                return KeyValue.pair(key, processedSpat);
+            } else {
+                ProcessedSpat processedSpat = createFailureProcessedSpat(rawSpat.getValidatorResults());
+
+                var key = new RsuIntersectionKey();
+                key.setRsuId("Validation Error");
+
+                return KeyValue.pair(key, processedSpat);
+            }
         } catch (Exception e) {
             String errMsg = String.format("Exception converting ODE SPaT to Processed SPaT! Message: %s", e.getMessage());
             logger.error(errMsg, e);
@@ -152,6 +162,24 @@ public class SpatProcessedJsonConverter implements Transformer<Void, Deserialize
         processedSpat.setStates(movementStateList);
         return processedSpat;
     }
+
+    public ProcessedSpat createFailureProcessedSpat(JsonValidatorResult validatorResult) {
+        ProcessedSpat processedSpat = new ProcessedSpat();
+        ProcessedValidationMessage object = new ProcessedValidationMessage();
+        List<ProcessedValidationMessage> processedSpatValidationMessages = new ArrayList<ProcessedValidationMessage>();
+
+        ZonedDateTime utcDateTime = ZonedDateTime.now(ZoneOffset.UTC);
+        
+        object.setMessage(validatorResult.getExceptions().get(0).getMessage());
+        object.setException(validatorResult.getExceptions().get(0).getStackTrace().toString());
+
+        processedSpatValidationMessages.add(object);
+        processedSpat.setValidationMessages(processedSpatValidationMessages);
+        processedSpat.setUtcTimeStamp(utcDateTime);
+
+        return processedSpat;
+    }
+
 
     public ZonedDateTime generateUTCTimestamp(Integer moy, Integer dSecond, String odeTimestamp){ //2022-10-31T15:40:26.687292Z
         ZonedDateTime date = null;

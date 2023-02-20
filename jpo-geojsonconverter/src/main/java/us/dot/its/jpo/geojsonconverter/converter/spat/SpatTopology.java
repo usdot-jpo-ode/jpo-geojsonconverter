@@ -52,7 +52,13 @@ public class SpatTopology {
                         deserializedRawSpat.setValidatorResults(validationResults);
                         logger.debug(validationResults.describeResults());
                     } catch (Exception e) {
-                        logger.error("Error in mapValues:", e);
+                        JsonValidatorResult validatorResult = new JsonValidatorResult();
+                        validatorResult.addException(e);
+
+                        deserializedRawSpat.setValidationFailure(true);
+                        deserializedRawSpat.setValidatorResults(validatorResult);
+
+                        logger.error("Error in spatValidation:", e);
                     }
                     return deserializedRawSpat;
                 }
@@ -63,10 +69,6 @@ public class SpatTopology {
             validatedOdeSpatStream.transform(
                 () -> new SpatProcessedJsonConverter() // change this converter to something else NOT GEOJSON
             );
-
-        // Removes null messages from being posted to output topic.
-        // Helpful to remove generated messages that caused exceptions.
-        processedJsonSpatStream = processedJsonSpatStream.filter((key, value) -> value != null); 
 
         processedJsonSpatStream.to(
             // Push the joined GeoJSON stream back out to the SPaT GeoJSON topic 
