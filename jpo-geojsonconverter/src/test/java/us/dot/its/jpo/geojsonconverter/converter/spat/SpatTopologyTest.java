@@ -17,7 +17,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Profile;
 
 import us.dot.its.jpo.geojsonconverter.partitioner.RsuIntersectionKey;
 import us.dot.its.jpo.geojsonconverter.pojos.spat.ProcessedSpat;
@@ -90,7 +89,7 @@ public class SpatTopologyTest {
 
             KeyValue<RsuIntersectionKey, ProcessedSpat> processedSpatJson = processedSpatJsonResults.get(0);
             assertNotNull(processedSpatJson.key);
-            assertEquals("Validation Error", processedSpatJson.key.getRsuId());
+            assertEquals("ERROR", processedSpatJson.key.getRsuId());
             assertEquals(0, processedSpatJson.key.getIntersectionId());
             assertNotNull(processedSpatJson.value);
             assertEquals(1, processedSpatJson.value.getValidationMessages().size());

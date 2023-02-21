@@ -49,25 +49,7 @@ public class SpatProcessedJsonConverterTest {
     }
 
     @Test
-    public void testTransform() {
-        JsonValidatorResult validatorResults = new JsonValidatorResult();
-        Exception exception = new Exception("test_exception");
-        validatorResults.addException(exception);
-        List<ValidationMessage> validationMessages = new ArrayList<>();
-        validatorResults.addValidationMessages(validationMessages);
-
-        DeserializedRawSpat deserializedRawSpat = new DeserializedRawSpat();
-        deserializedRawSpat.setValidationFailure(true);
-        deserializedRawSpat.setValidatorResults(validatorResults);
-
-        KeyValue<RsuIntersectionKey, ProcessedSpat> processedSpat = spatProcessedJsonConverter.transform(null, deserializedRawSpat);
-        assertNotNull(processedSpat.key);
-        assertNotNull(processedSpat.value);
-        assertEquals("test_exception", processedSpat.value.getValidationMessages().get(0).getMessage());
-    }
-
-    @Test
-    public void testTransformValidationFailure() {
+    public void testTransformValidation() {
         JsonValidatorResult validatorResults = new JsonValidatorResult();
         Exception exception = new Exception("test_exception");
         validatorResults.addException(exception);
@@ -80,6 +62,25 @@ public class SpatProcessedJsonConverterTest {
         assertNotNull(processedSpat.key);
         assertEquals("ERROR", processedSpat.key.getRsuId());
         assertNull(processedSpat.value);
+    }
+
+    @Test
+    public void testTransformFailure() {
+        JsonValidatorResult validatorResults = new JsonValidatorResult();
+        Exception exception = new Exception("test_exception");
+        validatorResults.addException(exception);
+        List<ValidationMessage> validationMessages = new ArrayList<>();
+        validatorResults.addValidationMessages(validationMessages);
+
+        DeserializedRawSpat deserializedRawSpat = new DeserializedRawSpat();
+        deserializedRawSpat.setValidationFailure(true);
+        deserializedRawSpat.setValidatorResults(validatorResults);
+        deserializedRawSpat.setFailedMessage("{");
+
+        KeyValue<RsuIntersectionKey, ProcessedSpat> processedSpat = spatProcessedJsonConverter.transform(null, deserializedRawSpat);
+        assertNotNull(processedSpat.key);
+        assertNotNull(processedSpat.value);
+        assertEquals("{", processedSpat.value.getValidationMessages().get(0).getMessage());
     }
 
     @Test

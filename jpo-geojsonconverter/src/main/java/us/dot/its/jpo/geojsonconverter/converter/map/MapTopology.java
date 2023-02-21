@@ -1,5 +1,7 @@
 package us.dot.its.jpo.geojsonconverter.converter.map;
 
+import java.nio.charset.StandardCharsets;
+
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.common.utils.Bytes;
 import org.apache.kafka.streams.StreamsBuilder;
@@ -50,7 +52,15 @@ public class MapTopology {
                         deserializedRawMap.setValidatorResults(validationResults);
                         logger.debug(validationResults.describeResults());
                     } catch (Exception e) {
-                        logger.error("Error in SpatValue:", e);
+                        JsonValidatorResult validatorResult = new JsonValidatorResult();
+                        String message = new String(value.get(), StandardCharsets.UTF_8);
+
+                        validatorResult.addException(e);
+                        deserializedRawMap.setValidationFailure(true);
+                        deserializedRawMap.setValidatorResults(validatorResult);
+                        deserializedRawMap.setFailedMessage(message);
+
+                        logger.error("Error in mapValidation:", e);
                     }
                     return deserializedRawMap;
                 }

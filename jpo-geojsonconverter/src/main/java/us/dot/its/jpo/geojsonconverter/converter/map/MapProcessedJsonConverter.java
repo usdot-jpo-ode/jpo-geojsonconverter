@@ -17,8 +17,10 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.Instant;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.kstream.Transformer;
 import org.apache.kafka.streams.processor.ProcessorContext;
@@ -45,24 +47,33 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
     @Override
     public KeyValue<RsuIntersectionKey, ProcessedMap> transform(Void rawKey, DeserializedRawMap rawValue) {
         try {
-            OdeMapMetadata mapMetadata = (OdeMapMetadata)rawValue.getOdeMapOdeMapData().getMetadata();
-            OdeMapPayload mapPayload = (OdeMapPayload)rawValue.getOdeMapOdeMapData().getPayload();
-            J2735IntersectionGeometry intersection = mapPayload.getMap().getIntersections().getIntersections().get(0);
+            if (!rawValue.getValidationFailure()){
+                OdeMapMetadata mapMetadata = (OdeMapMetadata)rawValue.getOdeMapOdeMapData().getMetadata();
+                OdeMapPayload mapPayload = (OdeMapPayload)rawValue.getOdeMapOdeMapData().getPayload();
+                J2735IntersectionGeometry intersection = mapPayload.getMap().getIntersections().getIntersections().get(0);
 
-            MapSharedProperties sharedProps = createProperties(mapPayload, mapMetadata, intersection, rawValue.getValidatorResults());
-			MapFeatureCollection mapFeatureCollection = createFeatureCollection(intersection);
-            ConnectingLanesFeatureCollection connectingLanesFeatureCollection = createConnectingLanesFeatureCollection(mapMetadata, intersection);
+                MapSharedProperties sharedProps = createProperties(mapPayload, mapMetadata, intersection, rawValue.getValidatorResults());
+                MapFeatureCollection mapFeatureCollection = createFeatureCollection(intersection);
+                ConnectingLanesFeatureCollection connectingLanesFeatureCollection = createConnectingLanesFeatureCollection(mapMetadata, intersection);
 
-            ProcessedMap processedMapObject = new ProcessedMap();
-            processedMapObject.setMapFeatureCollection(mapFeatureCollection);
-            processedMapObject.setConnectingLanesFeatureCollection(connectingLanesFeatureCollection);
-            processedMapObject.setProperties(sharedProps);
+                ProcessedMap processedMapObject = new ProcessedMap();
+                processedMapObject.setMapFeatureCollection(mapFeatureCollection);
+                processedMapObject.setConnectingLanesFeatureCollection(connectingLanesFeatureCollection);
+                processedMapObject.setProperties(sharedProps);
 
-            var key = new RsuIntersectionKey();
-            key.setRsuId(mapMetadata.getOriginIp());
-            key.setIntersectionId(intersection.getId().getId());
-            logger.debug("Successfully created MAP GeoJSON for {}", key);
-            return KeyValue.pair(key, processedMapObject);
+                var key = new RsuIntersectionKey();
+                key.setRsuId(mapMetadata.getOriginIp());
+                key.setIntersectionId(intersection.getId().getId());
+                logger.debug("Successfully created MAP GeoJSON for {}", key);
+                return KeyValue.pair(key, processedMapObject);
+            } else {
+                ProcessedMap processedMapObject = createFailureProcessedMap(rawValue.getValidatorResults(), rawValue.getFailedMessage());
+                
+                var key = new RsuIntersectionKey();
+                key.setRsuId("ERROR");
+
+                return KeyValue.pair(key, processedMapObject);
+            }
         } catch (Exception e) {
             String errMsg = String.format("Exception converting ODE MAP to GeoJSON! Message: %s", e.getMessage());
             logger.error(errMsg, e);
@@ -274,6 +285,27 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
                         .toArray(double[][]::new);
 
         return new LineString(coordinatesArray);
+    }
+
+    public ProcessedMap createFailureProcessedMap(JsonValidatorResult validatorResult, String message) {
+        ProcessedMap processedMapObject = new ProcessedMap();
+
+        MapSharedProperties processedMapProps = new MapSharedProperties();
+        ProcessedValidationMessage object = new ProcessedValidationMessage();
+        List<ProcessedValidationMessage> processedMapValidationMessages = new ArrayList<ProcessedValidationMessage>();
+
+        ZonedDateTime utcDateTime = ZonedDateTime.now(ZoneOffset.UTC);
+        
+        object.setMessage(message);
+        object.setException(ExceptionUtils.getStackTrace(validatorResult.getExceptions().get(0)));
+
+        processedMapValidationMessages.add(object);
+        processedMapProps.setValidationMessages(processedMapValidationMessages);
+        processedMapProps.setTimeStamp(utcDateTime);
+
+        processedMapObject.setProperties(processedMapProps);
+
+        return processedMapObject;
     }
 
     public ZonedDateTime generateUTCTimestamp(Integer moy, ZonedDateTime odeDate){ //2022-10-31T15:40:26.687292Z

@@ -72,6 +72,17 @@ public class MapProcessedJsonConverterTest {
     }
 
     @Test
+    public void testTransformValidationFailure() {
+        rawMap.setValidationFailure(true);
+        rawMap.setFailedMessage("Failed to transform");
+        KeyValue<RsuIntersectionKey, ProcessedMap> mapFeatureCollection = mapProcessedJsonConverter.transform(null, rawMap);
+        assertNotNull(mapFeatureCollection.key);
+        assertEquals("ERROR", mapFeatureCollection.key.getRsuId());
+        assertNotNull(mapFeatureCollection.value);
+        assertEquals(1, mapFeatureCollection.value.getProperties().getValidationMessages().size());
+    }
+
+    @Test
     public void testTransformException() {
         KeyValue<RsuIntersectionKey, ProcessedMap> mapFeatureCollection = mapProcessedJsonConverter.transform(null, null);
         assertNotNull(mapFeatureCollection.key);

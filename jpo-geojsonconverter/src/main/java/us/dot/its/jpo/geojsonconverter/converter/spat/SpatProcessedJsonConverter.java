@@ -22,6 +22,7 @@ import java.util.Map;
 import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.kstream.Transformer;
 import org.apache.kafka.streams.processor.ProcessorContext;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,11 +46,12 @@ public class SpatProcessedJsonConverter implements Transformer<Void, Deserialize
     @Override
     public KeyValue<RsuIntersectionKey, ProcessedSpat> transform(Void rawKey, DeserializedRawSpat rawSpat) {
         try {
-            OdeSpatData rawValue = new OdeSpatData();
             if (!rawSpat.getValidationFailure()){
+                OdeSpatData rawValue = new OdeSpatData();
                 rawValue.setMetadata(rawSpat.getOdeSpatOdeSpatData().getMetadata());
-                rawValue.setPayload(rawSpat.getOdeSpatOdeSpatData().getPayload());
                 OdeSpatMetadata spatMetadata = (OdeSpatMetadata)rawValue.getMetadata();
+
+                rawValue.setPayload(rawSpat.getOdeSpatOdeSpatData().getPayload());
                 OdeSpatPayload spatPayload = (OdeSpatPayload)rawValue.getPayload();
                 J2735IntersectionState intersectionState = spatPayload.getSpat().getIntersectionStateList().getIntersectionStatelist().get(0);
 
@@ -60,10 +62,9 @@ public class SpatProcessedJsonConverter implements Transformer<Void, Deserialize
                 key.setIntersectionId(intersectionState.getId().getId());
                 return KeyValue.pair(key, processedSpat);
             } else {
-                ProcessedSpat processedSpat = createFailureProcessedSpat(rawSpat.getValidatorResults());
-
+                ProcessedSpat processedSpat = createFailureProcessedSpat(rawSpat.getValidatorResults(), rawSpat.getFailedMessage());
                 var key = new RsuIntersectionKey();
-                key.setRsuId("Validation Error");
+                key.setRsuId("ERROR");
 
                 return KeyValue.pair(key, processedSpat);
             }
@@ -163,15 +164,15 @@ public class SpatProcessedJsonConverter implements Transformer<Void, Deserialize
         return processedSpat;
     }
 
-    public ProcessedSpat createFailureProcessedSpat(JsonValidatorResult validatorResult) {
+    public ProcessedSpat createFailureProcessedSpat(JsonValidatorResult validatorResult, String message) {
         ProcessedSpat processedSpat = new ProcessedSpat();
         ProcessedValidationMessage object = new ProcessedValidationMessage();
         List<ProcessedValidationMessage> processedSpatValidationMessages = new ArrayList<ProcessedValidationMessage>();
 
         ZonedDateTime utcDateTime = ZonedDateTime.now(ZoneOffset.UTC);
         
-        object.setMessage(validatorResult.getExceptions().get(0).getMessage());
-        object.setException(validatorResult.getExceptions().get(0).getStackTrace().toString());
+        object.setMessage(message);
+        object.setException(ExceptionUtils.getStackTrace(validatorResult.getExceptions().get(0)));
 
         processedSpatValidationMessages.add(object);
         processedSpat.setValidationMessages(processedSpatValidationMessages);
