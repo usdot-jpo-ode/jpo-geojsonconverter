@@ -1,6 +1,5 @@
 {
 	"metadata": {
-		"@class": "us.dot.its.jpo.ode.model.OdeMapMetadata",
 		"logFileName": "",
 		"recordType": "mapTx",
 		"securityResultCode": "success",
@@ -29,7 +28,6 @@
 		"originIp": "172.18.0.1"
 	},
 	"payload": {
-		"@class": "us.dot.its.jpo.ode.model.OdeMapPayload",
 		"data": {
 			"timeStamp": null,
 			"msgIssueRevision": 0,

@@ -25,8 +25,8 @@ import us.dot.its.jpo.geojsonconverter.pojos.spat.ProcessedSpat;
 
 
 @SpringBootTest({
-    "processed.spat.json=classpath:json/sample.processed.spat.json",
-    "processed.map.json=classpath:json/sample.processed.map.json"})
+    "processed.spat.json=classpath:json/sample.processed-spat.json",
+    "processed.map.json=classpath:json/sample.processed-map.json"})
 @RunWith(SpringRunner.class)
 public class JsonSerializerTest {
     @Test
