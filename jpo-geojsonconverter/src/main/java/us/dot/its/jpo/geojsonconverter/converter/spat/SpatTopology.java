@@ -55,12 +55,11 @@ public class SpatTopology {
                         logger.debug(validationResults.describeResults());
                     } catch (Exception e) {
                         JsonValidatorResult validatorResult = new JsonValidatorResult();
-                        String message = new String(value.get(), StandardCharsets.UTF_8);
 
                         validatorResult.addException(e);
                         deserializedRawSpat.setValidationFailure(true);
                         deserializedRawSpat.setValidatorResults(validatorResult);
-                        deserializedRawSpat.setFailedMessage(message);
+                        deserializedRawSpat.setFailedMessage(e.getMessage());
 
                         logger.error("Error in spatValidation:", e);
                     }

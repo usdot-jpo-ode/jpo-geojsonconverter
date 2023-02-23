@@ -53,12 +53,11 @@ public class MapTopology {
                         logger.debug(validationResults.describeResults());
                     } catch (Exception e) {
                         JsonValidatorResult validatorResult = new JsonValidatorResult();
-                        String message = new String(value.get(), StandardCharsets.UTF_8);
 
                         validatorResult.addException(e);
                         deserializedRawMap.setValidationFailure(true);
                         deserializedRawMap.setValidatorResults(validatorResult);
-                        deserializedRawMap.setFailedMessage(message);
+                        deserializedRawMap.setFailedMessage(e.getMessage());
 
                         logger.error("Error in mapValidation:", e);
                     }
