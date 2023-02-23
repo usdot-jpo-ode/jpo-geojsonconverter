@@ -15,6 +15,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import us.dot.its.jpo.geojsonconverter.partitioner.RsuIntersectionKey;
@@ -24,6 +25,7 @@ import us.dot.its.jpo.geojsonconverter.validator.MapJsonValidator;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
+@ActiveProfiles("test")
 public class MapTopologyTest {
     String kafkaTopicOdeMapJson = "topic.OdeMapJson";
     String kafkaTopicMapGeoJson = "topic.MapGeoJson";
@@ -35,9 +37,6 @@ public class MapTopologyTest {
     
     @Test
     public void testTopology() {
-
-        
-
         Topology topology = MapTopology.build(kafkaTopicOdeMapJson, kafkaTopicMapGeoJson, mapJsonValidator);
         try (TopologyTestDriver driver = new TopologyTestDriver(topology)) {
             TestInputTopic<Void, String> inputTopic = driver.createInputTopic(
@@ -62,9 +61,35 @@ public class MapTopologyTest {
             assertEquals(12110, mapGeoJson.key.getIntersectionId());
             assertNotNull(mapGeoJson.value);
             assertEquals(2, mapGeoJson.value.getMapFeatureCollection().getFeatures().length);
-            assertEquals(1, mapGeoJson.value.getMapFeatureCollection().getFeatures()[0].getProperties().getIngressApproach());
+            assertEquals(1, mapGeoJson.value.getMapFeatureCollection().getFeatures()[0].getProperties().getIngressApproach());          
+        }
+    }
 
-           
+    @Test
+    public void testTopologyFailure() {
+        Topology topology = MapTopology.build(kafkaTopicOdeMapJson, kafkaTopicMapGeoJson, mapJsonValidator);
+        try (TopologyTestDriver driver = new TopologyTestDriver(topology)) {
+            TestInputTopic<Void, String> inputTopic = driver.createInputTopic(
+                kafkaTopicOdeMapJson, 
+                Serdes.Void().serializer(), 
+                Serdes.String().serializer());
+            TestOutputTopic<RsuIntersectionKey, ProcessedMap> outputTopic = driver.createOutputTopic(
+                kafkaTopicMapGeoJson, 
+                JsonSerdes.RsuIntersectionKey().deserializer(), 
+                JsonSerdes.ProcessedMap().deserializer());
+            
+            // Send serialized OdeMapJson to OdeMapJson topic
+            inputTopic.pipeInput("{");
+
+            // Check MapGeoJson topic for properly converted message data
+            List<KeyValue<RsuIntersectionKey, ProcessedMap>> mapGeoJsonResults = outputTopic.readKeyValuesToList();
+            assertEquals(mapGeoJsonResults.size(), 1);
+
+            KeyValue<RsuIntersectionKey, ProcessedMap> mapGeoJson = mapGeoJsonResults.get(0);
+            assertNotNull(mapGeoJson.key);
+            assertEquals("ERROR", mapGeoJson.key.getRsuId());
+            assertNotNull(mapGeoJson.value);
+            assertEquals(1, mapGeoJson.value.getProperties().getValidationMessages().size());
         }
     }
 }

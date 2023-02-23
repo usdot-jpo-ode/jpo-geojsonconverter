@@ -1,0 +1,33 @@
+#General Properties
+groupId: '@project.groupId@'
+artifactId: '@project.artifactId@'
+version: '@project.version@'
+
+# Don't run the Spring Boot web server
+spring.main.web-application-type: none
+
+# Unused feature
+spring.groovy.template.check-template-location: false
+
+# JSON Schema resource paths
+schema.map: classpath:schemas/map.schema.json
+schema.spat: classpath:schemas/spat.schema.json
+
+# Kafka properties
+spring.kafka.bootstrap-servers: localhost:9092
+
+# Custom kafka properties
+kafka.topics:
+  autoCreateTopics: true
+  numPartitions: 1
+  numReplicas: 1
+  createTopics:
+    - name: topic.ProcessedSpat
+      cleanupPolicy: delete
+      retentionMs: 300000
+    - name: topic.ProcessedMap
+      cleanupPolicy: delete
+      retentionMs: 300000
+
+# Jackson Properties
+spring.jackson.serialization.write-dates-as-timestamps: false

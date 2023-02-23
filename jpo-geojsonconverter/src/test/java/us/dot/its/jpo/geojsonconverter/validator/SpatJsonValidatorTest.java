@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.Resource;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -18,6 +19,7 @@ import org.springframework.beans.factory.annotation.Value;
     "valid.spat.json=classpath:json/valid.spat.json",
     "invalid.spat.json=classpath:json/invalid.spat.json" })
 @RunWith(SpringRunner.class)
+@ActiveProfiles("test")
 public class SpatJsonValidatorTest extends AbstractJsonValidatorTest {
     
     @Autowired

@@ -24,7 +24,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.EnvironmentAware;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.Serdes;
@@ -35,7 +34,6 @@ import org.apache.kafka.streams.processor.LogAndSkipOnInvalidTimestamp;
 import us.dot.its.jpo.ode.util.CommonUtils;
 
 @ConfigurationProperties("geojsonconverter")
-@PropertySource("classpath:application.properties")
 public class GeoJsonConverterProperties implements EnvironmentAware {
 
     private static final Logger logger = LoggerFactory.getLogger(GeoJsonConverterProperties.class);
@@ -64,8 +62,6 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
     public void initialize() {
         if (kafkaBrokers == null) {
 
-            logger.warn("geojsonconverter.kafkaBrokers property not defined. Will try DOCKER_HOST_IP => {}", kafkaBrokers);
-
             String dockerIp = CommonUtils.getEnvironmentVariable("DOCKER_HOST_IP");
 
             if (dockerIp == null) {
@@ -74,6 +70,8 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
             dockerIp = "localhost";
             }
             kafkaBrokers = dockerIp + ":" + DEFAULT_KAFKA_PORT;
+
+            logger.warn("geojsonconverter.kafkaBrokers property not defined. Will try DOCKER_HOST_IP => {}", kafkaBrokers);
         }
 
         String kafkaType = CommonUtils.getEnvironmentVariable("KAFKA_TYPE");
@@ -185,4 +183,9 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
 	public void setKafkaTopicProcessedMap(String kafkaTopicMapGeoJson) {
 		this.kafkaTopicProcessedMap = kafkaTopicMapGeoJson;
 	}
+
+    public Boolean getConfluentCloudStatus() {
+		return confluentCloudEnabled;
+	}
+
 }
