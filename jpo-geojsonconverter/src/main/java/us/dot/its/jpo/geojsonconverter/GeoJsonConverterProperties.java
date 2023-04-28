@@ -58,6 +58,8 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
     private String kafkaTopicOdeMapJson = "topic.OdeMapJson";
     private String kafkaTopicProcessedMap = "topic.ProcessedMap";
 
+    private Boolean wktFlag = false;
+
     @PostConstruct
     public void initialize() {
         if (kafkaBrokers == null) {
@@ -80,6 +82,13 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
             if (confluentCloudEnabled) {
                 confluentKey = CommonUtils.getEnvironmentVariable("CONFLUENT_KEY");
                 confluentSecret = CommonUtils.getEnvironmentVariable("CONFLUENT_SECRET");
+            }
+        }
+
+        String geometryOutputMode = CommonUtils.getEnvironmentVariable("GEOMETRY_OUTPUT_MODE");
+        if (geometryOutputMode != null) {
+            if (geometryOutputMode.equals("WKT")) {
+                wktFlag = true;
             }
         }
     }
@@ -188,4 +197,11 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
 		return confluentCloudEnabled;
 	}
 
+    public void setWKTFlag(Boolean wktFlag) {
+        this.wktFlag = wktFlag;
+    }
+
+    public Boolean getWKTFlag() {
+        return wktFlag;
+    }
 }

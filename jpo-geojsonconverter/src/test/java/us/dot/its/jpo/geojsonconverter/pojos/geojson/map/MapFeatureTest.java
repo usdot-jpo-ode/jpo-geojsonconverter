@@ -27,44 +27,38 @@ public class MapFeatureTest {
 
     @Test
     public void testMapFeatureConstructor() {
-        MapFeature feature = new MapFeature(properties.getLaneId(), geometry, properties);
+        MapFeature feature = new GeoJSONMapFeature(properties.getLaneId(), geometry, properties);
         assertNotNull(feature);
     }
 
     @Test
-    public void testGeoJSONType() {
-        MapFeature feature = new MapFeature(properties.getLaneId(), geometry, properties);
-        assertEquals("Feature", feature.getGeoJSONType());
-    }
-
-    @Test
     public void testType() {
-        MapFeature feature = new MapFeature(properties.getLaneId(), geometry, properties);
+        MapFeature feature = new GeoJSONMapFeature(properties.getLaneId(), geometry, properties);
         assertEquals("Feature", feature.getType());
     }
 
     @Test
     public void testToString() {
         String expectedString = "{\"type\":\"Feature\",\"id\":2,\"geometry\":{\"type\":\"LineString\",\"coordinates\":[[39.7392,104.9903],[39.739,104.9907]]},\"properties\":{\"laneId\":2,\"egressApproach\":1,\"ingressApproach\":0,\"ingressPath\":false,\"egressPath\":true}}";
-        MapFeature feature = new MapFeature(properties.getLaneId(), geometry, properties);
+        MapFeature feature = new GeoJSONMapFeature(properties.getLaneId(), geometry, properties);
         assertEquals(expectedString, feature.toString());
     }
 
     @Test
     public void testGetId() {
-        MapFeature feature = new MapFeature(properties.getLaneId(), geometry, properties);
+        MapFeature feature = new GeoJSONMapFeature(properties.getLaneId(), geometry, properties);
         assertEquals(2, feature.getId());
     }
 
     @Test
     public void testGetGeometry() {
-        MapFeature feature = new MapFeature(properties.getLaneId(), geometry, properties);
+        GeoJSONMapFeature feature = new GeoJSONMapFeature(properties.getLaneId(), geometry, properties);
         assertEquals(39.7392, feature.getGeometry().getCoordinates()[0][0]);
     }
 
     @Test
     public void testGetProperties() {
-        MapFeature feature = new MapFeature(properties.getLaneId(), geometry, properties);
+        MapFeature feature = new GeoJSONMapFeature(properties.getLaneId(), geometry, properties);
         assertEquals(2, feature.getProperties().getLaneId());
     }
 

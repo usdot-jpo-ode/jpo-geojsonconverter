@@ -46,7 +46,7 @@ public class MapProcessedJsonConverterTest {
         rawMap = new DeserializedRawMap();
         rawMap.setOdeMapOdeMapData(odeMapPojo);
         rawMap.setValidatorResults(validatorResults);
-        mapProcessedJsonConverter = new MapProcessedJsonConverter();
+        mapProcessedJsonConverter = new MapProcessedJsonConverter(false);
     }
 
     @Test

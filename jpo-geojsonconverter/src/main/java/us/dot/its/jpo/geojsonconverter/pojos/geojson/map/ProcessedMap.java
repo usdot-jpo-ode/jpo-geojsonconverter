@@ -1,5 +1,7 @@
 package us.dot.its.jpo.geojsonconverter.pojos.geojson.map;
 
+import com.fasterxml.jackson.annotation.*;
+
 import java.util.Objects;
 
 import us.dot.its.jpo.geojsonconverter.DateJsonMapper;
@@ -11,12 +13,13 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+@JsonPropertyOrder({"mapFeatureCollection", "connectingLanesFeatureCollection", "properties"})
 public class ProcessedMap {
     private static Logger logger = LoggerFactory.getLogger(MapProperties.class);
 
-    MapSharedProperties properties;
     MapFeatureCollection mapFeatureCollection;
     ConnectingLanesFeatureCollection connectingLanesFeatureCollection;
+    MapSharedProperties properties;
 
     public void setProperties(MapSharedProperties properties) {
         this.properties = properties;

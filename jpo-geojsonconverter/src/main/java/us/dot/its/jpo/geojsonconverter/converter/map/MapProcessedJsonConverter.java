@@ -1,5 +1,6 @@
 package us.dot.its.jpo.geojsonconverter.converter.map;
 
+import us.dot.its.jpo.geojsonconverter.converter.WKTHandler;
 import us.dot.its.jpo.geojsonconverter.partitioner.RsuIntersectionKey;
 import us.dot.its.jpo.geojsonconverter.pojos.ProcessedValidationMessage;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.LineString;
@@ -33,6 +34,12 @@ import com.networknt.schema.ValidationMessage;
 public class MapProcessedJsonConverter implements Transformer<Void, DeserializedRawMap, KeyValue<RsuIntersectionKey, ProcessedMap>> {
     private static final Logger logger = LoggerFactory.getLogger(MapProcessedJsonConverter.class);
 
+    private Boolean wktFlag = false;
+
+    public MapProcessedJsonConverter(Boolean wktFlag) {
+        this.wktFlag = wktFlag;
+    }
+
     @Override
     public void init(ProcessorContext arg0) {}
 
@@ -53,8 +60,8 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
                 J2735IntersectionGeometry intersection = mapPayload.getMap().getIntersections().getIntersections().get(0);
 
                 MapSharedProperties sharedProps = createProperties(mapPayload, mapMetadata, intersection, rawValue.getValidatorResults());
-                MapFeatureCollection mapFeatureCollection = createFeatureCollection(intersection);
-                ConnectingLanesFeatureCollection connectingLanesFeatureCollection = createConnectingLanesFeatureCollection(mapMetadata, intersection);
+                MapFeatureCollection mapFeatureCollection = createFeatureCollection(intersection, wktFlag);
+                ConnectingLanesFeatureCollection connectingLanesFeatureCollection = createConnectingLanesFeatureCollection(mapMetadata, intersection, wktFlag);
 
                 ProcessedMap processedMapObject = new ProcessedMap();
                 processedMapObject.setMapFeatureCollection(mapFeatureCollection);
@@ -133,7 +140,7 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
         return sharedProps;
     }
 
-    public MapFeatureCollection createFeatureCollection(J2735IntersectionGeometry intersection) {
+    public MapFeatureCollection createFeatureCollection(J2735IntersectionGeometry intersection, Boolean wktFlag) {
         // Save for geometry calculations
         OdePosition3D refPoint = intersection.getRefPoint();
 
@@ -158,13 +165,22 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
             LineString geometry = createGeometry(lane, refPoint);
 
             // Create MAP feature and add it to the feature list
-            mapFeatures.add(new MapFeature(mapProps.getLaneId(), geometry, mapProps));
+            if (wktFlag) {
+                String wktGeometry = WKTHandler.coordinates2WKTLineString(geometry.getCoordinates());
+                mapFeatures.add(new WKTMapFeature(mapProps.getLaneId(), wktGeometry, mapProps));
+            }
+            else {
+                mapFeatures.add(new GeoJSONMapFeature(mapProps.getLaneId(), geometry, mapProps));
+            }
         }
 
-        return new MapFeatureCollection(mapFeatures.toArray(new MapFeature[0]));
+        if (wktFlag)
+            return new MapFeatureCollection(mapFeatures.toArray(new WKTMapFeature[0]));
+        else
+            return new MapFeatureCollection(mapFeatures.toArray(new GeoJSONMapFeature[0]));
     }
 
-    public ConnectingLanesFeatureCollection createConnectingLanesFeatureCollection(OdeMapMetadata metadata, J2735IntersectionGeometry intersection) {
+    public ConnectingLanesFeatureCollection createConnectingLanesFeatureCollection(OdeMapMetadata metadata, J2735IntersectionGeometry intersection, Boolean wktFlag) {
         // Save for geometry calculations
         OdePosition3D refPoint = intersection.getRefPoint();
 
@@ -196,12 +212,21 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
                     LineString geometry = new LineString(coordinates);
 
                     String id = String.format("%s-%s", laneProps.getIngressLaneId(), laneProps.getEgressLaneId());
-                    lanesFeatures.add(new ConnectingLanesFeature(id, geometry, laneProps));
+                    if (wktFlag) {
+                        String wktGeometry = WKTHandler.coordinates2WKTLineString(geometry.getCoordinates());
+                        lanesFeatures.add(new WKTConnectingLanesFeature(id, wktGeometry, laneProps));
+                    }
+                    else {
+                        lanesFeatures.add(new GeoJSONConnectingLanesFeature(id, geometry, laneProps));
+                    }
                 }
             }
         }
 
-        return new ConnectingLanesFeatureCollection(lanesFeatures.toArray(new ConnectingLanesFeature[0]));
+        if (wktFlag)
+            return new ConnectingLanesFeatureCollection(lanesFeatures.toArray(new WKTConnectingLanesFeature[0]));
+        else
+            return new ConnectingLanesFeatureCollection(lanesFeatures.toArray(new GeoJSONConnectingLanesFeature[0]));
     }
 
     public LineString createGeometry(J2735GenericLane lane, OdePosition3D refPoint) {

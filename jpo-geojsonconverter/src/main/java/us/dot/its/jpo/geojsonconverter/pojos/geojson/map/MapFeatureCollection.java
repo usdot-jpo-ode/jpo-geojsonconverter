@@ -3,7 +3,6 @@ package us.dot.its.jpo.geojsonconverter.pojos.geojson.map;
 import com.fasterxml.jackson.annotation.*;
 
 import us.dot.its.jpo.geojsonconverter.DateJsonMapper;
-import us.dot.its.jpo.geojsonconverter.pojos.geojson.BaseFeatureCollection;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,12 +10,24 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class MapFeatureCollection extends BaseFeatureCollection<MapFeature> {
+@JsonPropertyOrder({"type", "features"})
+public class MapFeatureCollection {
     private static Logger logger = LoggerFactory.getLogger(MapFeatureCollection.class);
+
+    private final MapFeature[] features;
 
     @JsonCreator
     public MapFeatureCollection(@JsonProperty("features") MapFeature[] features) {
-        super(features);
+        this.features = features;
+    }
+
+    @JsonProperty("type")
+    public String getType() {
+        return "FeatureCollection";
+    }
+
+    public MapFeature[] getFeatures() {
+        return features;
     }
 
     @Override

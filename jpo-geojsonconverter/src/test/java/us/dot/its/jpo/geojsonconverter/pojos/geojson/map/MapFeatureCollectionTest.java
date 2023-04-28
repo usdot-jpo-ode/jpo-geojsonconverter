@@ -23,7 +23,7 @@ public class MapFeatureCollectionTest {
         double[][] coordinates = new double[][] { { 39.7392, 104.9903 }, { 39.7390, 104.9907 } };
         LineString geometry = new LineString(coordinates);
 
-        feature = new MapFeature(2, geometry, properties);
+        feature = new GeoJSONMapFeature(2, geometry, properties);
     }
 
     @Test
@@ -34,18 +34,9 @@ public class MapFeatureCollectionTest {
     }
 
     @Test
-    public void testGeoJSONType() {
-        MapFeature[] featureList = new MapFeature[] { feature };
-        MapFeatureCollection featureCollection = new MapFeatureCollection(featureList);
-        assertEquals("FeatureCollection", featureCollection.getGeoJSONType());
-    }
-
-    @Test
     public void testType() {
         MapFeature[] featureList = new MapFeature[] { feature };
         MapFeatureCollection featureCollection = new MapFeatureCollection(featureList);
-        assertEquals("FeatureCollection", featureCollection.getType());
-        featureCollection.setType("Test");
         assertEquals("FeatureCollection", featureCollection.getType());
     }
 

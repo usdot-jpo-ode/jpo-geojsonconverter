@@ -1,7 +1,5 @@
 package us.dot.its.jpo.geojsonconverter.converter.map;
 
-import java.nio.charset.StandardCharsets;
-
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.common.utils.Bytes;
 import org.apache.kafka.streams.StreamsBuilder;
@@ -28,7 +26,7 @@ public class MapTopology {
 
     private static final Logger logger = LoggerFactory.getLogger(MapTopology.class);
 
-    public static Topology build(String mapOdeJsonTopic, String processedMapTopic, MapJsonValidator mapJsonValidator) {
+    public static Topology build(String mapOdeJsonTopic, String processedMapTopic, MapJsonValidator mapJsonValidator, Boolean wktFlag) {
         StreamsBuilder builder = new StreamsBuilder();
 
         // Create stream from the ODE MAP topic
@@ -68,7 +66,7 @@ public class MapTopology {
         // Convert ODE MAP to GeoJSON
         KStream<RsuIntersectionKey, ProcessedMap> processedMapStream =
             validatedOdeMapStream.transform(
-                () -> new MapProcessedJsonConverter()
+                () -> new MapProcessedJsonConverter(wktFlag)
             );
 
         // Removes null messages from being posted to output topic.

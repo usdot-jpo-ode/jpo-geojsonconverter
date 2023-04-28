@@ -22,7 +22,7 @@ public class ConnectingLanesFeatureCollectionTest {
         double[][] coordinates = new double[][] { { 39.7392, 104.9903 }, { 39.7390, 104.9907 } };
         geometry = new LineString(coordinates);
 
-        feature = new ConnectingLanesFeature("id", geometry, properties);
+        feature = new GeoJSONConnectingLanesFeature("id", geometry, properties);
     }
 
     @Test
@@ -33,18 +33,9 @@ public class ConnectingLanesFeatureCollectionTest {
     }
 
     @Test
-    public void testGeoJSONType() {
-        ConnectingLanesFeature[] featureList = new ConnectingLanesFeature[] { feature };
-        ConnectingLanesFeatureCollection featureCollection = new ConnectingLanesFeatureCollection(featureList);
-        assertEquals("FeatureCollection", featureCollection.getGeoJSONType());
-    }
-
-    @Test
     public void testType() {
         ConnectingLanesFeature[] featureList = new ConnectingLanesFeature[] { feature };
         ConnectingLanesFeatureCollection featureCollection = new ConnectingLanesFeatureCollection(featureList);
-        assertEquals("FeatureCollection", featureCollection.getType());
-        featureCollection.setType("Test");
         assertEquals("FeatureCollection", featureCollection.getType());
     }
 

@@ -2,11 +2,21 @@ package us.dot.its.jpo.geojsonconverter.pojos.geojson.connectinglanes;
 
 import com.fasterxml.jackson.annotation.*;
 
-import us.dot.its.jpo.geojsonconverter.pojos.geojson.BaseFeatureCollection;
+@JsonPropertyOrder({"type", "features"})
+public class ConnectingLanesFeatureCollection {
+    private final ConnectingLanesFeature[] features;
 
-public class ConnectingLanesFeatureCollection extends BaseFeatureCollection<ConnectingLanesFeature> {
     @JsonCreator
     public ConnectingLanesFeatureCollection(@JsonProperty("features") ConnectingLanesFeature[] features) {
-        super(features);
+        this.features = features;
+    }
+
+    @JsonProperty("type")
+    public String getType() {
+        return "FeatureCollection";
+    }
+
+    public ConnectingLanesFeature[] getFeatures() {
+        return features;
     }
 }
