@@ -26,13 +26,13 @@ public class JsonSerdes {
     public static Serde<ProcessedMap<LineString>> ProcessedMapGeoJson() {
         return Serdes.serdeFrom(
             new JsonSerializer<ProcessedMap<LineString>>(), 
-            new ProcessedMapGeoJsonDeserializer());
+            new ProcessedMapDeserializer<>(LineString.class));
     }
 
     public static Serde<ProcessedMap<String>> ProcessedMapWKT() {
         return Serdes.serdeFrom(
             new JsonSerializer<ProcessedMap<String>>(), 
-            new ProcessedMapWKTDeserializer());
+            new ProcessedMapDeserializer<>(String.class));
     }
 
     public static Serde<OdeSpatData> OdeSpat() {
