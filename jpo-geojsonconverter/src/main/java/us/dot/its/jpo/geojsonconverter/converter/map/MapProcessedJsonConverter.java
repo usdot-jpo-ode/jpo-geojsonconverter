@@ -1,6 +1,5 @@
 package us.dot.its.jpo.geojsonconverter.converter.map;
 
-import us.dot.its.jpo.geojsonconverter.converter.WKTHandler;
 import us.dot.its.jpo.geojsonconverter.partitioner.RsuIntersectionKey;
 import us.dot.its.jpo.geojsonconverter.pojos.ProcessedValidationMessage;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.LineString;
@@ -31,14 +30,8 @@ import org.slf4j.LoggerFactory;
 
 import com.networknt.schema.ValidationMessage;
 
-public class MapProcessedJsonConverter implements Transformer<Void, DeserializedRawMap, KeyValue<RsuIntersectionKey, ProcessedMap>> {
+public class MapProcessedJsonConverter implements Transformer<Void, DeserializedRawMap, KeyValue<RsuIntersectionKey, ProcessedMap<GeoJsonMapFeature, GeoJsonConnectingLanesFeature>>> {
     private static final Logger logger = LoggerFactory.getLogger(MapProcessedJsonConverter.class);
-
-    private Boolean wktFlag = false;
-
-    public MapProcessedJsonConverter(Boolean wktFlag) {
-        this.wktFlag = wktFlag;
-    }
 
     @Override
     public void init(ProcessorContext arg0) {}
@@ -52,7 +45,7 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
      *  and the value is the GeoJSON FeatureCollection POJO
      */
     @Override
-    public KeyValue<RsuIntersectionKey, ProcessedMap> transform(Void rawKey, DeserializedRawMap rawValue) {
+    public KeyValue<RsuIntersectionKey, ProcessedMap<GeoJsonMapFeature, GeoJsonConnectingLanesFeature>> transform(Void rawKey, DeserializedRawMap rawValue) {
         try {
             if (!rawValue.getValidationFailure()){
                 OdeMapMetadata mapMetadata = (OdeMapMetadata)rawValue.getOdeMapOdeMapData().getMetadata();
@@ -60,10 +53,10 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
                 J2735IntersectionGeometry intersection = mapPayload.getMap().getIntersections().getIntersections().get(0);
 
                 MapSharedProperties sharedProps = createProperties(mapPayload, mapMetadata, intersection, rawValue.getValidatorResults());
-                MapFeatureCollection mapFeatureCollection = createFeatureCollection(intersection, wktFlag);
-                ConnectingLanesFeatureCollection connectingLanesFeatureCollection = createConnectingLanesFeatureCollection(mapMetadata, intersection, wktFlag);
+                MapFeatureCollection<GeoJsonMapFeature> mapFeatureCollection = createFeatureCollection(intersection);
+                ConnectingLanesFeatureCollection<GeoJsonConnectingLanesFeature> connectingLanesFeatureCollection = createConnectingLanesFeatureCollection(mapMetadata, intersection);
 
-                ProcessedMap processedMapObject = new ProcessedMap();
+                ProcessedMap<GeoJsonMapFeature, GeoJsonConnectingLanesFeature> processedMapObject = new ProcessedMap<GeoJsonMapFeature, GeoJsonConnectingLanesFeature>();
                 processedMapObject.setMapFeatureCollection(mapFeatureCollection);
                 processedMapObject.setConnectingLanesFeatureCollection(connectingLanesFeatureCollection);
                 processedMapObject.setProperties(sharedProps);
@@ -74,7 +67,7 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
                 logger.debug("Successfully created MAP GeoJSON for {}", key);
                 return KeyValue.pair(key, processedMapObject);
             } else {
-                ProcessedMap processedMapObject = createFailureProcessedMap(rawValue.getValidatorResults(), rawValue.getFailedMessage());
+                ProcessedMap<GeoJsonMapFeature, GeoJsonConnectingLanesFeature> processedMapObject = createFailureProcessedMap(rawValue.getValidatorResults(), rawValue.getFailedMessage());
                 
                 var key = new RsuIntersectionKey();
                 key.setRsuId("ERROR");
@@ -140,11 +133,11 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
         return sharedProps;
     }
 
-    public MapFeatureCollection createFeatureCollection(J2735IntersectionGeometry intersection, Boolean wktFlag) {
+    public MapFeatureCollection<GeoJsonMapFeature> createFeatureCollection(J2735IntersectionGeometry intersection) {
         // Save for geometry calculations
         OdePosition3D refPoint = intersection.getRefPoint();
 
-        List<MapFeature> mapFeatures = new ArrayList<>();
+        List<GeoJsonMapFeature> mapFeatures = new ArrayList<>();
         for (J2735GenericLane lane : intersection.getLaneSet().getLaneSet()) {
             // Create MAP properties
             MapProperties mapProps = new MapProperties();
@@ -165,22 +158,13 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
             LineString geometry = createGeometry(lane, refPoint);
 
             // Create MAP feature and add it to the feature list
-            if (wktFlag) {
-                String wktGeometry = WKTHandler.coordinates2WKTLineString(geometry.getCoordinates());
-                mapFeatures.add(new WKTMapFeature(mapProps.getLaneId(), wktGeometry, mapProps));
-            }
-            else {
-                mapFeatures.add(new GeoJSONMapFeature(mapProps.getLaneId(), geometry, mapProps));
-            }
+            mapFeatures.add(new GeoJsonMapFeature(mapProps.getLaneId(), geometry, mapProps));
         }
 
-        if (wktFlag)
-            return new MapFeatureCollection(mapFeatures.toArray(new WKTMapFeature[0]));
-        else
-            return new MapFeatureCollection(mapFeatures.toArray(new GeoJSONMapFeature[0]));
+        return new MapFeatureCollection<GeoJsonMapFeature>(mapFeatures.toArray(new GeoJsonMapFeature[0]));
     }
 
-    public ConnectingLanesFeatureCollection createConnectingLanesFeatureCollection(OdeMapMetadata metadata, J2735IntersectionGeometry intersection, Boolean wktFlag) {
+    public ConnectingLanesFeatureCollection<GeoJsonConnectingLanesFeature> createConnectingLanesFeatureCollection(OdeMapMetadata metadata, J2735IntersectionGeometry intersection) {
         // Save for geometry calculations
         OdePosition3D refPoint = intersection.getRefPoint();
 
@@ -193,7 +177,7 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
             }
         }
 
-        List<ConnectingLanesFeature> lanesFeatures = new ArrayList<>();
+        List<GeoJsonConnectingLanesFeature> lanesFeatures = new ArrayList<>();
         for (J2735GenericLane lane : intersection.getLaneSet().getLaneSet()) {
             if (lane.getLaneAttributes().getDirectionalUse().get("ingressPath") == true){
                 double[] laneCoordinates = lanePoints.get(lane.getLaneID()); //first poiunt
@@ -212,21 +196,12 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
                     LineString geometry = new LineString(coordinates);
 
                     String id = String.format("%s-%s", laneProps.getIngressLaneId(), laneProps.getEgressLaneId());
-                    if (wktFlag) {
-                        String wktGeometry = WKTHandler.coordinates2WKTLineString(geometry.getCoordinates());
-                        lanesFeatures.add(new WKTConnectingLanesFeature(id, wktGeometry, laneProps));
-                    }
-                    else {
-                        lanesFeatures.add(new GeoJSONConnectingLanesFeature(id, geometry, laneProps));
-                    }
+                    lanesFeatures.add(new GeoJsonConnectingLanesFeature(id, geometry, laneProps));
                 }
             }
         }
 
-        if (wktFlag)
-            return new ConnectingLanesFeatureCollection(lanesFeatures.toArray(new WKTConnectingLanesFeature[0]));
-        else
-            return new ConnectingLanesFeatureCollection(lanesFeatures.toArray(new GeoJSONConnectingLanesFeature[0]));
+        return new ConnectingLanesFeatureCollection<GeoJsonConnectingLanesFeature>(lanesFeatures.toArray(new GeoJsonConnectingLanesFeature[0]));
     }
 
     public LineString createGeometry(J2735GenericLane lane, OdePosition3D refPoint) {
@@ -312,8 +287,8 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
         return new LineString(coordinatesArray);
     }
 
-    public ProcessedMap createFailureProcessedMap(JsonValidatorResult validatorResult, String message) {
-        ProcessedMap processedMapObject = new ProcessedMap();
+    public ProcessedMap<GeoJsonMapFeature, GeoJsonConnectingLanesFeature> createFailureProcessedMap(JsonValidatorResult validatorResult, String message) {
+        ProcessedMap<GeoJsonMapFeature, GeoJsonConnectingLanesFeature> processedMapObject = new ProcessedMap<GeoJsonMapFeature, GeoJsonConnectingLanesFeature>();
 
         MapSharedProperties processedMapProps = new MapSharedProperties();
         ProcessedValidationMessage object = new ProcessedValidationMessage();

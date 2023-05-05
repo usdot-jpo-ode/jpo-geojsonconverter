@@ -12,8 +12,12 @@ import org.apache.kafka.streams.kstream.KStream;
 
 import us.dot.its.jpo.geojsonconverter.partitioner.RsuIdPartitioner;
 import us.dot.its.jpo.geojsonconverter.partitioner.RsuIntersectionKey;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.connectinglanes.GeoJsonConnectingLanesFeature;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.connectinglanes.WKTConnectingLanesFeature;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.DeserializedRawMap;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.GeoJsonMapFeature;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.ProcessedMap;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.WKTMapFeature;
 import us.dot.its.jpo.geojsonconverter.serialization.JsonSerdes;
 import us.dot.its.jpo.geojsonconverter.validator.JsonValidatorResult;
 import us.dot.its.jpo.geojsonconverter.validator.MapJsonValidator;
@@ -26,7 +30,7 @@ public class MapTopology {
 
     private static final Logger logger = LoggerFactory.getLogger(MapTopology.class);
 
-    public static Topology build(String mapOdeJsonTopic, String processedMapTopic, MapJsonValidator mapJsonValidator, Boolean wktFlag) {
+    public static Topology build(String mapOdeJsonTopic, String processedMapTopic, String processedMapWTKTopic, MapJsonValidator mapJsonValidator, Boolean wktFlag) {
         StreamsBuilder builder = new StreamsBuilder();
 
         // Create stream from the ODE MAP topic
@@ -64,9 +68,9 @@ public class MapTopology {
             );
 
         // Convert ODE MAP to GeoJSON
-        KStream<RsuIntersectionKey, ProcessedMap> processedMapStream =
+        KStream<RsuIntersectionKey, ProcessedMap<GeoJsonMapFeature, GeoJsonConnectingLanesFeature>> processedMapStream =
             validatedOdeMapStream.transform(
-                () -> new MapProcessedJsonConverter(wktFlag)
+                () -> new MapProcessedJsonConverter()
             );
 
         // Removes null messages from being posted to output topic.
@@ -78,9 +82,30 @@ public class MapTopology {
             processedMapTopic, 
             Produced.with(
                 JsonSerdes.RsuIntersectionKey(), // Key is now an RsuIntersectionKey object
-                JsonSerdes.ProcessedMap(),      // Value serializer for MAP GeoJSON
-                new RsuIdPartitioner<RsuIntersectionKey, ProcessedMap>())  // Partition by RSU ID
+                JsonSerdes.ProcessedMapGeoJson(),      // Value serializer for MAP GeoJSON
+                new RsuIdPartitioner<RsuIntersectionKey, ProcessedMap<GeoJsonMapFeature, GeoJsonConnectingLanesFeature>>())  // Partition by RSU ID
             );
+        
+        if (wktFlag) {
+            // Convert ProcessedMap GeoJSON to WKT
+            KStream<RsuIntersectionKey, ProcessedMap<WKTMapFeature, WKTConnectingLanesFeature>> wktProcessedMapStream =
+                processedMapStream.transform(
+                    () -> new MapProcessedWKTConverter()
+                );
+            
+            // Removes null messages from being posted to output topic.
+            // Helpful to remove generated messages that caused exceptions.
+            wktProcessedMapStream = wktProcessedMapStream.filter((key, value) -> value != null); 
+
+            // Push the WKT stream back out to the MAP WKT topic 
+            wktProcessedMapStream.to(
+                processedMapWTKTopic, 
+                Produced.with(
+                    JsonSerdes.RsuIntersectionKey(), // Key is still an RsuIntersectionKey object
+                    JsonSerdes.ProcessedMapWKT(),      // Value serializer for MAP WKT
+                    new RsuIdPartitioner<RsuIntersectionKey, ProcessedMap<WKTMapFeature, WKTConnectingLanesFeature>>())  // Partition by RSU ID
+                );
+        }
         
         return builder.build();
     }

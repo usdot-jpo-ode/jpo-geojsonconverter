@@ -13,14 +13,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @JsonPropertyOrder({"type", "id", "geometry", "properties"})
-public class GeoJSONMapFeature extends MapFeature {
-    private static Logger logger = LoggerFactory.getLogger(GeoJSONMapFeature.class);
+public class GeoJsonMapFeature extends MapFeature {
+    private static Logger logger = LoggerFactory.getLogger(GeoJsonMapFeature.class);
 
     @JsonInclude(Include.NON_EMPTY)
     protected final LineString geometry;
 
     @JsonCreator
-    public GeoJSONMapFeature(
+    public GeoJsonMapFeature(
         @JsonProperty("id") Integer id, 
         @JsonProperty("geometry") LineString geometry, 
         @JsonProperty("properties") MapProperties properties) {

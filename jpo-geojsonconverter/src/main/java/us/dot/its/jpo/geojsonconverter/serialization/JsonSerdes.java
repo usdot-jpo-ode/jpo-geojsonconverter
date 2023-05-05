@@ -1,7 +1,11 @@
 package us.dot.its.jpo.geojsonconverter.serialization;
 
 import us.dot.its.jpo.geojsonconverter.partitioner.RsuIntersectionKey;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.connectinglanes.GeoJsonConnectingLanesFeature;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.connectinglanes.WKTConnectingLanesFeature;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.GeoJsonMapFeature;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.ProcessedMap;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.WKTMapFeature;
 import us.dot.its.jpo.geojsonconverter.pojos.spat.*;
 import us.dot.its.jpo.geojsonconverter.serialization.deserializers.*;
 import us.dot.its.jpo.geojsonconverter.serialization.serializers.*;
@@ -22,10 +26,16 @@ public class JsonSerdes {
             new JsonDeserializer<>(OdeMapData.class));
     }
 
-    public static Serde<ProcessedMap> ProcessedMap() {
+    public static Serde<ProcessedMap<GeoJsonMapFeature, GeoJsonConnectingLanesFeature>> ProcessedMapGeoJson() {
         return Serdes.serdeFrom(
-            new JsonSerializer<ProcessedMap>(), 
-            new JsonDeserializer<>(ProcessedMap.class));
+            new JsonSerializer<ProcessedMap<GeoJsonMapFeature, GeoJsonConnectingLanesFeature>>(), 
+            new ProcessedMapGeoJsonDeserializer());
+    }
+
+    public static Serde<ProcessedMap<WKTMapFeature, WKTConnectingLanesFeature>> ProcessedMapWKT() {
+        return Serdes.serdeFrom(
+            new JsonSerializer<ProcessedMap<WKTMapFeature, WKTConnectingLanesFeature>>(), 
+            new ProcessedMapWKTDeserializer());
     }
 
     public static Serde<OdeSpatData> OdeSpat() {

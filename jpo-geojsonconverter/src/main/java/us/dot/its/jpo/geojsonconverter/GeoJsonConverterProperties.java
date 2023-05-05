@@ -57,6 +57,7 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
     //MAP
     private String kafkaTopicOdeMapJson = "topic.OdeMapJson";
     private String kafkaTopicProcessedMap = "topic.ProcessedMap";
+    private String kafkaTopicProcessedMapWKT = "topic.ProcessedMapWKT";
 
     private Boolean wktFlag = false;
 
@@ -191,6 +192,14 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
 
 	public void setKafkaTopicProcessedMap(String kafkaTopicMapGeoJson) {
 		this.kafkaTopicProcessedMap = kafkaTopicMapGeoJson;
+	}
+
+    public String getKafkaTopicProcessedMapWKT() {
+		return kafkaTopicProcessedMapWKT;
+	}
+
+	public void setKafkaTopicProcessedMapWKT(String kafkaTopicProcessedMapWKT) {
+		this.kafkaTopicProcessedMapWKT = kafkaTopicProcessedMapWKT;
 	}
 
     public Boolean getConfluentCloudStatus() {

@@ -10,14 +10,15 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+@JsonIgnoreProperties(value={ "type" }, allowGetters=true)
 @JsonPropertyOrder({"type", "features"})
-public class MapFeatureCollection {
+public class MapFeatureCollection<TFeature> {
     private static Logger logger = LoggerFactory.getLogger(MapFeatureCollection.class);
 
-    private final MapFeature[] features;
+    private final TFeature[] features;
 
     @JsonCreator
-    public MapFeatureCollection(@JsonProperty("features") MapFeature[] features) {
+    public MapFeatureCollection(@JsonProperty("features") TFeature[] features) {
         this.features = features;
     }
 
@@ -26,7 +27,7 @@ public class MapFeatureCollection {
         return "FeatureCollection";
     }
 
-    public MapFeature[] getFeatures() {
+    public TFeature[] getFeatures() {
         return features;
     }
 

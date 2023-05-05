@@ -3,6 +3,7 @@ package us.dot.its.jpo.geojsonconverter.pojos.geojson.connectinglanes;
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+@JsonIgnoreProperties(value={ "type" }, allowGetters=true)
 public abstract class ConnectingLanesFeature {
     @JsonInclude(Include.NON_EMPTY)
     protected final String id;

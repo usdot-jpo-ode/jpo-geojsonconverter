@@ -28,6 +28,9 @@ kafka.topics:
     - name: topic.ProcessedMap
       cleanupPolicy: delete
       retentionMs: 300000
+    - name: topic.ProcessedMapWKT
+      cleanupPolicy: delete
+      retentionMs: 300000
 
 # Jackson Properties
 spring.jackson.serialization.write-dates-as-timestamps: false

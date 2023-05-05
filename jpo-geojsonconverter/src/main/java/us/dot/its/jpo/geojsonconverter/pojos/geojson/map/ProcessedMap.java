@@ -14,11 +14,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @JsonPropertyOrder({"mapFeatureCollection", "connectingLanesFeatureCollection", "properties"})
-public class ProcessedMap {
+public class ProcessedMap<TMapFeature, TConnectingLanesFeature> {
     private static Logger logger = LoggerFactory.getLogger(MapProperties.class);
 
-    MapFeatureCollection mapFeatureCollection;
-    ConnectingLanesFeatureCollection connectingLanesFeatureCollection;
+    MapFeatureCollection<TMapFeature> mapFeatureCollection;
+    ConnectingLanesFeatureCollection<TConnectingLanesFeature> connectingLanesFeatureCollection;
     MapSharedProperties properties;
 
     public void setProperties(MapSharedProperties properties) {
@@ -29,30 +29,29 @@ public class ProcessedMap {
         return this.properties;
     }
 
-    public void setMapFeatureCollection(MapFeatureCollection mapFeatureCollection) {
+    public void setMapFeatureCollection(MapFeatureCollection<TMapFeature> mapFeatureCollection) {
         this.mapFeatureCollection = mapFeatureCollection;
     }
 
-    public MapFeatureCollection getMapFeatureCollection() {
+    public MapFeatureCollection<TMapFeature> getMapFeatureCollection() {
         return this.mapFeatureCollection;
     }
 
-    public void setConnectingLanesFeatureCollection(ConnectingLanesFeatureCollection connectingLanesFeatureCollection) {
+    public void setConnectingLanesFeatureCollection(ConnectingLanesFeatureCollection<TConnectingLanesFeature> connectingLanesFeatureCollection) {
         this.connectingLanesFeatureCollection = connectingLanesFeatureCollection;
     }
 
-    public ConnectingLanesFeatureCollection getConnectingLanesFeatureCollection() {
+    public ConnectingLanesFeatureCollection<TConnectingLanesFeature> getConnectingLanesFeatureCollection() {
         return this.connectingLanesFeatureCollection;
     }
 
-    @Override
-    public boolean equals(Object o) {
+    public boolean equals(ProcessedMap<TMapFeature, TConnectingLanesFeature> o) {
         if (o == this)
             return true;
         if (!(o instanceof ProcessedMap)) {
             return false;
         }
-        ProcessedMap processedMap = (ProcessedMap) o;
+        ProcessedMap<TMapFeature, TConnectingLanesFeature> processedMap = o;
         return Objects.equals(properties, processedMap.properties) && Objects.equals(mapFeatureCollection, processedMap.mapFeatureCollection) && Objects.equals(connectingLanesFeatureCollection, processedMap.connectingLanesFeatureCollection);
     }
 
