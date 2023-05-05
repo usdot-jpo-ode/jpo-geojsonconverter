@@ -45,13 +45,16 @@ public class ProcessedMap<TMapFeature, TConnectingLanesFeature> {
         return this.connectingLanesFeatureCollection;
     }
 
-    public boolean equals(ProcessedMap<TMapFeature, TConnectingLanesFeature> o) {
+    @Override
+    public boolean equals(Object o) {
         if (o == this)
             return true;
         if (!(o instanceof ProcessedMap)) {
             return false;
         }
-        ProcessedMap<TMapFeature, TConnectingLanesFeature> processedMap = o;
+
+        @SuppressWarnings("unchecked")
+        ProcessedMap<TMapFeature, TConnectingLanesFeature> processedMap = (ProcessedMap<TMapFeature, TConnectingLanesFeature>) o;
         return Objects.equals(properties, processedMap.properties) && Objects.equals(mapFeatureCollection, processedMap.mapFeatureCollection) && Objects.equals(connectingLanesFeatureCollection, processedMap.connectingLanesFeatureCollection);
     }
 
