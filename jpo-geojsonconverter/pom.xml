@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -18,7 +20,6 @@
         <sonar.organization>usdot-jpo-ode</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <sonar.exclusions>src/main/**/GeoJsonConverterApplication.java, src/main/**/GeoJsonConverterProperties.java, src/main/**/KafkaConfiguration.java</sonar.exclusions>
-
         <!-- JaCoCo Properties -->
         <jacoco.version>0.8.8</jacoco.version>
         <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
@@ -33,8 +34,8 @@
             <artifactId>spring-boot-starter</artifactId>
             <exclusions>
                 <exclusion>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-to-slf4j</artifactId>
+                    <groupId>org.apache.logging.log4j</groupId>
+                    <artifactId>log4j-to-slf4j</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -84,7 +85,7 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.jacoco</groupId> 
+            <groupId>org.jacoco</groupId>
             <artifactId>jacoco-maven-plugin</artifactId>
             <version>${jacoco.version}</version>
         </dependency>
@@ -104,7 +105,7 @@
             <artifactId>kafka-streams-test-utils</artifactId>
             <version>3.1.2</version>
             <scope>test</scope>
-        </dependency>        
+        </dependency>
         <dependency>
             <groupId>org.apache.kafka</groupId>
             <artifactId>kafka_2.13</artifactId>
@@ -148,7 +149,11 @@
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
         </dependency>
-        
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <finalName>${project.artifactId}</finalName>
@@ -183,9 +188,9 @@
                 </configuration>
                 <dependencies>
                     <dependency>
-                    <groupId>org.apache.maven.surefire</groupId>
-                    <artifactId>surefire-junit47</artifactId>
-                    <version>3.0.0-M7</version>
+                        <groupId>org.apache.maven.surefire</groupId>
+                        <artifactId>surefire-junit47</artifactId>
+                        <version>3.0.0-M7</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -222,7 +227,8 @@
                         </goals>
                         <phase>package</phase>
                         <configuration>
-                            <!--to be imported on other projects-->
+                            <!--to
+                            be imported on other projects-->
                             <classifier>jpo-geojsonconverter</classifier>
                         </configuration>
                     </execution>
@@ -230,21 +236,22 @@
             </plugin>
 
             <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-jar-plugin</artifactId>
-            <version>3.3.0</version>
-            <executions>
-                <execution>
-                    <goals>
-                        <goal>jar</goal>
-                    </goals>
-                    <phase>package</phase>
-                    <configuration>
-                        <!--to be imported on other projects-->
-                        <classifier>jpo-geojsonconverter</classifier>
-                    </configuration>
-                </execution>
-            </executions>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.3.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <!--to
+                            be imported on other projects-->
+                            <classifier>jpo-geojsonconverter</classifier>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
