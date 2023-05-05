@@ -10,8 +10,8 @@ import us.dot.its.jpo.geojsonconverter.converter.WKTHandler;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.LineString;
 
 public class ConnectingLanesFeatureCollectionTest {
-    GeoJsonConnectingLanesFeature featureGeoJson;
-    WKTConnectingLanesFeature featureWKT;
+    ConnectingLanesFeature<LineString> featureGeoJson;
+    ConnectingLanesFeature<String> featureWKT;
     LineString geometry;
 
     @Before
@@ -25,51 +25,51 @@ public class ConnectingLanesFeatureCollectionTest {
         String wtkStr = WKTHandler.coordinates2WKTLineString(coordinates);
         geometry = new LineString(coordinates);
 
-        featureGeoJson = new GeoJsonConnectingLanesFeature("id", geometry, properties);
-        featureWKT = new WKTConnectingLanesFeature("id", wtkStr, properties);
+        featureGeoJson = new ConnectingLanesFeature<LineString>("id", geometry, properties);
+        featureWKT = new ConnectingLanesFeature<String>("id", wtkStr, properties);
     }
 
     @Test
     public void testConnectingLanesFeatureCollectionGeoJson() {
-        GeoJsonConnectingLanesFeature[] featureList = new GeoJsonConnectingLanesFeature[] { featureGeoJson };
-        ConnectingLanesFeatureCollection<GeoJsonConnectingLanesFeature> featureCollection = new ConnectingLanesFeatureCollection<GeoJsonConnectingLanesFeature>(featureList);
+        @SuppressWarnings("unchecked") ConnectingLanesFeature<LineString>[] featureList = new ConnectingLanesFeature[] { featureGeoJson };
+        ConnectingLanesFeatureCollection<LineString> featureCollection = new ConnectingLanesFeatureCollection<LineString>(featureList);
         assertNotNull(featureCollection);
     }
 
     @Test
     public void testConnectingLanesFeatureCollectionWKT() {
-        WKTConnectingLanesFeature[] featureList = new WKTConnectingLanesFeature[] { featureWKT };
-        ConnectingLanesFeatureCollection<WKTConnectingLanesFeature> featureCollection = new ConnectingLanesFeatureCollection<WKTConnectingLanesFeature>(featureList);
+        @SuppressWarnings("unchecked") ConnectingLanesFeature<String>[] featureList = new ConnectingLanesFeature[] { featureWKT };
+        ConnectingLanesFeatureCollection<String> featureCollection = new ConnectingLanesFeatureCollection<String>(featureList);
         assertNotNull(featureCollection);
     }
 
     @Test
     public void testTypeGeoJson() {
-        GeoJsonConnectingLanesFeature[] featureList = new GeoJsonConnectingLanesFeature[] { featureGeoJson };
-        ConnectingLanesFeatureCollection<GeoJsonConnectingLanesFeature> featureCollection = new ConnectingLanesFeatureCollection<GeoJsonConnectingLanesFeature>(featureList);
+        @SuppressWarnings("unchecked") ConnectingLanesFeature<LineString>[] featureList = new ConnectingLanesFeature[] { featureGeoJson };
+        ConnectingLanesFeatureCollection<LineString> featureCollection = new ConnectingLanesFeatureCollection<LineString>(featureList);
         assertEquals("FeatureCollection", featureCollection.getType());
     }
 
     @Test
     public void testTypeWKT() {
-        WKTConnectingLanesFeature[] featureList = new WKTConnectingLanesFeature[] { featureWKT };
-        ConnectingLanesFeatureCollection<WKTConnectingLanesFeature> featureCollection = new ConnectingLanesFeatureCollection<WKTConnectingLanesFeature>(featureList);
+        @SuppressWarnings("unchecked") ConnectingLanesFeature<String>[] featureList = new ConnectingLanesFeature[] { featureWKT };
+        ConnectingLanesFeatureCollection<String> featureCollection = new ConnectingLanesFeatureCollection<String>(featureList);
         assertEquals("FeatureCollection", featureCollection.getType());
     }
 
     @Test
     public void testToStringGeoJson() {
         String expectedString = "{\"type\":\"FeatureCollection\",\"features\":[{\"type\":\"Feature\",\"id\":\"id\",\"geometry\":{\"type\":\"LineString\",\"coordinates\":[[39.7392,104.9903],[39.739,104.9907]]},\"properties\":{\"signalGroupId\":1,\"ingressLaneId\":2,\"egressLaneId\":3}}]}";
-        GeoJsonConnectingLanesFeature[] featureList = new GeoJsonConnectingLanesFeature[] { featureGeoJson };
-        ConnectingLanesFeatureCollection<GeoJsonConnectingLanesFeature> featureCollection = new ConnectingLanesFeatureCollection<GeoJsonConnectingLanesFeature>(featureList);
+        @SuppressWarnings("unchecked") ConnectingLanesFeature<LineString>[] featureList = new ConnectingLanesFeature[] { featureGeoJson };
+        ConnectingLanesFeatureCollection<LineString> featureCollection = new ConnectingLanesFeatureCollection<LineString>(featureList);
         assertEquals(expectedString, featureCollection.toString());
     }
 
     @Test
     public void testToStringWKT() {
         String expectedString = "{\"type\":\"FeatureCollection\",\"features\":[{\"type\":\"Feature\",\"id\":\"id\",\"geometry\":\"LINESTRING (39.7392 104.9903, 39.739 104.9907)\",\"properties\":{\"signalGroupId\":1,\"ingressLaneId\":2,\"egressLaneId\":3}}]}";
-        WKTConnectingLanesFeature[] featureList = new WKTConnectingLanesFeature[] { featureWKT };
-        ConnectingLanesFeatureCollection<WKTConnectingLanesFeature> featureCollection = new ConnectingLanesFeatureCollection<WKTConnectingLanesFeature>(featureList);
+        @SuppressWarnings("unchecked") ConnectingLanesFeature<String>[] featureList = new ConnectingLanesFeature[] { featureWKT };
+        ConnectingLanesFeatureCollection<String> featureCollection = new ConnectingLanesFeatureCollection<String>(featureList);
         assertEquals(expectedString, featureCollection.toString());
     }
 }

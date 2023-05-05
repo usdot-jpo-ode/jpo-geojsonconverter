@@ -12,12 +12,9 @@ import org.apache.kafka.streams.kstream.KStream;
 
 import us.dot.its.jpo.geojsonconverter.partitioner.RsuIdPartitioner;
 import us.dot.its.jpo.geojsonconverter.partitioner.RsuIntersectionKey;
-import us.dot.its.jpo.geojsonconverter.pojos.geojson.connectinglanes.GeoJsonConnectingLanesFeature;
-import us.dot.its.jpo.geojsonconverter.pojos.geojson.connectinglanes.WKTConnectingLanesFeature;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.LineString;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.DeserializedRawMap;
-import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.GeoJsonMapFeature;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.ProcessedMap;
-import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.WKTMapFeature;
 import us.dot.its.jpo.geojsonconverter.serialization.JsonSerdes;
 import us.dot.its.jpo.geojsonconverter.validator.JsonValidatorResult;
 import us.dot.its.jpo.geojsonconverter.validator.MapJsonValidator;
@@ -68,7 +65,7 @@ public class MapTopology {
             );
 
         // Convert ODE MAP to GeoJSON
-        KStream<RsuIntersectionKey, ProcessedMap<GeoJsonMapFeature, GeoJsonConnectingLanesFeature>> processedMapStream =
+        KStream<RsuIntersectionKey, ProcessedMap<LineString>> processedMapStream =
             validatedOdeMapStream.transform(
                 () -> new MapProcessedJsonConverter()
             );
@@ -83,12 +80,12 @@ public class MapTopology {
             Produced.with(
                 JsonSerdes.RsuIntersectionKey(), // Key is now an RsuIntersectionKey object
                 JsonSerdes.ProcessedMapGeoJson(),      // Value serializer for MAP GeoJSON
-                new RsuIdPartitioner<RsuIntersectionKey, ProcessedMap<GeoJsonMapFeature, GeoJsonConnectingLanesFeature>>())  // Partition by RSU ID
+                new RsuIdPartitioner<RsuIntersectionKey, ProcessedMap<LineString>>())  // Partition by RSU ID
             );
         
         if (wktFlag) {
             // Convert ProcessedMap GeoJSON to WKT
-            KStream<RsuIntersectionKey, ProcessedMap<WKTMapFeature, WKTConnectingLanesFeature>> wktProcessedMapStream =
+            KStream<RsuIntersectionKey, ProcessedMap<String>> wktProcessedMapStream =
                 processedMapStream.transform(
                     () -> new MapProcessedWKTConverter()
                 );
@@ -103,7 +100,7 @@ public class MapTopology {
                 Produced.with(
                     JsonSerdes.RsuIntersectionKey(), // Key is still an RsuIntersectionKey object
                     JsonSerdes.ProcessedMapWKT(),      // Value serializer for MAP WKT
-                    new RsuIdPartitioner<RsuIntersectionKey, ProcessedMap<WKTMapFeature, WKTConnectingLanesFeature>>())  // Partition by RSU ID
+                    new RsuIdPartitioner<RsuIntersectionKey, ProcessedMap<String>>())  // Partition by RSU ID
                 );
         }
         

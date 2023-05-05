@@ -19,10 +19,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import us.dot.its.jpo.geojsonconverter.partitioner.RsuIntersectionKey;
-import us.dot.its.jpo.geojsonconverter.pojos.geojson.connectinglanes.GeoJsonConnectingLanesFeature;
-import us.dot.its.jpo.geojsonconverter.pojos.geojson.connectinglanes.WKTConnectingLanesFeature;
-import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.GeoJsonMapFeature;
-import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.WKTMapFeature;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.LineString;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.ProcessedMap;
 import us.dot.its.jpo.geojsonconverter.serialization.JsonSerdes;
 import us.dot.its.jpo.geojsonconverter.validator.MapJsonValidator;
@@ -49,7 +46,7 @@ public class MapTopologyTest {
                 kafkaTopicOdeMapJson, 
                 Serdes.Void().serializer(), 
                 Serdes.String().serializer());
-            TestOutputTopic<RsuIntersectionKey, ProcessedMap<GeoJsonMapFeature, GeoJsonConnectingLanesFeature>> outputTopic = driver.createOutputTopic(
+            TestOutputTopic<RsuIntersectionKey, ProcessedMap<LineString>> outputTopic = driver.createOutputTopic(
                 kafkaTopicMapGeoJson, 
                 JsonSerdes.RsuIntersectionKey().deserializer(), 
                 JsonSerdes.ProcessedMapGeoJson().deserializer());
@@ -58,10 +55,10 @@ public class MapTopologyTest {
             inputTopic.pipeInput(odeMapJsonString);
 
             // Check MapGeoJson topic for properly converted message data
-            List<KeyValue<RsuIntersectionKey, ProcessedMap<GeoJsonMapFeature, GeoJsonConnectingLanesFeature>>> mapGeoJsonResults = outputTopic.readKeyValuesToList();
+            List<KeyValue<RsuIntersectionKey, ProcessedMap<LineString>>> mapGeoJsonResults = outputTopic.readKeyValuesToList();
             assertEquals(mapGeoJsonResults.size(), 1);
 
-            KeyValue<RsuIntersectionKey, ProcessedMap<GeoJsonMapFeature, GeoJsonConnectingLanesFeature>> mapGeoJson = mapGeoJsonResults.get(0);
+            KeyValue<RsuIntersectionKey, ProcessedMap<LineString>> mapGeoJson = mapGeoJsonResults.get(0);
             assertNotNull(mapGeoJson.key);
             assertEquals("172.19.0.1", mapGeoJson.key.getRsuId());
             assertEquals(12110, mapGeoJson.key.getIntersectionId());
@@ -79,7 +76,7 @@ public class MapTopologyTest {
                 kafkaTopicOdeMapJson, 
                 Serdes.Void().serializer(), 
                 Serdes.String().serializer());
-            TestOutputTopic<RsuIntersectionKey, ProcessedMap<WKTMapFeature, WKTConnectingLanesFeature>> outputTopic = driver.createOutputTopic(
+            TestOutputTopic<RsuIntersectionKey, ProcessedMap<String>> outputTopic = driver.createOutputTopic(
                 kafkaTopicMapWKT, 
                 JsonSerdes.RsuIntersectionKey().deserializer(), 
                 JsonSerdes.ProcessedMapWKT().deserializer());
@@ -88,10 +85,10 @@ public class MapTopologyTest {
             inputOdeTopic.pipeInput(odeMapJsonString);
 
             // Check MapWKT topic for properly converted message data
-            List<KeyValue<RsuIntersectionKey, ProcessedMap<WKTMapFeature, WKTConnectingLanesFeature>>> mapWKTResults = outputTopic.readKeyValuesToList();
+            List<KeyValue<RsuIntersectionKey, ProcessedMap<String>>> mapWKTResults = outputTopic.readKeyValuesToList();
             assertEquals(mapWKTResults.size(), 1);
 
-            KeyValue<RsuIntersectionKey, ProcessedMap<WKTMapFeature, WKTConnectingLanesFeature>> mapWKT = mapWKTResults.get(0);
+            KeyValue<RsuIntersectionKey, ProcessedMap<String>> mapWKT = mapWKTResults.get(0);
             assertNotNull(mapWKT.key);
             assertEquals("172.19.0.1", mapWKT.key.getRsuId());
             assertEquals(12110, mapWKT.key.getIntersectionId());
@@ -109,7 +106,7 @@ public class MapTopologyTest {
                 kafkaTopicOdeMapJson, 
                 Serdes.Void().serializer(), 
                 Serdes.String().serializer());
-            TestOutputTopic<RsuIntersectionKey, ProcessedMap<GeoJsonMapFeature, GeoJsonConnectingLanesFeature>> outputTopic = driver.createOutputTopic(
+            TestOutputTopic<RsuIntersectionKey, ProcessedMap<LineString>> outputTopic = driver.createOutputTopic(
                 kafkaTopicMapGeoJson, 
                 JsonSerdes.RsuIntersectionKey().deserializer(), 
                 JsonSerdes.ProcessedMapGeoJson().deserializer());
@@ -118,10 +115,10 @@ public class MapTopologyTest {
             inputTopic.pipeInput("{");
 
             // Check MapGeoJson topic for properly converted message data
-            List<KeyValue<RsuIntersectionKey, ProcessedMap<GeoJsonMapFeature, GeoJsonConnectingLanesFeature>>> mapGeoJsonResults = outputTopic.readKeyValuesToList();
+            List<KeyValue<RsuIntersectionKey, ProcessedMap<LineString>>> mapGeoJsonResults = outputTopic.readKeyValuesToList();
             assertEquals(mapGeoJsonResults.size(), 1);
 
-            KeyValue<RsuIntersectionKey, ProcessedMap<GeoJsonMapFeature, GeoJsonConnectingLanesFeature>> mapGeoJson = mapGeoJsonResults.get(0);
+            KeyValue<RsuIntersectionKey, ProcessedMap<LineString>> mapGeoJson = mapGeoJsonResults.get(0);
             assertNotNull(mapGeoJson.key);
             assertEquals("ERROR", mapGeoJson.key.getRsuId());
             assertNotNull(mapGeoJson.value);

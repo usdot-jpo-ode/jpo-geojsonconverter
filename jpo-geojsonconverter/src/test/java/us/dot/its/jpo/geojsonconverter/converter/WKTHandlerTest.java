@@ -5,16 +5,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.Test;
 
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.LineString;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.connectinglanes.ConnectingLanesFeature;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.connectinglanes.ConnectingLanesFeatureCollection;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.connectinglanes.ConnectingLanesProperties;
-import us.dot.its.jpo.geojsonconverter.pojos.geojson.connectinglanes.GeoJsonConnectingLanesFeature;
-import us.dot.its.jpo.geojsonconverter.pojos.geojson.connectinglanes.WKTConnectingLanesFeature;
-import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.GeoJsonMapFeature;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.MapFeature;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.MapFeatureCollection;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.MapProperties;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.MapSharedProperties;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.ProcessedMap;
-import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.WKTMapFeature;
 
 public class WKTHandlerTest {
     @Test
@@ -37,9 +35,9 @@ public class WKTHandlerTest {
         double[][] mapCoordinates = new double[][] { { 39.7257, 100.9903 }, { 39.7390, 104.9907 } };
         LineString mapGeometry = new LineString(mapCoordinates);
 
-        GeoJsonMapFeature mapFeature = new GeoJsonMapFeature(2, mapGeometry, mapProperties);
-        GeoJsonMapFeature[] mapFeatureList = new GeoJsonMapFeature[] { mapFeature };
-        MapFeatureCollection<GeoJsonMapFeature> mapFeatureCollection = new MapFeatureCollection<GeoJsonMapFeature>(mapFeatureList);
+        MapFeature<LineString> mapFeature = new MapFeature<LineString>(2, mapGeometry, mapProperties);
+        @SuppressWarnings("unchecked") MapFeature<LineString>[] mapFeatureList = new MapFeature[] { mapFeature };
+        MapFeatureCollection<LineString> mapFeatureCollection = new MapFeatureCollection<LineString>(mapFeatureList);
 
         // Build the GeoJSON ConnectingLanesFeatureCollection
         ConnectingLanesProperties clProperties = new ConnectingLanesProperties();
@@ -50,15 +48,15 @@ public class WKTHandlerTest {
         double[][] clCoordinates = new double[][] { { 39.7392, 104.9903 }, { 39.7390, 104.9907 } };
         LineString clGeometry = new LineString(clCoordinates);
 
-        GeoJsonConnectingLanesFeature clFeature = new GeoJsonConnectingLanesFeature("id", clGeometry, clProperties);
-        GeoJsonConnectingLanesFeature[] clFeatureList = new GeoJsonConnectingLanesFeature[] { clFeature };
-        ConnectingLanesFeatureCollection<GeoJsonConnectingLanesFeature> clFeatureCollection = new ConnectingLanesFeatureCollection<GeoJsonConnectingLanesFeature>(clFeatureList);
+        ConnectingLanesFeature<LineString> clFeature = new ConnectingLanesFeature<LineString>("id", clGeometry, clProperties);
+        @SuppressWarnings("unchecked") ConnectingLanesFeature<LineString>[] clFeatureList = new ConnectingLanesFeature[] { clFeature };
+        ConnectingLanesFeatureCollection<LineString> clFeatureCollection = new ConnectingLanesFeatureCollection<LineString>(clFeatureList);
 
         // Build shared properties
         MapSharedProperties props = new MapSharedProperties();
         props.setCti4501Conformant(true);
         
-        ProcessedMap<GeoJsonMapFeature, GeoJsonConnectingLanesFeature> geojsonProcessedMapPojo = new ProcessedMap<GeoJsonMapFeature, GeoJsonConnectingLanesFeature>();
+        ProcessedMap<LineString> geojsonProcessedMapPojo = new ProcessedMap<LineString>();
         geojsonProcessedMapPojo.setMapFeatureCollection(mapFeatureCollection);
         geojsonProcessedMapPojo.setConnectingLanesFeatureCollection(clFeatureCollection);
         geojsonProcessedMapPojo.setProperties(props);
@@ -66,7 +64,7 @@ public class WKTHandlerTest {
         assertEquals(100.9903, geojsonProcessedMapPojo.getMapFeatureCollection().getFeatures()[0].getGeometry().getCoordinates()[0][1]);
         assertEquals(39.7392, geojsonProcessedMapPojo.getConnectingLanesFeatureCollection().getFeatures()[0].getGeometry().getCoordinates()[0][0]);
 
-        ProcessedMap<WKTMapFeature, WKTConnectingLanesFeature> wktProcessedMapPojo = WKTHandler.processedMapGeoJSON2WKT(geojsonProcessedMapPojo);
+        ProcessedMap<String> wktProcessedMapPojo = WKTHandler.processedMapGeoJSON2WKT(geojsonProcessedMapPojo);
 
         assertEquals("LINESTRING (39.7257 100.9903, 39.739 104.9907)", wktProcessedMapPojo.getMapFeatureCollection().getFeatures()[0].getGeometry());
         assertEquals("LINESTRING (39.7392 104.9903, 39.739 104.9907)", wktProcessedMapPojo.getConnectingLanesFeatureCollection().getFeatures()[0].getGeometry());

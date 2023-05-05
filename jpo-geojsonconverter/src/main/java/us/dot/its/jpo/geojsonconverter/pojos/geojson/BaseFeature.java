@@ -1,27 +1,19 @@
 package us.dot.its.jpo.geojsonconverter.pojos.geojson;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
+import us.dot.its.jpo.geojsonconverter.DateJsonMapper;
 
-/**
- * Base class for a feature class.
- * 
- * @param <TId> The type of the feature ID.
- * @param <TGeometry> The geometry type of the feature
- * @param <TProperties> A class containing GeoJSON properties that can be either a Map or a POJO class
- */
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+@JsonIgnoreProperties(value={ "type" }, allowGetters=true)
 @JsonPropertyOrder({"type", "id", "geometry", "properties"})
-public abstract class BaseFeature<TId, TGeometry extends Geometry, TProperties> 
-    extends GeoJSON {
-
-    @Override
-    public String getGeoJSONType() {
-        return "Feature";
-    }
+public abstract class BaseFeature<TId, TGeometry, TProperties> {
+    private static Logger logger = LoggerFactory.getLogger(BaseFeature.class);
 
     @JsonInclude(Include.NON_EMPTY)
     protected final TId id;
@@ -31,12 +23,16 @@ public abstract class BaseFeature<TId, TGeometry extends Geometry, TProperties>
     @JsonCreator
     public BaseFeature(
             @JsonProperty("id") TId id,
-            @JsonProperty("geometry") TGeometry geometry,
+            @JsonProperty("geometry") TGeometry geometry, 
             @JsonProperty("properties") TProperties properties) {
-        super();
         this.id = id;
         this.geometry = geometry;
         this.properties = properties;
+    }
+
+    @JsonProperty("type")
+    public String getType() {
+        return "Feature";
     }
 
     public TId getId() {
@@ -49,5 +45,17 @@ public abstract class BaseFeature<TId, TGeometry extends Geometry, TProperties>
 
     public TProperties getProperties() {
         return properties;
+    }
+
+    @Override
+    public String toString() {
+        ObjectMapper mapper = DateJsonMapper.getInstance();
+        String testReturn = "";
+        try {
+            testReturn = (mapper.writeValueAsString(this));
+        } catch (JsonProcessingException e) {
+            logger.error(e.getMessage(), e);
+        }
+        return testReturn;
     }
 }

@@ -5,36 +5,38 @@ import java.util.List;
 
 import org.locationtech.jts.io.WKTWriter;
 
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.LineString;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.connectinglanes.*;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.*;
 
 import org.locationtech.jts.geom.Coordinate;
 
 public class WKTHandler {
-    public static ProcessedMap<WKTMapFeature, WKTConnectingLanesFeature> processedMapGeoJSON2WKT(ProcessedMap<GeoJsonMapFeature, GeoJsonConnectingLanesFeature> mapGeoJSON) {
-        List<WKTMapFeature> wktMapFeatures = new ArrayList<>();
-        for (GeoJsonMapFeature feature : mapGeoJSON.getMapFeatureCollection().getFeatures()) 
+    @SuppressWarnings("unchecked")
+    public static ProcessedMap<String> processedMapGeoJSON2WKT(ProcessedMap<LineString> mapGeoJSON) {
+        List<MapFeature<String>> wktMapFeatures = new ArrayList<>();
+        for (MapFeature<LineString> feature : mapGeoJSON.getMapFeatureCollection().getFeatures()) 
             wktMapFeatures.add(mapFeatureGeoJSON2WKT(feature));
 
-        List<WKTConnectingLanesFeature> wktConnectingLanesFeatures = new ArrayList<>();
-        for (GeoJsonConnectingLanesFeature feature : mapGeoJSON.getConnectingLanesFeatureCollection().getFeatures()) 
+        List<ConnectingLanesFeature<String>> wktConnectingLanesFeatures = new ArrayList<>();
+        for (ConnectingLanesFeature<LineString> feature : mapGeoJSON.getConnectingLanesFeatureCollection().getFeatures()) 
             wktConnectingLanesFeatures.add(clFeatureGeoJSON2WKT(feature));
 
-        ProcessedMap<WKTMapFeature, WKTConnectingLanesFeature> wktProcessedMap = new ProcessedMap<WKTMapFeature, WKTConnectingLanesFeature>();
-        wktProcessedMap.setMapFeatureCollection(new MapFeatureCollection<WKTMapFeature>(wktMapFeatures.toArray(new WKTMapFeature[0])));
-        wktProcessedMap.setConnectingLanesFeatureCollection(new ConnectingLanesFeatureCollection<WKTConnectingLanesFeature>(wktConnectingLanesFeatures.toArray(new WKTConnectingLanesFeature[0])));
+        ProcessedMap<String> wktProcessedMap = new ProcessedMap<String>();
+        wktProcessedMap.setMapFeatureCollection(new MapFeatureCollection<String>(wktMapFeatures.toArray(new MapFeature[0])));
+        wktProcessedMap.setConnectingLanesFeatureCollection(new ConnectingLanesFeatureCollection<String>(wktConnectingLanesFeatures.toArray(new ConnectingLanesFeature[0])));
         wktProcessedMap.setProperties(mapGeoJSON.getProperties());
         return wktProcessedMap;
     }
 
-    private static WKTMapFeature mapFeatureGeoJSON2WKT(GeoJsonMapFeature geojsonFeature) {
+    private static MapFeature<String> mapFeatureGeoJSON2WKT(MapFeature<LineString> geojsonFeature) {
         String wktGeometry = coordinates2WKTLineString(geojsonFeature.getGeometry().getCoordinates());
-        return new WKTMapFeature(geojsonFeature.getId(), wktGeometry, geojsonFeature.getProperties());
+        return new MapFeature<String>(geojsonFeature.getId(), wktGeometry, geojsonFeature.getProperties());
     }
 
-    private static WKTConnectingLanesFeature clFeatureGeoJSON2WKT(GeoJsonConnectingLanesFeature geojsonFeature) {
+    private static ConnectingLanesFeature<String> clFeatureGeoJSON2WKT(ConnectingLanesFeature<LineString> geojsonFeature) {
         String wktGeometry = coordinates2WKTLineString(geojsonFeature.getGeometry().getCoordinates());
-        return new WKTConnectingLanesFeature(geojsonFeature.getId(), wktGeometry, geojsonFeature.getProperties());
+        return new ConnectingLanesFeature<String>(geojsonFeature.getId(), wktGeometry, geojsonFeature.getProperties());
     }
 
     public static String coordinates2WKTLineString(double[][] coordinates) {

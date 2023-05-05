@@ -8,12 +8,10 @@ import org.junit.Before;
 
 import us.dot.its.jpo.geojsonconverter.converter.WKTHandler;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.LineString;
-import us.dot.its.jpo.geojsonconverter.pojos.geojson.connectinglanes.GeoJsonConnectingLanesFeature;
-import us.dot.its.jpo.geojsonconverter.pojos.geojson.connectinglanes.WKTConnectingLanesFeature;
 
 public class ProcessedMapPojoTest {
-    GeoJsonMapFeature feature;
-    WKTMapFeature wktFeature;
+    MapFeature<LineString> feature;
+    MapFeature<String> wktFeature;
 
     @Before
     public void setup() {
@@ -28,32 +26,34 @@ public class ProcessedMapPojoTest {
         LineString geometry = new LineString(coordinates);
         String wktGeometry = WKTHandler.coordinates2WKTLineString(coordinates);
 
-        feature = new GeoJsonMapFeature(2, geometry, properties);
-        wktFeature = new WKTMapFeature(2, wktGeometry, properties);
+        feature = new MapFeature<LineString>(2, geometry, properties);
+        wktFeature = new MapFeature<String>(2, wktGeometry, properties);
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     public void testMapFeatureCollectionGeoJson() {
-        GeoJsonMapFeature[] featureList = new GeoJsonMapFeature[] { feature };
-        MapFeatureCollection<GeoJsonMapFeature> expectedFeatureCollection = new MapFeatureCollection<GeoJsonMapFeature>(featureList);
-        ProcessedMap<GeoJsonMapFeature, GeoJsonConnectingLanesFeature> ProcessedMapPojo = new ProcessedMap<GeoJsonMapFeature, GeoJsonConnectingLanesFeature>();
+        MapFeature<LineString>[] featureList = new MapFeature[] { feature };
+        MapFeatureCollection<LineString> expectedFeatureCollection = new MapFeatureCollection<LineString>(featureList);
+        ProcessedMap<LineString> ProcessedMapPojo = new ProcessedMap<LineString>();
         ProcessedMapPojo.setMapFeatureCollection(expectedFeatureCollection);
         assertEquals(expectedFeatureCollection, ProcessedMapPojo.getMapFeatureCollection());
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     public void testMapFeatureCollectionWKT() {
-        WKTMapFeature[] featureList = new WKTMapFeature[] { wktFeature };
-        MapFeatureCollection<WKTMapFeature> expectedFeatureCollection = new MapFeatureCollection<WKTMapFeature>(featureList);
-        ProcessedMap<WKTMapFeature, WKTConnectingLanesFeature> ProcessedMapPojo = new ProcessedMap<WKTMapFeature, WKTConnectingLanesFeature>();
+        MapFeature<String>[] featureList = new MapFeature[] { wktFeature };
+        MapFeatureCollection<String> expectedFeatureCollection = new MapFeatureCollection<String>(featureList);
+        ProcessedMap<String> ProcessedMapPojo = new ProcessedMap<String>();
         ProcessedMapPojo.setMapFeatureCollection(expectedFeatureCollection);
         assertEquals(expectedFeatureCollection, ProcessedMapPojo.getMapFeatureCollection());
     }
 
     @Test
     public void testEquals() {
-        ProcessedMap<GeoJsonMapFeature, GeoJsonConnectingLanesFeature> object = new ProcessedMap<GeoJsonMapFeature, GeoJsonConnectingLanesFeature>();
-        ProcessedMap<GeoJsonMapFeature, GeoJsonConnectingLanesFeature> otherObject = new ProcessedMap<GeoJsonMapFeature, GeoJsonConnectingLanesFeature>();
+        ProcessedMap<LineString> object = new ProcessedMap<LineString>();
+        ProcessedMap<LineString> otherObject = new ProcessedMap<LineString>();
         MapSharedProperties props = new MapSharedProperties();
         props.setCti4501Conformant(true);
         otherObject.setProperties(props);
@@ -71,14 +71,14 @@ public class ProcessedMapPojoTest {
     
     @Test
     public void testHashCode() {
-        ProcessedMap<GeoJsonMapFeature, GeoJsonConnectingLanesFeature> ProcessedMapPojo = new ProcessedMap<GeoJsonMapFeature, GeoJsonConnectingLanesFeature>();
+        ProcessedMap<LineString> ProcessedMapPojo = new ProcessedMap<LineString>();
         Integer hash = ProcessedMapPojo.hashCode();
         assertNotNull(hash);
     }
     
     @Test
     public void testToString() {
-        ProcessedMap<GeoJsonMapFeature, GeoJsonConnectingLanesFeature> ProcessedMapPojo = new ProcessedMap<GeoJsonMapFeature, GeoJsonConnectingLanesFeature>();
+        ProcessedMap<LineString> ProcessedMapPojo = new ProcessedMap<LineString>();
         String string = ProcessedMapPojo.toString();
         assertNotNull(string);
     }
