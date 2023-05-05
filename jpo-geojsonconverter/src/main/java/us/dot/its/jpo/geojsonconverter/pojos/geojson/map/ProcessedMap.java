@@ -9,10 +9,12 @@ import us.dot.its.jpo.geojsonconverter.pojos.geojson.connectinglanes.ConnectingL
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+@Document("ProcessedMap")
 @JsonPropertyOrder({"mapFeatureCollection", "connectingLanesFeatureCollection", "properties"})
 public class ProcessedMap<TGeometry> {
     private static Logger logger = LoggerFactory.getLogger(MapProperties.class);
