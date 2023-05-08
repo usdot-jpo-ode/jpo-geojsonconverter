@@ -71,7 +71,7 @@ public class MapTopologyTest {
 
     @Test
     public void testTopologyWKT() {
-        Topology topology = MapTopology.build(kafkaTopicOdeMapJson, kafkaTopicMapGeoJson, kafkaTopicMapWKT, mapJsonValidator, GeometryOutputMode.GEOJSON);
+        Topology topology = MapTopology.build(kafkaTopicOdeMapJson, kafkaTopicMapGeoJson, kafkaTopicMapWKT, mapJsonValidator, GeometryOutputMode.WKT);
         try (TopologyTestDriver driver = new TopologyTestDriver(topology)) {
             TestInputTopic<Void, String> inputOdeTopic = driver.createInputTopic(
                 kafkaTopicOdeMapJson, 
