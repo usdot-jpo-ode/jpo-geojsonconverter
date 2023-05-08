@@ -31,6 +31,7 @@ import org.apache.kafka.streams.StreamsConfig;
 import org.apache.kafka.streams.errors.LogAndContinueExceptionHandler;
 import org.apache.kafka.streams.processor.LogAndSkipOnInvalidTimestamp;
 
+import us.dot.its.jpo.geojsonconverter.pojos.GeometryOutputMode;
 import us.dot.its.jpo.ode.util.CommonUtils;
 
 @ConfigurationProperties("geojsonconverter")
@@ -58,8 +59,8 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
     private String kafkaTopicOdeMapJson = "topic.OdeMapJson";
     private String kafkaTopicProcessedMap = "topic.ProcessedMap";
     private String kafkaTopicProcessedMapWKT = "topic.ProcessedMapWKT";
-
-    private Boolean wktFlag = false;
+    
+    private GeometryOutputMode geometryOutputMode = GeometryOutputMode.GEOJSON;
 
     @PostConstruct
     public void initialize() {
@@ -86,10 +87,10 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
             }
         }
 
-        String geometryOutputMode = CommonUtils.getEnvironmentVariable("GEOMETRY_OUTPUT_MODE");
-        if (geometryOutputMode != null) {
-            if (geometryOutputMode.equals("WKT")) {
-                wktFlag = true;
+        String gomString = CommonUtils.getEnvironmentVariable("GEOMETRY_OUTPUT_MODE");
+        if (gomString != null) {
+            if (GeometryOutputMode.findByName(gomString) != null) {
+                this.geometryOutputMode = GeometryOutputMode.findByName(gomString);
             }
         }
     }
@@ -206,11 +207,11 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
 		return confluentCloudEnabled;
 	}
 
-    public void setWKTFlag(Boolean wktFlag) {
-        this.wktFlag = wktFlag;
+    public void setGeometryOutputMode(GeometryOutputMode geometryOutputMode) {
+        this.geometryOutputMode = geometryOutputMode;
     }
 
-    public Boolean getWKTFlag() {
-        return wktFlag;
+    public GeometryOutputMode getGeometryOutputMode() {
+        return geometryOutputMode;
     }
 }

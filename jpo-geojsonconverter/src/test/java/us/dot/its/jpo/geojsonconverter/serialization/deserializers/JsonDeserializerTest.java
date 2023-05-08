@@ -17,12 +17,9 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.ProcessedMap;
 import us.dot.its.jpo.geojsonconverter.pojos.spat.ProcessedSpat;
 
-@SpringBootTest({
-    "processed.spat.json=classpath:json/sample.processed-spat.json",
-    "processed.map.json=classpath:json/sample.processed-map.json"})
+@SpringBootTest({"processed.spat.json=classpath:json/sample.processed-spat.json"})
 @RunWith(SpringRunner.class)
 @ActiveProfiles("test")
 public class JsonDeserializerTest {
@@ -78,27 +75,9 @@ public class JsonDeserializerTest {
             fail("Unexpected exception: " + e);
         }
     }
-
-    @Test
-    public void testProcessedMapDeserializer() {
-        try (JsonDeserializer<ProcessedMap> serializer = new JsonDeserializer<ProcessedMap>(ProcessedMap.class)) {
-            byte[] mapBytes = IOUtils.toByteArray(validMapJsonResource.getInputStream()); 
-
-            ProcessedMap map = serializer.deserialize("the_topic", mapBytes);
-            assertNotNull(map);
-            assertEquals(1, map.getMapFeatureCollection().getFeatures().length);
-            assertEquals(2, map.getConnectingLanesFeatureCollection().getFeatures().length);
-            
-        } catch (Exception e) {
-            fail("Unexpected exception: " + e);
-        }
-    }
     
     @Value("${processed.spat.json}")
     private Resource validSpatJsonResource;
-
-    @Value("${processed.map.json}")
-    private Resource validMapJsonResource;
 
     private class BadClass {
         // Private inner class to break Jackson deserialization

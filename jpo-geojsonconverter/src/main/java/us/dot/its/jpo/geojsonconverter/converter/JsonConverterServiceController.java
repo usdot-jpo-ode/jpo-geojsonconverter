@@ -33,12 +33,13 @@ public class JsonConverterServiceController {
             
             // MAP
             logger.info("Creating the Processed MAP Kafka-Streams topology");
+
             var mapTopology = MapTopology.build(
                 geojsonProps.getKafkaTopicOdeMapJson(), 
                 geojsonProps.getKafkaTopicProcessedMap(), 
                 geojsonProps.getKafkaTopicProcessedMapWKT(), 
                 mapJsonValidator, 
-                geojsonProps.getWKTFlag());
+                geojsonProps.getGeometryOutputMode());
             var mapStreams = new KafkaStreams(mapTopology, geojsonProps.createStreamProperties("processedmapjson"));
             mapStreams.setUncaughtExceptionHandler(new StreamsExceptionHandler("MapStream"));
             Runtime.getRuntime().addShutdownHook(               

@@ -12,6 +12,7 @@ import org.apache.kafka.streams.kstream.KStream;
 
 import us.dot.its.jpo.geojsonconverter.partitioner.RsuIdPartitioner;
 import us.dot.its.jpo.geojsonconverter.partitioner.RsuIntersectionKey;
+import us.dot.its.jpo.geojsonconverter.pojos.GeometryOutputMode;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.LineString;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.DeserializedRawMap;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.ProcessedMap;
@@ -27,7 +28,7 @@ public class MapTopology {
 
     private static final Logger logger = LoggerFactory.getLogger(MapTopology.class);
 
-    public static Topology build(String mapOdeJsonTopic, String processedMapTopic, String processedMapWTKTopic, MapJsonValidator mapJsonValidator, Boolean wktFlag) {
+    public static Topology build(String mapOdeJsonTopic, String processedMapTopic, String processedMapWTKTopic, MapJsonValidator mapJsonValidator, GeometryOutputMode gom) {
         StreamsBuilder builder = new StreamsBuilder();
 
         // Create stream from the ODE MAP topic
@@ -83,7 +84,7 @@ public class MapTopology {
                 new RsuIdPartitioner<RsuIntersectionKey, ProcessedMap<LineString>>())  // Partition by RSU ID
             );
         
-        if (wktFlag) {
+        if (gom == GeometryOutputMode.WKT) {
             // Convert ProcessedMap GeoJSON to WKT
             KStream<RsuIntersectionKey, ProcessedMap<String>> wktProcessedMapStream =
                 processedMapStream.transform(

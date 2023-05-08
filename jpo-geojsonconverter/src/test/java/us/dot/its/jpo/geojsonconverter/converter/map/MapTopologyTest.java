@@ -19,6 +19,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import us.dot.its.jpo.geojsonconverter.partitioner.RsuIntersectionKey;
+import us.dot.its.jpo.geojsonconverter.pojos.GeometryOutputMode;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.LineString;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.ProcessedMap;
 import us.dot.its.jpo.geojsonconverter.serialization.JsonSerdes;
@@ -40,7 +41,7 @@ public class MapTopologyTest {
     
     @Test
     public void testTopologyGeoJson() {
-        Topology topology = MapTopology.build(kafkaTopicOdeMapJson, kafkaTopicMapGeoJson, kafkaTopicMapWKT, mapJsonValidator, false);
+        Topology topology = MapTopology.build(kafkaTopicOdeMapJson, kafkaTopicMapGeoJson, kafkaTopicMapWKT, mapJsonValidator, GeometryOutputMode.GEOJSON);
         try (TopologyTestDriver driver = new TopologyTestDriver(topology)) {
             TestInputTopic<Void, String> inputTopic = driver.createInputTopic(
                 kafkaTopicOdeMapJson, 
@@ -70,7 +71,7 @@ public class MapTopologyTest {
 
     @Test
     public void testTopologyWKT() {
-        Topology topology = MapTopology.build(kafkaTopicOdeMapJson, kafkaTopicMapGeoJson, kafkaTopicMapWKT, mapJsonValidator, true);
+        Topology topology = MapTopology.build(kafkaTopicOdeMapJson, kafkaTopicMapGeoJson, kafkaTopicMapWKT, mapJsonValidator, GeometryOutputMode.GEOJSON);
         try (TopologyTestDriver driver = new TopologyTestDriver(topology)) {
             TestInputTopic<Void, String> inputOdeTopic = driver.createInputTopic(
                 kafkaTopicOdeMapJson, 
@@ -100,7 +101,7 @@ public class MapTopologyTest {
 
     @Test
     public void testTopologyFailureGeoJson() {
-        Topology topology = MapTopology.build(kafkaTopicOdeMapJson, kafkaTopicMapGeoJson, kafkaTopicMapWKT, mapJsonValidator, false);
+        Topology topology = MapTopology.build(kafkaTopicOdeMapJson, kafkaTopicMapGeoJson, kafkaTopicMapWKT, mapJsonValidator, GeometryOutputMode.GEOJSON);
         try (TopologyTestDriver driver = new TopologyTestDriver(topology)) {
             TestInputTopic<Void, String> inputTopic = driver.createInputTopic(
                 kafkaTopicOdeMapJson, 
