@@ -84,12 +84,3 @@ public class ProcessedMapDeserializerTest {
         // Private inner class to break Jackson deserialization
     }
 }
-
-class TestClass {
-    public TestClass() {}
-
-    private String prop;
-    public String getProp() { return prop; }
-    public void setProp(String prop) { this.prop = prop; }
-    public String toString() { return String.format("{\"prop\":\"%s\"}", prop); }
-}
