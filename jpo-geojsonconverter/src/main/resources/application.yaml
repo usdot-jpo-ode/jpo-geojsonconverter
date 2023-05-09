@@ -13,6 +13,9 @@ spring.groovy.template.check-template-location: false
 schema.map: classpath:schemas/map.schema.json
 schema.spat: classpath:schemas/spat.schema.json
 
+# Geometry JSON output mode (GEOJSON or WKT)
+geometry.output.mode: GEOJSON
+
 # Kafka properties
 spring.kafka.bootstrap-servers: localhost:9092
 

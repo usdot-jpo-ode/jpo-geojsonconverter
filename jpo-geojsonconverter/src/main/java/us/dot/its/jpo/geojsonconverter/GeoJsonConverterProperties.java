@@ -22,6 +22,7 @@ import javax.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.core.env.Environment;
@@ -84,13 +85,6 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
             if (confluentCloudEnabled) {
                 confluentKey = CommonUtils.getEnvironmentVariable("CONFLUENT_KEY");
                 confluentSecret = CommonUtils.getEnvironmentVariable("CONFLUENT_SECRET");
-            }
-        }
-
-        String gomString = CommonUtils.getEnvironmentVariable("GEOMETRY_OUTPUT_MODE");
-        if (gomString != null) {
-            if (GeometryOutputMode.findByName(gomString) != null) {
-                this.geometryOutputMode = GeometryOutputMode.findByName(gomString);
             }
         }
     }
@@ -207,8 +201,12 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
 		return confluentCloudEnabled;
 	}
 
-    public void setGeometryOutputMode(GeometryOutputMode geometryOutputMode) {
-        this.geometryOutputMode = geometryOutputMode;
+    @Value("${geometry.output.mode}")
+    public void setGeometryOutputMode(String gomString) {
+        if (GeometryOutputMode.findByName(gomString) != null)
+            this.geometryOutputMode = GeometryOutputMode.findByName(gomString);
+        else
+            this.geometryOutputMode = GeometryOutputMode.GEOJSON;
     }
 
     public GeometryOutputMode getGeometryOutputMode() {

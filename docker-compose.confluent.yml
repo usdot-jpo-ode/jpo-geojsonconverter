@@ -8,7 +8,7 @@ services:
       KAFKA_TYPE: ${KAFKA_TYPE}
       CONFLUENT_KEY: ${CONFLUENT_KEY}
       CONFLUENT_SECRET: ${CONFLUENT_SECRET}
-      GEOMETRY_OUTPUT_MODE: ${GEOMETRY_OUTPUT_MODE}
+      geometry.output.mode: ${GEOMETRY_OUTPUT_MODE}
     logging: 
       options:
         max-size: "10m"
