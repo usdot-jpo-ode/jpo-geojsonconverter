@@ -41,7 +41,7 @@ public class MapTopologyTest {
     
     @Test
     public void testTopologyGeoJson() {
-        Topology topology = MapTopology.build(kafkaTopicOdeMapJson, kafkaTopicMapGeoJson, kafkaTopicMapWKT, mapJsonValidator, GeometryOutputMode.GEOJSON);
+        Topology topology = MapTopology.build(kafkaTopicOdeMapJson, kafkaTopicMapGeoJson, kafkaTopicMapWKT, mapJsonValidator, GeometryOutputMode.GEOJSON_ONLY);
         try (TopologyTestDriver driver = new TopologyTestDriver(topology)) {
             TestInputTopic<Void, String> inputTopic = driver.createInputTopic(
                 kafkaTopicOdeMapJson, 
@@ -101,7 +101,7 @@ public class MapTopologyTest {
 
     @Test
     public void testTopologyFailureGeoJson() {
-        Topology topology = MapTopology.build(kafkaTopicOdeMapJson, kafkaTopicMapGeoJson, kafkaTopicMapWKT, mapJsonValidator, GeometryOutputMode.GEOJSON);
+        Topology topology = MapTopology.build(kafkaTopicOdeMapJson, kafkaTopicMapGeoJson, kafkaTopicMapWKT, mapJsonValidator, GeometryOutputMode.GEOJSON_ONLY);
         try (TopologyTestDriver driver = new TopologyTestDriver(topology)) {
             TestInputTopic<Void, String> inputTopic = driver.createInputTopic(
                 kafkaTopicOdeMapJson, 

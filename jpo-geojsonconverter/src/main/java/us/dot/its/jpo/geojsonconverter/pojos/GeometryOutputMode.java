@@ -1,7 +1,7 @@
 package us.dot.its.jpo.geojsonconverter.pojos;
 
 public enum GeometryOutputMode {
-    GEOJSON("GEOJSON"),
+    GEOJSON_ONLY("GEOJSON_ONLY"),
     WKT("WKT");
 
     GeometryOutputMode(String value) {}

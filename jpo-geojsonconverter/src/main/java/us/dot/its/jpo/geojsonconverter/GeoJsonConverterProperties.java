@@ -61,7 +61,7 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
     private String kafkaTopicProcessedMap = "topic.ProcessedMap";
     private String kafkaTopicProcessedMapWKT = "topic.ProcessedMapWKT";
     
-    private GeometryOutputMode geometryOutputMode = GeometryOutputMode.GEOJSON;
+    private GeometryOutputMode geometryOutputMode = GeometryOutputMode.GEOJSON_ONLY;
 
     @PostConstruct
     public void initialize() {
@@ -206,7 +206,7 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
         if (GeometryOutputMode.findByName(gomString) != null)
             this.geometryOutputMode = GeometryOutputMode.findByName(gomString);
         else
-            this.geometryOutputMode = GeometryOutputMode.GEOJSON;
+            this.geometryOutputMode = GeometryOutputMode.GEOJSON_ONLY;
     }
 
     public GeometryOutputMode getGeometryOutputMode() {
