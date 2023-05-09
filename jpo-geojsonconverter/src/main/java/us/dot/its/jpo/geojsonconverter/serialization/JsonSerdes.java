@@ -1,8 +1,9 @@
 package us.dot.its.jpo.geojsonconverter.serialization;
 
 import us.dot.its.jpo.geojsonconverter.partitioner.RsuIntersectionKey;
-import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.ProcessedMap;
 import us.dot.its.jpo.geojsonconverter.pojos.spat.*;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.LineString;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.ProcessedMap;
 import us.dot.its.jpo.geojsonconverter.serialization.deserializers.*;
 import us.dot.its.jpo.geojsonconverter.serialization.serializers.*;
 import us.dot.its.jpo.ode.model.OdeMapData;
@@ -22,10 +23,16 @@ public class JsonSerdes {
             new JsonDeserializer<>(OdeMapData.class));
     }
 
-    public static Serde<ProcessedMap> ProcessedMap() {
+    public static Serde<ProcessedMap<LineString>> ProcessedMapGeoJson() {
         return Serdes.serdeFrom(
-            new JsonSerializer<ProcessedMap>(), 
-            new JsonDeserializer<>(ProcessedMap.class));
+            new JsonSerializer<ProcessedMap<LineString>>(), 
+            new ProcessedMapDeserializer<>(LineString.class));
+    }
+
+    public static Serde<ProcessedMap<String>> ProcessedMapWKT() {
+        return Serdes.serdeFrom(
+            new JsonSerializer<ProcessedMap<String>>(), 
+            new ProcessedMapDeserializer<>(String.class));
     }
 
     public static Serde<OdeSpatData> OdeSpat() {

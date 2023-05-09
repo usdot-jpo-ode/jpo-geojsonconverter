@@ -1,7 +1,5 @@
 package us.dot.its.jpo.geojsonconverter.converter.spat;
 
-import java.nio.charset.StandardCharsets;
-
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.common.utils.Bytes;
 import org.apache.kafka.streams.StreamsBuilder;

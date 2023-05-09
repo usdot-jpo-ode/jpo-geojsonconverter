@@ -13,6 +13,9 @@ spring.groovy.template.check-template-location: false
 schema.map: classpath:schemas/map.schema.json
 schema.spat: classpath:schemas/spat.schema.json
 
+# Geometry JSON output mode (GEOJSON_ONLY or WKT)
+geometry.output.mode: GEOJSON_ONLY
+
 # Kafka properties
 spring.kafka.bootstrap-servers: localhost:9092
 
@@ -26,6 +29,9 @@ kafka.topics:
       cleanupPolicy: delete
       retentionMs: 300000
     - name: topic.ProcessedMap
+      cleanupPolicy: delete
+      retentionMs: 300000
+    - name: topic.ProcessedMapWKT
       cleanupPolicy: delete
       retentionMs: 300000
 

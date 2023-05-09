@@ -22,6 +22,7 @@ import javax.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.core.env.Environment;
@@ -31,6 +32,7 @@ import org.apache.kafka.streams.StreamsConfig;
 import org.apache.kafka.streams.errors.LogAndContinueExceptionHandler;
 import org.apache.kafka.streams.processor.LogAndSkipOnInvalidTimestamp;
 
+import us.dot.its.jpo.geojsonconverter.pojos.GeometryOutputMode;
 import us.dot.its.jpo.ode.util.CommonUtils;
 
 @ConfigurationProperties("geojsonconverter")
@@ -57,6 +59,9 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
     //MAP
     private String kafkaTopicOdeMapJson = "topic.OdeMapJson";
     private String kafkaTopicProcessedMap = "topic.ProcessedMap";
+    private String kafkaTopicProcessedMapWKT = "topic.ProcessedMapWKT";
+    
+    private GeometryOutputMode geometryOutputMode = GeometryOutputMode.GEOJSON_ONLY;
 
     @PostConstruct
     public void initialize() {
@@ -184,8 +189,27 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
 		this.kafkaTopicProcessedMap = kafkaTopicMapGeoJson;
 	}
 
+    public String getKafkaTopicProcessedMapWKT() {
+		return kafkaTopicProcessedMapWKT;
+	}
+
+	public void setKafkaTopicProcessedMapWKT(String kafkaTopicProcessedMapWKT) {
+		this.kafkaTopicProcessedMapWKT = kafkaTopicProcessedMapWKT;
+	}
+
     public Boolean getConfluentCloudStatus() {
 		return confluentCloudEnabled;
 	}
 
+    @Value("${geometry.output.mode}")
+    public void setGeometryOutputMode(String gomString) {
+        if (GeometryOutputMode.findByName(gomString) != null)
+            this.geometryOutputMode = GeometryOutputMode.findByName(gomString);
+        else
+            this.geometryOutputMode = GeometryOutputMode.GEOJSON_ONLY;
+    }
+
+    public GeometryOutputMode getGeometryOutputMode() {
+        return geometryOutputMode;
+    }
 }

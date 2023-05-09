@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import org.apache.kafka.common.serialization.Serde;
 import org.junit.Test;
 
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.LineString;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.ProcessedMap;
 import us.dot.its.jpo.geojsonconverter.pojos.spat.ProcessedSpat;
 import us.dot.its.jpo.ode.model.OdeMapData;
@@ -18,8 +19,14 @@ public class JsonSerdesTest {
     }
 
     @Test
-    public void testProcessedMapSerdes() {
-        Serde<ProcessedMap> serde = JsonSerdes.ProcessedMap();
+    public void testProcessedMapGeoJsonSerdes() {
+        Serde<ProcessedMap<LineString>> serde = JsonSerdes.ProcessedMapGeoJson();
+        assertNotNull(serde);
+    }
+
+    @Test
+    public void testProcessedMapWKTSerdes() {
+        Serde<ProcessedMap<String>> serde = JsonSerdes.ProcessedMapWKT();
         assertNotNull(serde);
     }
 

@@ -1,0 +1,3341 @@
+{
+  "mapFeatureCollection": {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "id": 1,
+        "geometry": "LINESTRING (-104.8106324 39.5948319, -104.8111524 39.5948179, -104.811631 39.5948066, -104.8122554 39.5948066, -104.8129861 39.5948073, -104.81601 39.5948229)",
+        "properties": {
+          "nodes": [
+            {
+              "delta": [
+                -1888,
+                -882
+              ]
+            },
+            {
+              "delta": [
+                -4452,
+                -155
+              ]
+            },
+            {
+              "delta": [
+                -4098,
+                -125
+              ]
+            },
+            {
+              "delta": [
+                -5346,
+                0
+              ]
+            },
+            {
+              "delta": [
+                -6256,
+                8
+              ],
+              "delevation": -20
+            },
+            {
+              "delta": [
+                -25890,
+                173
+              ],
+              "delevation": 40
+            }
+          ],
+          "laneId": 1,
+          "sharedWith": {
+            "busVehicleTraffic": false,
+            "trackedVehicleTraffic": false,
+            "individualMotorizedVehicleTraffic": false,
+            "taxiVehicleTraffic": false,
+            "overlappingLaneDescriptionProvided": false,
+            "cyclistVehicleTraffic": false,
+            "otherNonMotorizedTrafficTypes": false,
+            "multipleLanesTreatedAsOneLane": false,
+            "pedestrianTraffic": false,
+            "pedestriansTraffic": false
+          },
+          "egressApproach": 0,
+          "ingressApproach": 1,
+          "ingressPath": true,
+          "egressPath": false,
+          "maneuvers": {
+            "maneuverStraightAllowed": true,
+            "maneuverNoStoppingAllowed": false,
+            "goWithHalt": false,
+            "maneuverLeftAllowed": false,
+            "maneuverUTurnAllowed": false,
+            "maneuverLeftTurnOnRedAllowed": false,
+            "reserved1": false,
+            "maneuverRightAllowed": false,
+            "maneuverLaneChangeAllowed": false,
+            "yieldAllwaysRequired": false,
+            "maneuverRightTurnOnRedAllowed": false,
+            "caution": false
+          },
+          "connectsTo": [
+            {
+              "connectingLane": {
+                "lane": 14,
+                "maneuver": {
+                  "maneuverStraightAllowed": true,
+                  "maneuverNoStoppingAllowed": false,
+                  "goWithHalt": false,
+                  "maneuverLeftAllowed": false,
+                  "maneuverUTurnAllowed": false,
+                  "maneuverLeftTurnOnRedAllowed": false,
+                  "reserved1": false,
+                  "maneuverRightAllowed": false,
+                  "maneuverLaneChangeAllowed": false,
+                  "yieldAllwaysRequired": false,
+                  "maneuverRightTurnOnRedAllowed": false,
+                  "caution": false
+                }
+              },
+              "signalGroup": 2,
+              "connectionID": 1
+            }
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 2,
+        "geometry": "LINESTRING (-104.8106323 39.5948563, -104.8109451 39.5948542, -104.8113716 39.5948438, -104.8116663 39.5948407, -104.8122588 39.5948408, -104.8129862 39.5948414, -104.8160046 39.5948572)",
+        "properties": {
+          "nodes": [
+            {
+              "delta": [
+                -1887,
+                -611
+              ]
+            },
+            {
+              "delta": [
+                -2678,
+                -23
+              ]
+            },
+            {
+              "delta": [
+                -3652,
+                -115
+              ]
+            },
+            {
+              "delta": [
+                -2523,
+                -34
+              ]
+            },
+            {
+              "delta": [
+                -5073,
+                1
+              ]
+            },
+            {
+              "delta": [
+                -6228,
+                7
+              ],
+              "delevation": -20
+            },
+            {
+              "delta": [
+                -25843,
+                176
+              ],
+              "delevation": 40
+            }
+          ],
+          "laneId": 2,
+          "sharedWith": {
+            "busVehicleTraffic": false,
+            "trackedVehicleTraffic": false,
+            "individualMotorizedVehicleTraffic": false,
+            "taxiVehicleTraffic": false,
+            "overlappingLaneDescriptionProvided": false,
+            "cyclistVehicleTraffic": false,
+            "otherNonMotorizedTrafficTypes": false,
+            "multipleLanesTreatedAsOneLane": false,
+            "pedestrianTraffic": false,
+            "pedestriansTraffic": false
+          },
+          "egressApproach": 0,
+          "ingressApproach": 1,
+          "ingressPath": true,
+          "egressPath": false,
+          "maneuvers": {
+            "maneuverStraightAllowed": true,
+            "maneuverNoStoppingAllowed": false,
+            "goWithHalt": false,
+            "maneuverLeftAllowed": false,
+            "maneuverUTurnAllowed": false,
+            "maneuverLeftTurnOnRedAllowed": false,
+            "reserved1": false,
+            "maneuverRightAllowed": false,
+            "maneuverLaneChangeAllowed": false,
+            "yieldAllwaysRequired": false,
+            "maneuverRightTurnOnRedAllowed": false,
+            "caution": false
+          },
+          "connectsTo": [
+            {
+              "connectingLane": {
+                "lane": 13,
+                "maneuver": {
+                  "maneuverStraightAllowed": true,
+                  "maneuverNoStoppingAllowed": false,
+                  "goWithHalt": false,
+                  "maneuverLeftAllowed": false,
+                  "maneuverUTurnAllowed": false,
+                  "maneuverLeftTurnOnRedAllowed": false,
+                  "reserved1": false,
+                  "maneuverRightAllowed": false,
+                  "maneuverLaneChangeAllowed": false,
+                  "yieldAllwaysRequired": false,
+                  "maneuverRightTurnOnRedAllowed": false,
+                  "caution": false
+                }
+              },
+              "signalGroup": 2,
+              "connectionID": 1
+            }
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 3,
+        "geometry": "LINESTRING (-104.8106319 39.5948917, -104.8109684 39.5948866, -104.8114653 39.5948758, -104.8118583 39.5948752, -104.8122837 39.5948713, -104.8129858 39.5948758, -104.8160091 39.5948906)",
+        "properties": {
+          "nodes": [
+            {
+              "delta": [
+                -1884,
+                -218
+              ]
+            },
+            {
+              "delta": [
+                -2881,
+                -57
+              ]
+            },
+            {
+              "delta": [
+                -4254,
+                -120
+              ]
+            },
+            {
+              "delta": [
+                -3365,
+                -7
+              ]
+            },
+            {
+              "delta": [
+                -3642,
+                -43
+              ],
+              "delevation": -10
+            },
+            {
+              "delta": [
+                -6011,
+                50
+              ],
+              "delevation": -10
+            },
+            {
+              "delta": [
+                -25885,
+                164
+              ],
+              "delevation": 40
+            }
+          ],
+          "laneId": 3,
+          "sharedWith": {
+            "busVehicleTraffic": false,
+            "trackedVehicleTraffic": false,
+            "individualMotorizedVehicleTraffic": false,
+            "taxiVehicleTraffic": false,
+            "overlappingLaneDescriptionProvided": false,
+            "cyclistVehicleTraffic": false,
+            "otherNonMotorizedTrafficTypes": false,
+            "multipleLanesTreatedAsOneLane": false,
+            "pedestrianTraffic": false,
+            "pedestriansTraffic": false
+          },
+          "egressApproach": 0,
+          "ingressApproach": 1,
+          "ingressPath": true,
+          "egressPath": false,
+          "maneuvers": {
+            "maneuverStraightAllowed": true,
+            "maneuverNoStoppingAllowed": false,
+            "goWithHalt": false,
+            "maneuverLeftAllowed": false,
+            "maneuverUTurnAllowed": false,
+            "maneuverLeftTurnOnRedAllowed": false,
+            "reserved1": false,
+            "maneuverRightAllowed": false,
+            "maneuverLaneChangeAllowed": false,
+            "yieldAllwaysRequired": false,
+            "maneuverRightTurnOnRedAllowed": false,
+            "caution": false
+          },
+          "connectsTo": [
+            {
+              "connectingLane": {
+                "lane": 12,
+                "maneuver": {
+                  "maneuverStraightAllowed": true,
+                  "maneuverNoStoppingAllowed": false,
+                  "goWithHalt": false,
+                  "maneuverLeftAllowed": false,
+                  "maneuverUTurnAllowed": false,
+                  "maneuverLeftTurnOnRedAllowed": false,
+                  "reserved1": false,
+                  "maneuverRightAllowed": false,
+                  "maneuverLaneChangeAllowed": false,
+                  "yieldAllwaysRequired": false,
+                  "maneuverRightTurnOnRedAllowed": false,
+                  "caution": false
+                }
+              },
+              "signalGroup": 2,
+              "connectionID": 1
+            }
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 21,
+        "geometry": "LINESTRING (-104.8106408 39.5947845, -104.8107349 39.5947922, -104.8110766 39.5947834, -104.8118315 39.5947715, -104.81271 39.5947674, -104.8134067 39.5947719, -104.8160142 39.5947905)",
+        "properties": {
+          "nodes": [
+            {
+              "delta": [
+                -1960,
+                -1409
+              ]
+            },
+            {
+              "delta": [
+                -806,
+                86
+              ]
+            },
+            {
+              "delta": [
+                -2926,
+                -98
+              ]
+            },
+            {
+              "delta": [
+                -6463,
+                -132
+              ]
+            },
+            {
+              "delta": [
+                -7522,
+                -46
+              ],
+              "delevation": -30
+            },
+            {
+              "delta": [
+                -5965,
+                50
+              ],
+              "delevation": 10
+            },
+            {
+              "delta": [
+                -22325,
+                207
+              ],
+              "delevation": 40
+            }
+          ],
+          "laneId": 21,
+          "sharedWith": {
+            "busVehicleTraffic": false,
+            "trackedVehicleTraffic": false,
+            "individualMotorizedVehicleTraffic": false,
+            "taxiVehicleTraffic": false,
+            "overlappingLaneDescriptionProvided": false,
+            "cyclistVehicleTraffic": false,
+            "otherNonMotorizedTrafficTypes": false,
+            "multipleLanesTreatedAsOneLane": false,
+            "pedestrianTraffic": false,
+            "pedestriansTraffic": false
+          },
+          "egressApproach": 0,
+          "ingressApproach": 1,
+          "ingressPath": true,
+          "egressPath": false,
+          "maneuvers": {
+            "maneuverStraightAllowed": false,
+            "maneuverNoStoppingAllowed": false,
+            "goWithHalt": false,
+            "maneuverLeftAllowed": false,
+            "maneuverUTurnAllowed": false,
+            "maneuverLeftTurnOnRedAllowed": false,
+            "reserved1": false,
+            "maneuverRightAllowed": true,
+            "maneuverLaneChangeAllowed": false,
+            "yieldAllwaysRequired": false,
+            "maneuverRightTurnOnRedAllowed": false,
+            "caution": false
+          },
+          "connectsTo": [
+            {
+              "connectingLane": {
+                "lane": 20,
+                "maneuver": {
+                  "maneuverStraightAllowed": false,
+                  "maneuverNoStoppingAllowed": false,
+                  "goWithHalt": false,
+                  "maneuverLeftAllowed": false,
+                  "maneuverUTurnAllowed": false,
+                  "maneuverLeftTurnOnRedAllowed": false,
+                  "reserved1": false,
+                  "maneuverRightAllowed": true,
+                  "maneuverLaneChangeAllowed": false,
+                  "yieldAllwaysRequired": false,
+                  "maneuverRightTurnOnRedAllowed": true,
+                  "caution": false
+                }
+              },
+              "connectionID": 1
+            },
+            {
+              "connectingLane": {
+                "lane": 19,
+                "maneuver": {
+                  "maneuverStraightAllowed": false,
+                  "maneuverNoStoppingAllowed": false,
+                  "goWithHalt": false,
+                  "maneuverLeftAllowed": false,
+                  "maneuverUTurnAllowed": false,
+                  "maneuverLeftTurnOnRedAllowed": false,
+                  "reserved1": false,
+                  "maneuverRightAllowed": true,
+                  "maneuverLaneChangeAllowed": false,
+                  "yieldAllwaysRequired": false,
+                  "maneuverRightTurnOnRedAllowed": false,
+                  "caution": false
+                }
+              },
+              "connectionID": 2
+            }
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 6,
+        "geometry": "LINESTRING (-104.8106429 39.5950643, -104.8106845 39.5950626)",
+        "properties": {
+          "nodes": [
+            {
+              "delta": [
+                -1978,
+                1700
+              ],
+              "delevation": -10
+            },
+            {
+              "delta": [
+                -356,
+                -19
+              ]
+            }
+          ],
+          "laneId": 6,
+          "sharedWith": {
+            "busVehicleTraffic": false,
+            "trackedVehicleTraffic": false,
+            "individualMotorizedVehicleTraffic": false,
+            "taxiVehicleTraffic": false,
+            "overlappingLaneDescriptionProvided": false,
+            "cyclistVehicleTraffic": false,
+            "otherNonMotorizedTrafficTypes": false,
+            "multipleLanesTreatedAsOneLane": false,
+            "pedestrianTraffic": false,
+            "pedestriansTraffic": false
+          },
+          "egressApproach": 2,
+          "ingressApproach": 0,
+          "ingressPath": false,
+          "egressPath": true
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 5,
+        "geometry": "LINESTRING (-104.8106451 39.5950159, -104.8106845 39.5950199)",
+        "properties": {
+          "nodes": [
+            {
+              "delta": [
+                -1997,
+                1162
+              ],
+              "delevation": -10
+            },
+            {
+              "delta": [
+                -337,
+                44
+              ]
+            }
+          ],
+          "laneId": 5,
+          "sharedWith": {
+            "busVehicleTraffic": false,
+            "trackedVehicleTraffic": false,
+            "individualMotorizedVehicleTraffic": false,
+            "taxiVehicleTraffic": false,
+            "overlappingLaneDescriptionProvided": false,
+            "cyclistVehicleTraffic": false,
+            "otherNonMotorizedTrafficTypes": false,
+            "multipleLanesTreatedAsOneLane": false,
+            "pedestrianTraffic": false,
+            "pedestriansTraffic": false
+          },
+          "egressApproach": 2,
+          "ingressApproach": 0,
+          "ingressPath": false,
+          "egressPath": true
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 4,
+        "geometry": "LINESTRING (-104.8106429 39.5949784, -104.8106807 39.5949847)",
+        "properties": {
+          "nodes": [
+            {
+              "delta": [
+                -1978,
+                745
+              ]
+            },
+            {
+              "delta": [
+                -324,
+                70
+              ]
+            }
+          ],
+          "laneId": 4,
+          "sharedWith": {
+            "busVehicleTraffic": false,
+            "trackedVehicleTraffic": false,
+            "individualMotorizedVehicleTraffic": false,
+            "taxiVehicleTraffic": false,
+            "overlappingLaneDescriptionProvided": false,
+            "cyclistVehicleTraffic": false,
+            "otherNonMotorizedTrafficTypes": false,
+            "multipleLanesTreatedAsOneLane": false,
+            "pedestrianTraffic": false,
+            "pedestriansTraffic": false
+          },
+          "egressApproach": 2,
+          "ingressApproach": 0,
+          "ingressPath": false,
+          "egressPath": true
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 18,
+        "geometry": "LINESTRING (-104.810398 39.594711, -104.8103957 39.5940525, -104.81039 39.5933319)",
+        "properties": {
+          "nodes": [
+            {
+              "delta": [
+                119,
+                -2225
+              ]
+            },
+            {
+              "delta": [
+                20,
+                -7317
+              ]
+            },
+            {
+              "delta": [
+                49,
+                -8007
+              ],
+              "delevation": 10
+            }
+          ],
+          "laneId": 18,
+          "sharedWith": {
+            "busVehicleTraffic": false,
+            "trackedVehicleTraffic": false,
+            "individualMotorizedVehicleTraffic": false,
+            "taxiVehicleTraffic": false,
+            "overlappingLaneDescriptionProvided": false,
+            "cyclistVehicleTraffic": false,
+            "otherNonMotorizedTrafficTypes": false,
+            "multipleLanesTreatedAsOneLane": false,
+            "pedestrianTraffic": false,
+            "pedestriansTraffic": false
+          },
+          "egressApproach": 0,
+          "ingressApproach": 5,
+          "ingressPath": true,
+          "egressPath": false,
+          "maneuvers": {
+            "maneuverStraightAllowed": false,
+            "maneuverNoStoppingAllowed": false,
+            "goWithHalt": false,
+            "maneuverLeftAllowed": true,
+            "maneuverUTurnAllowed": false,
+            "maneuverLeftTurnOnRedAllowed": false,
+            "reserved1": false,
+            "maneuverRightAllowed": false,
+            "maneuverLaneChangeAllowed": false,
+            "yieldAllwaysRequired": false,
+            "maneuverRightTurnOnRedAllowed": false,
+            "caution": false
+          },
+          "connectsTo": [
+            {
+              "connectingLane": {
+                "lane": 4,
+                "maneuver": {
+                  "maneuverStraightAllowed": false,
+                  "maneuverNoStoppingAllowed": false,
+                  "goWithHalt": false,
+                  "maneuverLeftAllowed": true,
+                  "maneuverUTurnAllowed": false,
+                  "maneuverLeftTurnOnRedAllowed": false,
+                  "reserved1": false,
+                  "maneuverRightAllowed": false,
+                  "maneuverLaneChangeAllowed": false,
+                  "yieldAllwaysRequired": false,
+                  "maneuverRightTurnOnRedAllowed": false,
+                  "caution": false
+                }
+              },
+              "signalGroup": 8
+            }
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 17,
+        "geometry": "LINESTRING (-104.8103578 39.5947153, -104.8103482 39.5933321)",
+        "properties": {
+          "nodes": [
+            {
+              "delta": [
+                463,
+                -2178
+              ]
+            },
+            {
+              "delta": [
+                82,
+                -15369
+              ],
+              "delevation": 10
+            }
+          ],
+          "laneId": 17,
+          "sharedWith": {
+            "busVehicleTraffic": false,
+            "trackedVehicleTraffic": false,
+            "individualMotorizedVehicleTraffic": false,
+            "taxiVehicleTraffic": false,
+            "overlappingLaneDescriptionProvided": false,
+            "cyclistVehicleTraffic": false,
+            "otherNonMotorizedTrafficTypes": false,
+            "multipleLanesTreatedAsOneLane": false,
+            "pedestrianTraffic": false,
+            "pedestriansTraffic": false
+          },
+          "egressApproach": 0,
+          "ingressApproach": 5,
+          "ingressPath": true,
+          "egressPath": false,
+          "maneuvers": {
+            "maneuverStraightAllowed": false,
+            "maneuverNoStoppingAllowed": false,
+            "goWithHalt": false,
+            "maneuverLeftAllowed": true,
+            "maneuverUTurnAllowed": false,
+            "maneuverLeftTurnOnRedAllowed": false,
+            "reserved1": false,
+            "maneuverRightAllowed": false,
+            "maneuverLaneChangeAllowed": false,
+            "yieldAllwaysRequired": false,
+            "maneuverRightTurnOnRedAllowed": false,
+            "caution": false
+          },
+          "connectsTo": [
+            {
+              "connectingLane": {
+                "lane": 5,
+                "maneuver": {
+                  "maneuverStraightAllowed": false,
+                  "maneuverNoStoppingAllowed": false,
+                  "goWithHalt": false,
+                  "maneuverLeftAllowed": true,
+                  "maneuverUTurnAllowed": false,
+                  "maneuverLeftTurnOnRedAllowed": false,
+                  "reserved1": false,
+                  "maneuverRightAllowed": false,
+                  "maneuverLaneChangeAllowed": false,
+                  "yieldAllwaysRequired": false,
+                  "maneuverRightTurnOnRedAllowed": false,
+                  "caution": false
+                }
+              },
+              "signalGroup": 8,
+              "connectionID": 1
+            }
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 16,
+        "geometry": "LINESTRING (-104.8103166 39.5947184, -104.8103085 39.5937266)",
+        "properties": {
+          "nodes": [
+            {
+              "delta": [
+                816,
+                -2143
+              ]
+            },
+            {
+              "delta": [
+                69,
+                -11020
+              ],
+              "delevation": 10
+            }
+          ],
+          "laneId": 16,
+          "sharedWith": {
+            "busVehicleTraffic": false,
+            "trackedVehicleTraffic": false,
+            "individualMotorizedVehicleTraffic": false,
+            "taxiVehicleTraffic": false,
+            "overlappingLaneDescriptionProvided": false,
+            "cyclistVehicleTraffic": false,
+            "otherNonMotorizedTrafficTypes": false,
+            "multipleLanesTreatedAsOneLane": false,
+            "pedestrianTraffic": false,
+            "pedestriansTraffic": false
+          },
+          "egressApproach": 0,
+          "ingressApproach": 5,
+          "ingressPath": true,
+          "egressPath": false,
+          "maneuvers": {
+            "maneuverStraightAllowed": false,
+            "maneuverNoStoppingAllowed": false,
+            "goWithHalt": false,
+            "maneuverLeftAllowed": true,
+            "maneuverUTurnAllowed": false,
+            "maneuverLeftTurnOnRedAllowed": false,
+            "reserved1": false,
+            "maneuverRightAllowed": true,
+            "maneuverLaneChangeAllowed": false,
+            "yieldAllwaysRequired": false,
+            "maneuverRightTurnOnRedAllowed": false,
+            "caution": false
+          },
+          "connectsTo": [
+            {
+              "connectingLane": {
+                "lane": 6,
+                "maneuver": {
+                  "maneuverStraightAllowed": false,
+                  "maneuverNoStoppingAllowed": false,
+                  "goWithHalt": false,
+                  "maneuverLeftAllowed": true,
+                  "maneuverUTurnAllowed": false,
+                  "maneuverLeftTurnOnRedAllowed": false,
+                  "reserved1": false,
+                  "maneuverRightAllowed": false,
+                  "maneuverLaneChangeAllowed": false,
+                  "yieldAllwaysRequired": false,
+                  "maneuverRightTurnOnRedAllowed": false,
+                  "caution": false
+                }
+              },
+              "signalGroup": 8,
+              "connectionID": 1
+            },
+            {
+              "connectingLane": {
+                "lane": 14,
+                "maneuver": {
+                  "maneuverStraightAllowed": false,
+                  "maneuverNoStoppingAllowed": false,
+                  "goWithHalt": false,
+                  "maneuverLeftAllowed": false,
+                  "maneuverUTurnAllowed": false,
+                  "maneuverLeftTurnOnRedAllowed": false,
+                  "reserved1": false,
+                  "maneuverRightAllowed": true,
+                  "maneuverLaneChangeAllowed": false,
+                  "yieldAllwaysRequired": false,
+                  "maneuverRightTurnOnRedAllowed": false,
+                  "caution": false
+                }
+              },
+              "signalGroup": 8,
+              "connectionID": 2
+            }
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 15,
+        "geometry": "LINESTRING (-104.8100964 39.5947872, -104.8101818 39.5947381, -104.8102498 39.594672, -104.8102632 39.594622, -104.8102639 39.5944475, -104.8102708 39.5940348)",
+        "properties": {
+          "nodes": [
+            {
+              "delta": [
+                2701,
+                -1379
+              ]
+            },
+            {
+              "delta": [
+                -731,
+                -545
+              ]
+            },
+            {
+              "delta": [
+                -582,
+                -734
+              ]
+            },
+            {
+              "delta": [
+                -115,
+                -556
+              ]
+            },
+            {
+              "delta": [
+                -6,
+                -1939
+              ]
+            },
+            {
+              "delta": [
+                -59,
+                -4585
+              ],
+              "delevation": 10
+            }
+          ],
+          "laneId": 15,
+          "sharedWith": {
+            "busVehicleTraffic": false,
+            "trackedVehicleTraffic": false,
+            "individualMotorizedVehicleTraffic": false,
+            "taxiVehicleTraffic": false,
+            "overlappingLaneDescriptionProvided": false,
+            "cyclistVehicleTraffic": false,
+            "otherNonMotorizedTrafficTypes": false,
+            "multipleLanesTreatedAsOneLane": false,
+            "pedestrianTraffic": false,
+            "pedestriansTraffic": false
+          },
+          "egressApproach": 0,
+          "ingressApproach": 5,
+          "ingressPath": true,
+          "egressPath": false,
+          "maneuvers": {
+            "maneuverStraightAllowed": false,
+            "maneuverNoStoppingAllowed": false,
+            "goWithHalt": false,
+            "maneuverLeftAllowed": false,
+            "maneuverUTurnAllowed": false,
+            "maneuverLeftTurnOnRedAllowed": false,
+            "reserved1": false,
+            "maneuverRightAllowed": true,
+            "maneuverLaneChangeAllowed": false,
+            "yieldAllwaysRequired": false,
+            "maneuverRightTurnOnRedAllowed": false,
+            "caution": false
+          }
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 12,
+        "geometry": "LINESTRING (-104.8102138 39.5948942, -104.810176 39.5948937)",
+        "properties": {
+          "nodes": [
+            {
+              "delta": [
+                1696,
+                -190
+              ]
+            },
+            {
+              "delta": [
+                324,
+                -6
+              ]
+            }
+          ],
+          "laneId": 12,
+          "sharedWith": {
+            "busVehicleTraffic": false,
+            "trackedVehicleTraffic": false,
+            "individualMotorizedVehicleTraffic": false,
+            "taxiVehicleTraffic": false,
+            "overlappingLaneDescriptionProvided": false,
+            "cyclistVehicleTraffic": false,
+            "otherNonMotorizedTrafficTypes": false,
+            "multipleLanesTreatedAsOneLane": false,
+            "pedestrianTraffic": false,
+            "pedestriansTraffic": false
+          },
+          "egressApproach": 4,
+          "ingressApproach": 0,
+          "ingressPath": false,
+          "egressPath": true
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 13,
+        "geometry": "LINESTRING (-104.8102153 39.5948623, -104.810173 39.5948618)",
+        "properties": {
+          "nodes": [
+            {
+              "delta": [
+                1683,
+                -544
+              ]
+            },
+            {
+              "delta": [
+                362,
+                -6
+              ]
+            }
+          ],
+          "laneId": 13,
+          "sharedWith": {
+            "busVehicleTraffic": false,
+            "trackedVehicleTraffic": false,
+            "individualMotorizedVehicleTraffic": false,
+            "taxiVehicleTraffic": false,
+            "overlappingLaneDescriptionProvided": false,
+            "cyclistVehicleTraffic": false,
+            "otherNonMotorizedTrafficTypes": false,
+            "multipleLanesTreatedAsOneLane": false,
+            "pedestrianTraffic": false,
+            "pedestriansTraffic": false
+          },
+          "egressApproach": 4,
+          "ingressApproach": 0,
+          "ingressPath": false,
+          "egressPath": true
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 14,
+        "geometry": "LINESTRING (-104.8102167 39.5948299, -104.8101737 39.5948287)",
+        "properties": {
+          "nodes": [
+            {
+              "delta": [
+                1671,
+                -904
+              ]
+            },
+            {
+              "delta": [
+                368,
+                -13
+              ]
+            }
+          ],
+          "laneId": 14,
+          "sharedWith": {
+            "busVehicleTraffic": false,
+            "trackedVehicleTraffic": false,
+            "individualMotorizedVehicleTraffic": false,
+            "taxiVehicleTraffic": false,
+            "overlappingLaneDescriptionProvided": false,
+            "cyclistVehicleTraffic": false,
+            "otherNonMotorizedTrafficTypes": false,
+            "multipleLanesTreatedAsOneLane": false,
+            "pedestrianTraffic": false,
+            "pedestriansTraffic": false
+          },
+          "egressApproach": 4,
+          "ingressApproach": 0,
+          "ingressPath": false,
+          "egressPath": true
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 7,
+        "geometry": "LINESTRING (-104.8102313 39.5950729, -104.8076214 39.5950719, -104.8049574 39.5950678)",
+        "properties": {
+          "nodes": [
+            {
+              "delta": [
+                1546,
+                1796
+              ]
+            },
+            {
+              "delta": [
+                22346,
+                -11
+              ]
+            },
+            {
+              "delta": [
+                22809,
+                -46
+              ],
+              "delevation": 30
+            }
+          ],
+          "laneId": 7,
+          "sharedWith": {
+            "busVehicleTraffic": false,
+            "trackedVehicleTraffic": false,
+            "individualMotorizedVehicleTraffic": false,
+            "taxiVehicleTraffic": false,
+            "overlappingLaneDescriptionProvided": false,
+            "cyclistVehicleTraffic": false,
+            "otherNonMotorizedTrafficTypes": false,
+            "multipleLanesTreatedAsOneLane": false,
+            "pedestrianTraffic": false,
+            "pedestriansTraffic": false
+          },
+          "egressApproach": 0,
+          "ingressApproach": 3,
+          "ingressPath": true,
+          "egressPath": false,
+          "maneuvers": {
+            "maneuverStraightAllowed": true,
+            "maneuverNoStoppingAllowed": false,
+            "goWithHalt": false,
+            "maneuverLeftAllowed": false,
+            "maneuverUTurnAllowed": false,
+            "maneuverLeftTurnOnRedAllowed": false,
+            "reserved1": false,
+            "maneuverRightAllowed": false,
+            "maneuverLaneChangeAllowed": false,
+            "yieldAllwaysRequired": false,
+            "maneuverRightTurnOnRedAllowed": false,
+            "caution": false
+          },
+          "connectsTo": [
+            {
+              "connectingLane": {
+                "lane": 6,
+                "maneuver": {
+                  "maneuverStraightAllowed": true,
+                  "maneuverNoStoppingAllowed": false,
+                  "goWithHalt": false,
+                  "maneuverLeftAllowed": false,
+                  "maneuverUTurnAllowed": false,
+                  "maneuverLeftTurnOnRedAllowed": false,
+                  "reserved1": false,
+                  "maneuverRightAllowed": false,
+                  "maneuverLaneChangeAllowed": false,
+                  "yieldAllwaysRequired": false,
+                  "maneuverRightTurnOnRedAllowed": false,
+                  "caution": false
+                }
+              },
+              "signalGroup": 6,
+              "connectionID": 1
+            }
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 8,
+        "geometry": "LINESTRING (-104.8102299 39.595043, -104.8075715 39.5950381, -104.804959 39.5950345)",
+        "properties": {
+          "nodes": [
+            {
+              "delta": [
+                1558,
+                1463
+              ]
+            },
+            {
+              "delta": [
+                22761,
+                -54
+              ]
+            },
+            {
+              "delta": [
+                22368,
+                -40
+              ],
+              "delevation": 30
+            }
+          ],
+          "laneId": 8,
+          "sharedWith": {
+            "busVehicleTraffic": false,
+            "trackedVehicleTraffic": false,
+            "individualMotorizedVehicleTraffic": false,
+            "taxiVehicleTraffic": false,
+            "overlappingLaneDescriptionProvided": false,
+            "cyclistVehicleTraffic": false,
+            "otherNonMotorizedTrafficTypes": false,
+            "multipleLanesTreatedAsOneLane": false,
+            "pedestrianTraffic": false,
+            "pedestriansTraffic": false
+          },
+          "egressApproach": 0,
+          "ingressApproach": 3,
+          "ingressPath": true,
+          "egressPath": false,
+          "maneuvers": {
+            "maneuverStraightAllowed": true,
+            "maneuverNoStoppingAllowed": false,
+            "goWithHalt": false,
+            "maneuverLeftAllowed": false,
+            "maneuverUTurnAllowed": false,
+            "maneuverLeftTurnOnRedAllowed": false,
+            "reserved1": false,
+            "maneuverRightAllowed": false,
+            "maneuverLaneChangeAllowed": false,
+            "yieldAllwaysRequired": false,
+            "maneuverRightTurnOnRedAllowed": false,
+            "caution": false
+          },
+          "connectsTo": [
+            {
+              "connectingLane": {
+                "lane": 5,
+                "maneuver": {
+                  "maneuverStraightAllowed": true,
+                  "maneuverNoStoppingAllowed": false,
+                  "goWithHalt": false,
+                  "maneuverLeftAllowed": false,
+                  "maneuverUTurnAllowed": false,
+                  "maneuverLeftTurnOnRedAllowed": false,
+                  "reserved1": false,
+                  "maneuverRightAllowed": false,
+                  "maneuverLaneChangeAllowed": false,
+                  "yieldAllwaysRequired": false,
+                  "maneuverRightTurnOnRedAllowed": false,
+                  "caution": false
+                }
+              },
+              "signalGroup": 6,
+              "connectionID": 1
+            }
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 9,
+        "geometry": "LINESTRING (-104.8102258 39.5950113, -104.807589 39.595008, -104.8049636 39.5950036)",
+        "properties": {
+          "nodes": [
+            {
+              "delta": [
+                1593,
+                1111
+              ]
+            },
+            {
+              "delta": [
+                22576,
+                -37
+              ]
+            },
+            {
+              "delta": [
+                22478,
+                -49
+              ],
+              "delevation": 30
+            }
+          ],
+          "laneId": 9,
+          "sharedWith": {
+            "busVehicleTraffic": false,
+            "trackedVehicleTraffic": false,
+            "individualMotorizedVehicleTraffic": false,
+            "taxiVehicleTraffic": false,
+            "overlappingLaneDescriptionProvided": false,
+            "cyclistVehicleTraffic": false,
+            "otherNonMotorizedTrafficTypes": false,
+            "multipleLanesTreatedAsOneLane": false,
+            "pedestrianTraffic": false,
+            "pedestriansTraffic": false
+          },
+          "egressApproach": 0,
+          "ingressApproach": 3,
+          "ingressPath": true,
+          "egressPath": false,
+          "maneuvers": {
+            "maneuverStraightAllowed": true,
+            "maneuverNoStoppingAllowed": false,
+            "goWithHalt": false,
+            "maneuverLeftAllowed": false,
+            "maneuverUTurnAllowed": false,
+            "maneuverLeftTurnOnRedAllowed": false,
+            "reserved1": false,
+            "maneuverRightAllowed": false,
+            "maneuverLaneChangeAllowed": false,
+            "yieldAllwaysRequired": false,
+            "maneuverRightTurnOnRedAllowed": false,
+            "caution": false
+          },
+          "connectsTo": [
+            {
+              "connectingLane": {
+                "lane": 4,
+                "maneuver": {
+                  "maneuverStraightAllowed": true,
+                  "maneuverNoStoppingAllowed": false,
+                  "goWithHalt": false,
+                  "maneuverLeftAllowed": false,
+                  "maneuverUTurnAllowed": false,
+                  "maneuverLeftTurnOnRedAllowed": false,
+                  "reserved1": false,
+                  "maneuverRightAllowed": false,
+                  "maneuverLaneChangeAllowed": false,
+                  "yieldAllwaysRequired": false,
+                  "maneuverRightTurnOnRedAllowed": false,
+                  "caution": false
+                }
+              },
+              "signalGroup": 6,
+              "connectionID": 1
+            }
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 10,
+        "geometry": "LINESTRING (-104.8102212 39.594973, -104.8087216 39.5949766, -104.8087216 39.5949766)",
+        "properties": {
+          "nodes": [
+            {
+              "delta": [
+                1633,
+                686
+              ]
+            },
+            {
+              "delta": [
+                12839,
+                40
+              ]
+            },
+            {
+              "delta": [
+                0,
+                0
+              ]
+            }
+          ],
+          "laneId": 10,
+          "sharedWith": {
+            "busVehicleTraffic": false,
+            "trackedVehicleTraffic": false,
+            "individualMotorizedVehicleTraffic": false,
+            "taxiVehicleTraffic": false,
+            "overlappingLaneDescriptionProvided": false,
+            "cyclistVehicleTraffic": false,
+            "otherNonMotorizedTrafficTypes": false,
+            "multipleLanesTreatedAsOneLane": false,
+            "pedestrianTraffic": false,
+            "pedestriansTraffic": false
+          },
+          "egressApproach": 0,
+          "ingressApproach": 3,
+          "ingressPath": true,
+          "egressPath": false,
+          "maneuvers": {
+            "maneuverStraightAllowed": false,
+            "maneuverNoStoppingAllowed": false,
+            "goWithHalt": false,
+            "maneuverLeftAllowed": true,
+            "maneuverUTurnAllowed": false,
+            "maneuverLeftTurnOnRedAllowed": false,
+            "reserved1": false,
+            "maneuverRightAllowed": false,
+            "maneuverLaneChangeAllowed": false,
+            "yieldAllwaysRequired": false,
+            "maneuverRightTurnOnRedAllowed": false,
+            "caution": false
+          },
+          "connectsTo": [
+            {
+              "connectingLane": {
+                "lane": 20,
+                "maneuver": {
+                  "maneuverStraightAllowed": false,
+                  "maneuverNoStoppingAllowed": false,
+                  "goWithHalt": false,
+                  "maneuverLeftAllowed": true,
+                  "maneuverUTurnAllowed": false,
+                  "maneuverLeftTurnOnRedAllowed": false,
+                  "reserved1": false,
+                  "maneuverRightAllowed": false,
+                  "maneuverLaneChangeAllowed": false,
+                  "yieldAllwaysRequired": false,
+                  "maneuverRightTurnOnRedAllowed": false,
+                  "caution": false
+                }
+              },
+              "signalGroup": 1,
+              "connectionID": 1
+            }
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 11,
+        "geometry": "LINESTRING (-104.8102193 39.594943, -104.8092674 39.5949425)",
+        "properties": {
+          "nodes": [
+            {
+              "delta": [
+                1649,
+                352
+              ]
+            },
+            {
+              "delta": [
+                8150,
+                -6
+              ]
+            }
+          ],
+          "laneId": 11,
+          "sharedWith": {
+            "busVehicleTraffic": false,
+            "trackedVehicleTraffic": false,
+            "individualMotorizedVehicleTraffic": false,
+            "taxiVehicleTraffic": false,
+            "overlappingLaneDescriptionProvided": false,
+            "cyclistVehicleTraffic": false,
+            "otherNonMotorizedTrafficTypes": false,
+            "multipleLanesTreatedAsOneLane": false,
+            "pedestrianTraffic": false,
+            "pedestriansTraffic": false
+          },
+          "egressApproach": 0,
+          "ingressApproach": 3,
+          "ingressPath": true,
+          "egressPath": false,
+          "maneuvers": {
+            "maneuverStraightAllowed": false,
+            "maneuverNoStoppingAllowed": false,
+            "goWithHalt": false,
+            "maneuverLeftAllowed": true,
+            "maneuverUTurnAllowed": false,
+            "maneuverLeftTurnOnRedAllowed": false,
+            "reserved1": false,
+            "maneuverRightAllowed": false,
+            "maneuverLaneChangeAllowed": false,
+            "yieldAllwaysRequired": false,
+            "maneuverRightTurnOnRedAllowed": false,
+            "caution": false
+          },
+          "connectsTo": [
+            {
+              "connectingLane": {
+                "lane": 19,
+                "maneuver": {
+                  "maneuverStraightAllowed": false,
+                  "maneuverNoStoppingAllowed": false,
+                  "goWithHalt": false,
+                  "maneuverLeftAllowed": true,
+                  "maneuverUTurnAllowed": true,
+                  "maneuverLeftTurnOnRedAllowed": false,
+                  "reserved1": false,
+                  "maneuverRightAllowed": false,
+                  "maneuverLaneChangeAllowed": false,
+                  "yieldAllwaysRequired": false,
+                  "maneuverRightTurnOnRedAllowed": false,
+                  "caution": false
+                }
+              },
+              "signalGroup": 1,
+              "connectionID": 1
+            }
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 20,
+        "geometry": "LINESTRING (-104.8105313 39.5946973, -104.8105313 39.5946626)",
+        "properties": {
+          "nodes": [
+            {
+              "delta": [
+                -1022,
+                -2378
+              ]
+            },
+            {
+              "delta": [
+                0,
+                -386
+              ]
+            }
+          ],
+          "laneId": 20,
+          "sharedWith": {
+            "busVehicleTraffic": false,
+            "trackedVehicleTraffic": false,
+            "individualMotorizedVehicleTraffic": false,
+            "taxiVehicleTraffic": false,
+            "overlappingLaneDescriptionProvided": false,
+            "cyclistVehicleTraffic": false,
+            "otherNonMotorizedTrafficTypes": false,
+            "multipleLanesTreatedAsOneLane": false,
+            "pedestrianTraffic": false,
+            "pedestriansTraffic": false
+          },
+          "egressApproach": 6,
+          "ingressApproach": 0,
+          "ingressPath": false,
+          "egressPath": true
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 19,
+        "geometry": "LINESTRING (-104.8104711 39.5946967, -104.8104711 39.5946654)",
+        "properties": {
+          "nodes": [
+            {
+              "delta": [
+                -507,
+                -2384
+              ]
+            },
+            {
+              "delta": [
+                0,
+                -348
+              ]
+            }
+          ],
+          "laneId": 19,
+          "sharedWith": {
+            "busVehicleTraffic": false,
+            "trackedVehicleTraffic": false,
+            "individualMotorizedVehicleTraffic": false,
+            "taxiVehicleTraffic": false,
+            "overlappingLaneDescriptionProvided": false,
+            "cyclistVehicleTraffic": false,
+            "otherNonMotorizedTrafficTypes": false,
+            "multipleLanesTreatedAsOneLane": false,
+            "pedestrianTraffic": false,
+            "pedestriansTraffic": false
+          },
+          "egressApproach": 6,
+          "ingressApproach": 0,
+          "ingressPath": false,
+          "egressPath": true
+        }
+      }
+    ]
+  },
+  "connectingLanesFeatureCollection": {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "id": "1-14",
+        "geometry": "LINESTRING (-104.8106324 39.5948319, -104.8102167 39.5948299)",
+        "properties": {
+          "signalGroupId": 2,
+          "ingressLaneId": 1,
+          "egressLaneId": 14
+        }
+      },
+      {
+        "type": "Feature",
+        "id": "2-13",
+        "geometry": "LINESTRING (-104.8106323 39.5948563, -104.8102153 39.5948623)",
+        "properties": {
+          "signalGroupId": 2,
+          "ingressLaneId": 2,
+          "egressLaneId": 13
+        }
+      },
+      {
+        "type": "Feature",
+        "id": "3-12",
+        "geometry": "LINESTRING (-104.8106319 39.5948917, -104.8102138 39.5948942)",
+        "properties": {
+          "signalGroupId": 2,
+          "ingressLaneId": 3,
+          "egressLaneId": 12
+        }
+      },
+      {
+        "type": "Feature",
+        "id": "21-20",
+        "geometry": "LINESTRING (-104.8106408 39.5947845, -104.8105313 39.5946973)",
+        "properties": {
+          "ingressLaneId": 21,
+          "egressLaneId": 20
+        }
+      },
+      {
+        "type": "Feature",
+        "id": "21-19",
+        "geometry": "LINESTRING (-104.8106408 39.5947845, -104.8104711 39.5946967)",
+        "properties": {
+          "ingressLaneId": 21,
+          "egressLaneId": 19
+        }
+      },
+      {
+        "type": "Feature",
+        "id": "18-4",
+        "geometry": "LINESTRING (-104.810398 39.594711, -104.8106429 39.5949784)",
+        "properties": {
+          "signalGroupId": 8,
+          "ingressLaneId": 18,
+          "egressLaneId": 4
+        }
+      },
+      {
+        "type": "Feature",
+        "id": "17-5",
+        "geometry": "LINESTRING (-104.8103578 39.5947153, -104.8106451 39.5950159)",
+        "properties": {
+          "signalGroupId": 8,
+          "ingressLaneId": 17,
+          "egressLaneId": 5
+        }
+      },
+      {
+        "type": "Feature",
+        "id": "16-6",
+        "geometry": "LINESTRING (-104.8103166 39.5947184, -104.8106429 39.5950643)",
+        "properties": {
+          "signalGroupId": 8,
+          "ingressLaneId": 16,
+          "egressLaneId": 6
+        }
+      },
+      {
+        "type": "Feature",
+        "id": "16-14",
+        "geometry": "LINESTRING (-104.8103166 39.5947184, -104.8102167 39.5948299)",
+        "properties": {
+          "signalGroupId": 8,
+          "ingressLaneId": 16,
+          "egressLaneId": 14
+        }
+      },
+      {
+        "type": "Feature",
+        "id": "7-6",
+        "geometry": "LINESTRING (-104.8102313 39.5950729, -104.8106429 39.5950643)",
+        "properties": {
+          "signalGroupId": 6,
+          "ingressLaneId": 7,
+          "egressLaneId": 6
+        }
+      },
+      {
+        "type": "Feature",
+        "id": "8-5",
+        "geometry": "LINESTRING (-104.8102299 39.595043, -104.8106451 39.5950159)",
+        "properties": {
+          "signalGroupId": 6,
+          "ingressLaneId": 8,
+          "egressLaneId": 5
+        }
+      },
+      {
+        "type": "Feature",
+        "id": "9-4",
+        "geometry": "LINESTRING (-104.8102258 39.5950113, -104.8106429 39.5949784)",
+        "properties": {
+          "signalGroupId": 6,
+          "ingressLaneId": 9,
+          "egressLaneId": 4
+        }
+      },
+      {
+        "type": "Feature",
+        "id": "10-20",
+        "geometry": "LINESTRING (-104.8102212 39.594973, -104.8105313 39.5946973)",
+        "properties": {
+          "signalGroupId": 1,
+          "ingressLaneId": 10,
+          "egressLaneId": 20
+        }
+      },
+      {
+        "type": "Feature",
+        "id": "11-19",
+        "geometry": "LINESTRING (-104.8102193 39.594943, -104.8104711 39.5946967)",
+        "properties": {
+          "signalGroupId": 1,
+          "ingressLaneId": 11,
+          "egressLaneId": 19
+        }
+      }
+    ]
+  },
+  "properties": {
+    "messageType": "MAP",
+    "odeReceivedAt": "2023-04-28T16:11:59.007076Z",
+    "originIp": "172.18.0.1",
+    "intersectionId": 8811,
+    "msgIssueRevision": 2,
+    "revision": 2,
+    "refPoint": {
+      "latitude": 39.5949113,
+      "longitude": -104.8104119,
+      "elevation": 1703.0
+    },
+    "cti4501Conformant": false,
+    "validationMessages": [
+      {
+        "message": "$.metadata.recordGeneratedBy: is missing but it is required",
+        "jsonPath": "$.metadata",
+        "schemaPath": "#/$defs/OdeMapMetadata/required"
+      },
+      {
+        "message": "$.metadata.receivedMessageDetails.locationData: is missing but it is required",
+        "jsonPath": "$.metadata.receivedMessageDetails",
+        "schemaPath": "#/$defs/OdeMapMetadata/properties/receivedMessageDetails/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].id.region: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].id",
+        "schemaPath": "#/$defs/J2735IntersectionReferenceID/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[0].laneAttributes.laneType.bikeLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[0].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[0].laneAttributes.laneType.crosswalk: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[0].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[0].laneAttributes.laneType.median: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[0].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[0].laneAttributes.laneType.parking: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[0].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[0].laneAttributes.laneType.sidewalk: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[0].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[0].laneAttributes.laneType.striping: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[0].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[0].laneAttributes.laneType.trackedVehicle: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[0].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[0].laneAttributes.laneType.vehicle.isVehicleRevocableLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[0].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[0].laneAttributes.laneType.vehicle.isVehicleFlyOverLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[0].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[0].laneAttributes.laneType.vehicle.permissionOnRequest: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[0].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[0].laneAttributes.laneType.vehicle.hasIRbeaconCoverage: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[0].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[0].laneAttributes.laneType.vehicle.restrictedToBusUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[0].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[0].laneAttributes.laneType.vehicle.restrictedToTaxiUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[0].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[0].laneAttributes.laneType.vehicle.restrictedFromPublicUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[0].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[0].laneAttributes.laneType.vehicle.hovLaneUseOnly: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[0].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[1].laneAttributes.laneType.bikeLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[1].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[1].laneAttributes.laneType.crosswalk: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[1].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[1].laneAttributes.laneType.median: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[1].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[1].laneAttributes.laneType.parking: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[1].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[1].laneAttributes.laneType.sidewalk: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[1].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[1].laneAttributes.laneType.striping: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[1].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[1].laneAttributes.laneType.trackedVehicle: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[1].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[1].laneAttributes.laneType.vehicle.isVehicleRevocableLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[1].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[1].laneAttributes.laneType.vehicle.isVehicleFlyOverLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[1].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[1].laneAttributes.laneType.vehicle.permissionOnRequest: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[1].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[1].laneAttributes.laneType.vehicle.hasIRbeaconCoverage: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[1].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[1].laneAttributes.laneType.vehicle.restrictedToBusUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[1].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[1].laneAttributes.laneType.vehicle.restrictedToTaxiUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[1].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[1].laneAttributes.laneType.vehicle.restrictedFromPublicUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[1].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[1].laneAttributes.laneType.vehicle.hovLaneUseOnly: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[1].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[2].laneAttributes.laneType.bikeLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[2].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[2].laneAttributes.laneType.crosswalk: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[2].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[2].laneAttributes.laneType.median: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[2].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[2].laneAttributes.laneType.parking: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[2].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[2].laneAttributes.laneType.sidewalk: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[2].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[2].laneAttributes.laneType.striping: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[2].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[2].laneAttributes.laneType.trackedVehicle: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[2].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[2].laneAttributes.laneType.vehicle.isVehicleRevocableLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[2].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[2].laneAttributes.laneType.vehicle.isVehicleFlyOverLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[2].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[2].laneAttributes.laneType.vehicle.permissionOnRequest: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[2].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[2].laneAttributes.laneType.vehicle.hasIRbeaconCoverage: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[2].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[2].laneAttributes.laneType.vehicle.restrictedToBusUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[2].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[2].laneAttributes.laneType.vehicle.restrictedToTaxiUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[2].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[2].laneAttributes.laneType.vehicle.restrictedFromPublicUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[2].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[2].laneAttributes.laneType.vehicle.hovLaneUseOnly: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[2].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[3].connectsTo.connectsTo[0].signalGroup: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[3].connectsTo.connectsTo[0]",
+        "schemaPath": "#/$defs/J2735Connection/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[3].connectsTo.connectsTo[1].signalGroup: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[3].connectsTo.connectsTo[1]",
+        "schemaPath": "#/$defs/J2735Connection/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[3].laneAttributes.laneType.bikeLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[3].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[3].laneAttributes.laneType.crosswalk: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[3].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[3].laneAttributes.laneType.median: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[3].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[3].laneAttributes.laneType.parking: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[3].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[3].laneAttributes.laneType.sidewalk: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[3].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[3].laneAttributes.laneType.striping: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[3].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[3].laneAttributes.laneType.trackedVehicle: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[3].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[3].laneAttributes.laneType.vehicle.isVehicleRevocableLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[3].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[3].laneAttributes.laneType.vehicle.isVehicleFlyOverLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[3].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[3].laneAttributes.laneType.vehicle.permissionOnRequest: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[3].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[3].laneAttributes.laneType.vehicle.hasIRbeaconCoverage: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[3].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[3].laneAttributes.laneType.vehicle.restrictedToBusUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[3].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[3].laneAttributes.laneType.vehicle.restrictedToTaxiUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[3].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[3].laneAttributes.laneType.vehicle.restrictedFromPublicUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[3].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[3].laneAttributes.laneType.vehicle.hovLaneUseOnly: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[3].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[4].maneuvers: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[4]",
+        "schemaPath": "#/$defs/J2735GenericLane/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[4].connectsTo: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[4]",
+        "schemaPath": "#/$defs/J2735GenericLane/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[4].laneAttributes.laneType.bikeLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[4].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[4].laneAttributes.laneType.crosswalk: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[4].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[4].laneAttributes.laneType.median: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[4].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[4].laneAttributes.laneType.parking: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[4].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[4].laneAttributes.laneType.sidewalk: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[4].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[4].laneAttributes.laneType.striping: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[4].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[4].laneAttributes.laneType.trackedVehicle: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[4].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[4].laneAttributes.laneType.vehicle.isVehicleRevocableLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[4].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[4].laneAttributes.laneType.vehicle.isVehicleFlyOverLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[4].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[4].laneAttributes.laneType.vehicle.permissionOnRequest: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[4].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[4].laneAttributes.laneType.vehicle.hasIRbeaconCoverage: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[4].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[4].laneAttributes.laneType.vehicle.restrictedToBusUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[4].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[4].laneAttributes.laneType.vehicle.restrictedToTaxiUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[4].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[4].laneAttributes.laneType.vehicle.restrictedFromPublicUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[4].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[4].laneAttributes.laneType.vehicle.hovLaneUseOnly: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[4].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[5].maneuvers: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[5]",
+        "schemaPath": "#/$defs/J2735GenericLane/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[5].connectsTo: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[5]",
+        "schemaPath": "#/$defs/J2735GenericLane/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[5].laneAttributes.laneType.bikeLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[5].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[5].laneAttributes.laneType.crosswalk: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[5].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[5].laneAttributes.laneType.median: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[5].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[5].laneAttributes.laneType.parking: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[5].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[5].laneAttributes.laneType.sidewalk: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[5].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[5].laneAttributes.laneType.striping: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[5].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[5].laneAttributes.laneType.trackedVehicle: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[5].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[5].laneAttributes.laneType.vehicle.isVehicleRevocableLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[5].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[5].laneAttributes.laneType.vehicle.isVehicleFlyOverLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[5].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[5].laneAttributes.laneType.vehicle.permissionOnRequest: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[5].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[5].laneAttributes.laneType.vehicle.hasIRbeaconCoverage: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[5].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[5].laneAttributes.laneType.vehicle.restrictedToBusUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[5].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[5].laneAttributes.laneType.vehicle.restrictedToTaxiUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[5].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[5].laneAttributes.laneType.vehicle.restrictedFromPublicUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[5].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[5].laneAttributes.laneType.vehicle.hovLaneUseOnly: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[5].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[6].maneuvers: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[6]",
+        "schemaPath": "#/$defs/J2735GenericLane/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[6].connectsTo: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[6]",
+        "schemaPath": "#/$defs/J2735GenericLane/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[6].laneAttributes.laneType.bikeLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[6].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[6].laneAttributes.laneType.crosswalk: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[6].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[6].laneAttributes.laneType.median: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[6].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[6].laneAttributes.laneType.parking: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[6].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[6].laneAttributes.laneType.sidewalk: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[6].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[6].laneAttributes.laneType.striping: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[6].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[6].laneAttributes.laneType.trackedVehicle: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[6].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[6].laneAttributes.laneType.vehicle.isVehicleRevocableLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[6].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[6].laneAttributes.laneType.vehicle.isVehicleFlyOverLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[6].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[6].laneAttributes.laneType.vehicle.permissionOnRequest: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[6].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[6].laneAttributes.laneType.vehicle.hasIRbeaconCoverage: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[6].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[6].laneAttributes.laneType.vehicle.restrictedToBusUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[6].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[6].laneAttributes.laneType.vehicle.restrictedToTaxiUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[6].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[6].laneAttributes.laneType.vehicle.restrictedFromPublicUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[6].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[6].laneAttributes.laneType.vehicle.hovLaneUseOnly: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[6].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[7].laneAttributes.laneType.bikeLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[7].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[7].laneAttributes.laneType.crosswalk: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[7].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[7].laneAttributes.laneType.median: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[7].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[7].laneAttributes.laneType.parking: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[7].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[7].laneAttributes.laneType.sidewalk: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[7].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[7].laneAttributes.laneType.striping: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[7].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[7].laneAttributes.laneType.trackedVehicle: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[7].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[7].laneAttributes.laneType.vehicle.isVehicleRevocableLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[7].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[7].laneAttributes.laneType.vehicle.isVehicleFlyOverLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[7].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[7].laneAttributes.laneType.vehicle.permissionOnRequest: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[7].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[7].laneAttributes.laneType.vehicle.hasIRbeaconCoverage: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[7].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[7].laneAttributes.laneType.vehicle.restrictedToBusUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[7].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[7].laneAttributes.laneType.vehicle.restrictedToTaxiUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[7].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[7].laneAttributes.laneType.vehicle.restrictedFromPublicUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[7].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[7].laneAttributes.laneType.vehicle.hovLaneUseOnly: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[7].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[8].laneAttributes.laneType.bikeLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[8].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[8].laneAttributes.laneType.crosswalk: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[8].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[8].laneAttributes.laneType.median: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[8].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[8].laneAttributes.laneType.parking: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[8].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[8].laneAttributes.laneType.sidewalk: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[8].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[8].laneAttributes.laneType.striping: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[8].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[8].laneAttributes.laneType.trackedVehicle: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[8].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[8].laneAttributes.laneType.vehicle.isVehicleRevocableLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[8].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[8].laneAttributes.laneType.vehicle.isVehicleFlyOverLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[8].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[8].laneAttributes.laneType.vehicle.permissionOnRequest: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[8].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[8].laneAttributes.laneType.vehicle.hasIRbeaconCoverage: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[8].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[8].laneAttributes.laneType.vehicle.restrictedToBusUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[8].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[8].laneAttributes.laneType.vehicle.restrictedToTaxiUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[8].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[8].laneAttributes.laneType.vehicle.restrictedFromPublicUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[8].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[8].laneAttributes.laneType.vehicle.hovLaneUseOnly: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[8].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[9].laneAttributes.laneType.bikeLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[9].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[9].laneAttributes.laneType.crosswalk: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[9].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[9].laneAttributes.laneType.median: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[9].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[9].laneAttributes.laneType.parking: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[9].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[9].laneAttributes.laneType.sidewalk: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[9].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[9].laneAttributes.laneType.striping: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[9].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[9].laneAttributes.laneType.trackedVehicle: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[9].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[9].laneAttributes.laneType.vehicle.isVehicleRevocableLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[9].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[9].laneAttributes.laneType.vehicle.isVehicleFlyOverLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[9].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[9].laneAttributes.laneType.vehicle.permissionOnRequest: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[9].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[9].laneAttributes.laneType.vehicle.hasIRbeaconCoverage: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[9].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[9].laneAttributes.laneType.vehicle.restrictedToBusUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[9].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[9].laneAttributes.laneType.vehicle.restrictedToTaxiUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[9].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[9].laneAttributes.laneType.vehicle.restrictedFromPublicUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[9].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[9].laneAttributes.laneType.vehicle.hovLaneUseOnly: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[9].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[10].connectsTo: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[10]",
+        "schemaPath": "#/$defs/J2735GenericLane/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[10].laneAttributes.laneType.bikeLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[10].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[10].laneAttributes.laneType.crosswalk: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[10].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[10].laneAttributes.laneType.median: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[10].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[10].laneAttributes.laneType.parking: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[10].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[10].laneAttributes.laneType.sidewalk: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[10].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[10].laneAttributes.laneType.striping: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[10].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[10].laneAttributes.laneType.trackedVehicle: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[10].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[10].laneAttributes.laneType.vehicle.isVehicleRevocableLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[10].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[10].laneAttributes.laneType.vehicle.isVehicleFlyOverLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[10].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[10].laneAttributes.laneType.vehicle.permissionOnRequest: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[10].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[10].laneAttributes.laneType.vehicle.hasIRbeaconCoverage: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[10].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[10].laneAttributes.laneType.vehicle.restrictedToBusUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[10].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[10].laneAttributes.laneType.vehicle.restrictedToTaxiUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[10].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[10].laneAttributes.laneType.vehicle.restrictedFromPublicUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[10].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[10].laneAttributes.laneType.vehicle.hovLaneUseOnly: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[10].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[11].maneuvers: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[11]",
+        "schemaPath": "#/$defs/J2735GenericLane/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[11].connectsTo: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[11]",
+        "schemaPath": "#/$defs/J2735GenericLane/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[11].laneAttributes.laneType.bikeLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[11].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[11].laneAttributes.laneType.crosswalk: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[11].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[11].laneAttributes.laneType.median: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[11].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[11].laneAttributes.laneType.parking: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[11].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[11].laneAttributes.laneType.sidewalk: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[11].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[11].laneAttributes.laneType.striping: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[11].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[11].laneAttributes.laneType.trackedVehicle: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[11].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[11].laneAttributes.laneType.vehicle.isVehicleRevocableLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[11].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[11].laneAttributes.laneType.vehicle.isVehicleFlyOverLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[11].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[11].laneAttributes.laneType.vehicle.permissionOnRequest: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[11].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[11].laneAttributes.laneType.vehicle.hasIRbeaconCoverage: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[11].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[11].laneAttributes.laneType.vehicle.restrictedToBusUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[11].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[11].laneAttributes.laneType.vehicle.restrictedToTaxiUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[11].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[11].laneAttributes.laneType.vehicle.restrictedFromPublicUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[11].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[11].laneAttributes.laneType.vehicle.hovLaneUseOnly: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[11].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[12].maneuvers: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[12]",
+        "schemaPath": "#/$defs/J2735GenericLane/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[12].connectsTo: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[12]",
+        "schemaPath": "#/$defs/J2735GenericLane/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[12].laneAttributes.laneType.bikeLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[12].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[12].laneAttributes.laneType.crosswalk: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[12].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[12].laneAttributes.laneType.median: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[12].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[12].laneAttributes.laneType.parking: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[12].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[12].laneAttributes.laneType.sidewalk: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[12].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[12].laneAttributes.laneType.striping: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[12].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[12].laneAttributes.laneType.trackedVehicle: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[12].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[12].laneAttributes.laneType.vehicle.isVehicleRevocableLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[12].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[12].laneAttributes.laneType.vehicle.isVehicleFlyOverLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[12].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[12].laneAttributes.laneType.vehicle.permissionOnRequest: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[12].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[12].laneAttributes.laneType.vehicle.hasIRbeaconCoverage: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[12].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[12].laneAttributes.laneType.vehicle.restrictedToBusUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[12].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[12].laneAttributes.laneType.vehicle.restrictedToTaxiUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[12].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[12].laneAttributes.laneType.vehicle.restrictedFromPublicUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[12].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[12].laneAttributes.laneType.vehicle.hovLaneUseOnly: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[12].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[13].maneuvers: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[13]",
+        "schemaPath": "#/$defs/J2735GenericLane/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[13].connectsTo: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[13]",
+        "schemaPath": "#/$defs/J2735GenericLane/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[13].laneAttributes.laneType.bikeLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[13].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[13].laneAttributes.laneType.crosswalk: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[13].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[13].laneAttributes.laneType.median: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[13].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[13].laneAttributes.laneType.parking: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[13].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[13].laneAttributes.laneType.sidewalk: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[13].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[13].laneAttributes.laneType.striping: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[13].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[13].laneAttributes.laneType.trackedVehicle: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[13].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[13].laneAttributes.laneType.vehicle.isVehicleRevocableLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[13].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[13].laneAttributes.laneType.vehicle.isVehicleFlyOverLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[13].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[13].laneAttributes.laneType.vehicle.permissionOnRequest: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[13].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[13].laneAttributes.laneType.vehicle.hasIRbeaconCoverage: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[13].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[13].laneAttributes.laneType.vehicle.restrictedToBusUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[13].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[13].laneAttributes.laneType.vehicle.restrictedToTaxiUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[13].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[13].laneAttributes.laneType.vehicle.restrictedFromPublicUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[13].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[13].laneAttributes.laneType.vehicle.hovLaneUseOnly: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[13].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[14].laneAttributes.laneType.bikeLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[14].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[14].laneAttributes.laneType.crosswalk: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[14].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[14].laneAttributes.laneType.median: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[14].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[14].laneAttributes.laneType.parking: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[14].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[14].laneAttributes.laneType.sidewalk: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[14].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[14].laneAttributes.laneType.striping: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[14].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[14].laneAttributes.laneType.trackedVehicle: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[14].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[14].laneAttributes.laneType.vehicle.isVehicleRevocableLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[14].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[14].laneAttributes.laneType.vehicle.isVehicleFlyOverLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[14].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[14].laneAttributes.laneType.vehicle.permissionOnRequest: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[14].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[14].laneAttributes.laneType.vehicle.hasIRbeaconCoverage: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[14].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[14].laneAttributes.laneType.vehicle.restrictedToBusUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[14].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[14].laneAttributes.laneType.vehicle.restrictedToTaxiUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[14].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[14].laneAttributes.laneType.vehicle.restrictedFromPublicUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[14].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[14].laneAttributes.laneType.vehicle.hovLaneUseOnly: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[14].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[15].laneAttributes.laneType.bikeLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[15].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[15].laneAttributes.laneType.crosswalk: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[15].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[15].laneAttributes.laneType.median: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[15].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[15].laneAttributes.laneType.parking: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[15].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[15].laneAttributes.laneType.sidewalk: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[15].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[15].laneAttributes.laneType.striping: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[15].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[15].laneAttributes.laneType.trackedVehicle: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[15].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[15].laneAttributes.laneType.vehicle.isVehicleRevocableLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[15].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[15].laneAttributes.laneType.vehicle.isVehicleFlyOverLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[15].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[15].laneAttributes.laneType.vehicle.permissionOnRequest: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[15].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[15].laneAttributes.laneType.vehicle.hasIRbeaconCoverage: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[15].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[15].laneAttributes.laneType.vehicle.restrictedToBusUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[15].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[15].laneAttributes.laneType.vehicle.restrictedToTaxiUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[15].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[15].laneAttributes.laneType.vehicle.restrictedFromPublicUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[15].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[15].laneAttributes.laneType.vehicle.hovLaneUseOnly: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[15].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[16].laneAttributes.laneType.bikeLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[16].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[16].laneAttributes.laneType.crosswalk: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[16].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[16].laneAttributes.laneType.median: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[16].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[16].laneAttributes.laneType.parking: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[16].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[16].laneAttributes.laneType.sidewalk: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[16].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[16].laneAttributes.laneType.striping: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[16].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[16].laneAttributes.laneType.trackedVehicle: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[16].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[16].laneAttributes.laneType.vehicle.isVehicleRevocableLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[16].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[16].laneAttributes.laneType.vehicle.isVehicleFlyOverLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[16].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[16].laneAttributes.laneType.vehicle.permissionOnRequest: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[16].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[16].laneAttributes.laneType.vehicle.hasIRbeaconCoverage: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[16].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[16].laneAttributes.laneType.vehicle.restrictedToBusUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[16].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[16].laneAttributes.laneType.vehicle.restrictedToTaxiUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[16].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[16].laneAttributes.laneType.vehicle.restrictedFromPublicUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[16].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[16].laneAttributes.laneType.vehicle.hovLaneUseOnly: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[16].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[17].laneAttributes.laneType.bikeLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[17].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[17].laneAttributes.laneType.crosswalk: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[17].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[17].laneAttributes.laneType.median: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[17].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[17].laneAttributes.laneType.parking: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[17].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[17].laneAttributes.laneType.sidewalk: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[17].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[17].laneAttributes.laneType.striping: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[17].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[17].laneAttributes.laneType.trackedVehicle: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[17].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[17].laneAttributes.laneType.vehicle.isVehicleRevocableLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[17].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[17].laneAttributes.laneType.vehicle.isVehicleFlyOverLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[17].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[17].laneAttributes.laneType.vehicle.permissionOnRequest: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[17].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[17].laneAttributes.laneType.vehicle.hasIRbeaconCoverage: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[17].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[17].laneAttributes.laneType.vehicle.restrictedToBusUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[17].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[17].laneAttributes.laneType.vehicle.restrictedToTaxiUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[17].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[17].laneAttributes.laneType.vehicle.restrictedFromPublicUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[17].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[17].laneAttributes.laneType.vehicle.hovLaneUseOnly: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[17].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[18].laneAttributes.laneType.bikeLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[18].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[18].laneAttributes.laneType.crosswalk: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[18].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[18].laneAttributes.laneType.median: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[18].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[18].laneAttributes.laneType.parking: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[18].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[18].laneAttributes.laneType.sidewalk: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[18].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[18].laneAttributes.laneType.striping: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[18].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[18].laneAttributes.laneType.trackedVehicle: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[18].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[18].laneAttributes.laneType.vehicle.isVehicleRevocableLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[18].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[18].laneAttributes.laneType.vehicle.isVehicleFlyOverLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[18].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[18].laneAttributes.laneType.vehicle.permissionOnRequest: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[18].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[18].laneAttributes.laneType.vehicle.hasIRbeaconCoverage: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[18].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[18].laneAttributes.laneType.vehicle.restrictedToBusUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[18].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[18].laneAttributes.laneType.vehicle.restrictedToTaxiUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[18].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[18].laneAttributes.laneType.vehicle.restrictedFromPublicUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[18].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[18].laneAttributes.laneType.vehicle.hovLaneUseOnly: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[18].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[19].maneuvers: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[19]",
+        "schemaPath": "#/$defs/J2735GenericLane/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[19].connectsTo: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[19]",
+        "schemaPath": "#/$defs/J2735GenericLane/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[19].laneAttributes.laneType.bikeLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[19].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[19].laneAttributes.laneType.crosswalk: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[19].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[19].laneAttributes.laneType.median: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[19].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[19].laneAttributes.laneType.parking: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[19].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[19].laneAttributes.laneType.sidewalk: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[19].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[19].laneAttributes.laneType.striping: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[19].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[19].laneAttributes.laneType.trackedVehicle: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[19].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[19].laneAttributes.laneType.vehicle.isVehicleRevocableLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[19].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[19].laneAttributes.laneType.vehicle.isVehicleFlyOverLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[19].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[19].laneAttributes.laneType.vehicle.permissionOnRequest: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[19].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[19].laneAttributes.laneType.vehicle.hasIRbeaconCoverage: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[19].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[19].laneAttributes.laneType.vehicle.restrictedToBusUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[19].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[19].laneAttributes.laneType.vehicle.restrictedToTaxiUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[19].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[19].laneAttributes.laneType.vehicle.restrictedFromPublicUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[19].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[19].laneAttributes.laneType.vehicle.hovLaneUseOnly: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[19].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[20].maneuvers: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[20]",
+        "schemaPath": "#/$defs/J2735GenericLane/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[20].connectsTo: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[20]",
+        "schemaPath": "#/$defs/J2735GenericLane/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[20].laneAttributes.laneType.bikeLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[20].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[20].laneAttributes.laneType.crosswalk: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[20].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[20].laneAttributes.laneType.median: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[20].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[20].laneAttributes.laneType.parking: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[20].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[20].laneAttributes.laneType.sidewalk: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[20].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[20].laneAttributes.laneType.striping: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[20].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[20].laneAttributes.laneType.trackedVehicle: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[20].laneAttributes.laneType",
+        "schemaPath": "oneOf/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[20].laneAttributes.laneType.vehicle.isVehicleRevocableLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[20].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[20].laneAttributes.laneType.vehicle.isVehicleFlyOverLane: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[20].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[20].laneAttributes.laneType.vehicle.permissionOnRequest: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[20].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[20].laneAttributes.laneType.vehicle.hasIRbeaconCoverage: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[20].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[20].laneAttributes.laneType.vehicle.restrictedToBusUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[20].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[20].laneAttributes.laneType.vehicle.restrictedToTaxiUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[20].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[20].laneAttributes.laneType.vehicle.restrictedFromPublicUse: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[20].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[20].laneAttributes.laneType.vehicle.hovLaneUseOnly: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0].laneSet.GenericLane[20].laneAttributes.laneType.vehicle",
+        "schemaPath": "#/$defs/J2735LaneAttributes-Vehicle/required"
+      },
+      {
+        "message": "$.payload.data.intersections.intersectionGeometry[0].speedLimits: is missing but it is required",
+        "jsonPath": "$.payload.data.intersections.intersectionGeometry[0]",
+        "schemaPath": "#/$defs/J2735IntersectionGeometry/required"
+      }
+    ],
+    "laneWidth": 366,
+    "mapSource": "RSU",
+    "timeStamp": "2023-04-28T16:11:59.007076Z"
+  }
+}

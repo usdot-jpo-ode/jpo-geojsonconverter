@@ -1,7 +1,5 @@
 package us.dot.its.jpo.geojsonconverter.converter.map;
 
-import java.nio.charset.StandardCharsets;
-
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.common.utils.Bytes;
 import org.apache.kafka.streams.StreamsBuilder;
@@ -14,6 +12,8 @@ import org.apache.kafka.streams.kstream.KStream;
 
 import us.dot.its.jpo.geojsonconverter.partitioner.RsuIdPartitioner;
 import us.dot.its.jpo.geojsonconverter.partitioner.RsuIntersectionKey;
+import us.dot.its.jpo.geojsonconverter.pojos.GeometryOutputMode;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.LineString;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.DeserializedRawMap;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.ProcessedMap;
 import us.dot.its.jpo.geojsonconverter.serialization.JsonSerdes;
@@ -28,7 +28,7 @@ public class MapTopology {
 
     private static final Logger logger = LoggerFactory.getLogger(MapTopology.class);
 
-    public static Topology build(String mapOdeJsonTopic, String processedMapTopic, MapJsonValidator mapJsonValidator) {
+    public static Topology build(String mapOdeJsonTopic, String processedMapTopic, String processedMapWTKTopic, MapJsonValidator mapJsonValidator, GeometryOutputMode gom) {
         StreamsBuilder builder = new StreamsBuilder();
 
         // Create stream from the ODE MAP topic
@@ -66,7 +66,7 @@ public class MapTopology {
             );
 
         // Convert ODE MAP to GeoJSON
-        KStream<RsuIntersectionKey, ProcessedMap> processedMapStream =
+        KStream<RsuIntersectionKey, ProcessedMap<LineString>> processedMapStream =
             validatedOdeMapStream.transform(
                 () -> new MapProcessedJsonConverter()
             );
@@ -80,9 +80,30 @@ public class MapTopology {
             processedMapTopic, 
             Produced.with(
                 JsonSerdes.RsuIntersectionKey(), // Key is now an RsuIntersectionKey object
-                JsonSerdes.ProcessedMap(),      // Value serializer for MAP GeoJSON
-                new RsuIdPartitioner<RsuIntersectionKey, ProcessedMap>())  // Partition by RSU ID
+                JsonSerdes.ProcessedMapGeoJson(),      // Value serializer for MAP GeoJSON
+                new RsuIdPartitioner<RsuIntersectionKey, ProcessedMap<LineString>>())  // Partition by RSU ID
             );
+        
+        if (gom == GeometryOutputMode.WKT) {
+            // Convert ProcessedMap GeoJSON to WKT
+            KStream<RsuIntersectionKey, ProcessedMap<String>> wktProcessedMapStream =
+                processedMapStream.transform(
+                    () -> new MapProcessedWKTConverter()
+                );
+            
+            // Removes null messages from being posted to output topic.
+            // Helpful to remove generated messages that caused exceptions.
+            wktProcessedMapStream = wktProcessedMapStream.filter((key, value) -> value != null); 
+
+            // Push the WKT stream back out to the MAP WKT topic 
+            wktProcessedMapStream.to(
+                processedMapWTKTopic, 
+                Produced.with(
+                    JsonSerdes.RsuIntersectionKey(), // Key is still an RsuIntersectionKey object
+                    JsonSerdes.ProcessedMapWKT(),      // Value serializer for MAP WKT
+                    new RsuIdPartitioner<RsuIntersectionKey, ProcessedMap<String>>())  // Partition by RSU ID
+                );
+        }
         
         return builder.build();
     }

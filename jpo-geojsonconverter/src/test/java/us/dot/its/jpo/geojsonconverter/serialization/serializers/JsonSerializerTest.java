@@ -18,16 +18,19 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import us.dot.its.jpo.geojsonconverter.DateJsonMapper;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.LineString;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.ProcessedMap;
 import us.dot.its.jpo.geojsonconverter.pojos.spat.ProcessedSpat;
 
 
 @SpringBootTest({
     "processed.spat.json=classpath:json/sample.processed-spat.json",
-    "processed.map.json=classpath:json/sample.processed-map.json"})
+    "processed.map.json=classpath:json/sample.processed-map.json",
+    "processed.map.wkt.json=classpath:json/sample.processed-map-wkt.json"})
 @RunWith(SpringRunner.class)
 @ActiveProfiles("test")
 public class JsonSerializerTest {
@@ -71,12 +74,31 @@ public class JsonSerializerTest {
     }
 
     @Test
-    public void testProcessedMapSerializer() {
-        try (JsonSerializer<ProcessedMap> serializer = new JsonSerializer<ProcessedMap>()) {
-            BufferedInputStream inputStream = new BufferedInputStream(validMapJsonResource.getInputStream());
+    public void testProcessedMapGeoJsonSerializer() {
+        try (JsonSerializer<ProcessedMap<LineString>> serializer = new JsonSerializer<ProcessedMap<LineString>>()) {
+            BufferedInputStream inputStream = new BufferedInputStream(validMapGeoJsonResource.getInputStream());
             String mapString = IOUtils.toString(inputStream, "UTF-8"); 
             ObjectMapper mapper = DateJsonMapper.getInstance();
-            ProcessedMap map = mapper.readValue(mapString, ProcessedMap.class);
+            JavaType javaType = mapper.getTypeFactory().constructParametricType(ProcessedMap.class, LineString.class);
+            ProcessedMap<LineString> map = mapper.readValue(mapString, javaType);
+            
+            byte[] bytes = serializer.serialize("the_topic", map);
+            assertNotNull(bytes);
+            assertTrue(bytes.length > 0);
+            assertEquals(map.toString(), new String(bytes));
+        } catch (Exception e) {
+            fail("Unexpected exception: " + e);
+        }
+    }
+
+    @Test
+    public void testProcessedMapWKTJsonSerializer() {
+        try (JsonSerializer<ProcessedMap<String>> serializer = new JsonSerializer<ProcessedMap<String>>()) {
+            BufferedInputStream inputStream = new BufferedInputStream(validMapWKTJsonResource.getInputStream());
+            String mapString = IOUtils.toString(inputStream, "UTF-8"); 
+            ObjectMapper mapper = DateJsonMapper.getInstance();
+            JavaType javaType = mapper.getTypeFactory().constructParametricType(ProcessedMap.class, String.class);
+            ProcessedMap<String> map = mapper.readValue(mapString, javaType);
             
             byte[] bytes = serializer.serialize("the_topic", map);
             assertNotNull(bytes);
@@ -91,7 +113,10 @@ public class JsonSerializerTest {
     private Resource validSpatJsonResource;
 
     @Value("${processed.map.json}")
-    private Resource validMapJsonResource;
+    private Resource validMapGeoJsonResource;
+
+    @Value("${processed.map.wkt.json}")
+    private Resource validMapWKTJsonResource;
 
     private class BadClass {
         // Class with no properties to break Jackson serialization

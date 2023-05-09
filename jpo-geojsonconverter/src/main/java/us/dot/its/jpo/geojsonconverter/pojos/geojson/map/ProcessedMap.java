@@ -1,5 +1,7 @@
 package us.dot.its.jpo.geojsonconverter.pojos.geojson.map;
 
+import com.fasterxml.jackson.annotation.*;
+
 import java.util.Objects;
 
 import us.dot.its.jpo.geojsonconverter.DateJsonMapper;
@@ -13,12 +15,13 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Document("ProcessedMap")
-public class ProcessedMap {
+@JsonPropertyOrder({"mapFeatureCollection", "connectingLanesFeatureCollection", "properties"})
+public class ProcessedMap<TGeometry> {
     private static Logger logger = LoggerFactory.getLogger(MapProperties.class);
 
+    MapFeatureCollection<TGeometry> mapFeatureCollection;
+    ConnectingLanesFeatureCollection<TGeometry> connectingLanesFeatureCollection;
     MapSharedProperties properties;
-    MapFeatureCollection mapFeatureCollection;
-    ConnectingLanesFeatureCollection connectingLanesFeatureCollection;
 
     public void setProperties(MapSharedProperties properties) {
         this.properties = properties;
@@ -28,19 +31,19 @@ public class ProcessedMap {
         return this.properties;
     }
 
-    public void setMapFeatureCollection(MapFeatureCollection mapFeatureCollection) {
+    public void setMapFeatureCollection(MapFeatureCollection<TGeometry> mapFeatureCollection) {
         this.mapFeatureCollection = mapFeatureCollection;
     }
 
-    public MapFeatureCollection getMapFeatureCollection() {
+    public MapFeatureCollection<TGeometry> getMapFeatureCollection() {
         return this.mapFeatureCollection;
     }
 
-    public void setConnectingLanesFeatureCollection(ConnectingLanesFeatureCollection connectingLanesFeatureCollection) {
+    public void setConnectingLanesFeatureCollection(ConnectingLanesFeatureCollection<TGeometry> connectingLanesFeatureCollection) {
         this.connectingLanesFeatureCollection = connectingLanesFeatureCollection;
     }
 
-    public ConnectingLanesFeatureCollection getConnectingLanesFeatureCollection() {
+    public ConnectingLanesFeatureCollection<TGeometry> getConnectingLanesFeatureCollection() {
         return this.connectingLanesFeatureCollection;
     }
 
@@ -51,7 +54,9 @@ public class ProcessedMap {
         if (!(o instanceof ProcessedMap)) {
             return false;
         }
-        ProcessedMap processedMap = (ProcessedMap) o;
+
+        @SuppressWarnings("unchecked")
+        ProcessedMap<TGeometry> processedMap = (ProcessedMap<TGeometry>) o;
         return Objects.equals(properties, processedMap.properties) && Objects.equals(mapFeatureCollection, processedMap.mapFeatureCollection) && Objects.equals(connectingLanesFeatureCollection, processedMap.connectingLanesFeatureCollection);
     }
 
