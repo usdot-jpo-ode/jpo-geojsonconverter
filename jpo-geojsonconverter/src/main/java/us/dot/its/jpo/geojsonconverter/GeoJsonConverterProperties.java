@@ -66,17 +66,15 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
     @PostConstruct
     public void initialize() {
         if (kafkaBrokers == null) {
-
             String dockerIp = CommonUtils.getEnvironmentVariable("DOCKER_HOST_IP");
 
             if (dockerIp == null) {
             logger.warn(
-                    "Neither geojsonconverter.kafkaBrokers property nor DOCKER_HOST_IP environment variable are defined. Defaulting to localhost.");
+                    "Neither spring.kafka.bootstrap-servers property nor DOCKER_HOST_IP environment variable are defined. Defaulting to localhost.");
             dockerIp = "localhost";
             }
             kafkaBrokers = dockerIp + ":" + DEFAULT_KAFKA_PORT;
-
-            logger.warn("geojsonconverter.kafkaBrokers property not defined. Will try DOCKER_HOST_IP => {}", kafkaBrokers);
+            logger.warn("spring.kafka.bootstrap-servers property not defined. Will try DOCKER_HOST_IP => {}", kafkaBrokers);
         }
 
         String kafkaType = CommonUtils.getEnvironmentVariable("KAFKA_TYPE");
@@ -140,6 +138,7 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
         return kafkaBrokers;
     }
 
+    @Value("${spring.kafka.bootstrap-servers}")
     public void setKafkaBrokers(String kafkaBrokers) {
         this.kafkaBrokers = kafkaBrokers;
     }
