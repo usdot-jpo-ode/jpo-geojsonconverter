@@ -35,7 +35,7 @@ public class GeoJsonConverterPropertiesTest {
                 fail("Unexpected exception: " + e);
         }
     }
-    
+
     @Test
     public void testInitShouldCatchUnknownHostException() {
         String expectedBroker = "localhost:9092";
