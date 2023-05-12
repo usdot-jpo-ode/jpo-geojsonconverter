@@ -69,7 +69,7 @@ public class SpatProcessedJsonConverter implements Transformer<Void, Deserialize
                 return KeyValue.pair(key, processedSpat);
             }
         } catch (Exception e) {
-            String errMsg = String.format("Exception converting ODE SPaT to Processed SPaT! Message: %s", e.getMessage());
+            String errMsg = String.format("Exception converting ODE SPaT to Processed SPaT! Message: %s, rawSpat: %s", e.getMessage(), rawSpat);
             logger.error(errMsg, e);
             // KafkaStreams knows to remove null responses before allowing further steps from occurring
             var key = new RsuIntersectionKey();
