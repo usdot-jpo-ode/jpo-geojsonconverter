@@ -23,7 +23,15 @@ public class MapProcessedWKTConverter implements Transformer<RsuIntersectionKey,
      */
     @Override
     public KeyValue<RsuIntersectionKey, ProcessedMap<String>> transform(RsuIntersectionKey key, ProcessedMap<LineString> geoJSONMap) {
-        return KeyValue.pair(key, WKTHandler.processedMapGeoJSON2WKT(geoJSONMap));
+        ProcessedMap<String> wktProcessedMap = WKTHandler.processedMapGeoJSON2WKT(geoJSONMap);
+
+        // Remove parts of the ProcessedMap that are not needed since WKT is not used by the Conflict Monitor
+        wktProcessedMap.getProperties().setValidationMessages(null);
+        for (int i = 0; i < wktProcessedMap.getMapFeatureCollection().getFeatures().length; i++) {
+            wktProcessedMap.getMapFeatureCollection().getFeatures()[i].getProperties().setNodes(null);
+        }
+
+        return KeyValue.pair(key, wktProcessedMap);
     }
 
     @Override
