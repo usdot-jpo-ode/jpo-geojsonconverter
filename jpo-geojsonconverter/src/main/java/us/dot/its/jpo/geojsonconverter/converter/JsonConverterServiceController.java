@@ -29,7 +29,7 @@ public class JsonConverterServiceController {
         super();
 
         try {
-            logger.info("Starting {}", this.getClass().getSimpleName());
+            logger.debug("Starting {}", this.getClass().getSimpleName());
             
             // MAP
             logger.info("Creating the Processed MAP Kafka-Streams topology");
@@ -69,7 +69,7 @@ public class JsonConverterServiceController {
 
             logger.info("All geoJSON conversion services started!");
         } catch (Exception e) {
-            logger.error("Encountered issue with creating topologies", e);
+            logger.error("Encountered error with creating topologies: ", e);
         }
     }
 }
