@@ -33,7 +33,7 @@ public class KafkaConfiguration {
     @Profile("!test")
     @Bean(name = "createKafkaTopics")
     public KafkaAdmin.NewTopics createKafkaTopics() {
-        logger.info("createTopic");
+        logger.debug("'createKafkaTopics()' method called");
         List<NewTopic> newTopics = new ArrayList<>();
         
         if(!properties.getConfluentCloudStatus()){
@@ -95,7 +95,7 @@ public class KafkaConfiguration {
 
 
             } catch (Exception e) {
-                logger.error("Exception in createKafkaTopics", e);
+                logger.error("Exception in createKafkaTopics() method: ", e);
                 throw e;
             }
         }
