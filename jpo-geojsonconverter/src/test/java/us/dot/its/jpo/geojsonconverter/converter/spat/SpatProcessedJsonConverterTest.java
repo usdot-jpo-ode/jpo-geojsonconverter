@@ -101,6 +101,17 @@ public class SpatProcessedJsonConverterTest {
     }
 
     @Test
+    public void testGenerateUTCTimestamp_NullMOY() {
+        ZonedDateTime time = spatProcessedJsonConverter.generateUTCTimestamp(null, 30000, "2023-06-14T22:15:42.785541Z");
+        assertNotNull(time);
+        assertEquals("JUNE", time.getMonth().toString());
+        assertEquals(14, time.getDayOfMonth());
+        assertEquals(2023, time.getYear());
+        assertEquals(22, time.getHour());
+        assertEquals(15, time.getMinute());
+    }
+
+    @Test
     public void testClose() {
         // Should do nothing, but required override
         spatProcessedJsonConverter.close();

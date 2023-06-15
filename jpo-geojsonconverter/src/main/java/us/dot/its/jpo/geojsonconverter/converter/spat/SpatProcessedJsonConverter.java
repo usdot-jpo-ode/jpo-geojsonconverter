@@ -186,23 +186,28 @@ public class SpatProcessedJsonConverter implements Transformer<Void, Deserialize
         ZonedDateTime date = null;
         try {
             ZonedDateTime odeDate = Instant.parse(odeTimestamp).atZone(ZoneId.of("UTC"));
-            int year = odeDate.getYear();
-            String dateString;
+            // int year = odeDate.getYear();
+            // String dateString;
+            
             long milliseconds;
-            if (moy != null){
-                long minutes = moy;
-                milliseconds = (long) dSecond; // milliseconds in current minute
-                dateString = String.format("%d-01-01T00:00:00.00Z", year);
-                date = Instant.parse(dateString).atZone(ZoneId.of("UTC"));
-                date = date.plusMinutes(minutes);
-                date = date.plus(milliseconds,ChronoUnit.MILLIS);
-            } else {
-                date = odeDate;
-                milliseconds = dSecond; // milliseconds from beginning of minute
-                date = date.withSecond(0);
-                date = date.withNano(0);
-                date = date.plus(milliseconds, ChronoUnit.MILLIS);
-            }
+            
+            // if (moy != null){
+            //     long minutes = moy;
+            //     milliseconds = (long) dSecond; // milliseconds in current minute
+            //     dateString = String.format("%d-01-01T00:00:00.00Z", year);
+            //     date = Instant.parse(dateString).atZone(ZoneId.of("UTC"));
+            //     date = date.plusMinutes(minutes);
+            //     date = date.plus(milliseconds,ChronoUnit.MILLIS);
+            // } else {
+
+            // Ignore Minute of the year for now
+            date = odeDate;
+            milliseconds = dSecond; // milliseconds from beginning of minute
+            date = date.withSecond(0);
+            date = date.withNano(0);
+            date = date.plus(milliseconds, ChronoUnit.MILLIS);
+            
+            // }
                         
         } catch (Exception e) {
             String errMsg = String.format("Failed to generateUTCTimestamp - SpatProcessedJsonConverter. Message: %s", e.getMessage());
