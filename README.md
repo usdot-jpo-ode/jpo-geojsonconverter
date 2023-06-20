@@ -2,13 +2,16 @@
 
 **US Department of Transportation (USDOT) Intelligent Transportation Systems (ITS) Joint Program Office (JPO) Intersection GeoJSON Converter**
 
-The JPO Intersection GeoJSON Converter is a real-time validator and data converter of JPO-ODE MAP and SPaT JSON based on the SAE J2735 message standard. Messages are consumed from Kafka and validated based on both the SAE J2735 standard and the more robust Connected Transportation Interoperability (CTI) Intersection Implementation Guide Message Requirements (Section 3.3.3). Message validation occurs simultaneously as the GeoJSON converter converts the JPO-ODE MAP and SPaT messages into mappable geoJSON. The JPO Intersection GeoJSON Converter outputs the resulting geoJSON onto Kafka topics along with an additional property value that defines whether the message is a valid intersection message.
+The JPO Intersection GeoJSON Converter is a real-time validator and data converter of JPO-ODE MAP and SPaT JSON based on the SAE J2735 message standard. Messages are consumed from Kafka and validated based on both the SAE J2735 standard and the more robust Connected Transportation Interoperability (CTI) Intersection Implementation Guide Message Requirements (Section 3.3.3). Message validation occurs simultaneously as the GeoJSON converter converts the JPO-ODE MAP and SPaT messages into mappable geoJSON. The JPO Intersection GeoJSON Converter outputs the resulting geoJSON onto Kafka topics. These messages contain validation information that identifies all issues encountered with validation, if any.
 
-![alt text](docs/jpo-geojsonexporter_arch_diagram.png "jpo-geojsonconverter Design Diagram")
+![alt text](docs/jpo-geojsonconverter_arch_diagram.png "jpo-geojsonconverter Design Diagram")
 
-The message validation has been included in the jpo-geojsonconverter in order to prevent too many small microservices from being created. The extent of the current validation that occurs is surface level and is supported by simple verification against a schema. There may be reason to eventually break this feature out into a new, separate repository if more complex validation must be performed.
+The message validation has been included in the jpo-geojsonconverter in order to prevent too many small microservices from being created. The extent of the current validation that occurs is surface level and is supported by simple verification against a schema that is based on J2735 and the CTI Intersection Implementation Guide. There may be reason to eventually break this feature out into a new, separate repository if more complex validation must be performed.
 
 All stakeholders are invited to provide input to these documents. To provide feedback, we recommend that you create an "issue" in this repository (<https://github.com/usdot-jpo-ode/jpo-geojsonconverter/issues>). You will need a GitHub account to create an issue. If you don’t have an account, a dialog will be presented to you to create one at no cost.
+
+## Release Notes
+The current version and release history of the JPO GeoJSON Converter: [Release Notes](<docs/Release_notes.md>)
 
 ---
 
@@ -33,69 +36,92 @@ All stakeholders are invited to provide input to these documents. To provide fee
 
 ## 1. Usage Example
 
-The jpo-geojsonconverter is used to convert the ODE JSON output of MAP and SPaT messages into GeoJSON. In order to verify your jpo-geojsonconverter is functioning, you must run the jpo-ode, then the jpo-geojsonconverter, and then send the jpo-ode raw ASN1 encoded MAP and SPaT data.
+The jpo-geojsonconverter is used to convert the ODE JSON output of MAP and SPaT messages into GeoJSON ProcessedMap messages and enhanced ProcessedSpat messages. In order to verify your jpo-geojsonconverter is functioning, you must run the jpo-ode, then the jpo-geojsonconverter, and then send the jpo-ode raw ASN1 encoded MAP and SPaT data.
 
 Follow the configuration section to properly configure and launch your jpo-ode and jpo-geojsonconverter.
 
 Run one of the UDP sender Python scripts from the [jpo-ode repository](https://github.com/usdot-jpo-ode/jpo-ode/tree/dev/scripts/tests) to generate some example MAP and SPaT messages. Make sure to set your DOCKER_HOST_IP environment variable so the script will properly send the ASN1 encoded messages to your locally running JPO-ODE.
 
-Once the message has been sent to the jpo-ode, it will be eventually be decoded and serialized into a JSON string. This string will be placed into the Kafka topics topic.OdeMapJson and topic.OdeSpatJson. The jpo-geojsonconverter will then transform them into geoJSON.
+Once the message has been sent to the jpo-ode, it will be eventually be decoded and serialized into a JSON string. This string will be placed into the Kafka topics topic.OdeMapJson and topic.OdeSpatJson. The jpo-geojsonconverter will then transform them into geoJSON. If a user needs WKT formatted GeoJSON, it is possible to turn this on by specifying the geometry.output.mode environment variable to "WKT".
 
-Example MAP geoJSON message (trimmed to a single feature):
+### <b>Output Message Types</b>
+
+### ProcessedMap
+When an OdeMapJson message is processed through the jpo-geojsonconverter, a ProcessedMap message is created. This message is a single JSON object that contains two geoJSON FeatureCollection objects and one regular JSON object. 
+
+- *mapFeatureCollection* - Feature Collection for storing all of the unique metadata and geographic data for each lane in an intersection. Mapping this object would display all defined lanes in an OdeMapJson object.
+- *connectingLanesFeatureCollection* - Feature Collection for storing all geographic data for connecting lanes within an intersection. When mapped, the feature collection displays a bunch of two point lines connecting each egress lane to all possible and legal traversals to ingress lanes. Useful for visualizing ProcessedSpat data.
+- *properties* - General metadata and property values that are important to keep with the processed MAP message but aren't related to any single lane in the intersection. RSU IP, intersection ID, and validation messages are stored here.
+
+[ProcessedMap schema can be found here.](<jpo-geojsonconverter/src/main/resources/schemas/processed-map.schema.json>)
+
+### ProcessedSpat
+When an OdeSpatJson message is processed through the jpo-geojsonconverter, a ProcessedSpat message is created. This message is a single JSON object that contains all of the important information within a SPaT message for matching it to a corresponding ProcessedMap message and for identifying its state. There is no geoJSON component to a ProcessedMap message on its own.
+
+[ProcessedSpat schema can be found here.](<jpo-geojsonconverter/src/main/resources/schemas/processed-spat.schema.json>)
+
+Example ProcessedSpat message:
+
 ```
-{  
-  "type": "FeatureCollection",
-  "features": [
+{
+  "messageType": "SPAT",
+  "odeReceivedAt": "2023-06-20T06:18:20.577365Z",
+  "originIp": "10.0.0.2",
+  "intersectionId": 12108,
+  "cti4501Conformant": false,
+  "validationMessages": [
     {
-      "type": "Feature",
-      "id": 2,
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -105.09115232580189,
-            39.59533762007272
-          ],
-          [
-            -105.08992396633637,
-            39.595323130058226
-          ],
-          [
-            -105.08960055408492,
-            39.595333210068304
-          ],
-          [
-            -105.08888318379331,
-            39.595317010052106
-          ],
-          [
-            -105.0881081157142,
-            39.59531593005103
-          ],
-          [
-            -105.08766381810617,
-            39.5953153000504
-          ]
-        ]
-      },
-      "properties": {
-        "lane_id": 2,
-        "ip": "172.18.0.1",
-        "ode_received_at": "2022-10-14T18:41:52.549328Z",
-        "egress_approach": 0,
-        "ingress_approach": 1,
-        "ingress_path": true,
-        "egress_path": false,
-        "connected_lanes": [
-          19
-        ]
-      }
+      "message": "$.metadata.receivedMessageDetails.locationData: is missing but it is required",
+      "jsonPath": "$.metadata.receivedMessageDetails",
+      "schemaPath": "#/$defs/OdeSpatMetadata/properties/receivedMessageDetails/required"
+    }
+  ],
+  "revision": 0,
+  "status": {
+    "manualControlIsEnabled": false,
+    "stopTimeIsActivated": false,
+    "failureFlash": false,
+    "preemptIsActive": false,
+    "signalPriorityIsActive": false,
+    "fixedTimeOperation": false,
+    "trafficDependentOperation": false,
+    "standbyOperation": false,
+    "failureMode": false,
+    "off": false,
+    "recentMAPmessageUpdate": false,
+    "recentChangeInMAPassignedLanesIDsUsed": false,
+    "noValidMAPisAvailableAtThisTime": false,
+    "noValidSPATisAvailableAtThisTime": false
+  },
+  "utcTimeStamp": "2023-06-20T06:18:17.679Z",
+  "states": [
+    {
+      "signalGroup": 1,
+      "stateTimeSpeed": [
+        {
+          "eventState": "STOP_AND_REMAIN",
+          "timing": {
+            "minEndTime": "2023-06-20T06:18:17.6Z",
+            "maxEndTime": "2023-06-20T06:18:17.6Z"
+          }
+        }
+      ]
+    },
+    {
+      "signalGroup": 2,
+      "stateTimeSpeed": [
+        {
+          "eventState": "PROTECTED_MOVEMENT_ALLOWED",
+          "timing": {
+            "minEndTime": "2023-06-20T06:18:21.6Z",
+            "maxEndTime": "2023-06-20T06:18:37.6Z"
+          }
+        }
+      ]
     }
   ]
 }
 ```
-
-IMPORTANT: SPaT geoJSON can only be properly created when corresponding MAP messages have been processed first. A SPaT is not a useful message without the context of the MAP message and is therefore required for the generation of SPaT geoJSON. If a SPaT is generated without the corresponding MAP message, the geometry will be null.
 
 [Back to top](#toc)
 
