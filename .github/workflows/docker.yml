@@ -9,7 +9,7 @@ on:
   pull_request:
 
 jobs:
-  asn1_codec:
+  jpo-geojsonconverter:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
