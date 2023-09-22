@@ -45,22 +45,50 @@
                     "type": "string"
                 },
                 "receivedMessageDetails": {
+                    "type": "object",
                     "properties": {
                         "locationData": {
                             "type": [
-                                "string",
+                                "object",
                                 "null"
+                            ],
+                            "properties": {
+                                "latitude": {
+                                    "type": "string"
+                                },
+                                "longitude": {
+                                    "type": "string"
+                                },
+                                "elevation": {
+                                    "type": "string"
+                                },
+                                "speed": {
+                                    "type": "string"
+                                },
+                                "heading": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "latitude",
+                                "longitude",
+                                "elevation",
+                                "speed",
+                                "heading"
                             ]
                         },
                         "rxSource": {
-                            "type": "string"
+                            "type": "string",
+                            "enum": [
+                                "RSU",
+                                "SAT",
+                                "RV",
+                                "SNMP",
+                                "NA",
+                                "UNKNOWN"
+                            ]
                         }
-                    },
-                    "required": [
-                        "locationData",
-                        "rxSource"
-                    ],
-                    "type": "object"
+                    }
                 },
                 "recordGeneratedAt": {
                     "type": "string"
@@ -126,7 +154,6 @@
                 "odePacketID",
                 "odeTimStartDateTime",
                 "recordGeneratedAt",
-                "recordGeneratedBy",
                 "sanitized"
             ],
             "type": "object"

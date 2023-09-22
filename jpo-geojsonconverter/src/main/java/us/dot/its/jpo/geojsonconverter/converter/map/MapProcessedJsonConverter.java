@@ -146,6 +146,7 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
                 mapProps.setNodes(nodeConversionList(lane.getNodeList().getNodes().getNodes()));            
             mapProps.setLaneId(lane.getLaneID());
             mapProps.setLaneName(lane.getName());
+            mapProps.setLaneType(lane.getLaneAttributes().getLaneType());
             mapProps.setSharedWith(lane.getLaneAttributes().getShareWith());
             mapProps.setIngressPath(lane.getLaneAttributes().getDirectionalUse().get("ingressPath"));
             mapProps.setEgressPath(lane.getLaneAttributes().getDirectionalUse().get("egressPath"));
