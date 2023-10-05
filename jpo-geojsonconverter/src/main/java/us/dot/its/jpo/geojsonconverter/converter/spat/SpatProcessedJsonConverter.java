@@ -217,18 +217,26 @@ public class SpatProcessedJsonConverter implements Transformer<Void, Deserialize
             if (timeMark != null){
                 long millis = Long.valueOf(timeMark)*100;
                 ZonedDateTime date = originTimestamp;
+                if(timeMark == 36011 || timeMark == 36001){
 
-                // If we are within 10 minutes of the next hour, and the timeMark is a small number, it probably means that the time is rolling over.
-                // In this case, add an hour to the UTC timestamp so that it appears in the future instead of in the past.s
-                if(originTimestamp.getMinute() > 50 && timeMark < 6000){
-                    date = date.plusHours(1);
+                    // Return UTC time zero if the Zoned Date time is marked as unknown, UTC time zero chosen so that a null value can represent an empty field in the SPaT. But 36011, can represent an intentionally unidentified field.
+                    return ZonedDateTime.ofInstant(Instant.ofEpochMilli(0), ZoneId.of("UTC"));
+                    
+                }else{
+                    // If we are within 10 minutes of the next hour, and the timeMark is a small number, it probably means that the time is rolling over.
+                    // In this case, add an hour to the UTC timestamp so that it appears in the future instead of in the past.s
+                    if(originTimestamp.getMinute() > 50 && timeMark < 6000){
+                        date = date.plusHours(1);
+                    }
+
+                    date = date.withMinute(0);
+                    date = date.withSecond(0);
+                    date = date.withNano(0);
+                    date = date.plus(millis, ChronoUnit.MILLIS);
+                    return date;
                 }
 
-                date = date.withMinute(0);
-                date = date.withSecond(0);
-                date = date.withNano(0);
-                date = date.plus(millis, ChronoUnit.MILLIS);
-                return date;
+                
             } else {
                 return null;
             }
