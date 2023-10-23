@@ -63,7 +63,8 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
 
                 var key = new RsuIntersectionKey();
                 key.setRsuId(mapMetadata.getOriginIp());
-                key.setIntersectionId(intersection.getId().getId());
+                key.setIntersectionReferenceID(intersection.getId());
+
                 logger.debug("Successfully created MAP GeoJSON for {}", key);
                 return KeyValue.pair(key, processedMapObject);
             } else {

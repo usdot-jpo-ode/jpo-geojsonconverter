@@ -1,15 +1,18 @@
 package us.dot.its.jpo.geojsonconverter.partitioner;
 
+import us.dot.its.jpo.ode.plugin.j2735.J2735IntersectionReferenceID;
+
 import java.util.Objects;
 
 
 /**
  * Kafka key for topics with an RSU ID and Intersection ID.
  */
-public class RsuIntersectionKey implements RsuIdKey {
+public class RsuIntersectionKey implements RsuIdKey, IntersectionKey {
     
     private String rsuId;
     private int intersectionId;
+    private int region;
 
     public RsuIntersectionKey() {}
  
@@ -28,6 +31,7 @@ public class RsuIntersectionKey implements RsuIdKey {
         this.rsuId = rsuId;
     }
 
+    @Override
     public int getIntersectionId() {
         return this.intersectionId;
     }
@@ -35,8 +39,37 @@ public class RsuIntersectionKey implements RsuIdKey {
     public void setIntersectionId(int intersectionId) {
         this.intersectionId = intersectionId;
     }
+    public void setIntersectionId(Integer intersectionId) {
+        if (intersectionId != null) {
+            setIntersectionId(intersectionId.intValue());
+        }
+    }
 
- 
+    /**
+     * Sets both intersection ID and region with null checks
+     * @param referenceID J2735IntersectionReferenceID
+     */
+    public void setIntersectionReferenceID(J2735IntersectionReferenceID referenceID) {
+        if (referenceID != null) {
+            setIntersectionId(referenceID.getId());
+            setRegion(referenceID.getRegion());
+        }
+    }
+
+    @Override
+    public int getRegion() {
+        return region;
+    }
+    public void setRegion(int region) {
+        this.region = region;
+    }
+    public void setRegion(Integer region) {
+        if (region != null) {
+            setRegion(region.intValue());
+        }
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -45,12 +78,13 @@ public class RsuIntersectionKey implements RsuIdKey {
             return false;
         }
         RsuIntersectionKey rsuIntersectionKey = (RsuIntersectionKey) o;
-        return Objects.equals(rsuId, rsuIntersectionKey.rsuId) && intersectionId == rsuIntersectionKey.intersectionId;
+        return Objects.equals(rsuId, rsuIntersectionKey.rsuId) && intersectionId == rsuIntersectionKey.intersectionId
+                && region == rsuIntersectionKey.region;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(rsuId, intersectionId);
+        return Objects.hash(rsuId, intersectionId, region);
     }
     
 
@@ -61,6 +95,7 @@ public class RsuIntersectionKey implements RsuIdKey {
         return "{" +
             " rsuId='" + getRsuId() + "'" +
             ", intersectionId='" + getIntersectionId() + "'" +
+            ", region='" + getRegion() + "'" +
             "}";
     }
     

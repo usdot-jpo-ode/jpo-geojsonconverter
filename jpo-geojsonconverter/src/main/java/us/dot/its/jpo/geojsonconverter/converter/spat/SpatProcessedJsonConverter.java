@@ -39,7 +39,7 @@ public class SpatProcessedJsonConverter implements Transformer<Void, Deserialize
      * Transform an ODE SPaT POJO to Processed SPaT POJO.
      * 
      * @param rawKey   - Void type because ODE topics have no specified key
-     * @param rawValue - The raw POJO
+     * @param rawSpat - The raw POJO
      * @return A key value pair: the key an {@link RsuIntersectionKey} containing the RSU IP address and Intersection ID
      *  and the value is the GeoJSON FeatureCollection POJO
      */
@@ -59,7 +59,7 @@ public class SpatProcessedJsonConverter implements Transformer<Void, Deserialize
 
                 var key = new RsuIntersectionKey();
                 key.setRsuId(spatMetadata.getOriginIp());
-                key.setIntersectionId(intersectionState.getId().getId());
+                key.setIntersectionReferenceID(intersectionState.getId());
                 return KeyValue.pair(key, processedSpat);
             } else {
                 ProcessedSpat processedSpat = createFailureProcessedSpat(rawSpat.getValidatorResults(), rawSpat.getFailedMessage());
