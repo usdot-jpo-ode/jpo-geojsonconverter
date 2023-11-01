@@ -66,14 +66,7 @@
                                 "heading": {
                                     "type": "string"
                                 }
-                            },
-                            "required": [
-                                "latitude",
-                                "longitude",
-                                "elevation",
-                                "speed",
-                                "heading"
-                            ]
+                            }
                         },
                         "rxSource": {
                             "type": "string",
@@ -113,14 +106,7 @@
                         "serialNumber": {
                             "type": "integer"
                         }
-                    },
-                    "required": [
-                        "streamId",
-                        "bundleSize",
-                        "bundleId",
-                        "recordId",
-                        "serialNumber"
-                    ]
+                    }
                 },
                 "odeReceivedAt": {
                     "type": "string"
@@ -150,19 +136,6 @@
                     "type": "boolean"
                 }
             },
-            "required": [
-                "spatSource",
-                "logFileName",
-                "recordType",
-                "securityResultCode",
-                "receivedMessageDetails",
-                "payloadType",
-                "serialId",
-                "odeReceivedAt",
-                "schemaVersion",
-                "recordGeneratedAt",
-                "sanitized"
-            ],
             "additionalProperties": false
         },
         "OdeSpatPayload": {
@@ -177,7 +150,6 @@
                 }
             },
             "required": [
-                "dataType",
                 "data"
             ],
             "additionalProperties": false
@@ -328,22 +300,6 @@
                     "type": "boolean"
                 }
             },
-            "required": [
-                "manualControlIsEnabled",
-                "stopTimeIsActivated",
-                "failureFlash",
-                "preemptIsActive",
-                "signalPriorityIsActive",
-                "fixedTimeOperation",
-                "trafficDependentOperation",
-                "standbyOperation",
-                "failureMode",
-                "off",
-                "recentMAPmessageUpdate",
-                "recentChangeInMAPassignedLanesIDsUsed",
-                "noValidMAPisAvailableAtThisTime",
-                "noValidSPATisAvailableAtThisTime"
-            ],
             "additionalProperties": false
         },
         "J2735EnabledLaneList_Wrapper": {
@@ -353,9 +309,6 @@
                     "$ref": "#/$defs/J2735EnabledLaneList"
                 }
             },
-            "required": [
-                "enabledLaneList"
-            ],
             "additionalProperties": false
         },
         "J2735EnabledLaneList": {
@@ -518,10 +471,8 @@
                 }
             },
             "required": [
-                "startTime",
                 "minEndTime",
-                "maxEndTime",
-                "nextTime"
+                "maxEndTime"
             ],
             "additionalProperties": false
         },
@@ -543,9 +494,6 @@
                     "$ref": "#/$defs/J2735AdvisorySpeedList"
                 }
             },
-            "required": [
-                "advisorySpeedList"
-            ],
             "additionalProperties": false
         },
         "J2735AdvisorySpeedList": {
@@ -599,9 +547,6 @@
                     "$ref": "#/$defs/J2735RestrictionClassID"
                 }
             },
-            "required": [
-                "type"
-            ]
         },
         "J2735LaneID": {
             "type": "integer",
@@ -639,7 +584,6 @@
                 }
             },
             "required": [
-                "region",
                 "id"
             ],
             "additionalProperties": false
@@ -685,11 +629,6 @@
                     "description": "Longitude in degrees"
                 }
             },
-            "required": [
-                "elevation",
-                "latitude",
-                "longitude"
-            ],
             "type": "object"
         }
     }
