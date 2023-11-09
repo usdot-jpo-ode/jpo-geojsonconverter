@@ -73,6 +73,9 @@ public class RsuIntersectionKey implements RsuIdKey, IntersectionKey {
     public void setRegion(Integer region) {
         if (region != null) {
             setRegion(region.intValue());
+        } else {
+            // Use -1 to indicate region is missing
+            setRegion(-1);
         }
     }
 
