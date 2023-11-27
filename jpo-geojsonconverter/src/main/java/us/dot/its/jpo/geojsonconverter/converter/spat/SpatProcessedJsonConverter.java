@@ -198,10 +198,12 @@ public class SpatProcessedJsonConverter implements Transformer<Void, Deserialize
                 date = date.plus(milliseconds,ChronoUnit.MILLIS);
             } else {
                 date = odeDate;
-                milliseconds = dSecond; // milliseconds from beginning of minute
-                date = date.withSecond(0);
-                date = date.withNano(0);
-                date = date.plus(milliseconds, ChronoUnit.MILLIS);
+                if (dSecond != null){
+                    milliseconds = dSecond; // milliseconds from beginning of minute
+                    date = date.withSecond(0);
+                    date = date.withNano(0);
+                    date = date.plus(milliseconds, ChronoUnit.MILLIS);
+                }
             }
                         
         } catch (Exception e) {
