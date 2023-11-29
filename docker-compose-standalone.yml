@@ -2,6 +2,7 @@ version: '3'
 services:
   geojsonconverter:
     build: .
+    restart: always
     image: jpo_geojsonconverter:latest
     environment:
       DOCKER_HOST_IP: ${DOCKER_HOST_IP}

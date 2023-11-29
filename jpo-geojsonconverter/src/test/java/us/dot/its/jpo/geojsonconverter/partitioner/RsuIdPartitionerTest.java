@@ -27,7 +27,7 @@ public class RsuIdPartitionerTest {
 
         final Object obj = new Object();
 
-        // Minimimize possibility of collisions
+        // Minimize possibility of collisions
         final int numPartitions = Integer.MAX_VALUE;
 
         var partitioner = new RsuIdPartitioner<RsuIntersectionKey, Object>();
