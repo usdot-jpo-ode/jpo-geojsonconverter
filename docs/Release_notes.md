@@ -1,6 +1,19 @@
 JPO GeoJSON Converter Release Notes
 ----------------------------
 
+Version 1.1.0
+----------------------------------------
+
+### **Summary**
+This release includes modifications to the ProcessedMap output, resiliency changes for Docker deployments and some minor bug fixes. The MAP and SPaT messages are now also partitioned in Kafka by their intersection ID rather than the origin IP.
+
+Enhancements in this release:
+- PR37: Partition Kafka topics by intersection ID instead of origin IP address.
+- PR35: Fix bug with SPaT relative UTC timestamps when the hour rolls over. 
+- PR33: Include laneType field in ProcessedMap messages for each lane.
+- PR27: Add auto restart policy to local docker-compose deployments.
+
+
 Version 1.0.0
 ----------------------------------------
 
