@@ -19,7 +19,7 @@ public class RsuIntersectionKey implements RsuIdKey, IntersectionKey {
     public RsuIntersectionKey(String rsuId, int intersectionId) {
         this.rsuId = rsuId;
         this.intersectionId = intersectionId;
-        this.region = 0;
+        this.region = -1;
     }
 
     public RsuIntersectionKey(String rsuId, int intersectionId, int region) {
@@ -49,6 +49,8 @@ public class RsuIntersectionKey implements RsuIdKey, IntersectionKey {
     public void setIntersectionId(Integer intersectionId) {
         if (intersectionId != null) {
             setIntersectionId(intersectionId.intValue());
+        } else {
+            setIntersectionId(-1);
         }
     }
 
@@ -73,6 +75,9 @@ public class RsuIntersectionKey implements RsuIdKey, IntersectionKey {
     public void setRegion(Integer region) {
         if (region != null) {
             setRegion(region.intValue());
+        } else {
+            // Use -1 to indicate region is missing
+            setRegion(-1);
         }
     }
 
