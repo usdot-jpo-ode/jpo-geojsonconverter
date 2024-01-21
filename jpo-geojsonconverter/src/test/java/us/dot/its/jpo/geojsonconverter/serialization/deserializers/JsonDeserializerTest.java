@@ -71,6 +71,7 @@ public class JsonDeserializerTest {
             assertEquals("2022-11-17T22:55:28.744Z", spat.getUtcTimeStamp().toString());
 
             //assertEquals(spatString, spat.toString().replace(" ", ""));
+
         } catch (Exception e) {
             fail("Unexpected exception: " + e);
         }
