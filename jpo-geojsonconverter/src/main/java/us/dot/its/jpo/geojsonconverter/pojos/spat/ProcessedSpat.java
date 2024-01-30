@@ -14,10 +14,9 @@ import us.dot.its.jpo.geojsonconverter.pojos.ProcessedValidationMessage;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.mongodb.core.mapping.Document;
+
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@Document("ProcessedSpat")
 public class ProcessedSpat {
     private static Logger logger = LoggerFactory.getLogger(ProcessedSpat.class);
 

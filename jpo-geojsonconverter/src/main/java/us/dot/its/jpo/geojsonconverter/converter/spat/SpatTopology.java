@@ -10,7 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.kafka.streams.kstream.KStream;
 
-import us.dot.its.jpo.geojsonconverter.partitioner.RsuIdPartitioner;
+import us.dot.its.jpo.geojsonconverter.partitioner.IntersectionIdPartitioner;
 import us.dot.its.jpo.geojsonconverter.partitioner.RsuIntersectionKey;
 import us.dot.its.jpo.geojsonconverter.pojos.spat.DeserializedRawSpat;
 import us.dot.its.jpo.geojsonconverter.pojos.spat.ProcessedSpat;
@@ -77,7 +77,7 @@ public class SpatTopology {
             Produced.with(
                 JsonSerdes.RsuIntersectionKey(),
                 JsonSerdes.ProcessedSpat(), 
-                new RsuIdPartitioner<RsuIntersectionKey, ProcessedSpat>())  // Partition by RSU ID
+                new IntersectionIdPartitioner<RsuIntersectionKey, ProcessedSpat>())  // Partition by RSU ID
         );
         
         return builder.build();
