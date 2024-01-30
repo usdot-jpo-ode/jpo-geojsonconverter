@@ -10,7 +10,7 @@ public class RsuIdPartitioner<K, V> implements StreamPartitioner<K, V> {
 
 
     @Override
-    public Integer partition(String topic, K key, V vlaue, int numPartitions) {
+    public Integer partition(String topic, K key, V value, int numPartitions) {
         
         byte[] partitionBytes;
         

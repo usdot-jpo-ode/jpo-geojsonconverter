@@ -10,7 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.kafka.streams.kstream.KStream;
 
-import us.dot.its.jpo.geojsonconverter.partitioner.RsuIdPartitioner;
+import us.dot.its.jpo.geojsonconverter.partitioner.IntersectionIdPartitioner;
 import us.dot.its.jpo.geojsonconverter.partitioner.RsuIntersectionKey;
 import us.dot.its.jpo.geojsonconverter.pojos.GeometryOutputMode;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.LineString;
@@ -81,7 +81,7 @@ public class MapTopology {
             Produced.with(
                 JsonSerdes.RsuIntersectionKey(), // Key is now an RsuIntersectionKey object
                 JsonSerdes.ProcessedMapGeoJson(),      // Value serializer for MAP GeoJSON
-                new RsuIdPartitioner<RsuIntersectionKey, ProcessedMap<LineString>>())  // Partition by RSU ID
+                new IntersectionIdPartitioner<RsuIntersectionKey, ProcessedMap<LineString>>())  // Partition by Intersection ID
             );
         
         if (gom == GeometryOutputMode.WKT) {
@@ -101,7 +101,7 @@ public class MapTopology {
                 Produced.with(
                     JsonSerdes.RsuIntersectionKey(), // Key is still an RsuIntersectionKey object
                     JsonSerdes.ProcessedMapWKT(),      // Value serializer for MAP WKT
-                    new RsuIdPartitioner<RsuIntersectionKey, ProcessedMap<String>>())  // Partition by RSU ID
+                    new IntersectionIdPartitioner<RsuIntersectionKey, ProcessedMap<String>>())  // Partition by Intersection ID
                 );
         }
         
