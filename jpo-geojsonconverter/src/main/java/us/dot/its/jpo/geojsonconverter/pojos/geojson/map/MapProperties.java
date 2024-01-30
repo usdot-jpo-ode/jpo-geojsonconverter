@@ -6,6 +6,7 @@ import java.util.Objects;
 import us.dot.its.jpo.geojsonconverter.DateJsonMapper;
 import us.dot.its.jpo.ode.plugin.j2735.J2735BitString;
 import us.dot.its.jpo.ode.plugin.j2735.J2735Connection;
+import us.dot.its.jpo.ode.plugin.j2735.J2735LaneTypeAttributes;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +24,7 @@ public class MapProperties {
     private List<MapNode> nodes;
     private Integer laneId;
     private String laneName;
+    private J2735LaneTypeAttributes laneType;
     private J2735BitString sharedWith;  // enum is of type J2735LaneSharing
     private Integer egressApproach;
     private Integer ingressApproach;
@@ -53,6 +55,14 @@ public class MapProperties {
 
     public String getLaneName() {
         return this.laneName;
+    }
+
+    public void setLaneType(J2735LaneTypeAttributes laneType) {
+        this.laneType = laneType;
+    }
+
+    public J2735LaneTypeAttributes getLaneType() {
+        return this.laneType;
     }
 
     public void setSharedWith(J2735BitString sharedWith) {
@@ -119,12 +129,12 @@ public class MapProperties {
             return false;
         }
         MapProperties mapProperties = (MapProperties) o;
-        return Objects.equals(nodes, mapProperties.nodes) && Objects.equals(laneId, mapProperties.laneId) && Objects.equals(laneName, mapProperties.laneName) && Objects.equals(sharedWith, mapProperties.sharedWith) && Objects.equals(egressApproach, mapProperties.egressApproach) && Objects.equals(ingressApproach, mapProperties.ingressApproach) && Objects.equals(ingressPath, mapProperties.ingressPath) && Objects.equals(egressPath, mapProperties.egressPath) && Objects.equals(maneuvers, mapProperties.maneuvers) && Objects.equals(connectsTo, mapProperties.connectsTo);
+        return Objects.equals(nodes, mapProperties.nodes) && Objects.equals(laneId, mapProperties.laneId) && Objects.equals(laneName, mapProperties.laneName) && Objects.equals(laneType, mapProperties.laneType) && Objects.equals(sharedWith, mapProperties.sharedWith) && Objects.equals(egressApproach, mapProperties.egressApproach) && Objects.equals(ingressApproach, mapProperties.ingressApproach) && Objects.equals(ingressPath, mapProperties.ingressPath) && Objects.equals(egressPath, mapProperties.egressPath) && Objects.equals(maneuvers, mapProperties.maneuvers) && Objects.equals(connectsTo, mapProperties.connectsTo);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nodes, laneId, laneName, sharedWith, egressApproach, ingressApproach, ingressPath, egressPath, maneuvers, connectsTo);
+        return Objects.hash(nodes, laneId, laneName, laneType, sharedWith, egressApproach, ingressApproach, ingressPath, egressPath, maneuvers, connectsTo);
     }
 
     @Override

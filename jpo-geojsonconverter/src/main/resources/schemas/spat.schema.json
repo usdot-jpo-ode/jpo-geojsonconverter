@@ -46,16 +46,47 @@
                     "type": "object",
                     "properties": {
                         "locationData": {
-                            "type": "null"
+                            "type": [
+                                "object",
+                                "null"
+                            ],
+                            "properties": {
+                                "latitude": {
+                                    "type": "string"
+                                },
+                                "longitude": {
+                                    "type": "string"
+                                },
+                                "elevation": {
+                                    "type": "string"
+                                },
+                                "speed": {
+                                    "type": "string"
+                                },
+                                "heading": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "latitude",
+                                "longitude",
+                                "elevation",
+                                "speed",
+                                "heading"
+                            ]
                         },
                         "rxSource": {
-                            "type": "string"
+                            "type": "string",
+                            "enum": [
+                                "RSU",
+                                "SAT",
+                                "RV",
+                                "SNMP",
+                                "NA",
+                                "UNKNOWN"
+                            ]
                         }
-                    },
-                    "required": [
-                        "locationData",
-                        "rxSource"
-                    ]
+                    }
                 },
                 "encodings": {
                     "type": "null"
@@ -110,7 +141,10 @@
                     "type": "string"
                 },
                 "recordGeneratedBy": {
-                    "type": "null"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "sanitized": {
                     "type": "boolean"
@@ -118,22 +152,15 @@
             },
             "required": [
                 "spatSource",
-                "isCertPresent",
-                "originIp",
                 "logFileName",
                 "recordType",
                 "securityResultCode",
                 "receivedMessageDetails",
-                "encodings",
                 "payloadType",
                 "serialId",
                 "odeReceivedAt",
                 "schemaVersion",
-                "maxDurationTime",
-                "odePacketID",
-                "odeTimStartDateTime",
                 "recordGeneratedAt",
-                "recordGeneratedBy",
                 "sanitized"
             ],
             "additionalProperties": false

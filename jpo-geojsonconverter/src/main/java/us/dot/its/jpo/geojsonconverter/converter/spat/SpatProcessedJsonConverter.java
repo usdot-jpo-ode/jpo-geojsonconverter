@@ -39,7 +39,7 @@ public class SpatProcessedJsonConverter implements Transformer<Void, Deserialize
      * Transform an ODE SPaT POJO to Processed SPaT POJO.
      * 
      * @param rawKey   - Void type because ODE topics have no specified key
-     * @param rawValue - The raw POJO
+     * @param rawSpat - The raw POJO
      * @return A key value pair: the key an {@link RsuIntersectionKey} containing the RSU IP address and Intersection ID
      *  and the value is the GeoJSON FeatureCollection POJO
      */
@@ -59,7 +59,7 @@ public class SpatProcessedJsonConverter implements Transformer<Void, Deserialize
 
                 var key = new RsuIntersectionKey();
                 key.setRsuId(spatMetadata.getOriginIp());
-                key.setIntersectionId(intersectionState.getId().getId());
+                key.setIntersectionReferenceID(intersectionState.getId());
                 return KeyValue.pair(key, processedSpat);
             } else {
                 ProcessedSpat processedSpat = createFailureProcessedSpat(rawSpat.getValidatorResults(), rawSpat.getFailedMessage());
@@ -198,10 +198,12 @@ public class SpatProcessedJsonConverter implements Transformer<Void, Deserialize
                 date = date.plus(milliseconds,ChronoUnit.MILLIS);
             } else {
                 date = odeDate;
-                milliseconds = dSecond; // milliseconds from beginning of minute
-                date = date.withSecond(0);
-                date = date.withNano(0);
-                date = date.plus(milliseconds, ChronoUnit.MILLIS);
+                if (dSecond != null){
+                    milliseconds = dSecond; // milliseconds from beginning of minute
+                    date = date.withSecond(0);
+                    date = date.withNano(0);
+                    date = date.plus(milliseconds, ChronoUnit.MILLIS);
+                }
             }
                         
         } catch (Exception e) {
@@ -217,11 +219,26 @@ public class SpatProcessedJsonConverter implements Transformer<Void, Deserialize
             if (timeMark != null){
                 long millis = Long.valueOf(timeMark)*100;
                 ZonedDateTime date = originTimestamp;
-                date = date.withMinute(0);
-                date = date.withSecond(0);
-                date = date.withNano(0);
-                date = date.plus(millis, ChronoUnit.MILLIS);
-                return date;
+                if(timeMark == 36011 || timeMark == 36001){
+
+                    // Return UTC time zero if the Zoned Date time is marked as unknown, UTC time zero chosen so that a null value can represent an empty field in the SPaT. But 36011, can represent an intentionally unidentified field.
+                    return ZonedDateTime.ofInstant(Instant.ofEpochMilli(0), ZoneId.of("UTC"));
+                    
+                }else{
+                    // If we are within 10 minutes of the next hour, and the timeMark is a small number, it probably means that the time is rolling over.
+                    // In this case, add an hour to the UTC timestamp so that it appears in the future instead of in the past.s
+                    if(originTimestamp.getMinute() > 50 && timeMark < 6000){
+                        date = date.plusHours(1);
+                    }
+
+                    date = date.withMinute(0);
+                    date = date.withSecond(0);
+                    date = date.withNano(0);
+                    date = date.plus(millis, ChronoUnit.MILLIS);
+                    return date;
+                }
+
+                
             } else {
                 return null;
             }
