@@ -203,6 +203,8 @@ git config --global core.autocrlf false
 
 #### Step 1 - Download the Source Code
 
+Note: to avoid cloning redundant local copies of submodules, if you intend to run the entire ConflictVisualizer system, you should instead start with [step 1 of the ConflictVisualizer Installation Guide](https://github.com/usdot-jpo-ode/jpo-conflictvisualizer?tab=readme-ov-file#1-initialize-and-update-submodules) before returning to step 2 below.
+
 The jpo-geojsonconverter software system consists of the following modules hosted in separate Github repositories:
 
 |Name|Visibility|Description|
@@ -211,10 +213,6 @@ The jpo-geojsonconverter software system consists of the following modules hoste
 |[jpo-ode](https://github.com/usdot-jpo-ode/jpo-ode)|public|Contains the public classes and libraries of the jpo-ode used in the GeoJsonConverter.|
 
 You may download the stable, default branch for ALL of these dependencies by using the following recursive git clone command:
-
-```bash
-git clone --recurse-submodules https://github.com/usdot-jpo-ode/jpo-ode.git
-```
 
 ```bash
 git clone --recurse-submodules https://github.com/usdot-jpo-ode/jpo-geojsonconverter.git
@@ -238,6 +236,7 @@ Verify the jpo-ode, kafka, zookeeper, asn1-decoder and asn1-encoder are running 
 **Notes:**
 - Docker builds may fail if you are on a corporate network due to DNS resolution errors.
 - In order for Docker to automatically read the environment variable file, you must rename it from `sample.env` to `.env`. **This file will contain private keys, do not put add it to version control.**
+- Unless you intend to run geojsonconverter without jpo-ode, replace the contents of docker-compose.yml with those of docker-compose-standalone.yml.
 
 Navigate to the root directory of the jpo-geojsonconverter project and run the following command:
 
