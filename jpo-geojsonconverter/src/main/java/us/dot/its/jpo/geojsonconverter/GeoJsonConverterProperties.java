@@ -17,7 +17,7 @@ package us.dot.its.jpo.geojsonconverter;
 
 import java.util.Properties;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
