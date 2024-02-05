@@ -1,4 +1,4 @@
 [submodule "jpo-ode"]
 	path = jpo-ode
-	url = https://github.com/CDOT-CV/jpo-ode.git
-	branch = dev
+	url = https://github.com/usdot-jpo-ode/jpo-ode.git
+	branch = develop
