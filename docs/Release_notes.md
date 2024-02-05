@@ -1,6 +1,16 @@
 JPO GeoJSON Converter Release Notes
 ----------------------------
 
+Version 1.2.0
+----------------------------------------
+
+### **Summary**
+This release includes upgrading the project to use Java 21 in order to future proof the project.
+
+Enhancements in this release:
+- PR44: Java 21 support.
+
+
 Version 1.1.0
 ----------------------------------------
 
