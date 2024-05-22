@@ -3,6 +3,10 @@
     "$id": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/processed-spat.schema.json",
     "type": "object",
     "properties": {
+        "schemaVersion": {
+            "const": 1,
+            "type": "integer"
+        },
         "messageType": {
             "type": "string",
             "const": "SPAT"

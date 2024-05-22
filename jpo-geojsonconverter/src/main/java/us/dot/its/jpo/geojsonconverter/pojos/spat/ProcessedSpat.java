@@ -20,6 +20,7 @@ import org.slf4j.LoggerFactory;
 public class ProcessedSpat {
     private static Logger logger = LoggerFactory.getLogger(ProcessedSpat.class);
 
+    private final Integer schemaVersion = 1;
     private String messageType = "SPAT";
     private String odeReceivedAt;
     private String originIp;
@@ -33,6 +34,10 @@ public class ProcessedSpat {
     private ZonedDateTime utcTimeStamp;
     private List<Integer> enabledLanes = new ArrayList<>();
     private List<MovementState> states = null;
+
+    public Integer getSchemaVersion() {
+        return schemaVersion;
+    }
 
     public String getMessageType() {
         return messageType;

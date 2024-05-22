@@ -152,6 +152,10 @@
         "MapProperties": {
             "type": "object",
             "properties": {
+                "schemaVersion": {
+                    "const": 1,
+                    "type": "integer"
+                },
                 "messageType": {
                     "type": "string",
                     "const": "MAP"
