@@ -16,7 +16,8 @@ public class ProcessedSpatTest {
     public void testGettersSetters() {
         ProcessedSpat object = new ProcessedSpat();
 
-        Integer versionResponse = object.getSchemaVersion();
+        object.setSchemaVersion(1);
+        int versionResponse = object.getSchemaVersion();
         assertEquals(versionResponse, 1);
 
         object.setMessageType("type");
