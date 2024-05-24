@@ -1,6 +1,6 @@
 {
     "$schema": "https://json-schema.org/draft/2019-09/schema",
-    "$id": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/processed-map.schema.json",
+    "$id": "processed-map-schema-v1",
     "type": "object",
     "description": "MAP object containing both FeatureCollections for lane data and another for connecting lane geometry for a single intersection and shared properties",
     "properties": {
