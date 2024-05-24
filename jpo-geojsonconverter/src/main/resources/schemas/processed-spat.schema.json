@@ -4,8 +4,8 @@
     "type": "object",
     "properties": {
         "schemaVersion": {
-            "const": 1,
-            "type": "integer"
+            "type": "integer",
+            "minimum": -1
         },
         "messageType": {
             "type": "string",
