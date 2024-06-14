@@ -18,6 +18,14 @@ import us.dot.its.jpo.ode.plugin.j2735.OdePosition3D;
 
 public class MapSharedPropertiesTest {
     @Test
+    public void testSchemaVersion() {
+        int expectedSchemaVersion = 1;
+        MapSharedProperties mapSharedProperties = new MapSharedProperties();
+        mapSharedProperties.setSchemaVersion(1);
+        assertEquals(expectedSchemaVersion, mapSharedProperties.getSchemaVersion());
+    }
+
+    @Test
     public void testMessageType() {
         String expectedMessageType = "type";
         MapSharedProperties mapSharedProperties = new MapSharedProperties();

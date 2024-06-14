@@ -53,6 +53,10 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
                 J2735IntersectionGeometry intersection = mapPayload.getMap().getIntersections().getIntersections().get(0);
 
                 MapSharedProperties sharedProps = createProperties(mapPayload, mapMetadata, intersection, rawValue.getValidatorResults());
+
+                // Set the schema version
+                sharedProps.setSchemaVersion(1);
+
                 MapFeatureCollection<LineString> mapFeatureCollection = createFeatureCollection(intersection);
                 ConnectingLanesFeatureCollection<LineString> connectingLanesFeatureCollection = createConnectingLanesFeatureCollection(mapMetadata, intersection);
 

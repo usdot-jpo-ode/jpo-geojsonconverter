@@ -23,6 +23,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class MapSharedProperties {
     private static Logger logger = LoggerFactory.getLogger(MapSharedProperties.class);
 
+    // Default schemaVersion is -1 for older messages that lack a schemaVersion value
+    private int schemaVersion = -1;
     private String messageType = "MAP";
     private ZonedDateTime odeReceivedAt;
     private String originIp;
@@ -38,6 +40,14 @@ public class MapSharedProperties {
     private List<J2735RegulatorySpeedLimit> speedLimits;
     private MapSource mapSource;
     private ZonedDateTime timeStamp;
+
+    public int getSchemaVersion() {
+        return schemaVersion;
+    }
+
+    public void setSchemaVersion(int schemaVersion) {
+        this.schemaVersion = schemaVersion;
+    }
 
     public void setMessageType(String messageType) {
         this.messageType = messageType;

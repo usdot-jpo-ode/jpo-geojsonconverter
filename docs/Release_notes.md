@@ -1,6 +1,15 @@
 JPO GeoJSON Converter Release Notes
 ----------------------------
 
+Version 1.3.0
+----------------------------------------
+
+### **Summary**
+This release includes adding a schema version to the ProcessedMap and ProcessedSpat message types to track changes in the schema.
+
+Enhancements in this release:
+- PR55: Adds schema version values to ProcessedMap and ProcessedSpat.
+
 Version 1.2.0
 ----------------------------------------
 
