@@ -1,8 +1,12 @@
 {
     "$schema": "https://json-schema.org/draft/2019-09/schema",
-    "$id": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/processed-spat.schema.json",
+    "$id": "processed-spat-schema-v1",
     "type": "object",
     "properties": {
+        "schemaVersion": {
+            "type": "integer",
+            "minimum": -1
+        },
         "messageType": {
             "type": "string",
             "const": "SPAT"

@@ -57,6 +57,9 @@ public class SpatProcessedJsonConverter implements Transformer<Void, Deserialize
 
                 ProcessedSpat processedSpat = createProcessedSpat(intersectionState, spatMetadata, rawSpat.getValidatorResults());
 
+                // Set the schema version
+                processedSpat.setSchemaVersion(1);
+
                 var key = new RsuIntersectionKey();
                 key.setRsuId(spatMetadata.getOriginIp());
                 key.setIntersectionReferenceID(intersectionState.getId());
