@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        GITHUB_USERNAME: ${GITHUB_USERNAME}
+        GITHUB_TOKEN_NAME: ${GITHUB_TOKEN_NAME}
         GITHUB_TOKEN: ${GITHUB_TOKEN}
         GITHUB_ORG: ${GITHUB_ORG}
     image: jpo_geojsonconverter:latest

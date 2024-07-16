@@ -215,7 +215,7 @@ The jpo-geojsonconverter software system consists of the following modules hoste
 You may download the stable, default branch for ALL of these dependencies by using the following recursive git clone command:
 
 ```bash
-git clone --recurse-submodules https://github.com/usdot-jpo-ode/jpo-geojsonconverter.git
+git clone https://github.com/usdot-jpo-ode/jpo-geojsonconverter.git
 ```
 
 Once you have these repositories obtained, you are ready to build and deploy the application.
@@ -231,7 +231,21 @@ docker-compose ps
 
 Verify the jpo-ode, kafka, zookeeper, asn1-decoder and asn1-encoder are running before performing step 3.
 
-#### Step 3 - Build and run jpo-geojsonconverter application
+#### Step 3 - Generate GitHub Token
+
+A GitHub token is required to pull artifacts from GitHub repositories. This is required to obtain the jpo-ode jars and must be done before attempting to build this repository.
+
+1. Log into GitHub.
+2. Navigate to Settings -> Developer settings -> Personal access tokens.
+3. Click "New personal access token (classic)".
+   1. As of now, GitHub does not support `Fine-grained tokens` for obtaining packages.
+4. Provide a name and expiration for the token.
+5. Select the read:packages scope.
+6. Click "Generate token" and copy the token.
+
+Copy the token name, token value, and target jpo-ode organization into your `.env` file. If using your local IDE set the GitHub environmental variable to your local system as well.
+
+#### Step 4 - Build and run jpo-geojsonconverter application
 
 **Notes:**
 - Docker builds may fail if you are on a corporate network due to DNS resolution errors.
@@ -272,6 +286,9 @@ docker-compose ps
 ### Purpose & Usage
 
 - The DOCKER_HOST_IP environment variable is used to communicate with the bootstrap server that the instance of Kafka is running on.
+- The GITHUB_TOKEN_NAME environment variable is the name of the generated token from xxx used for pulling the jpo-ode java image.
+- The GITHUB_TOKEN environment variable is the value of the generated token from xxx used for pulling the jpo-ode java image.
+- The GITHUB_ORG environment variable is the name of the GitHub organization to use for the jpo-ode repository.
 
 ### Values
 In order to utilize Confluent Cloud:
