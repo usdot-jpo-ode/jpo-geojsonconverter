@@ -2,27 +2,21 @@ FROM maven:3.8-eclipse-temurin-21-alpine as builder
 
 WORKDIR /home
 
-# Copy only the files needed to avoid putting all sorts of junk from your local env on to the image
-COPY ./jpo-ode/pom.xml ./jpo-ode/
-COPY ./jpo-ode/jpo-ode-common/pom.xml ./jpo-ode/jpo-ode-common/
-COPY ./jpo-ode/jpo-ode-common/src ./jpo-ode/jpo-ode-common/src
-COPY ./jpo-ode/jpo-ode-plugins/pom.xml ./jpo-ode/jpo-ode-plugins/
-COPY ./jpo-ode/jpo-ode-plugins/src ./jpo-ode/jpo-ode-plugins/src
-COPY ./jpo-ode/jpo-ode-core/pom.xml ./jpo-ode/jpo-ode-core/
-COPY ./jpo-ode/jpo-ode-core/src ./jpo-ode/jpo-ode-core/src/
-COPY ./jpo-ode/jpo-ode-svcs/pom.xml ./jpo-ode/jpo-ode-svcs/
-COPY ./jpo-ode/jpo-ode-svcs/src ./jpo-ode/jpo-ode-svcs/src
+ARG GITHUB_USERNAME
+ARG GITHUB_TOKEN
+ARG GITHUB_ORG
+
+ENV GITHUB_USERNAME=$GITHUB_USERNAME
+ENV GITHUB_TOKEN=$GITHUB_TOKEN
+ENV GITHUB_ORG=$GITHUB_ORG
 
 COPY ./jpo-geojsonconverter/pom.xml ./jpo-geojsonconverter/
+COPY ./jpo-geojsonconverter/settings.xml ./jpo-geojsonconverter/
 COPY ./jpo-geojsonconverter/src ./jpo-geojsonconverter/src
-
-WORKDIR /home/jpo-ode
-
-RUN mvn install -DskipTests
 
 WORKDIR /home/jpo-geojsonconverter
 
-RUN mvn clean package -DskipTests
+RUN mvn -s settings.xml clean install -DskipTests
 
 FROM eclipse-temurin:21-jre-alpine
 

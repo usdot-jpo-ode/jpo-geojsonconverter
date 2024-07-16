@@ -18,7 +18,13 @@ services:
       - zookeeper
 
   geojsonconverter:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        GITHUB_USERNAME: ${GITHUB_USERNAME}
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
+        GITHUB_ORG: ${GITHUB_ORG}
     image: jpo_geojsonconverter:latest
     environment:
       DOCKER_HOST_IP: ${DOCKER_HOST_IP}
