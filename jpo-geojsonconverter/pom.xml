@@ -26,6 +26,7 @@
         <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
         <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
         <sonar.language>java</sonar.language>
+        <github_organization>usdot-jpo-ode</github_organization>
     </properties>
     <dependencies>
         <!-- Spring Boot Dependencies -->
@@ -243,4 +244,11 @@
 
         </plugins>
     </build>
+    <distributionManagement>
+        <repository>
+        <id>github</id>
+        <name>GitHub Packages</name>
+        <url>https://maven.pkg.github.com/${github_organization}/jpo-geojsonconverter</url>
+        </repository>
+    </distributionManagement>
 </project>

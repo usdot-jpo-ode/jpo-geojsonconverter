@@ -345,7 +345,80 @@ Install the IDE of your choice:
 
 <a name="contact-information"/>
 
-## 6. Contact Information
+## 6. GitHub Artifact Usage
+
+To use this library in another application, add the GitHub package URLs to the `repositories` section in `pom.xml` of the consumer application or in your local `~/.m2/settings.xml` file. Here is an example implementation of using the GitHub artifact in a consumer application:
+
+```xml
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+                      http://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+  <activeProfiles>
+    <activeProfile>github</activeProfile>
+  </activeProfiles>
+
+  <profiles>
+    <profile>
+      <id>github</id>
+      <repositories>
+        <repository>
+          <id>central</id>
+          <url>https://repo1.maven.org/maven2</url>
+        </repository>
+        <repository>
+          <id>github</id>
+          <url>https://maven.pkg.github.com/usdot-jpo-ode/jpo-ode</url>
+        </repository>
+      </repositories>
+    </profile>
+  </profiles>
+
+  <servers>
+    <server>
+      <id>github</id>
+      <username>${env.PACKAGE_READ_USERNAME}</username>
+      <password>${env.PACKAGE_READ_TOKEN}</password>
+    </server>
+  </servers>
+
+</settings>
+```
+
+And add the following line to the `dependencies` element in `build.gradle`
+
+```xml
+<dependencies>
+  <dependency>
+    <groupId>usdot.jpo.ode</groupId>
+    <artifactId>jpo-ode-core</artifactId>
+    <version>1.0.0</version>
+  </dependency>
+  <dependency>
+    <groupId>usdot.jpo.ode</groupId>
+    <artifactId>jpo-ode-plugins</artifactId>
+    <version>1.0.0</version>
+  </dependency>
+  <dependency>
+    <groupId>usdot.jpo.ode</groupId>
+    <artifactId>jpo-ode-common</artifactId>
+    <version>1.0.0</version>
+  </dependency>
+  <dependency>
+    <groupId>usdot.jpo.ode</groupId>
+    <artifactId>jpo-ode-svcs</artifactId>
+    <version>1.0.0</version>
+  </dependency>
+</dependencies>
+```
+
+Finally, set the environment variables:
+
+* PACKAGE_READ_USERNAME - User name with read access to the repositories containing the packages.
+* PACKAGE_READ_TOKEN - Personal access token with `read:packages` scope.
+
+## 7. Contact Information
 
 Contact the developers of the GeoJsonConverter application by submitting a [Github issue](https://github.com/usdot-jpo-ode/jpo-geojsonconverter/issues).
 
@@ -368,7 +441,7 @@ permissions and limitations under the [License](http://www.apache.org/licenses/L
 
 <a name="contributing"/>
 
-## 7. Contributing
+## 8. Contributing
 
 Please read our [contributing guide](docs/contributing_guide.md) to learn about our development process, how to propose pull requests and improvements, and how to build and test your changes to this project.
 
