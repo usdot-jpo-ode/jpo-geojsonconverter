@@ -10,6 +10,7 @@ import org.apache.kafka.streams.kstream.Produced;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import us.dot.its.jpo.geojsonconverter.partitioner.RsuLogKey;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.Point;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.bsm.DeserializedRawBsm;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.bsm.ProcessedBsm;
@@ -64,7 +65,7 @@ public class BsmTopology {
             );
 
         // Convert ODE BSM to GeoJSON
-        KStream<String, ProcessedBsm<Point>> processedJsonBsmStream =
+        KStream<RsuLogKey, ProcessedBsm<Point>> processedJsonBsmStream =
             validatedOdeBsmStream.transform(
                 () -> new BsmProcessedJsonConverter()
             );
@@ -73,7 +74,7 @@ public class BsmTopology {
             // Push the joined GeoJSON stream back out to the BSM GeoJSON topic 
             bsmProcessedJsonTopic, 
             Produced.with(
-                Serdes.String(),
+                JsonSerdes.RsuLogKey(),
                 JsonSerdes.ProcessedBsm())
         );
         

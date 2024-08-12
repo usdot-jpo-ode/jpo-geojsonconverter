@@ -26,6 +26,7 @@ public class ProcessedBsm<Point> extends BaseFeatureCollection<BsmFeature<Point>
     private String messageType = "BSM";
     private String odeReceivedAt;
     private String originIp;
+    private String logName;
     private List<ProcessedValidationMessage> validationMessages = null;
     private ZonedDateTime timeStamp;
 
@@ -66,6 +67,14 @@ public class ProcessedBsm<Point> extends BaseFeatureCollection<BsmFeature<Point>
         return this.originIp;
     }
 
+    public void setLogName(String logName) {
+        this.logName = logName;
+    }
+
+    public String getLogName() {
+        return this.logName;
+    }
+
     public List<ProcessedValidationMessage> getValidationMessages() {
         return validationMessages;
     }
@@ -98,13 +107,14 @@ public class ProcessedBsm<Point> extends BaseFeatureCollection<BsmFeature<Point>
             Objects.equals(getMessageType(), processedBsm.getMessageType()) && 
             Objects.equals(getOdeReceivedAt(), processedBsm.getOdeReceivedAt()) && 
             Objects.equals(getOriginIp(), processedBsm.getOriginIp()) && 
+            Objects.equals(getLogName(), processedBsm.getLogName()) && 
             Objects.equals(getValidationMessages(), processedBsm.getValidationMessages()) && 
             Objects.equals(getTimeStamp(), processedBsm.getTimeStamp()));
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(messageType, odeReceivedAt, originIp, validationMessages, timeStamp, getFeatures());
+        return Objects.hash(messageType, odeReceivedAt, originIp, logName, validationMessages, timeStamp, getFeatures());
     }
 
     @Override

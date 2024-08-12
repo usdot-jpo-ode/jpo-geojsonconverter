@@ -15,6 +15,7 @@ import org.junit.Test;
 
 import com.networknt.schema.ValidationMessage;
 
+import us.dot.its.jpo.geojsonconverter.partitioner.RsuLogKey;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.Point;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.bsm.DeserializedRawBsm;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.bsm.ProcessedBsm;
@@ -54,7 +55,7 @@ public class BsmProcessedJsonConverterTest {
         deserializedRawBsm.setOdeBsmData(odeBsmPojo);
         deserializedRawBsm.setValidatorResults(validatorResults);
 
-        KeyValue<String, ProcessedBsm<Point>> processedBsm = bsmProcessedJsonConverter.transform(null, deserializedRawBsm);
+        KeyValue<RsuLogKey, ProcessedBsm<Point>> processedBsm = bsmProcessedJsonConverter.transform(null, deserializedRawBsm);
         assertNotNull(processedBsm.key);
         assertEquals("10.11.81.26", processedBsm.key);
         assertNotNull(processedBsm.value);
@@ -71,7 +72,7 @@ public class BsmProcessedJsonConverterTest {
         deserializedRawBsm.setOdeBsmData(odeBsmPojo);
         deserializedRawBsm.setValidatorResults(validatorResults);
 
-        KeyValue<String, ProcessedBsm<Point>> processedBsm = bsmProcessedJsonConverter.transform(null, null);
+        KeyValue<RsuLogKey, ProcessedBsm<Point>> processedBsm = bsmProcessedJsonConverter.transform(null, null);
         assertNotNull(processedBsm.key);
         assertEquals("ERROR", processedBsm.key);
         assertNull(processedBsm.value);
@@ -90,7 +91,7 @@ public class BsmProcessedJsonConverterTest {
         deserializedRawBsm.setValidatorResults(validatorResults);
         deserializedRawBsm.setFailedMessage("{");
 
-        KeyValue<String, ProcessedBsm<Point>> processedBsm = bsmProcessedJsonConverter.transform(null, deserializedRawBsm);
+        KeyValue<RsuLogKey, ProcessedBsm<Point>> processedBsm = bsmProcessedJsonConverter.transform(null, deserializedRawBsm);
         assertNotNull(processedBsm.key);
         assertNotNull(processedBsm.value);
         assertEquals("{", processedBsm.value.getValidationMessages().get(0).getMessage());

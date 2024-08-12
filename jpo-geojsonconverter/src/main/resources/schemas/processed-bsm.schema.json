@@ -30,6 +30,9 @@
         "originIp": {
             "$ref": "#/$defs/IPAddress"
         },
+        "logName": {
+            "type": "string"
+        },
         "validationMessages": {
             "$ref": "#/$defs/ValidationMessageList"
         }

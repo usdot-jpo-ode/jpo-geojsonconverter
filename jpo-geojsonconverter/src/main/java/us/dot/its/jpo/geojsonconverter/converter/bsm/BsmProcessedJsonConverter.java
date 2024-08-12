@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import com.networknt.schema.ValidationMessage;
 
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.Point;
+import us.dot.its.jpo.geojsonconverter.partitioner.RsuLogKey;
 import us.dot.its.jpo.geojsonconverter.pojos.ProcessedValidationMessage;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.bsm.*;
 import us.dot.its.jpo.geojsonconverter.validator.JsonValidatorResult;
@@ -24,7 +25,7 @@ import us.dot.its.jpo.ode.model.OdeBsmMetadata;
 import us.dot.its.jpo.ode.model.OdeBsmPayload;
 import us.dot.its.jpo.ode.plugin.j2735.J2735BsmCoreData;
 
-public class BsmProcessedJsonConverter implements Transformer<Void, DeserializedRawBsm, KeyValue<String, ProcessedBsm<Point>>> {
+public class BsmProcessedJsonConverter implements Transformer<Void, DeserializedRawBsm, KeyValue<RsuLogKey, ProcessedBsm<Point>>> {
     private static final Logger logger = LoggerFactory.getLogger(BsmProcessedJsonConverter.class);
 
     @Override
@@ -35,10 +36,10 @@ public class BsmProcessedJsonConverter implements Transformer<Void, Deserialized
      * 
      * @param rawKey   - Void type because ODE topics have no specified key
      * @param rawBsm - The raw POJO
-     * @return A key value pair: the key a String containing the RSU IP address
+     * @return A key value pair: the key a RsuLogKey containing the RSU IP address or the BSM log file name
      */
     @Override
-    public KeyValue<String, ProcessedBsm<Point>> transform(Void rawKey, DeserializedRawBsm rawBsm) {
+    public KeyValue<RsuLogKey, ProcessedBsm<Point>> transform(Void rawKey, DeserializedRawBsm rawBsm) {
         try {
             if (!rawBsm.getValidationFailure()) {
                 OdeBsmData rawValue = new OdeBsmData();
@@ -52,17 +53,24 @@ public class BsmProcessedJsonConverter implements Transformer<Void, Deserialized
 
                 // Set the schema version
                 processedBsm.setSchemaVersion(1);
+                RsuLogKey key = new RsuLogKey();
+                key.setRsuId(processedBsm.getOriginIp());
+                key.setLogId(processedBsm.getLogName());
 
-                return KeyValue.pair(processedBsm.getOriginIp(), processedBsm);
+                return KeyValue.pair(key, processedBsm);
             } else {
                 ProcessedBsm<Point> processedBsm = createFailureProcessedBsm(rawBsm.getValidatorResults(), rawBsm.getFailedMessage());
-                return KeyValue.pair("ERROR", processedBsm);
+                RsuLogKey key = new RsuLogKey();
+                key.setRsuId("ERROR");
+                return KeyValue.pair(key, processedBsm);
             }
         } catch (Exception e) {
             String errMsg = String.format("Exception converting ODE BSM to Processed BSM! Message: %s", e.getMessage());
             logger.error(errMsg, e);
             // KafkaStreams knows to remove null responses before allowing further steps from occurring
-            return KeyValue.pair("ERROR", null);
+            RsuLogKey key = new RsuLogKey();
+            key.setRsuId("ERROR");
+            return KeyValue.pair(key, null);
         }
     }
 
@@ -78,7 +86,11 @@ public class BsmProcessedJsonConverter implements Transformer<Void, Deserialized
 
         ProcessedBsm<Point> processedBsm = new ProcessedBsm<Point>(bsmFeatures.toArray(new BsmFeature[0]));
         processedBsm.setOdeReceivedAt(metadata.getOdeReceivedAt()); // ISO 8601: 2022-11-11T16:36:10.529530Z
-        processedBsm.setOriginIp(metadata.getOriginIp());
+
+        if (metadata.getOriginIp() != null && !metadata.getOriginIp().isEmpty())
+            processedBsm.setOriginIp(metadata.getOriginIp());
+        if (metadata.getLogFileName() != null && !metadata.getLogFileName().isEmpty())
+            processedBsm.setLogName(metadata.getLogFileName());
 
         List<ProcessedValidationMessage> processedBsmValidationMessages = new ArrayList<ProcessedValidationMessage>();
         for (Exception exception : validationMessages.getExceptions()) {
