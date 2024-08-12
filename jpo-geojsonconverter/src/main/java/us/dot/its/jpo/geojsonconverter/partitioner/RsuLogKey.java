@@ -6,12 +6,14 @@ public class RsuLogKey implements RsuIdKey {
 
     private String rsuId;
     private String logId;
+    private String bsmId;
 
     public RsuLogKey() {}
 
-    public RsuLogKey(String rsuId, String logId) {
+    public RsuLogKey(String rsuId, String logId, String bsmId) {
         this.rsuId = rsuId;
         this.logId = logId;
+        this.bsmId = bsmId;
     }
 
     @Override
@@ -31,6 +33,14 @@ public class RsuLogKey implements RsuIdKey {
         this.logId = logId;
     }
 
+    public String getBsmId() {
+        return this.bsmId;
+    }
+
+    public void setBsmId(String bsmId) {
+        this.bsmId = bsmId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -39,12 +49,12 @@ public class RsuLogKey implements RsuIdKey {
             return false;
         }
         RsuLogKey rsuLogKey = (RsuLogKey) o;
-        return Objects.equals(rsuId, rsuLogKey.getRsuId()) && logId == rsuLogKey.getLogId();
+        return Objects.equals(rsuId, rsuLogKey.getRsuId()) && Objects.equals(logId, rsuLogKey.getLogId()) && Objects.equals(bsmId, rsuLogKey.getBsmId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(rsuId, logId);
+        return Objects.hash(rsuId, logId, bsmId);
     }
     
 
@@ -55,6 +65,7 @@ public class RsuLogKey implements RsuIdKey {
         return "{" +
             " rsuId='" + getRsuId() + "'" +
             ", logId='" + getLogId() + "'" +
+            ", bsmId='" + getBsmId() + "'" +
             "}";
     }
 

@@ -58,7 +58,7 @@ public class BsmTopologyTest {
 
             KeyValue<RsuLogKey, ProcessedBsm<Point>> processedBsmJson = processedBsmJsonResults.get(0);
             assertNotNull(processedBsmJson.key);
-            assertEquals(new RsuLogKey("10.11.81.26", null), processedBsmJson.key);
+            assertEquals(new RsuLogKey("10.11.81.26", null, "12A7A951"), processedBsmJson.key);
             assertNotNull(processedBsmJson.value);
             assertEquals("12A7A951", processedBsmJson.value.getFeatures()[0].getProperties().getId());
         }
@@ -87,7 +87,7 @@ public class BsmTopologyTest {
 
             KeyValue<RsuLogKey, ProcessedBsm<Point>> processedBsmJson = processedBsmJsonResults.get(0);
             assertNotNull(processedBsmJson.key);
-            assertEquals(new RsuLogKey("ERROR", null), processedBsmJson.key);
+            assertEquals(new RsuLogKey("ERROR", null, null), processedBsmJson.key);
         }
         
     }

@@ -12,9 +12,9 @@ public class GenericPartitionerTest {
         // Test that the custom partition function still behaves normally if the key is a RsuLogKey
         
         final String topic = "topic";
-        RsuLogKey key = new RsuLogKey("127.0.0.1", null);
-        RsuLogKey sameKey = new RsuLogKey("127.0.0.1", null);
-        RsuLogKey differentKey = new RsuLogKey(null, "bsmTx.gz");
+        RsuLogKey key = new RsuLogKey("127.0.0.1", null, "ABCDEFG");
+        RsuLogKey sameKey = new RsuLogKey("127.0.0.1", null, "ABCDEFG");
+        RsuLogKey differentKey = new RsuLogKey(null, "bsmTx.gz", "ABCDEFG");
         final Object obj = new Object();
         final int numPartitions = Integer.MAX_VALUE;
 

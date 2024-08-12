@@ -56,6 +56,7 @@ public class BsmProcessedJsonConverter implements Transformer<Void, Deserialized
                 RsuLogKey key = new RsuLogKey();
                 key.setRsuId(processedBsm.getOriginIp());
                 key.setLogId(processedBsm.getLogName());
+                key.setBsmId(bsmPayload.getBsm().getCoreData().getId());
 
                 return KeyValue.pair(key, processedBsm);
             } else {

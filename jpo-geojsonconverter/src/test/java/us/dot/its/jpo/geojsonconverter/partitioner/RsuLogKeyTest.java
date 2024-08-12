@@ -11,6 +11,7 @@ import org.junit.Test;
 public class RsuLogKeyTest {
     final static String ipAddress = "127.0.0.1";
     final static String logFileName = "bsmLogDuringEvent_commsignia.gz";
+    final static String bsmId = "ABCDEFG";
     
     @Test
     public void testEquality() {        
@@ -18,13 +19,14 @@ public class RsuLogKeyTest {
         var key = new RsuLogKey();
         key.setRsuId(ipAddress);
         key.setLogId(logFileName);
+        key.setBsmId(bsmId);
 
-        var keyValue = new RsuLogKey(ipAddress, logFileName);
+        var keyValue = new RsuLogKey(ipAddress, logFileName, bsmId);
         var keyRef = key;
         Object otherObject = new Object();
-        var otherValue1 = new RsuLogKey(ipAddress, null);
-        var otherValue2 = new RsuLogKey("0.0.0.0", "");
-        var otherValue3 = new RsuLogKey(ipAddress, "bsmTx.gz");
+        var otherValue1 = new RsuLogKey(ipAddress, null, bsmId);
+        var otherValue2 = new RsuLogKey("0.0.0.0", "", bsmId);
+        var otherValue3 = new RsuLogKey(ipAddress, "bsmTx.gz", bsmId);
 
         assertTrue("Value equality", key.equals(keyValue));
         assertFalse("Value inequality branch 1", key.equals(otherValue1));
@@ -37,6 +39,7 @@ public class RsuLogKeyTest {
         // Getter coverage
         assertEquals("getRsuId", key.getRsuId(), keyValue.getRsuId());
         assertEquals("getLogId", key.getLogId(), keyValue.getLogId());
+        assertEquals("getBsmId", key.getBsmId(), keyValue.getBsmId());
     }
 
     @Test
@@ -44,9 +47,11 @@ public class RsuLogKeyTest {
         var key = new RsuLogKey();
         key.setRsuId(ipAddress);
         key.setLogId(logFileName);
+        key.setBsmId(bsmId);
 
         String str = key.toString();
         assertThat(str, containsString(ipAddress));
         assertThat(str, containsString(logFileName));
+        assertThat(str, containsString(bsmId));
     }
 }
