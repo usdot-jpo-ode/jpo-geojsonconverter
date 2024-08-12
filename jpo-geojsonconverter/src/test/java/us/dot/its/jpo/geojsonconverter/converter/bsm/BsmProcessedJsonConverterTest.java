@@ -57,7 +57,7 @@ public class BsmProcessedJsonConverterTest {
 
         KeyValue<RsuLogKey, ProcessedBsm<Point>> processedBsm = bsmProcessedJsonConverter.transform(null, deserializedRawBsm);
         assertNotNull(processedBsm.key);
-        assertEquals("10.11.81.26", processedBsm.key);
+        assertEquals(new RsuLogKey("10.11.81.26", null), processedBsm.key);
         assertNotNull(processedBsm.value);
         assertEquals("12A7A951", processedBsm.value.getFeatures()[0].getProperties().getId());
     }
@@ -74,7 +74,7 @@ public class BsmProcessedJsonConverterTest {
 
         KeyValue<RsuLogKey, ProcessedBsm<Point>> processedBsm = bsmProcessedJsonConverter.transform(null, null);
         assertNotNull(processedBsm.key);
-        assertEquals("ERROR", processedBsm.key);
+        assertEquals(new RsuLogKey("ERROR", null), processedBsm.key);
         assertNull(processedBsm.value);
     }
 
