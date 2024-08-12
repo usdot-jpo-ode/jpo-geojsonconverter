@@ -1,6 +1,7 @@
 package us.dot.its.jpo.geojsonconverter.serialization.serializers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import us.dot.its.jpo.geojsonconverter.DateJsonMapper;
@@ -21,6 +22,9 @@ public class JsonSerializer<T> implements Serializer<T> {
 
     private final ObjectMapper mapper = DateJsonMapper.getInstance();
 
+    public JsonSerializer() {
+        this.mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    }
 
     @Override
     public byte[] serialize(String topic, T data) {
