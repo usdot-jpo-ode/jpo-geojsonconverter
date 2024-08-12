@@ -11,6 +11,8 @@ import us.dot.its.jpo.geojsonconverter.GeoJsonConverterProperties;
 import us.dot.its.jpo.geojsonconverter.StreamsExceptionHandler;
 import us.dot.its.jpo.geojsonconverter.converter.map.MapTopology;
 import us.dot.its.jpo.geojsonconverter.converter.spat.SpatTopology;
+import us.dot.its.jpo.geojsonconverter.converter.bsm.BsmTopology;
+import us.dot.its.jpo.geojsonconverter.validator.BsmJsonValidator;
 import us.dot.its.jpo.geojsonconverter.validator.MapJsonValidator;
 import us.dot.its.jpo.geojsonconverter.validator.SpatJsonValidator;
 
@@ -25,7 +27,7 @@ public class JsonConverterServiceController {
 
     @Autowired
     public JsonConverterServiceController(GeoJsonConverterProperties geojsonProps, MapJsonValidator mapJsonValidator,
-            SpatJsonValidator spatJsonValidator) {
+            SpatJsonValidator spatJsonValidator, BsmJsonValidator bsmJsonValidator) {
         super();
 
         try {
@@ -54,6 +56,7 @@ public class JsonConverterServiceController {
 
             // SPaT
             logger.info("Creating the Processed SPaT Kafka-Streams topology");
+
             var spatTopology = SpatTopology.build(geojsonProps.getKafkaTopicOdeSpatJson(), geojsonProps.getKafkaTopicSpatGeoJson(), spatJsonValidator);
             var spatStreams = new KafkaStreams(spatTopology, geojsonProps.createStreamProperties("processedspatjson"));
             spatStreams.setUncaughtExceptionHandler(new StreamsExceptionHandler("SpatStream"));
@@ -66,6 +69,22 @@ public class JsonConverterServiceController {
                     }
                 }));
             spatStreams.start();
+
+            // BSM
+            logger.info("Creating the Processed BSM Kafka-Streams topology");
+
+            var bsmTopology = BsmTopology.build(geojsonProps.getKafkaTopicOdeBsmJson(), geojsonProps.getKafkaTopicProcessedBsm(), bsmJsonValidator);
+            var bsmStreams = new KafkaStreams(bsmTopology, geojsonProps.createStreamProperties("processedbsmjson"));
+            bsmStreams.setUncaughtExceptionHandler(new StreamsExceptionHandler("BsmStream"));
+            Runtime.getRuntime().addShutdownHook(
+                new Thread(() -> {
+                    try {
+                        // Workaround to close streams in a finally block to satisfy sonar
+                    } finally {
+                        bsmStreams.close();
+                    }
+                }));
+            bsmStreams.start();
 
             logger.info("All geoJSON conversion services started!");
         } catch (Exception e) {
