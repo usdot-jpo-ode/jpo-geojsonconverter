@@ -13,7 +13,7 @@ public class RsuLogKeyPartitionerTest {
         
         final String topic = "topic";
         RsuLogKey key = new RsuLogKey("127.0.0.1", null, "ABCDEFG");
-        RsuLogKey sameKey = new RsuLogKey(null, null, "ABCDEFG");
+        RsuLogKey sameKey = new RsuLogKey("127.0.0.1", null, "ABCDEFG");
         RsuLogKey differentKey = new RsuLogKey(null, "bsmTx.gz", "GFEDCBA");
         final Object obj = new Object();
         final int numPartitions = Integer.MAX_VALUE;
