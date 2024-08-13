@@ -74,7 +74,7 @@ public class BsmProcessedJsonConverterTest {
 
         KeyValue<RsuLogKey, ProcessedBsm<Point>> processedBsm = bsmProcessedJsonConverter.transform(null, null);
         assertNotNull(processedBsm.key);
-        assertEquals(new RsuLogKey("ERROR", null, null), processedBsm.key);
+        assertEquals(new RsuLogKey(null, null, "ERROR"), processedBsm.key);
         assertNull(processedBsm.value);
     }
 

@@ -62,7 +62,7 @@ public class BsmProcessedJsonConverter implements Transformer<Void, Deserialized
             } else {
                 ProcessedBsm<Point> processedBsm = createFailureProcessedBsm(rawBsm.getValidatorResults(), rawBsm.getFailedMessage());
                 RsuLogKey key = new RsuLogKey();
-                key.setRsuId("ERROR");
+                key.setBsmId("ERROR");
                 return KeyValue.pair(key, processedBsm);
             }
         } catch (Exception e) {
@@ -70,7 +70,7 @@ public class BsmProcessedJsonConverter implements Transformer<Void, Deserialized
             logger.error(errMsg, e);
             // KafkaStreams knows to remove null responses before allowing further steps from occurring
             RsuLogKey key = new RsuLogKey();
-            key.setRsuId("ERROR");
+            key.setBsmId("ERROR");
             return KeyValue.pair(key, null);
         }
     }
