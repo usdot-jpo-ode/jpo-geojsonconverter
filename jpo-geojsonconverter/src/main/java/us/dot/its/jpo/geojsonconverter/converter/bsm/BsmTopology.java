@@ -10,8 +10,8 @@ import org.apache.kafka.streams.kstream.Produced;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import us.dot.its.jpo.geojsonconverter.partitioner.GenericPartitioner;
 import us.dot.its.jpo.geojsonconverter.partitioner.RsuLogKey;
+import us.dot.its.jpo.geojsonconverter.partitioner.RsuLogKeyPartitioner;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.Point;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.bsm.DeserializedRawBsm;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.bsm.ProcessedBsm;
@@ -77,7 +77,7 @@ public class BsmTopology {
             Produced.with(
                 JsonSerdes.RsuLogKey(),
                 JsonSerdes.ProcessedBsm(),
-                new GenericPartitioner<RsuLogKey, ProcessedBsm<Point>>())
+                new RsuLogKeyPartitioner<RsuLogKey, ProcessedBsm<Point>>())
         );
         
         return builder.build();
