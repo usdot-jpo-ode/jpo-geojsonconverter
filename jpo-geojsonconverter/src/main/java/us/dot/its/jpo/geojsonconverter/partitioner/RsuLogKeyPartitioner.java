@@ -10,14 +10,20 @@ public class RsuLogKeyPartitioner<K, V> implements StreamPartitioner<K, V> {
     @Override
     public Integer partition(String topic, K key, V value, int numPartitions) {
         byte[] partitionBytes;
-        
+
         if (key instanceof RsuLogKey) {
             // If the key is an object with an RSU ID, partition on it
             var rsuIdKey = (RsuLogKey)key;
-            String bsmId = rsuIdKey.getBsmId();
+            String partitionBy = rsuIdKey.getBsmId();
+
+            if (rsuIdKey.getRsuId() != null && !rsuIdKey.getRsuId().isEmpty())
+                partitionBy = rsuIdKey.getRsuId();
+            else if (rsuIdKey.getLogId() != null && !rsuIdKey.getLogId().isEmpty())
+                partitionBy = rsuIdKey.getLogId();
+
             try (var serializer = Serdes.String().serializer()) {
-                partitionBytes = Serdes.String().serializer().serialize(topic, bsmId); 
-            }          
+                partitionBytes = serializer.serialize(topic, partitionBy); 
+            }
         } else {
             // If the key does not have an RSU ID, partition on the hashed key as usual.
             try (var serializer = new JsonSerializer<K>()) {
