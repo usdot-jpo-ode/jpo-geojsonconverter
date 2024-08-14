@@ -4,8 +4,6 @@ import org.apache.kafka.common.utils.Utils;
 import org.apache.kafka.streams.processor.StreamPartitioner;
 import us.dot.its.jpo.geojsonconverter.serialization.serializers.JsonSerializer;
 
-import java.nio.ByteBuffer;
-
 /**
  * Partitioner that partitions based only on Intersection ID for objects that implement the {@link IntersectionKey} class.
  *

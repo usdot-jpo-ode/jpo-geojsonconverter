@@ -10,6 +10,7 @@ spring.main.web-application-type: none
 spring.groovy.template.check-template-location: false
 
 # JSON Schema resource paths
+schema.bsm: classpath:schemas/bsm.schema.json
 schema.map: classpath:schemas/map.schema.json
 schema.spat: classpath:schemas/spat.schema.json
 
