@@ -3,18 +3,13 @@ package us.dot.its.jpo.geojsonconverter.validator;
 import java.io.IOException;
 import java.util.Set;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.networknt.schema.JsonSchema;
 import com.networknt.schema.JsonSchemaFactory;
 import com.networknt.schema.ValidationMessage;
-
-import us.dot.its.jpo.geojsonconverter.GeoJsonConverterProperties;
-
 import com.networknt.schema.SpecVersion;
 
 /**
@@ -25,9 +20,6 @@ import com.networknt.schema.SpecVersion;
  */
 public abstract class AbstractJsonValidator {
 
-    @Autowired
-    private GeoJsonConverterProperties properties;
-
      /**
      * @param jsonSchemaResource The json schema file in resources/schemas.  
      * Add an <code>@Value("${schema.resourceName}")</code> annotation to this argument
@@ -35,9 +27,6 @@ public abstract class AbstractJsonValidator {
      */
     protected AbstractJsonValidator(Resource jsonSchemaResource) {
         this.jsonSchemaResource = jsonSchemaResource;
-        // if (properties.getJacksonAllowUnknownProperties()) {
-        //     this.mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        // }
     }
 
     private final ObjectMapper mapper = new ObjectMapper();

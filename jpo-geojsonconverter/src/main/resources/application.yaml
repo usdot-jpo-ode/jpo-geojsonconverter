@@ -17,14 +17,6 @@ schema.spat: classpath:schemas/spat.schema.json
 # Geometry JSON output mode (GEOJSON_ONLY or WKT)
 geometry.output.mode: GEOJSON_ONLY
 
-# Jackson mapper serialization method (true or false)
-# jackson.mapper.allow.unknown.properties: true
-
-# spring:
-#   jackson:
-#     deserialization:
-#       FAIL_ON_UNKNOWN_PROPERTIES: true
-
 # Kafka properties
 spring.kafka.bootstrap-servers: localhost:9092
 
