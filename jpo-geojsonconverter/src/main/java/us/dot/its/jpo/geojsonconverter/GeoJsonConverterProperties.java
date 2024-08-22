@@ -67,6 +67,8 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
     
     private GeometryOutputMode geometryOutputMode = GeometryOutputMode.GEOJSON_ONLY;
 
+    private boolean jacksonAllowUnknownProperties = false;
+
     @PostConstruct
     public void initialize() {
         if (kafkaBrokers == null) {
@@ -89,6 +91,15 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
                 confluentSecret = CommonUtils.getEnvironmentVariable("CONFLUENT_SECRET");
             }
         }
+
+        // Adding configuration option to allow unknown properties when deserializing in Kafka streams
+        // This is useful for when schema updates are made in the ODE
+        // Boolean jacksonAllowUnknownPropertiesBool = Boolean.parseBoolean(CommonUtils.getEnvironmentVariable("JACKSON_ALLOW_UNKNOWN_PROPERTIES"));
+        // logger.info(String.format("JACKSON_ALLOW_UNKNOWN_PROPERTIES is set to %s", jacksonAllowUnknownPropertiesBool));
+        // if (jacksonAllowUnknownPropertiesBool) {
+        //     logger.warn(String.format("JACKSON_ALLOW_UNKNOWN_PROPERTIES is set to %s", jacksonAllowUnknownPropertiesBool));
+        //     this.jacksonAllowUnknownProperties = jacksonAllowUnknownPropertiesBool;
+        // }
     }
 
     public Properties createStreamProperties(String name) {
@@ -230,5 +241,17 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
 
     public GeometryOutputMode getGeometryOutputMode() {
         return geometryOutputMode;
+    }
+    
+    @Value("${jackson.mapper.allow.unknown.properties}")
+    public void setJacksonAllowUnknownProperties(String jacksonAllowUnknownProperties) {
+        if (Boolean.parseBoolean(jacksonAllowUnknownProperties))
+            this.jacksonAllowUnknownProperties = Boolean.parseBoolean(jacksonAllowUnknownProperties);
+        else
+            this.jacksonAllowUnknownProperties = false;
+    }
+
+    public boolean getJacksonAllowUnknownProperties() {
+        return jacksonAllowUnknownProperties;
     }
 }
