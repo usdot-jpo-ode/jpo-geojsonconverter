@@ -1,6 +1,16 @@
 JPO GeoJSON Converter Release Notes
 ----------------------------
 
+Version 1.4.0
+----------------------------------------
+
+### **Summary**
+This release includes adding support for processing OdeBsmJson messages and creating ProcessedBsm. ProcessedBsm messages are geojson objects representing FeatureCollections with additional processed fields for additional context. ProcessedBsm currently only supports standard geojson format and not WKT format.
+
+Enhancements in this release:
+- PR67: Allow unknown properties via Jackson properties.
+- PR66: Adds ProcessedBsm as a new message type that is created utilizing OdeBsmJson output from the jpo-ode.
+
 Version 1.3.0
 ----------------------------------------
 
