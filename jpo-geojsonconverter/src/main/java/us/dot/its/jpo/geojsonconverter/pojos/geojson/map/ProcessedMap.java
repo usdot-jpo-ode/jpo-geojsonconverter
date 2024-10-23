@@ -17,7 +17,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @JsonPropertyOrder({"mapFeatureCollection", "connectingLanesFeatureCollection", "properties"})
 public class ProcessedMap<TGeometry> {
-    private static Logger logger = LoggerFactory.getLogger(MapProperties.class);
+    private static Logger logger = LoggerFactory.getLogger(ProcessedMap.class);
 
     MapFeatureCollection<TGeometry> mapFeatureCollection;
     ConnectingLanesFeatureCollection<TGeometry> connectingLanesFeatureCollection;

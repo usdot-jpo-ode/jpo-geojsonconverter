@@ -19,7 +19,7 @@ public class RsuIdPartitioner<K, V> implements StreamPartitioner<K, V> {
             var rsuIdKey = (RsuIdKey)key;
             String rsuId = rsuIdKey.getRsuId();
             try (var serializer = Serdes.String().serializer()) {
-                partitionBytes = Serdes.String().serializer().serialize(topic, rsuId); 
+                partitionBytes = serializer.serialize(topic, rsuId); 
             }          
         } else {
             // If the key does not have an RSU ID, partition on the hashed key as usual.

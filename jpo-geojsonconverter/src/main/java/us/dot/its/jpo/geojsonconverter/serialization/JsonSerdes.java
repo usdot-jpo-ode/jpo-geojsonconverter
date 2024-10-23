@@ -1,13 +1,17 @@
 package us.dot.its.jpo.geojsonconverter.serialization;
 
 import us.dot.its.jpo.geojsonconverter.partitioner.RsuIntersectionKey;
+import us.dot.its.jpo.geojsonconverter.partitioner.RsuLogKey;
 import us.dot.its.jpo.geojsonconverter.pojos.spat.*;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.LineString;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.Point;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.ProcessedMap;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.bsm.ProcessedBsm;
 import us.dot.its.jpo.geojsonconverter.serialization.deserializers.*;
 import us.dot.its.jpo.geojsonconverter.serialization.serializers.*;
 import us.dot.its.jpo.ode.model.OdeMapData;
 import us.dot.its.jpo.ode.model.OdeSpatData;
+import us.dot.its.jpo.ode.model.OdeBsmData;
 
 import org.apache.kafka.common.serialization.Serde;
 import org.apache.kafka.common.serialization.Serdes;
@@ -51,6 +55,25 @@ public class JsonSerdes {
         return Serdes.serdeFrom(
             new JsonSerializer<RsuIntersectionKey>(),
             new JsonDeserializer<>(RsuIntersectionKey.class)
+        );
+    }
+
+    public static Serde<OdeBsmData> OdeBsm() {
+        return Serdes.serdeFrom(
+            new JsonSerializer<OdeBsmData>(), 
+            new JsonDeserializer<>(OdeBsmData.class));
+    }
+
+    public static Serde<ProcessedBsm<Point>> ProcessedBsm() {
+        return Serdes.serdeFrom(
+            new JsonSerializer<ProcessedBsm<Point>>(), 
+            new ProcessedBsmDeserializer<>(Point.class));
+    }
+
+    public static Serde<RsuLogKey> RsuLogKey() {
+        return Serdes.serdeFrom(
+            new JsonSerializer<RsuLogKey>(),
+            new JsonDeserializer<>(RsuLogKey.class)
         );
     }
 }

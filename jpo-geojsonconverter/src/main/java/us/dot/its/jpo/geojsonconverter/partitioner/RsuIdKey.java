@@ -6,7 +6,7 @@ package us.dot.its.jpo.geojsonconverter.partitioner;
 public interface RsuIdKey {
     
     /**
-     * @return The RSU ID (An IP addres or other unique identifier for the RSU)
+     * @return The RSU ID (An IP address or other unique identifier for the RSU)
      */
     String getRsuId();
 
