@@ -141,14 +141,14 @@ Recommended machine specs running Docker to run the GeoJsonConverter:
 -  Minimum RAM: 16 GB
 -  Minimum storage space: 100 GB
 -  Supported operating systems:
-   -  Ubuntu 18.04 Linux (Recommended)
-   -  Windows 10 Professional (Professional version required for Docker virtualization)
+   -  Ubuntu 20.04 Linux (Recommended)
+   -  Windows 10/11 Professional (Professional version required for Docker virtualization)
    -  OSX 10 Mojave
 
 The GeoJsonConverter software can run on most standard Window, Mac, or Linux based computers with
 Pentium core processors. Performance of the software will be based on the computing power and available RAM in
 the system.  Larger data flows can require much larger space requirements depending on the
-amount of data being processed by the software. The GeoJsonConverter software application was developed using the open source programming language Java. If running the GeoJsonConverter outside of Docker, the application requires the Java 11 runtime environment.
+amount of data being processed by the software. The GeoJsonConverter software application was developed using the open source programming language Java. If running the GeoJsonConverter outside of Docker, the application requires the Java 21 runtime environment.
 
 ### Software Prerequisites
 
@@ -240,10 +240,11 @@ A GitHub token is required to pull artifacts from GitHub repositories. This is r
 3. Click "New personal access token (classic)".
    1. As of now, GitHub does not support `Fine-grained tokens` for obtaining packages.
 4. Provide a name and expiration for the token.
-5. Select the read:packages scope.
+5. Select the `read:packages` scope.
 6. Click "Generate token" and copy the token.
-
-Copy the token name, token value, and target jpo-ode organization into your `.env` file. If using your local IDE set the GitHub environmental variable to your local system as well.
+7. Copy the token name and token value into your `.env` file.
+8. Create a copy of [settings.xml](jpo-geojsonconverter/settings.xml) and save it to `~/.m2/settings.xml`
+9. Update the variables in your `~/.m2/settings.xml` with the token name, token value, and target jpo-ode organization
 
 #### Step 4 - Build and run jpo-geojsonconverter application
 
@@ -285,10 +286,10 @@ docker-compose ps
 
 ### Purpose & Usage
 
-- The DOCKER_HOST_IP environment variable is used to communicate with the bootstrap server that the instance of Kafka is running on.
-- The GITHUB_TOKEN_NAME environment variable is the name of the generated token from xxx used for pulling the jpo-ode java image.
-- The GITHUB_TOKEN environment variable is the value of the generated token from xxx used for pulling the jpo-ode java image.
-- The GITHUB_ORG environment variable is the name of the GitHub organization to use for the jpo-ode repository.
+- The `DOCKER_HOST_IP` environment variable is used to communicate with the bootstrap server that the instance of Kafka is running on.
+- The `GITHUB_TOKEN_NAME` environment variable is the name of the generated token from xxx used for pulling the jpo-ode java image.
+- The `GITHUB_TOKEN` environment variable is the value of the generated token from xxx used for pulling the jpo-ode java image.
+- The `GITHUB_ORG` environment variable is the name of the GitHub organization to use for the jpo-ode repository.
 
 ### Values
 In order to utilize Confluent Cloud:
@@ -320,7 +321,7 @@ This section outlines the software technology stacks of the GeoJsonConverter.
 
 ### ODE Code
 
-- [Java 11](https://openjdk.java.net/)
+- [Java](https://openjdk.java.net/)
 - [Maven](https://maven.apache.org/)
 - [Spring Boot](http://spring.io/projects/spring-boot)
 - [Logback](https://logback.qos.ch/)
