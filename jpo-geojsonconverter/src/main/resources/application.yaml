@@ -38,3 +38,5 @@ kafka.topics:
 
 # Jackson Properties
 spring.jackson.serialization.write-dates-as-timestamps: false
+
+kafka.linger_ms: 100
