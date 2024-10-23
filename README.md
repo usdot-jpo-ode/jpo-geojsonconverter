@@ -359,9 +359,9 @@ docker-compose ps
 ### Purpose & Usage
 
 - The `DOCKER_HOST_IP` environment variable is used to communicate with the bootstrap server that the instance of Kafka is running on.
-- The `GITHUB_TOKEN_NAME` environment variable is the name of the generated token from xxx used for pulling the jpo-ode java image.
-- The `GITHUB_TOKEN` environment variable is the value of the generated token from xxx used for pulling the jpo-ode java image.
-- The `GITHUB_ORG` environment variable is the name of the GitHub organization to use for the jpo-ode repository.
+- The `MAVEN_GITHUB_TOKEN_NAME` environment variable is the name of the generated token from xxx used for pulling the jpo-ode java image.
+- The `MAVEN_GITHUB_TOKEN` environment variable is the value of the generated token from xxx used for pulling the jpo-ode java image.
+- The `MAVEN_GITHUB_ORG` environment variable is the name of the GitHub organization to use for the jpo-ode repository.
 
 ### Values
 In order to utilize Confluent Cloud:
