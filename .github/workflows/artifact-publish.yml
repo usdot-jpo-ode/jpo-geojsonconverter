@@ -37,6 +37,8 @@ jobs:
         mvn -s settings.xml -B package --file pom.xml -DskipTests -Ppackage-jar
 
     - name: Publish to GitHub Packages
-      run: mvn --batch-mode -Dgithub_organization=${{ github.repository_owner }} deploy -DskipTests -Ppackage-jar
+      run: |
+        cd jpo-geojsonconverter
+        mvn --batch-mode -Dgithub_organization=${{ github.repository_owner }} deploy -DskipTests -Ppackage-jar
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
