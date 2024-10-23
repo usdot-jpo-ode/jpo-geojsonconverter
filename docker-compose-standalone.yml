@@ -5,9 +5,9 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        GITHUB_TOKEN_NAME: ${GITHUB_TOKEN_NAME}
-        GITHUB_TOKEN: ${GITHUB_TOKEN}
-        GITHUB_ORG: ${GITHUB_ORG}
+        MAVEN_GITHUB_TOKEN_NAME: ${MAVEN_GITHUB_TOKEN_NAME}
+        MAVEN_GITHUB_TOKEN: ${MAVEN_GITHUB_TOKEN}
+        MAVEN_GITHUB_ORG: ${MAVEN_GITHUB_ORG}
     restart: always
     image: jpo_geojsonconverter:latest
     environment:
