@@ -39,6 +39,6 @@ jobs:
     - name: Publish to GitHub Packages
       run: |
         cd jpo-geojsonconverter
-        mvn --batch-mode -Dgithub_organization=${{ github.repository_owner }} deploy -DskipTests -Ppackage-jar
+        mvn -s settings.xml --batch-mode -Dgithub_organization=${{ github.repository_owner }} deploy -DskipTests -Ppackage-jar
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
