@@ -119,6 +119,10 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
         // Configure the state store location
         streamProps.put(StreamsConfig.STATE_DIR_CONFIG, "/var/lib/ode/kafka-streams");
 
+        streamProps.put(ProducerConfig.COMPRESSION_TYPE_CONFIG, "zstd");
+
+        streamProps.put(ProducerConfig.LINGER_MS_CONFIG, 50);
+
         if (confluentCloudEnabled) {
             streamProps.put("ssl.endpoint.identification.algorithm", "https");
             streamProps.put("security.protocol", "SASL_SSL");
