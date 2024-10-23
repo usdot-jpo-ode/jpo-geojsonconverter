@@ -64,6 +64,8 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
     //BSM
     private String kafkaTopicOdeBsmJson = "topic.OdeBsmJson";
     private String kafkaTopicProcessedBsm = "topic.ProcessedBsm";
+
+    private int lingerMs = 0;
     
     private GeometryOutputMode geometryOutputMode = GeometryOutputMode.GEOJSON_ONLY;
 
@@ -118,6 +120,10 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
 
         // Configure the state store location
         streamProps.put(StreamsConfig.STATE_DIR_CONFIG, "/var/lib/ode/kafka-streams");
+
+        streamProps.put(ProducerConfig.COMPRESSION_TYPE_CONFIG, "zstd");
+
+        streamProps.put(ProducerConfig.LINGER_MS_CONFIG, getKafkaLingerMs());
 
         if (confluentCloudEnabled) {
             streamProps.put("ssl.endpoint.identification.algorithm", "https");
@@ -230,5 +236,15 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
 
     public GeometryOutputMode getGeometryOutputMode() {
         return geometryOutputMode;
+    }
+
+
+    @Value("${kafka.linger_ms}")
+    public void setKafkaLingerMs(int lingerMs) {
+        this.lingerMs = lingerMs;
+    }
+
+    public int getKafkaLingerMs() {
+        return lingerMs;
     }
 }
