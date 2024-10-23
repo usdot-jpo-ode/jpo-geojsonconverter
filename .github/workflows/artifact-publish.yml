@@ -39,7 +39,7 @@ jobs:
     - name: Publish to GitHub Packages
       run: |
         cd jpo-geojsonconverter
-        mvn --batch-mode -Dgithub_organization=${{ github.repository_owner }} deploy -DskipTests -Ppackage-jar
+        mvn --batch-mode -Dgithub_organization=${{ github.repository_owner }} deploy -DskipTests -Ppackage-jar -Drepackage.skip=true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         # MAVEN_GITHUB_TOKEN_NAME: ${{ vars.MAVEN_GITHUB_TOKEN_NAME }}
