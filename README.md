@@ -247,7 +247,7 @@ Read the following guides to familiarize yourself with GeoJsonConverter's Docker
 The GeoJsonConverter configuration is customized through the environment variables provided to Docker when Docker-Compose runs the Docker built GeoJsonConverter image. You may customize the Kafka broker endpoint.
 
 **Important!**
-You must rename `sample.env` to `.env` for Docker to automatically read the file. Do not push this file to source control.
+You must rename `sample.env` to `.env` in both the [root directory](sample.env) and in [jpo-utils](jpo-utils/sample.env) for Docker to automatically read the file. Do not push this file to source control. 
 
 [Back to top](#toc)
 
@@ -322,7 +322,7 @@ A GitHub token is required to pull artifacts from GitHub repositories. This is r
 
 **Notes:**
 - Docker builds may fail if you are on a corporate network due to DNS resolution errors.
-- In order for Docker to automatically read the environment variable file, you must rename it from `sample.env` to `.env`. **This file will contain private keys, do not put add it to version control.**
+- In order for Docker to automatically read the environment variable file, you must rename it from `sample.env` to `.env`. **This file will contain private keys, do not put add it to version control.**. A copy of the `sample.env` file must be created in [jpo-utils](jpo-utils/sample.env) in order for the base applications (kafka, mongo, etc.) to start up correctly
 - Unless you intend to run geojsonconverter without jpo-ode, replace the contents of docker-compose.yml with those of docker-compose-standalone.yml.
 
 Navigate to the root directory of the jpo-geojsonconverter project and run the following command:
