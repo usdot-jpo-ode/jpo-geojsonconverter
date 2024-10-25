@@ -287,7 +287,7 @@ The jpo-geojsonconverter software system consists of the following modules hoste
 You may download the stable, default branch for ALL of these dependencies by using the following recursive git clone command:
 
 ```bash
-git clone https://github.com/usdot-jpo-ode/jpo-geojsonconverter.git
+git clone --recurse-submodules https://github.com/usdot-jpo-ode/jpo-geojsonconverter.git
 ```
 
 Once you have these repositories obtained, you are ready to build and deploy the application.
@@ -358,7 +358,17 @@ docker-compose ps
 
 ### Purpose & Usage
 
+#### Runtime Environmental Variables:
+
+These variables are required for the image during runtime:
+
 - The `DOCKER_HOST_IP` environment variable is used to communicate with the bootstrap server that the instance of Kafka is running on.
+- The `GEOMETRY_OUTPUT_MODE` environmental variable is used to enable the Processed Map topology to create Well Known Text formatted messages on the `topic.ProcessedMapWKT` topic. Options are `GEOJSON_ONLY` or `WKT`, if the variable is not set it will default to `GEOJSON_ONLY`.
+- 
+#### Image Building Environmental Variables:
+
+These variables are passed into the Docker image as build arguments and allow for pulling the jpo-ode `.jar` files from GitHub Maven Central.
+
 - The `MAVEN_GITHUB_TOKEN_NAME` environment variable is the name of the generated token from xxx used for pulling the jpo-ode java image.
 - The `MAVEN_GITHUB_TOKEN` environment variable is the value of the generated token from xxx used for pulling the jpo-ode java image.
 - The `MAVEN_GITHUB_ORG` environment variable is the name of the GitHub organization to use for the jpo-ode repository.
@@ -367,6 +377,10 @@ docker-compose ps
 In order to utilize Confluent Cloud:
 
 - DOCKER_HOST_IP must be set to the bootstrap server address (excluding the port)
+
+- `KAFKA_TYPE` must be set to "CONFLUENT"
+- `CONFLUENT_KEY` must be set to the API key being utilized for CC
+- `CONFLUENT_SECRET` must be set to the API secret being utilized for CC
 
 [Back to top](#toc)
 	
