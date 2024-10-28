@@ -11,23 +11,23 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        MAVEN_GITHUB_TOKEN_NAME: ${MAVEN_GITHUB_TOKEN_NAME}
-        MAVEN_GITHUB_TOKEN: ${MAVEN_GITHUB_TOKEN}
-        MAVEN_GITHUB_ORG: ${MAVEN_GITHUB_ORG}
+        MAVEN_GITHUB_TOKEN_NAME: ${MAVEN_GITHUB_TOKEN_NAME:?error}
+        MAVEN_GITHUB_TOKEN: ${MAVEN_GITHUB_TOKEN:?error}
+        MAVEN_GITHUB_ORG: ${MAVEN_GITHUB_ORG:?error}
     image: jpo_geojsonconverter:latest
-    restart: ${RESTART_POLICY}
+    restart: ${RESTART_POLICY:?error}
     deploy:
       resources:
         limits:
           cpus: '1'
           memory: 2G
     environment:
-      DOCKER_HOST_IP: ${DOCKER_HOST_IP}
-      KAFKA_TYPE: ${KAFKA_TYPE}
-      CONFLUENT_KEY: ${CONFLUENT_KEY}
-      CONFLUENT_SECRET: ${CONFLUENT_SECRET}
-      geometry.output.mode: ${GEOMETRY_OUTPUT_MODE}
-      spring.kafka.bootstrap-servers: ${DOCKER_HOST_IP}:9092
+      DOCKER_HOST_IP: ${DOCKER_HOST_IP:?error}
+      KAFKA_TYPE: ${KAFKA_TYPE:?error}
+      CONFLUENT_KEY: ${CONFLUENT_KEY:?error}
+      CONFLUENT_SECRET: ${CONFLUENT_SECRET:?error}
+      geometry.output.mode: ${GEOMETRY_OUTPUT_MODE:?error}
+      spring.kafka.bootstrap-servers: ${DOCKER_HOST_IP:?error}:9092
     logging: 
       options:
         max-size: "10m"
@@ -41,7 +41,7 @@ services:
       - all
       - geojson_full
     image: usdotjpoode/jpo-ode:latest
-    restart: ${RESTART_POLICY}
+    restart: ${RESTART_POLICY:?error}
     deploy:
       resources:
         limits:
@@ -62,10 +62,10 @@ services:
       - "5555:5555/udp"
       - "6666:6666/udp"
     environment:
-      DOCKER_HOST_IP: ${DOCKER_HOST_IP}
-      KAFKA_TYPE: ${KAFKA_TYPE}
-      CONFLUENT_KEY: ${CONFLUENT_KEY}
-      CONFLUENT_SECRET: ${CONFLUENT_SECRET}
+      DOCKER_HOST_IP: ${DOCKER_HOST_IP:?error}
+      KAFKA_TYPE: ${KAFKA_TYPE:?error}
+      CONFLUENT_KEY: ${CONFLUENT_KEY:?error}
+      CONFLUENT_SECRET: ${CONFLUENT_SECRET:?error}
     depends_on:
       kafka:
         condition: service_healthy
@@ -86,21 +86,21 @@ services:
       - geojson_full
     build: ./asn1_codec
     image: usdotjpoode/asn1_codec:latest
-    restart: ${RESTART_POLICY}
+    restart: ${RESTART_POLICY:?error}
     deploy:
       resources:
         limits:
           cpus: '1'
           memory: 2G
     environment:
-      DOCKER_HOST_IP: ${DOCKER_HOST_IP}
-      KAFKA_TYPE: ${KAFKA_TYPE}
-      CONFLUENT_KEY: ${CONFLUENT_KEY}
-      CONFLUENT_SECRET: ${CONFLUENT_SECRET}
+      DOCKER_HOST_IP: ${DOCKER_HOST_IP:?error}
+      KAFKA_TYPE: ${KAFKA_TYPE:?error}
+      CONFLUENT_KEY: ${CONFLUENT_KEY:?error}
+      CONFLUENT_SECRET: ${CONFLUENT_SECRET:?error}
       ACM_CONFIG_FILE: adm.properties
-      ACM_LOG_TO_CONSOLE: ${ADM_LOG_TO_CONSOLE}
-      ACM_LOG_TO_FILE: ${ADM_LOG_TO_FILE}
-      ACM_LOG_LEVEL: ${ADM_LOG_LEVEL}
+      ACM_LOG_TO_CONSOLE: ${ADM_LOG_TO_CONSOLE:?error}
+      ACM_LOG_TO_FILE: ${ADM_LOG_TO_FILE:?error}
+      ACM_LOG_LEVEL: ${ADM_LOG_LEVEL:?error}
     depends_on:
       kafka:
         condition: service_healthy
