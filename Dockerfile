@@ -2,21 +2,22 @@ FROM maven:3.8-eclipse-temurin-21-alpine AS builder
 
 WORKDIR /home
 
-ARG MAVEN_GITHUB_TOKEN_NAME
 ARG MAVEN_GITHUB_TOKEN
 ARG MAVEN_GITHUB_ORG
 
-ENV MAVEN_GITHUB_TOKEN_NAME=$MAVEN_GITHUB_TOKEN_NAME
 ENV MAVEN_GITHUB_TOKEN=$MAVEN_GITHUB_TOKEN
 ENV MAVEN_GITHUB_ORG=$MAVEN_GITHUB_ORG
 
 COPY ./jpo-geojsonconverter/pom.xml ./jpo-geojsonconverter/
 COPY ./jpo-geojsonconverter/settings.xml ./jpo-geojsonconverter/
-COPY ./jpo-geojsonconverter/src ./jpo-geojsonconverter/src
 
+# Download dependencies alone to cache them first
 WORKDIR /home/jpo-geojsonconverter
+RUN mvn -s settings.xml dependency:resolve
 
-RUN mvn -s settings.xml clean install -DskipTests
+# Copy the source code and build the geojson converter
+COPY ./jpo-geojsonconverter/src ./src
+RUN mvn -s settings.xml install -DskipTests
 
 FROM eclipse-temurin:21-jre-alpine
 
