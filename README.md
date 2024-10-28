@@ -316,7 +316,38 @@ A GitHub token is required to pull artifacts from GitHub repositories. This is r
 6. Click "Generate token" and copy the token.
 7. Copy the token name and token value into your `.env` file.
 8. Create a copy of [settings.xml](jpo-geojsonconverter/settings.xml) and save it to `~/.m2/settings.xml`
-9. Update the variables in your `~/.m2/settings.xml` with the token name, token value, and target jpo-ode organization
+9. Update the variables in your `~/.m2/settings.xml` with the token value and target jpo-ode organization. Here is an example filled in `settings.xml` file:
+
+```XML
+<?xml version="1.0" encoding="UTF-8"?>
+<settings>
+    <activeProfiles>
+        <activeProfile>default</activeProfile>
+    </activeProfiles>
+    <servers>
+        <server>
+            <id>github</id>
+            <username>jpo_geojsonconverter</username>
+            <password>ghp_token-string-value</password>
+        </server>
+    </servers>
+    <profiles>
+        <profile>
+            <id>default</id>
+            <repositories>
+                <repository>
+                    <id>github</id>
+                    <name>GitHub Apache Maven Packages</name>
+                    <url>https://maven.pkg.github.com/usdot-jpo-ode/jpo-ode</url>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </repository>
+            </repositories>
+        </profile>
+    </profiles>
+</settings>
+```
 
 #### Step 4 - Build and run jpo-geojsonconverter application
 
@@ -369,7 +400,6 @@ These variables are required for the image during runtime:
 
 These variables are passed into the Docker image as build arguments and allow for pulling the jpo-ode `.jar` files from GitHub Maven Central.
 
-- The `MAVEN_GITHUB_TOKEN_NAME` environment variable is the name of the generated token from xxx used for pulling the jpo-ode java image.
 - The `MAVEN_GITHUB_TOKEN` environment variable is the value of the generated token from xxx used for pulling the jpo-ode java image.
 - The `MAVEN_GITHUB_ORG` environment variable is the name of the GitHub organization to use for the jpo-ode repository.
 
