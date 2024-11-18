@@ -1,5 +1,5 @@
 ﻿{
-    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "processed-map-schema-v1",
     "type": "object",
     "description": "MAP object containing both FeatureCollections for lane data and another for connecting lane geometry for a single intersection and shared properties",
@@ -14,11 +14,11 @@
             "$ref": "#/$defs/MapProperties"
         }
     },
+    "additionalProperties": false,
     "required": [
         "mapFeatureCollection",
         "connectingLanesFeatureCollection"
     ],
-    "additionalProperties": false,
     "$defs": {
         "MapFeatureCollection": {
             "type": "object",
@@ -36,11 +36,11 @@
                     }
                 }
             },
+            "additionalProperties": false,
             "required": [
                 "type",
                 "features"
-            ],
-            "additionalProperties": false
+            ]
         },
         "MapFeature": {
             "type": "object",
@@ -61,16 +61,19 @@
                     "$ref": "#/$defs/LineStringGeometry"
                 }
             },
+            "additionalProperties": false,
             "required": [
                 "type",
                 "id",
                 "properties",
                 "geometry"
-            ],
-            "additionalProperties": false
+            ]
         },
         "LineStringGeometry": {
-            "type": ["object", "string"],
+            "type": [
+                "object",
+                "string"
+            ],
             "properties": {
                 "type": {
                     "type": "string",
@@ -78,32 +81,33 @@
                 },
                 "coordinates": {
                     "type": "array",
+                    "minItems": 2,
                     "items": {
                         "$ref": "#/$defs/Coordinate"
-                    },
-                    "minItems": 2
+                    }
                 }
             },
+            "additionalProperties": false,
             "required": [
                 "type",
                 "coordinates"
-            ],
-            "additionalProperties": false
+            ]
         },
         "Coordinate": {
             "type": "array",
+            "description": "Lon/Lat coordinate with optional elevation",
+            "maxItems": 3,
+            "minItems": 2,
             "items": {
                 "type": "number"
-            },
-            "minItems": 2,
-            "maxItems": 3,
-            "description": "Lon/Lat coordinate with optional elevation"
+            }
         },
         "MapFeatureProperties": {
             "type": "object",
             "properties": {
                 "nodes": {
-                    "type": "array"
+                    "type": "array",
+                    "description": "This is optional for WKT output"
                 },
                 "laneId": {
                     "$ref": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/map.schema.json#/$defs/J2735LaneID"
@@ -138,14 +142,13 @@
                     "$ref": "#/$defs/ConnectsToList"
                 }
             },
+            "additionalProperties": false,
             "required": [
-                "nodes",
                 "laneId",
                 "sharedWith",
                 "egressPath",
                 "ingressPath"
-            ],
-            "additionalProperties": false
+            ]
         },
         "MapProperties": {
             "type": "object",
@@ -203,10 +206,11 @@
                 },
                 "timeStamp": {
                     "type": "string",
-                    "format": "date-time",
-                    "description": "Derived from the MapData timestamp=DE_MinuteOfTheYear field if available, othewise from OdeReceivedAt."
+                    "description": "Derived from the MapData timestamp=DE_MinuteOfTheYear field if available, othewise from OdeReceivedAt.",
+                    "format": "date-time"
                 }
             },
+            "additionalProperties": false,
             "required": [
                 "messageType",
                 "odeReceivedAt",
@@ -217,23 +221,24 @@
                 "refPoint",
                 "cti4501Conformant",
                 "laneWidth"
-            ],
-            "additionalProperties": false
+            ]
         },
         "ConnectsToList": {
+            "type": "array",
+            "maxItems": 16,
+            "minItems": 1,
             "items": {
                 "$ref": "#/$defs/Connection"
-            },
-            "type": "array",
-            "minItems": 1,
-            "maxItems": 16
+            }
         },
         "Connection": {
+            "type": "object",
             "properties": {
                 "connectingLane": {
                     "$ref": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/map.schema.json#/$defs/J2735ConnectingLane"
                 },
                 "connectionID": {
+                    "description": "DE_LaneConnectionID.  Optional, may be null",
                     "oneOf": [
                         {
                             "$ref": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/map.schema.json#/$defs/J2735LaneConnectionID"
@@ -241,10 +246,10 @@
                         {
                             "type": "null"
                         }
-                    ],
-                    "description": "DE_LaneConnectionID.  Optional, may be null"
+                    ]
                 },
                 "remoteIntersection": {
+                    "description": "DE_IntersectionReferenceID.  Optional, may be null",
                     "oneOf": [
                         {
                             "$ref": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/map.schema.json#/$defs/J2735IntersectionReferenceID"
@@ -252,14 +257,14 @@
                         {
                             "type": "null"
                         }
-                    ],
-                    "description": "DE_IntersectionReferenceID.  Optional, may be null"
+                    ]
                 },
                 "signalGroup": {
                     "$ref": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/map.schema.json#/$defs/J2735SignalGroupID",
                     "description": "DE_SignalGroupID.  Mandatory in CI Implementation Guide.  Optional in J2735"
                 },
                 "userClass": {
+                    "description": "DE_RestrictionClassID.  Optional, may be null",
                     "oneOf": [
                         {
                             "$ref": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/map.schema.json#/$defs/J2735RestrictionClassID"
@@ -267,15 +272,13 @@
                         {
                             "type": "null"
                         }
-                    ],
-                    "description": "DE_RestrictionClassID.  Optional, may be null"
+                    ]
                 }
             },
+            "additionalProperties": false,
             "required": [
                 "connectingLane"
-            ],
-            "type": "object",
-            "additionalProperties": false
+            ]
         },
         "ConnectingLanesFeatureCollection": {
             "type": "object",
@@ -293,11 +296,11 @@
                     }
                 }
             },
+            "additionalProperties": false,
             "required": [
                 "type",
                 "features"
-            ],
-            "additionalProperties": false
+            ]
         },
         "ConnectingLanesFeature": {
             "type": "object",
@@ -318,13 +321,13 @@
                     "$ref": "#/$defs/LineStringGeometry"
                 }
             },
+            "additionalProperties": false,
             "required": [
                 "type",
                 "id",
                 "properties",
                 "geometry"
-            ],
-            "additionalProperties": false
+            ]
         },
         "ConnectingLanesProperties": {
             "type": "object",
@@ -339,19 +342,19 @@
                     "$ref": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/map.schema.json#/$defs/J2735LaneID"
                 }
             },
+            "additionalProperties": false,
             "required": [
                 "ingressLaneId",
                 "egressLaneId"
-            ],
-            "additionalProperties": false
+            ]
         },
         "ValidationMessageList": {
             "type": "array",
+            "description": "A list of validation messages",
+            "minItems": 0,
             "items": {
                 "$ref": "#/$defs/ValidationMessage"
-            },
-            "minItems": 0,
-            "description": "A list of validation messages"
+            }
         },
         "ValidationMessage": {
             "type": "object",
@@ -379,11 +382,11 @@
         },
         "IPAddress": {
             "oneOf": [
-                { 
+                {
                     "type": "string",
                     "format": "ipv4"
                 },
-                { 
+                {
                     "type": "string",
                     "format": "ipv6"
                 }
@@ -391,9 +394,9 @@
         },
         "J2735SignalGroupID": {
             "type": "integer",
-            "minimum": 0,
+            "description": "DE_SignalGroupID",
             "maximum": 255,
-            "description": "DE_SignalGroupID"
+            "minimum": 0
         },
         "Position3D": {
             "type": "object",
