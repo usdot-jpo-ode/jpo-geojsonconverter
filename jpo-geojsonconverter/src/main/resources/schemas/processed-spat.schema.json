@@ -1,5 +1,5 @@
-{
-    "$schema": "https://json-schema.org/draft/2019-09/schema",
+﻿{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "processed-spat-schema-v1",
     "type": "object",
     "properties": {
@@ -17,16 +17,20 @@
         },
         "utcTimeStamp": {
             "type": "string",
-            "format": "date-time",
-            "description": "Timestamp derived from the timestamp=DE_MinuteOfTheYear of the top level of the spat message and the timeStamp=DE_Dsecond of the IntersectionState."
+            "description": "Timestamp derived from the timestamp=DE_MinuteOfTheYear of the top level of the spat message and the timeStamp=DE_Dsecond of the IntersectionState.",
+            "format": "date-time"
         },
         "originIp": {
             "$ref": "#/$defs/IPAddress"
         },
         "name": {
             "oneOf": [
-                { "$ref": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/spat.schema.json#/$defs/J2735DescriptiveName" },
-                { "type": "null" }
+                {
+                    "$ref": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/spat.schema.json#/$defs/J2735DescriptiveName"
+                },
+                {
+                    "type": "null"
+                }
             ]
         },
         "region": {
@@ -55,6 +59,7 @@
             "$ref": "#/$defs/MovementList"
         }
     },
+    "additionalProperties": false,
     "required": [
         "messageType",
         "odeReceivedAt",
@@ -68,12 +73,11 @@
         "enabledLanes",
         "states"
     ],
-    "additionalProperties": false,
     "$defs": {
         "MovementList": {
             "type": "array",
-            "minItems": 1,
             "maxItems": 255,
+            "minItems": 1,
             "items": {
                 "$ref": "#/$defs/MovementState"
             }
@@ -83,8 +87,12 @@
             "properties": {
                 "movementName": {
                     "oneOf": [
-                        { "$ref": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/spat.schema.json#/$defs/J2735DescriptiveName" },
-                        { "type": "null" }
+                        {
+                            "$ref": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/spat.schema.json#/$defs/J2735DescriptiveName"
+                        },
+                        {
+                            "type": "null"
+                        }
                     ]
                 },
                 "signalGroup": {
@@ -94,22 +102,26 @@
                     "$ref": "#/$defs/MovementEventList"
                 },
                 "maneuverAssistList": {
-                    "oneOf": [ 
-                        { "type": "null" }, 
-                        { "type": "object" } 
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "object"
+                        }
                     ]
                 }
             },
+            "additionalProperties": false,
             "required": [
                 "signalGroup",
                 "stateTimeSpeed"
-            ],
-            "additionalProperties": false
+            ]
         },
         "MovementEventList": {
             "type": "array",
-            "minItems": 1,
             "maxItems": 16,
+            "minItems": 1,
             "items": {
                 "$ref": "#/$defs/MovementEvent"
             }
@@ -129,15 +141,17 @@
                         {
                             "$ref": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/spat.schema.json#/$defs/J2735AdvisorySpeedList"
                         },
-                        { "type": "null" }
+                        {
+                            "type": "null"
+                        }
                     ]
                 }
             },
+            "additionalProperties": false,
             "required": [
                 "eventState",
                 "timing"
-            ],
-            "additionalProperties": false
+            ]
         },
         "TimeChangeDetails": {
             "type": "object",
@@ -145,61 +159,65 @@
             "properties": {
                 "startTime": {
                     "type": "string",
-                    "format": "date-time",
-                    "description": "Optional in J2735, but mandatory in CI Implementation Guide"
+                    "description": "Optional in J2735, but mandatory in CI Implementation Guide",
+                    "format": "date-time"
                 },
                 "minEndTime": {
                     "type": "string",
-                    "format": "date-time",
-                    "description": "Mandatory in both J2735 and CI Guide"
+                    "description": "Mandatory in both J2735 and CI Guide",
+                    "format": "date-time"
                 },
                 "maxEndTime": {
                     "type": "string",
-                    "format": "date-time",
-                    "description": "Optional in J2735, but mandatory in CI Implementation Guide"
+                    "description": "Optional in J2735, but mandatory in CI Implementation Guide",
+                    "format": "date-time"
                 },
                 "likelyTime": {
+                    "description": "Optional",
                     "oneOf": [
                         {
                             "type": "string",
                             "format": "date-time"
                         },
-                        { "type": "null" }
-                    ],
-                    "description": "Optional"
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "confidence": {
+                    "description": "DE_TimeIntervalConfidence. Optional.",
                     "oneOf": [
                         {
                             "type": "integer",
-                            "minimum": 0,
-                            "maximum": 15
+                            "maximum": 15,
+                            "minimum": 0
                         },
-                        { "type": "null" }
-                    ],
-                    "description": "DE_TimeIntervalConfidence. Optional."
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "nextTime": {
                     "type": "string",
-                    "format": "date-time",
-                    "description": "Optional in J2735, but mandatory in CI Implementation Guide"
+                    "description": "Optional in J2735, but mandatory in CI Implementation Guide",
+                    "format": "date-time"
                 }
             },
+            "additionalProperties": false,
             "required": [
                 "startTime",
                 "minEndTime",
                 "maxEndTime",
                 "nextTime"
-            ],
-            "additionalProperties": false
+            ]
         },
         "ValidationMessageList": {
             "type": "array",
+            "description": "A list of validation messages",
+            "minItems": 0,
             "items": {
                 "$ref": "#/$defs/ValidationMessage"
-            },
-            "minItems": 0,
-            "description": "A list of validation messages"
+            }
         },
         "ValidationMessage": {
             "type": "object",
@@ -227,11 +245,11 @@
         },
         "IPAddress": {
             "oneOf": [
-                { 
+                {
                     "type": "string",
                     "format": "ipv4"
                 },
-                { 
+                {
                     "type": "string",
                     "format": "ipv6"
                 }
@@ -239,9 +257,9 @@
         },
         "J2735SignalGroupID": {
             "type": "integer",
-            "minimum": 0,
+            "description": "DE_SignalGroupID",
             "maximum": 255,
-            "description": "DE_SignalGroupID"
+            "minimum": 0
         }
     }
 }
