@@ -1,4 +1,4 @@
-{
+﻿{
     "$schema": "https://json-schema.org/draft/2019-09/schema",
     "$id": "processed-map-schema-v1",
     "type": "object",
@@ -142,10 +142,8 @@
                 "nodes",
                 "laneId",
                 "sharedWith",
-                "maneuvers",
                 "egressPath",
-                "ingressPath",
-                "connectsTo"
+                "ingressPath"
             ],
             "additionalProperties": false
         },
@@ -185,7 +183,7 @@
                     "description": "DE_MsgCount for intersection"
                 },
                 "refPoint": {
-                    "$ref": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/map.schema.json#/$defs/OdePosition3D"
+                    "$ref": "#/$defs/Position3D"
                 },
                 "cti4501Conformant": {
                     "type": "boolean"
@@ -218,8 +216,7 @@
                 "revision",
                 "refPoint",
                 "cti4501Conformant",
-                "laneWidth",
-                "speedLimits"
+                "laneWidth"
             ],
             "additionalProperties": false
         },
@@ -275,8 +272,7 @@
                 }
             },
             "required": [
-                "connectingLane",
-                "signalGroup"
+                "connectingLane"
             ],
             "type": "object",
             "additionalProperties": false
@@ -344,7 +340,6 @@
                 }
             },
             "required": [
-                "signalGroupId",
                 "ingressLaneId",
                 "egressLaneId"
             ],
@@ -399,6 +394,27 @@
             "minimum": 0,
             "maximum": 255,
             "description": "DE_SignalGroupID"
+        },
+        "Position3D": {
+            "type": "object",
+            "properties": {
+                "elevation": {
+                    "type": "string",
+                    "description": "Elevation in meters. Mandatory in the CI Implementation Guide.  Optional in J2735."
+                },
+                "latitude": {
+                    "type": "number",
+                    "description": "Latitude in degrees"
+                },
+                "longitude": {
+                    "type": "number",
+                    "description": "Longitude in degrees"
+                }
+            },
+            "required": [
+                "latitude",
+                "longitude"
+            ]
         }
     }
 }
