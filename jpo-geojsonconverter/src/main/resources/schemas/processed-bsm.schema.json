@@ -1,5 +1,5 @@
-{
-    "$schema": "https://json-schema.org/draft/2019-09/schema",
+﻿{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "processed-bsm-schema-v1",
     "type": "object",
     "description": "BSM object containing a FeatureCollection for the geospatial data of a BSM and additional metadata",
@@ -37,6 +37,7 @@
             "$ref": "#/$defs/ValidationMessageList"
         }
     },
+    "additionalProperties": false,
     "required": [
         "features",
         "schemaVersion",
@@ -45,7 +46,6 @@
         "timeStamp",
         "validationMessages"
     ],
-    "additionalProperties": false,
     "$defs": {
         "BsmFeatures": {
             "type": "array",
@@ -72,12 +72,12 @@
                     "$ref": "#/$defs/PointGeometry"
                 }
             },
+            "additionalProperties": false,
             "required": [
                 "type",
                 "properties",
                 "geometry"
-            ],
-            "additionalProperties": false
+            ]
         },
         "PointGeometry": {
             "type": [
@@ -93,20 +93,20 @@
                     "$ref": "#/$defs/Coordinate"
                 }
             },
+            "additionalProperties": false,
             "required": [
                 "type",
                 "coordinates"
-            ],
-            "additionalProperties": false
+            ]
         },
         "Coordinate": {
             "type": "array",
+            "description": "Lon/Lat coordinate with optional elevation",
+            "maxItems": 3,
+            "minItems": 2,
             "items": {
                 "type": "number"
-            },
-            "minItems": 2,
-            "maxItems": 3,
-            "description": "Lon/Lat coordinate with optional elevation"
+            }
         },
         "BsmFeatureProperties": {
             "type": "object",
@@ -158,16 +158,16 @@
                     ]
                 }
             },
-            "required": [],
-            "additionalProperties": false
+            "additionalProperties": false,
+            "required": []
         },
         "ValidationMessageList": {
             "type": "array",
+            "description": "A list of validation messages",
+            "minItems": 0,
             "items": {
                 "$ref": "#/$defs/ValidationMessage"
-            },
-            "minItems": 0,
-            "description": "A list of validation messages"
+            }
         },
         "ValidationMessage": {
             "type": "object",
