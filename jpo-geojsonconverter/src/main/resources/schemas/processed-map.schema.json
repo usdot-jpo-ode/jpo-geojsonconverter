@@ -186,7 +186,7 @@
                     "description": "DE_MsgCount for intersection"
                 },
                 "refPoint": {
-                    "$ref": "#/$defs/Position3D"
+                    "$ref": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/map.schema.json#/$defs/OdePosition3D"
                 },
                 "cti4501Conformant": {
                     "type": "boolean"
@@ -397,27 +397,6 @@
             "description": "DE_SignalGroupID",
             "maximum": 255,
             "minimum": 0
-        },
-        "Position3D": {
-            "type": "object",
-            "properties": {
-                "elevation": {
-                    "type": "string",
-                    "description": "Elevation in meters. Mandatory in the CI Implementation Guide.  Optional in J2735."
-                },
-                "latitude": {
-                    "type": "number",
-                    "description": "Latitude in degrees"
-                },
-                "longitude": {
-                    "type": "number",
-                    "description": "Longitude in degrees"
-                }
-            },
-            "required": [
-                "latitude",
-                "longitude"
-            ]
         }
     }
 }
