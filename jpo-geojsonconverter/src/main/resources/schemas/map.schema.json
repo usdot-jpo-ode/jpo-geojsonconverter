@@ -898,17 +898,6 @@
                     ]
                 },
                 "nodes": {
-                    "$ref": "#/$defs/J2735NodeSetXY"
-                }
-            },
-            "required": [
-                "nodes"
-            ]
-        },
-        "J2735NodeSetXY": {
-            "type": "object",
-            "properties": {
-                "NodeXY": {
                     "type": "array",
                     "maxItems": 63,
                     "minItems": 2,
@@ -918,7 +907,7 @@
                 }
             },
             "required": [
-                "NodeXY"
+                "nodes"
             ]
         },
         "J2735NodeXY": {
