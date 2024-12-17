@@ -147,8 +147,9 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
         for (J2735GenericLane lane : intersection.getLaneSet().getLaneSet()) {
             // Create MAP properties
             MapProperties mapProps = new MapProperties();
-            if (lane.getNodeList().getNodes() != null)
-                mapProps.setNodes(nodeConversionList(lane.getNodeList().getNodes().getNodes()));            
+            if (lane.getNodeList().getNodes() != null) {
+                mapProps.setNodes(nodeConversionList(Arrays.asList(lane.getNodeList().getNodes())));
+            }         
             mapProps.setLaneId(lane.getLaneID());
             mapProps.setLaneName(lane.getName());
             mapProps.setLaneType(lane.getLaneAttributes().getLaneType());
@@ -217,8 +218,8 @@ public class MapProcessedJsonConverter implements Transformer<Void, Deserialized
         BigDecimal anchorLat = new BigDecimal(refPoint.getLatitude().toString());
         BigDecimal anchorLong = new BigDecimal(refPoint.getLongitude().toString());
         List<List<Double>> coordinatesList = new ArrayList<>();
-        for (int x = 0; x < lane.getNodeList().getNodes().getNodes().size(); x++) {
-            J2735NodeOffsetPointXY nodeOffset = lane.getNodeList().getNodes().getNodes().get(x).getDelta();
+        for (int x = 0; x < lane.getNodeList().getNodes().length; x++) {
+            J2735NodeOffsetPointXY nodeOffset = lane.getNodeList().getNodes()[x].getDelta();
 
             if (nodeOffset.getNodeLatLon() != null) {
                 J2735NodeLLmD64b nodeLatLong = nodeOffset.getNodeLatLon();
