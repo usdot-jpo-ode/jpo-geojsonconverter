@@ -1,7 +1,10 @@
 package us.dot.its.jpo.geojsonconverter.converter.bsm;
 
+import java.time.Instant;
+import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +37,7 @@ public class BsmProcessedJsonConverter implements Transformer<Void, Deserialized
     /**
      * Transform an ODE BSM POJO to Processed BSM POJO.
      * 
-     * @param rawKey   - Void type because ODE topics have no specified key
+     * @param rawKey - Void type because ODE topics have no specified key
      * @param rawBsm - The raw POJO
      * @return A key value pair: the key a RsuLogKey containing the RSU IP address or the BSM log file name
      */
@@ -108,8 +111,11 @@ public class BsmProcessedJsonConverter implements Transformer<Void, Deserialized
 
             processedBsmValidationMessages.add(object);
         }
+
+        ZonedDateTime odeDate = Instant.parse(metadata.getOdeReceivedAt()).atZone(ZoneId.of("UTC"));
+
         processedBsm.setValidationMessages(processedBsmValidationMessages);
-        processedBsm.setTimeStamp(ZonedDateTime.now(ZoneOffset.UTC));
+        processedBsm.setTimeStamp(generateOffsetUTCTimestamp(odeDate, payload.getBsm().getCoreData().getSecMark()));
 
         return processedBsm;
     }
@@ -153,5 +159,40 @@ public class BsmProcessedJsonConverter implements Transformer<Void, Deserialized
         bsmProps.setTransmission(coreData.getTransmission());
 
         return new BsmFeature<Point>(null, bsmPoint, bsmProps);
+    }
+
+    public ZonedDateTime generateOffsetUTCTimestamp(ZonedDateTime odeReceivedAt, Integer secMark){
+        try {
+            if (secMark != null){
+                int millis = (int)(secMark % 1000);
+                int seconds = (int)(secMark / 1000);
+                ZonedDateTime date = odeReceivedAt;
+                if(secMark == 65535){
+
+                    // Return UTC time zero if the Zoned Date time is marked as unknown, UTC time zero chosen so that a null value can represent an empty field in the BSM. But 65535, can represent an intentionally unidentified field.
+                    return ZonedDateTime.ofInstant(Instant.ofEpochMilli(0), ZoneId.of("UTC"));
+                    
+                }else{
+                    // If we are within 10 seconds of the next minute, and the timeMark is a large number, it probably means that the time rolled over before reception.
+                    // In this case, subtract a minute from the odeReceivedAt so that the true time represents the minute in the past. 
+                    if(odeReceivedAt.getSecond() < 10 && secMark > 50000){
+                        date = date.minusMinutes(1);
+                    }
+
+                    date = date.withSecond(seconds);
+                    date = date.withNano(0);
+                    date = date.plus(millis, ChronoUnit.MILLIS);
+                    return date;
+                }
+
+                
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            String errMsg = String.format("Failed to generateOffsetUTCTimestamp - BSMProcessedJsonConverter. Message: %s", e.getMessage());
+            logger.error(errMsg, e);
+            return null;
+        }               
     }
 }
