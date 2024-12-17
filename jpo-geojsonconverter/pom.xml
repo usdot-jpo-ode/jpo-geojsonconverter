@@ -17,6 +17,7 @@
     <description>J2735 message to GeoJSON converter for US DOT ITS JPO ODE</description>
     <properties>
         <java.version>21</java.version>
+        <jpoode.version>4.0.0</jpoode.version>
         <sonar.organization>usdot-jpo-ode</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <sonar.exclusions>src/main/**/GeoJsonConverterApplication.java,
@@ -130,12 +131,12 @@
         <dependency>
             <groupId>usdot.jpo.ode</groupId>
             <artifactId>jpo-ode-core</artifactId>
-            <version>4.0.0</version>
+            <version>${jpoode.version}</version>
         </dependency>
         <dependency>
             <groupId>usdot.jpo.ode</groupId>
             <artifactId>jpo-ode-plugins</artifactId>
-            <version>4.0.0</version>
+            <version>${jpoode.version}</version>
         </dependency>
 
         <!-- Other Dependencies -->
