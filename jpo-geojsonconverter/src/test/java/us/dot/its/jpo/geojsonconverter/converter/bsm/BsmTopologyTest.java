@@ -18,7 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import us.dot.its.jpo.geojsonconverter.partitioner.RsuLogKey;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.Point;
-import us.dot.its.jpo.geojsonconverter.pojos.geojson.bsm.ProcessedBsm;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.bsm.ProcessedBsmCollection;
 import us.dot.its.jpo.geojsonconverter.serialization.JsonSerdes;
 import us.dot.its.jpo.geojsonconverter.validator.BsmJsonValidator;
 
@@ -44,7 +44,7 @@ public class BsmTopologyTest {
                 kafkaTopicOdeBsmJson, 
                 Serdes.Void().serializer(), 
                 Serdes.String().serializer());
-            TestOutputTopic<RsuLogKey, ProcessedBsm<Point>> outputTopic = driver.createOutputTopic(
+            TestOutputTopic<RsuLogKey, ProcessedBsmCollection<Point>> outputTopic = driver.createOutputTopic(
                 kafkaTopicProcessedBsm, 
                 JsonSerdes.RsuLogKey().deserializer(), 
                 JsonSerdes.ProcessedBsm().deserializer());
@@ -53,10 +53,10 @@ public class BsmTopologyTest {
             inputTopic.pipeInput(odeBsmJsonString);
 
             // Check ProcessedBsm topic for properly converted message data
-            List<KeyValue<RsuLogKey, ProcessedBsm<Point>>> processedBsmJsonResults = outputTopic.readKeyValuesToList();
+            List<KeyValue<RsuLogKey, ProcessedBsmCollection<Point>>> processedBsmJsonResults = outputTopic.readKeyValuesToList();
             assertEquals(processedBsmJsonResults.size(), 1);
 
-            KeyValue<RsuLogKey, ProcessedBsm<Point>> processedBsmJson = processedBsmJsonResults.get(0);
+            KeyValue<RsuLogKey, ProcessedBsmCollection<Point>> processedBsmJson = processedBsmJsonResults.get(0);
             assertNotNull(processedBsmJson.key);
             assertEquals(new RsuLogKey("10.11.81.26", null, "12A7A951"), processedBsmJson.key);
             assertNotNull(processedBsmJson.value);
@@ -73,7 +73,7 @@ public class BsmTopologyTest {
                 kafkaTopicOdeBsmJson, 
                 Serdes.Void().serializer(), 
                 Serdes.String().serializer());
-            TestOutputTopic<RsuLogKey, ProcessedBsm<Point>> outputTopic = driver.createOutputTopic(
+            TestOutputTopic<RsuLogKey, ProcessedBsmCollection<Point>> outputTopic = driver.createOutputTopic(
                 kafkaTopicProcessedBsm, 
                 JsonSerdes.RsuLogKey().deserializer(), 
                 JsonSerdes.ProcessedBsm().deserializer());
@@ -82,10 +82,10 @@ public class BsmTopologyTest {
             inputTopic.pipeInput("{");
 
             // Check ProcessedBsm topic for properly converted message data
-            List<KeyValue<RsuLogKey, ProcessedBsm<Point>>> processedBsmJsonResults = outputTopic.readKeyValuesToList();
+            List<KeyValue<RsuLogKey, ProcessedBsmCollection<Point>>> processedBsmJsonResults = outputTopic.readKeyValuesToList();
             assertEquals(processedBsmJsonResults.size(), 1);
 
-            KeyValue<RsuLogKey, ProcessedBsm<Point>> processedBsmJson = processedBsmJsonResults.get(0);
+            KeyValue<RsuLogKey, ProcessedBsmCollection<Point>> processedBsmJson = processedBsmJsonResults.get(0);
             assertNotNull(processedBsmJson.key);
             assertEquals(new RsuLogKey(null, null, "ERROR"), processedBsmJson.key);
         }

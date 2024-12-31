@@ -18,7 +18,7 @@ import us.dot.its.jpo.ode.plugin.j2735.J2735TransmissionState;
 import us.dot.its.jpo.ode.plugin.j2735.J2735VehicleSize;
 
 public class ProcessedBsmTest {
-    BsmFeature<Point> feature;
+    ProcessedBsm<Point> feature;
 
     @Before
     public void setup() {
@@ -60,22 +60,22 @@ public class ProcessedBsmTest {
         double[] coordinates = new double[] { 40.5671913, -105.0342901 };
         Point geometry = new Point(coordinates);
 
-        feature = new BsmFeature<Point>(null, geometry, properties);
+        feature = new ProcessedBsm<Point>(null, geometry, properties);
     }
 
     @SuppressWarnings("unchecked")
     @Test
     public void testBsmFeatureCollectionGeoJson() {
-        BsmFeature<Point>[] expectedFeatureList = new BsmFeature[] { feature };
-        ProcessedBsm<Point> object = new ProcessedBsm<Point>(expectedFeatureList);
+        ProcessedBsm<Point>[] expectedFeatureList = new ProcessedBsm[] { feature };
+        ProcessedBsmCollection<Point> object = new ProcessedBsmCollection<Point>(expectedFeatureList);
         assertEquals(expectedFeatureList, object.getFeatures());
     }
 
     @Test
     public void testEquals() {
-        ProcessedBsm<Point> object = new ProcessedBsm<Point>(null);
+        ProcessedBsmCollection<Point> object = new ProcessedBsmCollection<Point>(null);
         object.setOriginIp("10.0.0.15");
-        ProcessedBsm<Point> otherObject = new ProcessedBsm<Point>(null);
+        ProcessedBsmCollection<Point> otherObject = new ProcessedBsmCollection<Point>(null);
 
         boolean equals = object.equals(object);
         assertEquals(true, equals);

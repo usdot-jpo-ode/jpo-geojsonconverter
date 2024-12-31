@@ -14,7 +14,7 @@ import us.dot.its.jpo.geojsonconverter.partitioner.RsuLogKey;
 import us.dot.its.jpo.geojsonconverter.partitioner.RsuLogKeyPartitioner;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.Point;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.bsm.DeserializedRawBsm;
-import us.dot.its.jpo.geojsonconverter.pojos.geojson.bsm.ProcessedBsm;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.bsm.ProcessedBsmCollection;
 import us.dot.its.jpo.geojsonconverter.serialization.JsonSerdes;
 import us.dot.its.jpo.geojsonconverter.validator.BsmJsonValidator;
 import us.dot.its.jpo.geojsonconverter.validator.JsonValidatorResult;
@@ -66,7 +66,7 @@ public class BsmTopology {
             );
 
         // Convert ODE BSM to GeoJSON
-        KStream<RsuLogKey, ProcessedBsm<Point>> processedJsonBsmStream =
+        KStream<RsuLogKey, ProcessedBsmCollection<Point>> processedJsonBsmStream =
             validatedOdeBsmStream.transform(
                 () -> new BsmProcessedJsonConverter()
             );
@@ -77,7 +77,7 @@ public class BsmTopology {
             Produced.with(
                 JsonSerdes.RsuLogKey(),
                 JsonSerdes.ProcessedBsm(),
-                new RsuLogKeyPartitioner<RsuLogKey, ProcessedBsm<Point>>())
+                new RsuLogKeyPartitioner<RsuLogKey, ProcessedBsmCollection<Point>>())
         );
         
         return builder.build();

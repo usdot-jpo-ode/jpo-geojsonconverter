@@ -62,38 +62,38 @@ public class BsmFeatureTest {
 
     @Test
     public void testBsmFeatureConstructor() {
-        BsmFeature<Point> feature = new BsmFeature<Point>(null, geometry, properties);
+        ProcessedBsm<Point> feature = new ProcessedBsm<Point>(null, geometry, properties);
         assertNotNull(feature);
     }
 
     @Test
     public void testType() {
-        BsmFeature<Point> feature = new BsmFeature<Point>(null, geometry, properties);
+        ProcessedBsm<Point> feature = new ProcessedBsm<Point>(null, geometry, properties);
         assertEquals("Feature", feature.getType());
     }
 
     @Test
     public void testGeoJsonToString() {
         String expectedString = "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[40.5671913,-105.0342901]},\"properties\":{\"accelSet\":{\"accelLat\":2001,\"accelLong\":0,\"accelVert\":-127,\"accelYaw\":0},\"accuracy\":{\"semiMajor\":5,\"semiMinor\":2,\"orientation\":0},\"angle\":10,\"brakes\":{\"traction\":\"unavailable\",\"abs\":\"unavailable\",\"scs\":\"unavailable\",\"brakeBoost\":\"unavailable\",\"auxBrakes\":\"unavailable\"},\"heading\":10,\"id\":\"12A7A951\",\"msgCnt\":20,\"secMark\":280,\"size\":{\"width\":208,\"length\":586},\"speed\":100,\"transmission\":\"FORWARDGEARS\"}}";
-        BsmFeature<Point> feature = new BsmFeature<Point>(null, geometry, properties);
+        ProcessedBsm<Point> feature = new ProcessedBsm<Point>(null, geometry, properties);
         assertEquals(expectedString, feature.toString());
     }
 
     @Test
     public void testGetId() {
-        BsmFeature<Point> feature = new BsmFeature<Point>(2, geometry, properties);
+        ProcessedBsm<Point> feature = new ProcessedBsm<Point>(2, geometry, properties);
         assertEquals(2, feature.getId());
     }
 
     @Test
     public void testGeoJsonGetGeometry() {
-        BsmFeature<Point> feature = new BsmFeature<Point>(null, geometry, properties);
+        ProcessedBsm<Point> feature = new ProcessedBsm<Point>(null, geometry, properties);
         assertEquals(40.5671913, feature.getGeometry().getCoordinates()[0]);
     }
 
     @Test
     public void testGetProperties() {
-        BsmFeature<Point> feature = new BsmFeature<Point>(null, geometry, properties);
+        ProcessedBsm<Point> feature = new ProcessedBsm<Point>(null, geometry, properties);
         assertEquals("12A7A951", feature.getProperties().getId());
     }
 }

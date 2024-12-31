@@ -28,7 +28,7 @@ import us.dot.its.jpo.ode.model.OdeBsmMetadata;
 import us.dot.its.jpo.ode.model.OdeBsmPayload;
 import us.dot.its.jpo.ode.plugin.j2735.J2735BsmCoreData;
 
-public class BsmProcessedJsonConverter implements Transformer<Void, DeserializedRawBsm, KeyValue<RsuLogKey, ProcessedBsm<Point>>> {
+public class BsmProcessedJsonConverter implements Transformer<Void, DeserializedRawBsm, KeyValue<RsuLogKey, ProcessedBsmCollection<Point>>> {
     private static final Logger logger = LoggerFactory.getLogger(BsmProcessedJsonConverter.class);
 
     @Override
@@ -42,7 +42,7 @@ public class BsmProcessedJsonConverter implements Transformer<Void, Deserialized
      * @return A key value pair: the key a RsuLogKey containing the RSU IP address or the BSM log file name
      */
     @Override
-    public KeyValue<RsuLogKey, ProcessedBsm<Point>> transform(Void rawKey, DeserializedRawBsm rawBsm) {
+    public KeyValue<RsuLogKey, ProcessedBsmCollection<Point>> transform(Void rawKey, DeserializedRawBsm rawBsm) {
         try {
             if (!rawBsm.getValidationFailure()) {
                 OdeBsmData rawValue = new OdeBsmData();
@@ -52,7 +52,7 @@ public class BsmProcessedJsonConverter implements Transformer<Void, Deserialized
                 rawValue.setPayload(rawBsm.getOdeBsmData().getPayload());
                 OdeBsmPayload bsmPayload = (OdeBsmPayload)rawValue.getPayload();
 
-                ProcessedBsm<Point> processedBsm = createProcessedBsm(bsmMetadata, bsmPayload, rawBsm.getValidatorResults());
+                ProcessedBsmCollection<Point> processedBsm = createProcessedBsm(bsmMetadata, bsmPayload, rawBsm.getValidatorResults());
 
                 // Set the schema version
                 processedBsm.setSchemaVersion(1);
@@ -63,7 +63,7 @@ public class BsmProcessedJsonConverter implements Transformer<Void, Deserialized
 
                 return KeyValue.pair(key, processedBsm);
             } else {
-                ProcessedBsm<Point> processedBsm = createFailureProcessedBsm(rawBsm.getValidatorResults(), rawBsm.getFailedMessage());
+                ProcessedBsmCollection<Point> processedBsm = createFailureProcessedBsm(rawBsm.getValidatorResults(), rawBsm.getFailedMessage());
                 RsuLogKey key = new RsuLogKey();
                 key.setBsmId("ERROR");
                 return KeyValue.pair(key, processedBsm);
@@ -84,11 +84,11 @@ public class BsmProcessedJsonConverter implements Transformer<Void, Deserialized
     }
 
     @SuppressWarnings("unchecked")
-    public ProcessedBsm<Point> createProcessedBsm(OdeBsmMetadata metadata, OdeBsmPayload payload, JsonValidatorResult validationMessages) {
-        List<BsmFeature<Point>> bsmFeatures = new ArrayList<>();
+    public ProcessedBsmCollection<Point> createProcessedBsm(OdeBsmMetadata metadata, OdeBsmPayload payload, JsonValidatorResult validationMessages) {
+        List<ProcessedBsm<Point>> bsmFeatures = new ArrayList<>();
         bsmFeatures.add(createBsmFeature(payload));
 
-        ProcessedBsm<Point> processedBsm = new ProcessedBsm<Point>(bsmFeatures.toArray(new BsmFeature[0]));
+        ProcessedBsmCollection<Point> processedBsm = new ProcessedBsmCollection<Point>(bsmFeatures.toArray(new ProcessedBsm[0]));
         processedBsm.setOdeReceivedAt(metadata.getOdeReceivedAt()); // ISO 8601: 2022-11-11T16:36:10.529530Z
 
         if (metadata.getOriginIp() != null && !metadata.getOriginIp().isEmpty())
@@ -120,8 +120,8 @@ public class BsmProcessedJsonConverter implements Transformer<Void, Deserialized
         return processedBsm;
     }
 
-    public ProcessedBsm<Point> createFailureProcessedBsm(JsonValidatorResult validatorResult, String message) {
-        ProcessedBsm<Point> processedBsm = new ProcessedBsm<Point>(null);
+    public ProcessedBsmCollection<Point> createFailureProcessedBsm(JsonValidatorResult validatorResult, String message) {
+        ProcessedBsmCollection<Point> processedBsm = new ProcessedBsmCollection<Point>(null);
         ProcessedValidationMessage object = new ProcessedValidationMessage();
         List<ProcessedValidationMessage> processedBsmValidationMessages = new ArrayList<ProcessedValidationMessage>();
 
@@ -137,7 +137,7 @@ public class BsmProcessedJsonConverter implements Transformer<Void, Deserialized
         return processedBsm;
     }
 
-    public BsmFeature<Point> createBsmFeature(OdeBsmPayload payload) {
+    public ProcessedBsm<Point> createBsmFeature(OdeBsmPayload payload) {
         J2735BsmCoreData coreData = payload.getBsm().getCoreData();
 
         // Create the Geometry Point
@@ -158,7 +158,7 @@ public class BsmProcessedJsonConverter implements Transformer<Void, Deserialized
         bsmProps.setSize(coreData.getSize());
         bsmProps.setTransmission(coreData.getTransmission());
 
-        return new BsmFeature<Point>(null, bsmPoint, bsmProps);
+        return new ProcessedBsm<Point>(null, bsmPoint, bsmProps);
     }
 
     public ZonedDateTime generateOffsetUTCTimestamp(ZonedDateTime odeReceivedAt, Integer secMark){

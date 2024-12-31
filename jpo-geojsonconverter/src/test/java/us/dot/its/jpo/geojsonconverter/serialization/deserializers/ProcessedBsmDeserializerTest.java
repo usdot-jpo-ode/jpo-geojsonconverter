@@ -17,7 +17,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.Point;
-import us.dot.its.jpo.geojsonconverter.pojos.geojson.bsm.ProcessedBsm;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.bsm.ProcessedBsmCollection;
 
 @SpringBootTest({
     "processed.bsm.json=classpath:json/sample.processed-bsm.json"})
@@ -36,7 +36,7 @@ public class ProcessedBsmDeserializerTest {
     @Test
     public void deserializeNullTest(){
         try (ProcessedBsmDeserializer<TestClass> deserializer = new ProcessedBsmDeserializer<TestClass>(TestClass.class)) {
-            ProcessedBsm<TestClass> result = deserializer.deserialize("topic", null);
+            ProcessedBsmCollection<TestClass> result = deserializer.deserialize("topic", null);
             assertNull(result);
         }
     }
@@ -46,7 +46,7 @@ public class ProcessedBsmDeserializerTest {
         try (ProcessedBsmDeserializer<Point> serializer = new ProcessedBsmDeserializer<Point>(Point.class)) {
             byte[] bsmBytes = IOUtils.toByteArray(validBsmGeoJsonResource.getInputStream()); 
 
-            ProcessedBsm<Point> bsm = serializer.deserialize("the_topic", bsmBytes);
+            ProcessedBsmCollection<Point> bsm = serializer.deserialize("the_topic", bsmBytes);
             assertNotNull(bsm);
             assertEquals(1, bsm.getFeatures().length);
             assertEquals("172.19.0.1", bsm.getOriginIp());
