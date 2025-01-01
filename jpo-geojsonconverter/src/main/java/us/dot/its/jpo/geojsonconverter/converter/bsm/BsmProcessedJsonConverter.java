@@ -28,7 +28,7 @@ import us.dot.its.jpo.ode.model.OdeBsmMetadata;
 import us.dot.its.jpo.ode.model.OdeBsmPayload;
 import us.dot.its.jpo.ode.plugin.j2735.J2735BsmCoreData;
 
-public class BsmProcessedJsonConverter implements Transformer<Void, DeserializedRawBsm, KeyValue<RsuLogKey, ProcessedBsmCollection<Point>>> {
+public class BsmProcessedJsonConverter implements Transformer<Void, DeserializedRawBsm, KeyValue<RsuLogKey, ProcessedBsm<Point>>> {
     private static final Logger logger = LoggerFactory.getLogger(BsmProcessedJsonConverter.class);
 
     @Override
@@ -42,7 +42,7 @@ public class BsmProcessedJsonConverter implements Transformer<Void, Deserialized
      * @return A key value pair: the key a RsuLogKey containing the RSU IP address or the BSM log file name
      */
     @Override
-    public KeyValue<RsuLogKey, ProcessedBsmCollection<Point>> transform(Void rawKey, DeserializedRawBsm rawBsm) {
+    public KeyValue<RsuLogKey, ProcessedBsm<Point>> transform(Void rawKey, DeserializedRawBsm rawBsm) {
         try {
             if (!rawBsm.getValidationFailure()) {
                 OdeBsmData rawValue = new OdeBsmData();
@@ -52,18 +52,18 @@ public class BsmProcessedJsonConverter implements Transformer<Void, Deserialized
                 rawValue.setPayload(rawBsm.getOdeBsmData().getPayload());
                 OdeBsmPayload bsmPayload = (OdeBsmPayload)rawValue.getPayload();
 
-                ProcessedBsmCollection<Point> processedBsm = createProcessedBsm(bsmMetadata, bsmPayload, rawBsm.getValidatorResults());
+                ProcessedBsm<Point> processedBsm = createBsmFeature(bsmPayload);
 
                 // Set the schema version
-                processedBsm.setSchemaVersion(1);
+                processedBsm.getProperties().setSchemaVersion(bsmMetadata.getSchemaVersion());
                 RsuLogKey key = new RsuLogKey();
-                key.setRsuId(processedBsm.getOriginIp());
-                key.setLogId(processedBsm.getLogName());
+                key.setRsuId(bsmMetadata.getOriginIp());
+                key.setLogId(bsmMetadata.getLogFileName());
                 key.setBsmId(bsmPayload.getBsm().getCoreData().getId());
 
                 return KeyValue.pair(key, processedBsm);
             } else {
-                ProcessedBsmCollection<Point> processedBsm = createFailureProcessedBsm(rawBsm.getValidatorResults(), rawBsm.getFailedMessage());
+                ProcessedBsm<Point> processedBsm = createFailureProcessedBsm(rawBsm.getValidatorResults(), rawBsm.getFailedMessage());
                 RsuLogKey key = new RsuLogKey();
                 key.setBsmId("ERROR");
                 return KeyValue.pair(key, processedBsm);
@@ -84,17 +84,15 @@ public class BsmProcessedJsonConverter implements Transformer<Void, Deserialized
     }
 
     @SuppressWarnings("unchecked")
-    public ProcessedBsmCollection<Point> createProcessedBsm(OdeBsmMetadata metadata, OdeBsmPayload payload, JsonValidatorResult validationMessages) {
-        List<ProcessedBsm<Point>> bsmFeatures = new ArrayList<>();
-        bsmFeatures.add(createBsmFeature(payload));
+    public ProcessedBsm<Point> createProcessedBsm(OdeBsmMetadata metadata, OdeBsmPayload payload, JsonValidatorResult validationMessages) {
 
-        ProcessedBsmCollection<Point> processedBsm = new ProcessedBsmCollection<Point>(bsmFeatures.toArray(new ProcessedBsm[0]));
-        processedBsm.setOdeReceivedAt(metadata.getOdeReceivedAt()); // ISO 8601: 2022-11-11T16:36:10.529530Z
+        ProcessedBsm<Point> processedBsm = createBsmFeature(payload);
+        processedBsm.getProperties().setOdeReceivedAt(metadata.getOdeReceivedAt()); // ISO 8601: 2022-11-11T16:36:10.529530Z
 
         if (metadata.getOriginIp() != null && !metadata.getOriginIp().isEmpty())
-            processedBsm.setOriginIp(metadata.getOriginIp());
+            processedBsm.getProperties().setOriginIp(metadata.getOriginIp());
         if (metadata.getLogFileName() != null && !metadata.getLogFileName().isEmpty())
-            processedBsm.setLogName(metadata.getLogFileName());
+            processedBsm.getProperties().setLogName(metadata.getLogFileName());
 
         List<ProcessedValidationMessage> processedBsmValidationMessages = new ArrayList<ProcessedValidationMessage>();
         for (Exception exception : validationMessages.getExceptions()) {
@@ -114,14 +112,14 @@ public class BsmProcessedJsonConverter implements Transformer<Void, Deserialized
 
         ZonedDateTime odeDate = Instant.parse(metadata.getOdeReceivedAt()).atZone(ZoneId.of("UTC"));
 
-        processedBsm.setValidationMessages(processedBsmValidationMessages);
-        processedBsm.setTimeStamp(generateOffsetUTCTimestamp(odeDate, payload.getBsm().getCoreData().getSecMark()));
+        processedBsm.getProperties().setValidationMessages(processedBsmValidationMessages);
+        processedBsm.getProperties().setTimeStamp(generateOffsetUTCTimestamp(odeDate, payload.getBsm().getCoreData().getSecMark()));
 
         return processedBsm;
     }
 
-    public ProcessedBsmCollection<Point> createFailureProcessedBsm(JsonValidatorResult validatorResult, String message) {
-        ProcessedBsmCollection<Point> processedBsm = new ProcessedBsmCollection<Point>(null);
+    public ProcessedBsm<Point> createFailureProcessedBsm(JsonValidatorResult validatorResult, String message) {
+        ProcessedBsm<Point> processedBsm = new ProcessedBsm<Point>(null, null, new BsmProperties());
         ProcessedValidationMessage object = new ProcessedValidationMessage();
         List<ProcessedValidationMessage> processedBsmValidationMessages = new ArrayList<ProcessedValidationMessage>();
 
@@ -131,8 +129,8 @@ public class BsmProcessedJsonConverter implements Transformer<Void, Deserialized
         object.setException(ExceptionUtils.getStackTrace(validatorResult.getExceptions().get(0)));
 
         processedBsmValidationMessages.add(object);
-        processedBsm.setValidationMessages(processedBsmValidationMessages);
-        processedBsm.setTimeStamp(utcDateTime);
+        processedBsm.getProperties().setValidationMessages(processedBsmValidationMessages);
+        processedBsm.getProperties().setTimeStamp(utcDateTime);
 
         return processedBsm;
     }

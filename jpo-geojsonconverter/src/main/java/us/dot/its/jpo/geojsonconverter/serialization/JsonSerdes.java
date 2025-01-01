@@ -2,6 +2,7 @@ package us.dot.its.jpo.geojsonconverter.serialization;
 
 import us.dot.its.jpo.geojsonconverter.partitioner.RsuIntersectionKey;
 import us.dot.its.jpo.geojsonconverter.partitioner.RsuLogKey;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.bsm.ProcessedBsm;
 import us.dot.its.jpo.geojsonconverter.pojos.spat.*;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.LineString;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.Point;
@@ -64,9 +65,9 @@ public class JsonSerdes {
             new JsonDeserializer<>(OdeBsmData.class));
     }
 
-    public static Serde<ProcessedBsmCollection<Point>> ProcessedBsm() {
+    public static Serde<ProcessedBsm<Point>> ProcessedBsm() {
         return Serdes.serdeFrom(
-            new JsonSerializer<ProcessedBsmCollection<Point>>(),
+            new JsonSerializer<ProcessedBsm<Point>>(),
             new ProcessedBsmDeserializer<>(Point.class));
     }
 

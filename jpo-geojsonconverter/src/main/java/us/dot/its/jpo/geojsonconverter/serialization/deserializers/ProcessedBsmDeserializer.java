@@ -10,9 +10,9 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import us.dot.its.jpo.geojsonconverter.DateJsonMapper;
-import us.dot.its.jpo.geojsonconverter.pojos.geojson.bsm.ProcessedBsmCollection;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.bsm.ProcessedBsm;
 
-public class ProcessedBsmDeserializer<T> implements Deserializer<ProcessedBsmCollection<T>> {
+public class ProcessedBsmDeserializer<T> implements Deserializer<ProcessedBsm<T>> {
     private static Logger logger = LoggerFactory.getLogger(ProcessedBsmDeserializer.class);
 
     protected final ObjectMapper mapper = DateJsonMapper.getInstance();
@@ -25,13 +25,13 @@ public class ProcessedBsmDeserializer<T> implements Deserializer<ProcessedBsmCol
 
     @SuppressWarnings("unchecked")
     @Override
-    public ProcessedBsmCollection<T> deserialize(String topic, byte[] data) {
+    public ProcessedBsm<T> deserialize(String topic, byte[] data) {
         if (data == null) {
                 return null;
         }
         try {
-            JavaType javaType = mapper.getTypeFactory().constructParametricType(ProcessedBsmCollection.class, geometryClass);
-            return (ProcessedBsmCollection<T>) mapper.readValue(data, javaType);
+            JavaType javaType = mapper.getTypeFactory().constructParametricType(ProcessedBsm.class, geometryClass);
+            return (ProcessedBsm<T>) mapper.readValue(data, javaType);
         } catch (IOException e) {
             String errMsg = String.format("Exception deserializing for topic %s: %s", topic, e.getMessage());
             logger.error(errMsg, e);

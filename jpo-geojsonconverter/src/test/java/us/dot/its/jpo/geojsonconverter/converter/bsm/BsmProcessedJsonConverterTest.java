@@ -18,7 +18,7 @@ import com.networknt.schema.ValidationMessage;
 import us.dot.its.jpo.geojsonconverter.partitioner.RsuLogKey;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.Point;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.bsm.DeserializedRawBsm;
-import us.dot.its.jpo.geojsonconverter.pojos.geojson.bsm.ProcessedBsmCollection;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.bsm.ProcessedBsm;
 import us.dot.its.jpo.geojsonconverter.serialization.deserializers.JsonDeserializer;
 import us.dot.its.jpo.geojsonconverter.validator.JsonValidatorResult;
 import us.dot.its.jpo.ode.model.OdeBsmData;
@@ -55,11 +55,11 @@ public class BsmProcessedJsonConverterTest {
         deserializedRawBsm.setOdeBsmData(odeBsmPojo);
         deserializedRawBsm.setValidatorResults(validatorResults);
 
-        KeyValue<RsuLogKey, ProcessedBsmCollection<Point>> processedBsm = bsmProcessedJsonConverter.transform(null, deserializedRawBsm);
+        KeyValue<RsuLogKey, ProcessedBsm<Point>> processedBsm = bsmProcessedJsonConverter.transform(null, deserializedRawBsm);
         assertNotNull(processedBsm.key);
         assertEquals(new RsuLogKey("10.11.81.26", null, "12A7A951"), processedBsm.key);
         assertNotNull(processedBsm.value);
-        assertEquals("12A7A951", processedBsm.value.getFeatures()[0].getProperties().getId());
+        assertEquals("12A7A951", processedBsm.value.getProperties().getId());
     }
 
     @Test
@@ -72,7 +72,7 @@ public class BsmProcessedJsonConverterTest {
         deserializedRawBsm.setOdeBsmData(odeBsmPojo);
         deserializedRawBsm.setValidatorResults(validatorResults);
 
-        KeyValue<RsuLogKey, ProcessedBsmCollection<Point>> processedBsm = bsmProcessedJsonConverter.transform(null, null);
+        KeyValue<RsuLogKey, ProcessedBsm<Point>> processedBsm = bsmProcessedJsonConverter.transform(null, null);
         assertNotNull(processedBsm.key);
         assertEquals(new RsuLogKey(null, null, "ERROR"), processedBsm.key);
         assertNull(processedBsm.value);
@@ -91,10 +91,10 @@ public class BsmProcessedJsonConverterTest {
         deserializedRawBsm.setValidatorResults(validatorResults);
         deserializedRawBsm.setFailedMessage("{");
 
-        KeyValue<RsuLogKey, ProcessedBsmCollection<Point>> processedBsm = bsmProcessedJsonConverter.transform(null, deserializedRawBsm);
+        KeyValue<RsuLogKey, ProcessedBsm<Point>> processedBsm = bsmProcessedJsonConverter.transform(null, deserializedRawBsm);
         assertNotNull(processedBsm.key);
         assertNotNull(processedBsm.value);
-        assertEquals("{", processedBsm.value.getValidationMessages().get(0).getMessage());
+        assertEquals("{", processedBsm.value.getProperties().getValidationMessages().get(0).getMessage());
     }
 
     @Test

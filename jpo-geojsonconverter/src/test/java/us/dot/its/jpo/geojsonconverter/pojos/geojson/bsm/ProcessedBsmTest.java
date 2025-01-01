@@ -73,9 +73,9 @@ public class ProcessedBsmTest {
 
     @Test
     public void testEquals() {
-        ProcessedBsmCollection<Point> object = new ProcessedBsmCollection<Point>(null);
-        object.setOriginIp("10.0.0.15");
-        ProcessedBsmCollection<Point> otherObject = new ProcessedBsmCollection<Point>(null);
+        ProcessedBsm<Point> object = new ProcessedBsm<Point>(null, null, new BsmProperties());
+        object.getProperties().setOriginIp("10.0.0.15");
+        ProcessedBsm<Point> otherObject = new ProcessedBsm<Point>(null, null, new BsmProperties());
 
         boolean equals = object.equals(object);
         assertEquals(true, equals);
