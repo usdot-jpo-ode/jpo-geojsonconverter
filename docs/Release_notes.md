@@ -8,14 +8,14 @@ Version 2.0.0
 This release includes optimizations to the jpo-geojsonconverter's Kafka data production rates, a migration from the jpo-ode submodule to a GitHub Maven Central artifact, schema updates, ProcessedBsm processing logic modifications, and new support for the latest major version of the jpo-ode (4.0.0). Due to the support of the latest breaking changes of the jpo-ode, this version of the jpo-geojsonconverter is also incrementing a major version. OdeMapJson from the jpo-ode 4.0.0 will not be supported by versions of the jpo-geojsonconverter prior to 2.0.0. This also means OdeMapJson from earlier versions of the jpo-ode will not be supported by the jpo-geojsonconverter 2.0.0.
 
 Enhancements in this release:
-- PR84: Refactor output ProcessedBsm to be just a feature instead of a feature collection.
-- PR83: Updated the processing logic of the ProcessedMap message to pull node values from the latest output of the OdeMapJson topic from the jpo-ode.
-- PR80: Added GitHub action caching.
-- PR78: Switched the artifact publisher to temurin.
-- PR77: Modified the processing logic for the ProcessedBsm `timeStamp` value to pull from the OdeBsmJson `odeReceivedAt` value.
-- PR76: Update schemas to JSON schema version `2020-12`.
-- PR75: Remove repository submodules for the jpo-ode and add GitHub Maven Central artifact publishing.
-- PR73: Added zstd compression to Kafka producers and consumers. 
+- USDOT PR84: Refactor output ProcessedBsm to be just a feature instead of a feature collection.
+- CDOT PR5: Updated the processing logic of the ProcessedMap message to pull node values from the latest output of the OdeMapJson topic from the jpo-ode.
+- USDOT PR80: Added GitHub action caching.
+- USDOT PR78: Switched the artifact publisher to temurin.
+- USDOT PR77: Modified the processing logic for the ProcessedBsm `timeStamp` value to pull from the OdeBsmJson `odeReceivedAt` value.
+- USDOT PR76: Update schemas to JSON schema version `2020-12`.
+- USDOT PR75: Remove repository submodules for the jpo-ode and add GitHub Maven Central artifact publishing.
+- USDOT PR73: Added zstd compression to Kafka producers and consumers. 
 
 Version 1.4.0
 ----------------------------------------
