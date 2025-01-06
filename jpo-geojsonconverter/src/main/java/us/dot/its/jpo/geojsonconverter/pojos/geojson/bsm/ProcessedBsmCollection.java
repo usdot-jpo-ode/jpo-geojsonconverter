@@ -14,11 +14,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import us.dot.its.jpo.geojsonconverter.DateJsonMapper;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.BaseFeatureCollection;
 
-public class ProcessedBsmCollection<Point> extends BaseFeatureCollection<ProcessedBsm<Point>> {
+public class ProcessedBsmCollection<TGeometry> extends BaseFeatureCollection<ProcessedBsm<TGeometry>> {
     private static Logger logger = LoggerFactory.getLogger(ProcessedBsmCollection.class);
 
     @JsonCreator
-    public ProcessedBsmCollection(@JsonProperty("features") ProcessedBsm<Point>[] features) {
+    public ProcessedBsmCollection(@JsonProperty("features") ProcessedBsm<TGeometry>[] features) {
         super(features);
     }
 
@@ -31,7 +31,7 @@ public class ProcessedBsmCollection<Point> extends BaseFeatureCollection<Process
         }
 
         @SuppressWarnings("unchecked")
-        ProcessedBsmCollection<Point> processedBsm = (ProcessedBsmCollection<Point>) o;
+        ProcessedBsmCollection<TGeometry> processedBsm = (ProcessedBsmCollection<TGeometry>) o;
         return (
                 Arrays.equals(getFeatures(), processedBsm.getFeatures()));
     }
