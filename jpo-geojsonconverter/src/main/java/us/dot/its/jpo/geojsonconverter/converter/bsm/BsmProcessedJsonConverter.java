@@ -20,7 +20,9 @@ import com.networknt.schema.ValidationMessage;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.Point;
 import us.dot.its.jpo.geojsonconverter.partitioner.RsuLogKey;
 import us.dot.its.jpo.geojsonconverter.pojos.ProcessedValidationMessage;
-import us.dot.its.jpo.geojsonconverter.pojos.geojson.bsm.*;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.bsm.BsmProperties;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.bsm.DeserializedRawBsm;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.bsm.ProcessedBsm;
 import us.dot.its.jpo.geojsonconverter.validator.JsonValidatorResult;
 
 import us.dot.its.jpo.ode.model.OdeBsmData;
