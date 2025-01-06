@@ -52,7 +52,7 @@ public class BsmProcessedJsonConverter implements Transformer<Void, Deserialized
                 rawValue.setPayload(rawBsm.getOdeBsmData().getPayload());
                 OdeBsmPayload bsmPayload = (OdeBsmPayload)rawValue.getPayload();
 
-                ProcessedBsm<Point> processedBsm = createBsmFeature(bsmPayload);
+                ProcessedBsm<Point> processedBsm = createProcessedBsm(bsmMetadata, bsmPayload, rawBsm.getValidatorResults());
 
                 // Set the schema version
                 processedBsm.getProperties().setSchemaVersion(bsmMetadata.getSchemaVersion());
@@ -86,7 +86,7 @@ public class BsmProcessedJsonConverter implements Transformer<Void, Deserialized
     @SuppressWarnings("unchecked")
     public ProcessedBsm<Point> createProcessedBsm(OdeBsmMetadata metadata, OdeBsmPayload payload, JsonValidatorResult validationMessages) {
 
-        ProcessedBsm<Point> processedBsm = createBsmFeature(payload);
+        ProcessedBsm<Point> processedBsm = createProcessedBsmGeometryAndProperties(payload);
         processedBsm.getProperties().setOdeReceivedAt(metadata.getOdeReceivedAt()); // ISO 8601: 2022-11-11T16:36:10.529530Z
 
         if (metadata.getOriginIp() != null && !metadata.getOriginIp().isEmpty())
@@ -135,7 +135,7 @@ public class BsmProcessedJsonConverter implements Transformer<Void, Deserialized
         return processedBsm;
     }
 
-    public ProcessedBsm<Point> createBsmFeature(OdeBsmPayload payload) {
+    private ProcessedBsm<Point> createProcessedBsmGeometryAndProperties(OdeBsmPayload payload) {
         J2735BsmCoreData coreData = payload.getBsm().getCoreData();
 
         // Create the Geometry Point
