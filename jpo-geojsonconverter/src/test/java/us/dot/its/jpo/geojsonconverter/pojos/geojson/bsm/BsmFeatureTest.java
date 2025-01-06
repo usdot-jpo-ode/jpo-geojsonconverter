@@ -74,7 +74,8 @@ public class BsmFeatureTest {
 
     @Test
     public void testGeoJsonToString() {
-        String expectedString = "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[40.5671913,-105.0342901]},\"properties\":{\"accelSet\":{\"accelLat\":2001,\"accelLong\":0,\"accelVert\":-127,\"accelYaw\":0},\"accuracy\":{\"semiMajor\":5,\"semiMinor\":2,\"orientation\":0},\"angle\":10,\"brakes\":{\"traction\":\"unavailable\",\"abs\":\"unavailable\",\"scs\":\"unavailable\",\"brakeBoost\":\"unavailable\",\"auxBrakes\":\"unavailable\"},\"heading\":10,\"id\":\"12A7A951\",\"msgCnt\":20,\"secMark\":280,\"size\":{\"width\":208,\"length\":586},\"speed\":100,\"transmission\":\"FORWARDGEARS\"}}";
+        String expectedString = """
+                {"type":"Feature","geometry":{"type":"Point","coordinates":[40.5671913,-105.0342901]},"properties":{"schemaVersion":-1,"messageType":"BSM","accelSet":{"accelLat":2001,"accelLong":0,"accelVert":-127,"accelYaw":0},"accuracy":{"semiMajor":5,"semiMinor":2,"orientation":0},"angle":10,"brakes":{"traction":"unavailable","abs":"unavailable","scs":"unavailable","brakeBoost":"unavailable","auxBrakes":"unavailable"},"heading":10,"id":"12A7A951","msgCnt":20,"secMark":280,"size":{"width":208,"length":586},"speed":100,"transmission":"FORWARDGEARS"}}""";
         ProcessedBsm<Point> feature = new ProcessedBsm<Point>(null, geometry, properties);
         assertEquals(expectedString, feature.toString());
     }
