@@ -1,10 +1,11 @@
 package us.dot.its.jpo.geojsonconverter.converter.bsm;
 
 import static org.junit.Assert.assertNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.Mockito.mock;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,11 +18,13 @@ import com.networknt.schema.ValidationMessage;
 
 import us.dot.its.jpo.geojsonconverter.partitioner.RsuLogKey;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.Point;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.bsm.BsmProperties;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.bsm.DeserializedRawBsm;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.bsm.ProcessedBsm;
 import us.dot.its.jpo.geojsonconverter.serialization.deserializers.JsonDeserializer;
 import us.dot.its.jpo.geojsonconverter.validator.JsonValidatorResult;
 import us.dot.its.jpo.ode.model.OdeBsmData;
+import us.dot.its.jpo.ode.plugin.j2735.J2735BitString;
 
 public class BsmProcessedJsonConverterTest {
     BsmProcessedJsonConverter bsmProcessedJsonConverter;
@@ -59,7 +62,50 @@ public class BsmProcessedJsonConverterTest {
         assertNotNull(processedBsm.key);
         assertEquals(new RsuLogKey("10.11.81.26", null, "12A7A951"), processedBsm.key);
         assertNotNull(processedBsm.value);
-        assertEquals("12A7A951", processedBsm.value.getProperties().getId());
+        var value = processedBsm.value;
+        assertNotNull(value);
+        BsmProperties props = value.getProperties();
+        assertNotNull(props);
+        assertEquals("12A7A951", props.getId());
+        assertEquals(6, props.getSchemaVersion());
+        assertEquals("BSM", props.getMessageType());
+        assertEquals("2024-08-12T12:32:03.811Z", props.getOdeReceivedAt());
+        assertNotNull(props.getTimeStamp());
+        assertEquals("10.11.81.26", props.getOriginIp());
+        assertNull(props.getLogName());
+        var accelSet = props.getAccelSet();
+        assertNotNull(accelSet);
+        assertEquals(new BigDecimal(2001), accelSet.getAccelLat());
+        assertEquals(new BigDecimal(0), accelSet.getAccelLong());
+        assertEquals(new BigDecimal(-127), accelSet.getAccelVert());
+        assertEquals(new BigDecimal(0), accelSet.getAccelYaw());
+        var accuracy = props.getAccuracy();
+        assertNotNull(accuracy);
+        assertEquals(new BigDecimal(5), accuracy.getSemiMajor());
+        assertEquals(new BigDecimal(2), accuracy.getSemiMinor());
+        assertEquals(new BigDecimal(0), accuracy.getOrientation());
+        var brakes = props.getBrakes();
+        assertNotNull(brakes);
+        assertEquals("unavailable", brakes.getTraction());
+        assertEquals("unavailable", brakes.getAbs());
+        assertEquals("unavailable", brakes.getScs());
+        assertEquals("unavailable", brakes.getBrakeBoost());
+        assertEquals("unavailable", brakes.getAuxBrakes());
+        J2735BitString wheelBrakes = brakes.getWheelBrakes();
+        assertNotNull(wheelBrakes);
+        assertFalse(wheelBrakes.get("leftFront"));
+        assertFalse(wheelBrakes.get("rightFront"));
+        assertTrue(wheelBrakes.get("unavailable"));
+        assertFalse(wheelBrakes.get("leftRear"));
+        assertFalse(wheelBrakes.get("rightRear"));
+        var geometry = value.getGeometry();
+        assertNotNull(geometry);
+        assertEquals("Point", geometry.getType());
+        var coords = geometry.getCoordinates();
+        assertNotNull(coords);
+        assertEquals(2, coords.length);
+        assertEquals(-105.0342901, coords[0]);
+        assertEquals(40.5671913, coords[1]);
     }
 
     @Test
