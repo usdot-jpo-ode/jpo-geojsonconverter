@@ -156,6 +156,7 @@ public class BsmProcessedJsonConverter implements Transformer<Void, Deserialized
         bsmProps.setMsgCnt(coreData.getMsgCnt());
         bsmProps.setSecMark(coreData.getSecMark());
         bsmProps.setSize(coreData.getSize());
+        bsmProps.setSpeed(coreData.getSpeed());
         bsmProps.setTransmission(coreData.getTransmission());
 
         return new ProcessedBsm<Point>(null, bsmPoint, bsmProps);
