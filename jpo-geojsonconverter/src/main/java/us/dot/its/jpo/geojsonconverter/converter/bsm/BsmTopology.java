@@ -15,6 +15,7 @@ import us.dot.its.jpo.geojsonconverter.partitioner.RsuLogKeyPartitioner;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.Point;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.bsm.DeserializedRawBsm;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.bsm.ProcessedBsm;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.bsm.ProcessedBsmCollection;
 import us.dot.its.jpo.geojsonconverter.serialization.JsonSerdes;
 import us.dot.its.jpo.geojsonconverter.validator.BsmJsonValidator;
 import us.dot.its.jpo.geojsonconverter.validator.JsonValidatorResult;
