@@ -534,6 +534,27 @@ Install the IDE of your choice:
 - STS: [https://spring.io/tools/sts/all](https://spring.io/tools/sts/all)
 - IntelliJ: [https://www.jetbrains.com/idea/](https://www.jetbrains.com/idea/)
 
+### Regenerating JSON Schemas
+
+The project includes JSON schemas for validating processed messages (ProcessedMap, ProcessedSpat, ProcessedBsm, ProcessedPsm). These schemas are automatically generated from the Java POJOs using the SchemaGeneratorUtility.
+
+To regenerate the schemas:
+
+1. Using VS Code:
+   - Open the project in VS Code
+   - Go to the Run and Debug view
+   - Select "SchemaGeneratorUtility" from the dropdown
+   - Click the play button or press F5
+
+2. Using command line:
+
+   ```bash
+   cd jpo-geojsonconverter
+   mvn exec:java -Dexec.mainClass="us.dot.its.jpo.geojsonconverter.utils.SchemaGeneratorUtility" -Dexec.args="--output src/main/resources/schemas"
+   ```
+
+The schemas will be generated in `jpo-geojsonconverter/src/main/resources/schemas/`.
+
 ### Continuous Integration
 
 - TravisCI: <https://travis-ci.org/usdot-jpo-ode/jpo-ode>
