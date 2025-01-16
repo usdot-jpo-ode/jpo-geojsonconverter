@@ -159,7 +159,7 @@
                 },
                 "schemaVersion": {
                     "type": "integer",
-                    "const": 6
+                    "const": 8
                 },
                 "securityResultCode": {
                     "type": "string",
