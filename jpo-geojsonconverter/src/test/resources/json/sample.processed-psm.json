@@ -1,0 +1,29 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -105.0342901,
+                    40.5671913
+                ]
+            },
+            "properties": {
+                "basicType": "aPEDESTRIAN",
+                "id": "12A7A951",
+                "msgCnt": 25,
+                "secMark": 2800,
+                "speed": 0,
+                "heading": 8898
+            }
+        }
+    ],
+    "schemaVersion": 1,
+    "messageType": "PSM",
+    "odeReceivedAt": "2024-08-12T12:32:03.811Z",
+    "originIp": "172.19.0.1",
+    "validationMessages": [],
+    "timeStamp": "2024-08-12T12:32:04.3034091Z"
+}

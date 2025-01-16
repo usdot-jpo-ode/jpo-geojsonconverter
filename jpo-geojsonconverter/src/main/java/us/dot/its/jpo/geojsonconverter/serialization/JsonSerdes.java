@@ -2,14 +2,17 @@ package us.dot.its.jpo.geojsonconverter.serialization;
 
 import us.dot.its.jpo.geojsonconverter.partitioner.RsuIntersectionKey;
 import us.dot.its.jpo.geojsonconverter.partitioner.RsuLogKey;
+import us.dot.its.jpo.geojsonconverter.partitioner.RsuTypeIdKey;
 import us.dot.its.jpo.geojsonconverter.pojos.spat.*;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.LineString;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.Point;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.ProcessedMap;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.bsm.ProcessedBsm;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.psm.ProcessedPsm;
 import us.dot.its.jpo.geojsonconverter.serialization.deserializers.*;
 import us.dot.its.jpo.geojsonconverter.serialization.serializers.*;
 import us.dot.its.jpo.ode.model.OdeMapData;
+import us.dot.its.jpo.ode.model.OdePsmData;
 import us.dot.its.jpo.ode.model.OdeSpatData;
 import us.dot.its.jpo.ode.model.OdeBsmData;
 
@@ -74,6 +77,25 @@ public class JsonSerdes {
         return Serdes.serdeFrom(
             new JsonSerializer<RsuLogKey>(),
             new JsonDeserializer<>(RsuLogKey.class)
+        );
+    }
+
+    public static Serde<OdePsmData> OdePsm() {
+        return Serdes.serdeFrom(
+            new JsonSerializer<OdePsmData>(), 
+            new JsonDeserializer<>(OdePsmData.class));
+    }
+
+    public static Serde<ProcessedPsm<Point>> ProcessedPsm() {
+        return Serdes.serdeFrom(
+            new JsonSerializer<ProcessedPsm<Point>>(), 
+            new ProcessedPsmDeserializer<>(Point.class));
+    }
+
+    public static Serde<RsuTypeIdKey> RsuTypeIdKey() {
+        return Serdes.serdeFrom(
+            new JsonSerializer<RsuTypeIdKey>(),
+            new JsonDeserializer<>(RsuTypeIdKey.class)
         );
     }
 }
