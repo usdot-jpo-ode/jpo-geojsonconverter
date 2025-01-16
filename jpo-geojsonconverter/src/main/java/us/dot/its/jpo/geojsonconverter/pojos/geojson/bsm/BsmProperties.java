@@ -1,9 +1,13 @@
 package us.dot.its.jpo.geojsonconverter.pojos.geojson.bsm;
 
 import java.math.BigDecimal;
+import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import us.dot.its.jpo.geojsonconverter.DateJsonMapper;
+import us.dot.its.jpo.geojsonconverter.pojos.ProcessedValidationMessage;
 import us.dot.its.jpo.ode.plugin.j2735.J2735AccelerationSet4Way;
 import us.dot.its.jpo.ode.plugin.j2735.J2735PositionalAccuracy;
 import us.dot.its.jpo.ode.plugin.j2735.J2735BrakeSystemStatus;
@@ -20,9 +24,22 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonPropertyOrder({"schemaVersion", "messageType", "odeReceivedAt", "timeStamp", "originIp", "logName", "validationMessages",
+"accelSet", "accuracy", "angle", "brakes", "heading", "id", "msgCnt", "secMark", "size", "speed", "transmission"})
 public class BsmProperties {
     private static Logger logger = LoggerFactory.getLogger(BsmProperties.class);
 
+    // Metadata properties
+    // Default schemaVersion is -1 for older messages that lack a schemaVersion value
+    private int schemaVersion = -1;
+    private String messageType = "BSM";
+    private String odeReceivedAt;
+    private String originIp;
+    private String logName;
+    private List<ProcessedValidationMessage> validationMessages = null;
+    private ZonedDateTime timeStamp;
+
+    // Payload properties
     private J2735AccelerationSet4Way accelSet;
     private J2735PositionalAccuracy accuracy;
     private BigDecimal angle;
@@ -34,6 +51,62 @@ public class BsmProperties {
     private J2735VehicleSize size;
     private BigDecimal speed;
     private J2735TransmissionState transmission;
+
+    public int getSchemaVersion() {
+        return schemaVersion;
+    }
+
+    public void setSchemaVersion(int schemaVersion) {
+        this.schemaVersion = schemaVersion;
+    }
+
+    public void setMessageType(String messageType) {
+        this.messageType = messageType;
+    }
+
+    public String getMessageType() {
+        return this.messageType;
+    }
+
+    public String getOdeReceivedAt() {
+        return odeReceivedAt;
+    }
+
+    public void setOdeReceivedAt(String odeReceivedAt) {
+        this.odeReceivedAt = odeReceivedAt;
+    }
+
+    public void setOriginIp(String originIp) {
+        this.originIp = originIp;
+    }
+
+    public String getOriginIp() {
+        return this.originIp;
+    }
+
+    public void setLogName(String logName) {
+        this.logName = logName;
+    }
+
+    public String getLogName() {
+        return this.logName;
+    }
+
+    public List<ProcessedValidationMessage> getValidationMessages() {
+        return validationMessages;
+    }
+
+    public void setValidationMessages(List<ProcessedValidationMessage> validationMessages) {
+        this.validationMessages = validationMessages;
+    }
+
+    public void setTimeStamp(ZonedDateTime timeStamp) {
+        this.timeStamp = timeStamp;
+    }
+
+    public ZonedDateTime getTimeStamp() {
+        return this.timeStamp;
+    }
 
     public void setAccelSet(J2735AccelerationSet4Way accelSet) {
         this.accelSet = accelSet;
