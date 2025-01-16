@@ -66,7 +66,7 @@ public class PsmProcessedJsonConverterTest {
         assertEquals(RsuTypeIdKey.builder().pedestrianType(J2735PersonalDeviceUserType.aPEDESTRIAN).rsuId("172.23.0.1")
                 .psmId("24779D7E").build(), processedPsm.key);
         assertNotNull(processedPsm.value);
-        assertEquals("24779D7E", processedPsm.value.getFeatures()[0].getProperties().getId());
+        assertEquals("24779D7E", processedPsm.value.getProperties().getId());
     }
 
     @Test
@@ -102,7 +102,7 @@ public class PsmProcessedJsonConverterTest {
                 psmProcessedJsonConverter.transform(null, deserializedRawPsm);
         assertNotNull(processedPsm.key);
         assertNotNull(processedPsm.value);
-        assertEquals("{", processedPsm.value.getValidationMessages().get(0).getMessage());
+        assertEquals("{", processedPsm.value.getProperties().getValidationMessages().get(0).getMessage());
     }
 
     @Test

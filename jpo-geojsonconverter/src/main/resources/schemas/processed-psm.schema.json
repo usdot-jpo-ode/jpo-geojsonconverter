@@ -22,19 +22,6 @@
         }
       }
     },
-    "PsmFeature(Object)" : {
-      "type" : "object",
-      "properties" : {
-        "geometry" : { },
-        "id" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "properties" : {
-          "$ref" : "#/$defs/PsmProperties"
-        }
-      }
-    },
     "PsmProperties" : {
       "type" : "object",
       "properties" : {
@@ -48,7 +35,20 @@
         "id" : {
           "type" : "string"
         },
+        "messageType" : {
+          "type" : "string"
+        },
         "msgCnt" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "odeReceivedAt" : {
+          "type" : "string"
+        },
+        "originIp" : {
+          "type" : "string"
+        },
+        "schemaVersion" : {
           "type" : "integer",
           "format" : "int32"
         },
@@ -59,40 +59,29 @@
         "speed" : {
           "type" : "integer",
           "format" : "int32"
+        },
+        "timeStamp" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "validationMessages" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/$defs/ProcessedValidationMessage"
+          }
         }
       }
     }
   },
   "type" : "object",
   "properties" : {
-    "features" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/$defs/PsmFeature(Object)"
-      }
-    },
-    "messageType" : {
-      "type" : "string"
-    },
-    "odeReceivedAt" : {
-      "type" : "string"
-    },
-    "originIp" : {
-      "type" : "string"
-    },
-    "schemaVersion" : {
+    "geometry" : { },
+    "id" : {
       "type" : "integer",
       "format" : "int32"
     },
-    "timeStamp" : {
-      "type" : "string",
-      "format" : "date-time"
-    },
-    "validationMessages" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/$defs/ProcessedValidationMessage"
-      }
+    "properties" : {
+      "$ref" : "#/$defs/PsmProperties"
     }
   }
 }

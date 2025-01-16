@@ -57,9 +57,9 @@ public class PsmProcessedJsonConverter
                         createProcessedPsm(psmMetadata, psmPayload, rawPsm.getValidatorResults());
 
                 // Set the schema version
-                processedPsm.setSchemaVersion(1);
+                processedPsm.getProperties().setSchemaVersion(psmMetadata.getSchemaVersion());
                 RsuTypeIdKey key = new RsuTypeIdKey();
-                key.setRsuId(processedPsm.getOriginIp());
+                key.setRsuId(psmMetadata.getOriginIp());
                 key.setPedestrianType(psmPayload.getPsm().getBasicType());
                 key.setPsmId(psmPayload.getPsm().getId());
 
@@ -89,14 +89,12 @@ public class PsmProcessedJsonConverter
     @SuppressWarnings("unchecked")
     public ProcessedPsm<Point> createProcessedPsm(OdePsmMetadata metadata, OdePsmPayload payload,
             JsonValidatorResult validationMessages) {
-        List<PsmFeature<Point>> psmFeatures = new ArrayList<>();
-        psmFeatures.add(createPsmFeature(payload));
 
-        ProcessedPsm<Point> processedPsm = new ProcessedPsm<Point>(psmFeatures.toArray(new PsmFeature[0]));
-        processedPsm.setOdeReceivedAt(metadata.getOdeReceivedAt()); // ISO 8601: 2022-11-11T16:36:10.529530Z
+        ProcessedPsm<Point> processedPsm = createProcessedPsmGeometryAndProperties(payload);
+        processedPsm.getProperties().setOdeReceivedAt(metadata.getOdeReceivedAt());
 
         if (metadata.getOriginIp() != null && !metadata.getOriginIp().isEmpty())
-            processedPsm.setOriginIp(metadata.getOriginIp());
+            processedPsm.getProperties().setOriginIp(metadata.getOriginIp());
 
         List<ProcessedValidationMessage> processedPsmValidationMessages = new ArrayList<ProcessedValidationMessage>();
         for (Exception exception : validationMessages.getExceptions()) {
@@ -116,14 +114,35 @@ public class PsmProcessedJsonConverter
 
         ZonedDateTime odeDate = Instant.parse(metadata.getOdeReceivedAt()).atZone(ZoneId.of("UTC"));
 
-        processedPsm.setValidationMessages(processedPsmValidationMessages);
-        processedPsm.setTimeStamp(generateOffsetUTCTimestamp(odeDate, payload.getPsm().getSecMark()));
+        processedPsm.getProperties().setValidationMessages(processedPsmValidationMessages);
+        processedPsm.getProperties().setTimeStamp(generateOffsetUTCTimestamp(odeDate, payload.getPsm().getSecMark()));
+        processedPsm.getProperties().setSchemaVersion(1);
 
         return processedPsm;
     }
 
+    private ProcessedPsm<Point> createProcessedPsmGeometryAndProperties(OdePsmPayload payload) {
+        J2735PSM psm = payload.getPsm();
+
+        // Create the Geometry Point
+        double psmLong = psm.getPosition().getLongitude().doubleValue();
+        double psmLat = psm.getPosition().getLatitude().doubleValue();
+        Point psmPoint = new Point(psmLong, psmLat);
+
+        // Create the PSM Properties
+        PsmProperties psmProps = new PsmProperties();
+        psmProps.setBasicType(psm.getBasicType());
+        psmProps.setId(psm.getId());
+        psmProps.setMsgCnt(psm.getMsgCnt());
+        psmProps.setSecMark(psm.getSecMark());
+        psmProps.setSpeed(psm.getSpeed());
+        psmProps.setHeading(psm.getHeading());
+
+        return new ProcessedPsm<Point>(null, psmPoint, psmProps);
+    }
+
     public ProcessedPsm<Point> createFailureProcessedPsm(JsonValidatorResult validatorResult, String message) {
-        ProcessedPsm<Point> processedPsm = new ProcessedPsm<Point>(null);
+        ProcessedPsm<Point> processedPsm = new ProcessedPsm<Point>(null, null, new PsmProperties());
         ProcessedValidationMessage object = new ProcessedValidationMessage();
         List<ProcessedValidationMessage> processedPsmValidationMessages = new ArrayList<ProcessedValidationMessage>();
 
@@ -133,25 +152,10 @@ public class PsmProcessedJsonConverter
         object.setException(ExceptionUtils.getStackTrace(validatorResult.getExceptions().get(0)));
 
         processedPsmValidationMessages.add(object);
-        processedPsm.setValidationMessages(processedPsmValidationMessages);
-        processedPsm.setTimeStamp(utcDateTime);
+        processedPsm.getProperties().setValidationMessages(processedPsmValidationMessages);
+        processedPsm.getProperties().setTimeStamp(utcDateTime);
 
         return processedPsm;
-    }
-
-    public PsmFeature<Point> createPsmFeature(OdePsmPayload payload) {
-        J2735PSM psm = payload.getPsm();
-
-        // Create the Geometry Point
-        double psmLong = psm.getPosition().getLongitude().doubleValue();
-        double psmLat = psm.getPosition().getLatitude().doubleValue();
-        Point psmPoint = new Point(psmLong, psmLat);
-
-        // Create the PSM Properties using lombok all constructor args
-        PsmProperties psmProps = new PsmProperties(psm.getBasicType(), psm.getId(), psm.getMsgCnt(), psm.getSecMark(),
-                psm.getSpeed(), psm.getHeading());
-
-        return new PsmFeature<Point>(null, psmPoint, psmProps);
     }
 
     public ZonedDateTime generateOffsetUTCTimestamp(ZonedDateTime odeReceivedAt, Integer secMark) {

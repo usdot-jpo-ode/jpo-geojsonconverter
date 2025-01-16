@@ -73,7 +73,7 @@ public class PsmTopologyTest {
             assertEquals(expectedKey, processedPsmJson.key);
 
             assertNotNull(processedPsmJson.value);
-            assertEquals("24779D7E", processedPsmJson.value.getFeatures()[0].getProperties().getId());
+            assertEquals("24779D7E", processedPsmJson.value.getProperties().getId());
         }
     }
 

@@ -7,14 +7,11 @@ import com.github.victools.jsonschema.module.jackson.JacksonModule;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.bsm.ProcessedBsm;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.ProcessedMap;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.psm.ProcessedPsm;
-import us.dot.its.jpo.geojsonconverter.pojos.geojson.psm.PsmFeature;
 import us.dot.its.jpo.geojsonconverter.pojos.spat.ProcessedSpat;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.stream.Stream;
 
 public class SchemaGeneratorUtility {
     public static void main(String[] args) throws IOException {
