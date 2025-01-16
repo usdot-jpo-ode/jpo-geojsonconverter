@@ -1,183 +1,276 @@
 {
-  "$schema" : "https://json-schema.org/draft/2020-12/schema",
-  "$defs" : {
-    "BsmFeature(Object)" : {
-      "type" : "object",
-      "properties" : {
-        "geometry" : { },
-        "id" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "properties" : {
-          "$ref" : "#/$defs/BsmProperties"
-        }
-      }
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "processed-bsm-schema-v1",
+  "type": "object",
+  "description": "BSM object containing a FeatureCollection for the geospatial data of a BSM and additional metadata",
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "Feature"
     },
-    "BsmProperties" : {
-      "type" : "object",
-      "properties" : {
-        "accelSet" : {
-          "$ref" : "#/$defs/J2735AccelerationSet4Way"
-        },
-        "accuracy" : {
-          "$ref" : "#/$defs/J2735PositionalAccuracy"
-        },
-        "angle" : {
-          "type" : "number"
-        },
-        "brakes" : {
-          "$ref" : "#/$defs/J2735BrakeSystemStatus"
-        },
-        "heading" : {
-          "type" : "number"
-        },
-        "id" : {
-          "type" : "string"
-        },
-        "msgCnt" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "secMark" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "size" : {
-          "$ref" : "#/$defs/J2735VehicleSize"
-        },
-        "speed" : {
-          "type" : "number"
-        },
-        "transmission" : {
-          "$ref" : "#/$defs/J2735TransmissionState"
-        }
-      }
+    "id": {
+      "type": "number"
     },
-    "J2735AccelerationSet4Way" : {
-      "type" : "object",
-      "properties" : {
-        "accelLat" : {
-          "type" : "number"
-        },
-        "accelLong" : {
-          "type" : "number"
-        },
-        "accelVert" : {
-          "type" : "number"
-        },
-        "accelYaw" : {
-          "type" : "number"
-        }
-      }
+    "geometry": {
+      "$ref": "#/$defs/PointGeometry"
     },
-    "J2735BitString" : {
-      "type" : "object"
-    },
-    "J2735BrakeSystemStatus" : {
-      "type" : "object",
-      "properties" : {
-        "abs" : {
-          "type" : "string"
-        },
-        "auxBrakes" : {
-          "type" : "string"
-        },
-        "brakeBoost" : {
-          "type" : "string"
-        },
-        "scs" : {
-          "type" : "string"
-        },
-        "traction" : {
-          "type" : "string"
-        },
-        "wheelBrakes" : {
-          "$ref" : "#/$defs/J2735BitString"
-        }
-      }
-    },
-    "J2735PositionalAccuracy" : {
-      "type" : "object",
-      "properties" : {
-        "orientation" : {
-          "type" : "number"
-        },
-        "semiMajor" : {
-          "type" : "number"
-        },
-        "semiMinor" : {
-          "type" : "number"
-        }
-      }
-    },
-    "J2735TransmissionState" : {
-      "type" : "string",
-      "enum" : [ "NEUTRAL", "PARK", "FORWARDGEARS", "REVERSEGEARS", "RESERVED1", "RESERVED2", "RESERVED3", "UNAVAILABLE" ]
-    },
-    "J2735VehicleSize" : {
-      "type" : "object",
-      "properties" : {
-        "length" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "width" : {
-          "type" : "integer",
-          "format" : "int32"
-        }
-      }
-    },
-    "ProcessedValidationMessage" : {
-      "type" : "object",
-      "properties" : {
-        "exception" : {
-          "type" : "string"
-        },
-        "jsonPath" : {
-          "type" : "string"
-        },
-        "message" : {
-          "type" : "string"
-        },
-        "schemaPath" : {
-          "type" : "string"
-        }
-      }
+    "properties": {
+      "$ref": "#/$defs/BsmProperties"
     }
   },
-  "type" : "object",
-  "properties" : {
-    "features" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/$defs/BsmFeature(Object)"
+  "additionalProperties": false,
+  "required": [
+    "type",
+    "geometry",
+    "properties"
+  ],
+  "$defs": {
+    "PointGeometry": {
+      "type": [
+        "object",
+        "string"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "Point"
+        },
+        "coordinates": {
+          "$ref": "#/$defs/Coordinate"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "coordinates"
+      ]
+    },
+    "Coordinate": {
+      "type": "array",
+      "description": "Lon/Lat coordinate with optional elevation",
+      "maxItems": 3,
+      "minItems": 2,
+      "items": {
+        "type": "number"
       }
     },
-    "logName" : {
-      "type" : "string"
+    "BsmFeatureProperties": {
+      "type": "object",
+      "properties": {
+        "accelSet": {
+          "$ref": "#/$defs/J2735AccelerationSet"
+        },
+        "accuracy": {
+          "$ref": "#/$defs/J2735PositionalAccuracy"
+        },
+        "angle": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "brakes": {
+          "$ref": "#/$defs/J2735BrakeSystemStatus"
+        },
+        "heading": {
+          "type": "number"
+        },
+        "id": {
+          "type": "string"
+        },
+        "msgCnt": {
+          "type": "integer"
+        },
+        "secMark": {
+          "type": "integer"
+        },
+        "size": {
+          "$ref": "#/$defs/J2735VehicleSize"
+        },
+        "speed": {
+          "type": "number"
+        },
+        "transmission": {
+          "type": "string",
+          "enum": [
+            "NEUTRAL",
+            "PARK",
+            "FORWARDGEARS",
+            "REVERSEGEARS",
+            "RESERVED1",
+            "RESERVED2",
+            "RESERVED3",
+            "UNAVAILABLE"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": []
     },
-    "messageType" : {
-      "type" : "string"
+    "ValidationMessageList": {
+      "type": "array",
+      "description": "A list of validation messages",
+      "minItems": 0,
+      "items": {
+        "$ref": "#/$defs/ValidationMessage"
+      }
     },
-    "odeReceivedAt" : {
-      "type" : "string"
+    "ValidationMessage": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "description": "Description/summary of the validation error"
+        },
+        "jsonPath": {
+          "type": "string",
+          "description": "Path in the original ODE JSON message"
+        },
+        "schemaPath": {
+          "type": "string",
+          "description": "Path in the json schema of the ODE JSON"
+        },
+        "exception": {
+          "type": "string",
+          "description": "Details of java validation exception thrown, if any"
+        }
+      },
+      "required": [
+        "message"
+      ]
     },
-    "originIp" : {
-      "type" : "string"
+    "IPAddress": {
+      "oneOf": [
+        {
+          "type": "string",
+          "format": "ipv4"
+        },
+        {
+          "type": "string",
+          "format": "ipv6"
+        }
+      ]
     },
-    "schemaVersion" : {
-      "type" : "integer",
-      "format" : "int32"
+    "J2735AccelerationSet": {
+      "type": "object",
+      "properties": {
+        "accelLat": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "accelLong": {
+          "type": "number"
+        },
+        "accelVert": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "accelYaw": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "accelLong",
+        "accelYaw"
+      ]
     },
-    "timeStamp" : {
-      "type" : "string",
-      "format" : "date-time"
+    "J2735PositionalAccuracy": {
+      "type": "object",
+      "properties": {
+        "orientation": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "semiMajor": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "semiMinor": {
+          "type": [
+            "number",
+            "null"
+          ]
+        }
+      }
     },
-    "validationMessages" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/$defs/ProcessedValidationMessage"
+    "J2735BrakeSystemStatus": {
+      "type": "object",
+      "properties": {
+        "abs": {
+          "type": "string"
+        },
+        "auxBrakes": {
+          "type": "string"
+        },
+        "brakeBoost": {
+          "type": "string"
+        },
+        "scs": {
+          "type": "string"
+        },
+        "traction": {
+          "type": "string"
+        },
+        "wheelBrakes": {
+          "type": "object",
+          "properties": {
+            "leftFront": {
+              "type": "boolean"
+            },
+            "leftRear": {
+              "type": "boolean"
+            },
+            "rightFront": {
+              "type": "boolean"
+            },
+            "rightRear": {
+              "type": "boolean"
+            },
+            "unavailable": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "unavailable",
+            "leftFront",
+            "leftRear",
+            "rightFront",
+            "rightRear"
+          ]
+        }
+      },
+      "required": [
+        "wheelBrakes",
+        "traction",
+        "abs",
+        "scs",
+        "brakeBoost",
+        "auxBrakes"
+      ]
+    },
+    "J2735VehicleSize": {
+      "type": "object",
+      "properties": {
+        "length": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "width": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        }
       }
     }
   }

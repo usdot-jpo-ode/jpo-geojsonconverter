@@ -6,6 +6,8 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import static org.junit.Assert.fail;
 
@@ -23,14 +25,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import us.dot.its.jpo.geojsonconverter.DateJsonMapper;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.LineString;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.Point;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.bsm.ProcessedBsm;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.ProcessedMap;
 import us.dot.its.jpo.geojsonconverter.pojos.spat.ProcessedSpat;
 
 
 @SpringBootTest({
-    "processed.spat.json=classpath:json/sample.processed-spat.json",
-    "processed.map.json=classpath:json/sample.processed-map.json",
-    "processed.map.wkt.json=classpath:json/sample.processed-map-wkt.json"})
+        "processed.spat.json=classpath:json/sample.processed-spat.json",
+        "processed.map.json=classpath:json/sample.processed-map.json",
+        "processed.map.wkt.json=classpath:json/sample.processed-map-wkt.json",
+        "processed.bsm.json=classpath:json/sample.processed-bsm.json"
+})
 @RunWith(SpringRunner.class)
 @ActiveProfiles("test")
 public class JsonSerializerTest {
@@ -109,6 +115,21 @@ public class JsonSerializerTest {
         }
     }
 
+    @Test
+    public void testProcessedBsmJsonSerializer() throws IOException {
+        try (var serializer = new JsonSerializer<ProcessedBsm<Point>>();
+            BufferedInputStream inputStream = new BufferedInputStream(validProcessedBsmResource.getInputStream())) {
+            final String bsmString = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
+            final ObjectMapper mapper = DateJsonMapper.getInstance();
+            final JavaType javaType = mapper.getTypeFactory().constructParametricType(ProcessedBsm.class, Point.class);
+            final ProcessedBsm<Point> bsm = mapper.readValue(bsmString, javaType);
+            final byte[] bytes = serializer.serialize("the_topic", bsm);
+            assertNotNull(bytes);
+            assertTrue(bytes.length > 0);
+            assertEquals(bsm.toString(), new String(bytes));
+        }
+    }
+
     @Value("${processed.spat.json}")
     private Resource validSpatJsonResource;
 
@@ -117,6 +138,9 @@ public class JsonSerializerTest {
 
     @Value("${processed.map.wkt.json}")
     private Resource validMapWKTJsonResource;
+
+    @Value("${processed.bsm.json}")
+    private Resource validProcessedBsmResource;
 
     private class BadClass {
         // Class with no properties to break Jackson serialization

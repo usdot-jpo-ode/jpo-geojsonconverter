@@ -20,7 +20,9 @@ import com.networknt.schema.ValidationMessage;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.Point;
 import us.dot.its.jpo.geojsonconverter.partitioner.RsuLogKey;
 import us.dot.its.jpo.geojsonconverter.pojos.ProcessedValidationMessage;
-import us.dot.its.jpo.geojsonconverter.pojos.geojson.bsm.*;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.bsm.BsmProperties;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.bsm.DeserializedRawBsm;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.bsm.ProcessedBsm;
 import us.dot.its.jpo.geojsonconverter.validator.JsonValidatorResult;
 
 import us.dot.its.jpo.ode.model.OdeBsmData;
@@ -55,10 +57,10 @@ public class BsmProcessedJsonConverter implements Transformer<Void, Deserialized
                 ProcessedBsm<Point> processedBsm = createProcessedBsm(bsmMetadata, bsmPayload, rawBsm.getValidatorResults());
 
                 // Set the schema version
-                processedBsm.setSchemaVersion(1);
+                processedBsm.getProperties().setSchemaVersion(bsmMetadata.getSchemaVersion());
                 RsuLogKey key = new RsuLogKey();
-                key.setRsuId(processedBsm.getOriginIp());
-                key.setLogId(processedBsm.getLogName());
+                key.setRsuId(bsmMetadata.getOriginIp());
+                key.setLogId(bsmMetadata.getLogFileName());
                 key.setBsmId(bsmPayload.getBsm().getCoreData().getId());
 
                 return KeyValue.pair(key, processedBsm);
@@ -85,16 +87,14 @@ public class BsmProcessedJsonConverter implements Transformer<Void, Deserialized
 
     @SuppressWarnings("unchecked")
     public ProcessedBsm<Point> createProcessedBsm(OdeBsmMetadata metadata, OdeBsmPayload payload, JsonValidatorResult validationMessages) {
-        List<BsmFeature<Point>> bsmFeatures = new ArrayList<>();
-        bsmFeatures.add(createBsmFeature(payload));
 
-        ProcessedBsm<Point> processedBsm = new ProcessedBsm<Point>(bsmFeatures.toArray(new BsmFeature[0]));
-        processedBsm.setOdeReceivedAt(metadata.getOdeReceivedAt()); // ISO 8601: 2022-11-11T16:36:10.529530Z
+        ProcessedBsm<Point> processedBsm = createProcessedBsmGeometryAndProperties(payload);
+        processedBsm.getProperties().setOdeReceivedAt(metadata.getOdeReceivedAt()); // ISO 8601: 2022-11-11T16:36:10.529530Z
 
         if (metadata.getOriginIp() != null && !metadata.getOriginIp().isEmpty())
-            processedBsm.setOriginIp(metadata.getOriginIp());
+            processedBsm.getProperties().setOriginIp(metadata.getOriginIp());
         if (metadata.getLogFileName() != null && !metadata.getLogFileName().isEmpty())
-            processedBsm.setLogName(metadata.getLogFileName());
+            processedBsm.getProperties().setLogName(metadata.getLogFileName());
 
         List<ProcessedValidationMessage> processedBsmValidationMessages = new ArrayList<ProcessedValidationMessage>();
         for (Exception exception : validationMessages.getExceptions()) {
@@ -114,14 +114,14 @@ public class BsmProcessedJsonConverter implements Transformer<Void, Deserialized
 
         ZonedDateTime odeDate = Instant.parse(metadata.getOdeReceivedAt()).atZone(ZoneId.of("UTC"));
 
-        processedBsm.setValidationMessages(processedBsmValidationMessages);
-        processedBsm.setTimeStamp(generateOffsetUTCTimestamp(odeDate, payload.getBsm().getCoreData().getSecMark()));
+        processedBsm.getProperties().setValidationMessages(processedBsmValidationMessages);
+        processedBsm.getProperties().setTimeStamp(generateOffsetUTCTimestamp(odeDate, payload.getBsm().getCoreData().getSecMark()));
 
         return processedBsm;
     }
 
     public ProcessedBsm<Point> createFailureProcessedBsm(JsonValidatorResult validatorResult, String message) {
-        ProcessedBsm<Point> processedBsm = new ProcessedBsm<Point>(null);
+        ProcessedBsm<Point> processedBsm = new ProcessedBsm<Point>(null, null, new BsmProperties());
         ProcessedValidationMessage object = new ProcessedValidationMessage();
         List<ProcessedValidationMessage> processedBsmValidationMessages = new ArrayList<ProcessedValidationMessage>();
 
@@ -131,13 +131,13 @@ public class BsmProcessedJsonConverter implements Transformer<Void, Deserialized
         object.setException(ExceptionUtils.getStackTrace(validatorResult.getExceptions().get(0)));
 
         processedBsmValidationMessages.add(object);
-        processedBsm.setValidationMessages(processedBsmValidationMessages);
-        processedBsm.setTimeStamp(utcDateTime);
+        processedBsm.getProperties().setValidationMessages(processedBsmValidationMessages);
+        processedBsm.getProperties().setTimeStamp(utcDateTime);
 
         return processedBsm;
     }
 
-    public BsmFeature<Point> createBsmFeature(OdeBsmPayload payload) {
+    private ProcessedBsm<Point> createProcessedBsmGeometryAndProperties(OdeBsmPayload payload) {
         J2735BsmCoreData coreData = payload.getBsm().getCoreData();
 
         // Create the Geometry Point
@@ -156,9 +156,10 @@ public class BsmProcessedJsonConverter implements Transformer<Void, Deserialized
         bsmProps.setMsgCnt(coreData.getMsgCnt());
         bsmProps.setSecMark(coreData.getSecMark());
         bsmProps.setSize(coreData.getSize());
+        bsmProps.setSpeed(coreData.getSpeed());
         bsmProps.setTransmission(coreData.getTransmission());
 
-        return new BsmFeature<Point>(null, bsmPoint, bsmProps);
+        return new ProcessedBsm<Point>(null, bsmPoint, bsmProps);
     }
 
     public ZonedDateTime generateOffsetUTCTimestamp(ZonedDateTime odeReceivedAt, Integer secMark){
