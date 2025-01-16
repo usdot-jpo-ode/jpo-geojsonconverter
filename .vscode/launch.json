@@ -1,17 +1,21 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+        {
+            "type": "java",
+            "name": "SchemaGeneratorUtility",
+            "request": "launch",
+            "mainClass": "us.dot.its.jpo.geojsonconverter.utils.SchemaGeneratorUtility",
+            "projectName": "jpo-geojsonconverter",
+            "args": ["--output", "${workspaceFolder}/jpo-geojsonconverter/src/main/resources/schemas"]
+        },
         {
             "type": "java",
             "name": "GeoJsonConverter",
             "request": "launch",
             "mainClass": "us.dot.its.jpo.geojsonconverter.GeoJsonConverterApplication",
             "projectName": "jpo-geojsonconverter",
-            "envFile": "${workspaceFolder}/.env",
-            // "vmArgs": "-Djavax.net.debug=ssl,handshake,data,trustmanager"
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }
