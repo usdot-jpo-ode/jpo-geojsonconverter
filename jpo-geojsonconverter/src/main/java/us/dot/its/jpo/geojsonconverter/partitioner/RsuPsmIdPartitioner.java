@@ -6,18 +6,16 @@ import org.apache.kafka.streams.processor.StreamPartitioner;
 
 import us.dot.its.jpo.geojsonconverter.serialization.serializers.JsonSerializer;
 
-public class RsuTypeIdPartitioner<K, V> implements StreamPartitioner<K, V> {
+public class RsuPsmIdPartitioner<K, V> implements StreamPartitioner<K, V> {
     @Override
     public Integer partition(String topic, K key, V value, int numPartitions) {
         byte[] partitionBytes;
 
-        if (key instanceof RsuTypeIdKey) {
+        if (key instanceof RsuPsmIdKey) {
             // If the key is an object with an RSU ID, partition on it
-            var rsuTypeIdKey = (RsuTypeIdKey)key;
+            var rsuTypeIdKey = (RsuPsmIdKey) key;
             if (rsuTypeIdKey.getRsuId() != null && !rsuTypeIdKey.getRsuId().isEmpty())
                 partitionBytes = serializeString(topic, rsuTypeIdKey.getRsuId());
-            else if (rsuTypeIdKey.getPedestrianType() != null)
-                partitionBytes = serializeString(topic, rsuTypeIdKey.getPedestrianType().toString());
             else if (rsuTypeIdKey.getPsmId() != null && !rsuTypeIdKey.getPsmId().isEmpty())
                 partitionBytes = serializeString(topic, rsuTypeIdKey.getPsmId());
             else
@@ -33,7 +31,7 @@ public class RsuTypeIdPartitioner<K, V> implements StreamPartitioner<K, V> {
     private byte[] serializeString(String topic, String str) {
         byte[] partitionBytes;
         try (var serializer = Serdes.String().serializer()) {
-            partitionBytes = serializer.serialize(topic, str); 
+            partitionBytes = serializer.serialize(topic, str);
         }
         return partitionBytes;
     }

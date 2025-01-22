@@ -18,14 +18,13 @@ import org.junit.Test;
 
 import com.networknt.schema.ValidationMessage;
 
-import us.dot.its.jpo.geojsonconverter.partitioner.RsuTypeIdKey;
+import us.dot.its.jpo.geojsonconverter.partitioner.RsuPsmIdKey;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.Point;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.psm.DeserializedRawPsm;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.psm.ProcessedPsm;
 import us.dot.its.jpo.geojsonconverter.serialization.deserializers.JsonDeserializer;
 import us.dot.its.jpo.geojsonconverter.validator.JsonValidatorResult;
 import us.dot.its.jpo.ode.model.OdePsmData;
-import us.dot.its.jpo.ode.plugin.j2735.J2735PersonalDeviceUserType;
 
 public class PsmProcessedJsonConverterTest {
     PsmProcessedJsonConverter psmProcessedJsonConverter;
@@ -60,11 +59,10 @@ public class PsmProcessedJsonConverterTest {
         deserializedRawPsm.setOdePsmData(odePsmPojo);
         deserializedRawPsm.setValidatorResults(validatorResults);
 
-        KeyValue<RsuTypeIdKey, ProcessedPsm<Point>> processedPsm =
+        KeyValue<RsuPsmIdKey, ProcessedPsm<Point>> processedPsm =
                 psmProcessedJsonConverter.transform(null, deserializedRawPsm);
         assertNotNull(processedPsm.key);
-        assertEquals(RsuTypeIdKey.builder().pedestrianType(J2735PersonalDeviceUserType.aPEDESTRIAN).rsuId("172.23.0.1")
-                .psmId("24779D7E").build(), processedPsm.key);
+        assertEquals(RsuPsmIdKey.builder().rsuId("172.23.0.1").psmId("24779D7E").build(), processedPsm.key);
         assertNotNull(processedPsm.value);
         assertEquals("24779D7E", processedPsm.value.getProperties().getId());
     }
@@ -79,9 +77,9 @@ public class PsmProcessedJsonConverterTest {
         deserializedRawPsm.setOdePsmData(odePsmPojo);
         deserializedRawPsm.setValidatorResults(validatorResults);
 
-        KeyValue<RsuTypeIdKey, ProcessedPsm<Point>> processedPsm = psmProcessedJsonConverter.transform(null, null);
+        KeyValue<RsuPsmIdKey, ProcessedPsm<Point>> processedPsm = psmProcessedJsonConverter.transform(null, null);
         assertNotNull(processedPsm.key);
-        assertEquals(new RsuTypeIdKey(null, null, "ERROR"), processedPsm.key);
+        assertEquals(new RsuPsmIdKey(null, "ERROR"), processedPsm.key);
         assertNull(processedPsm.value);
     }
 
@@ -98,7 +96,7 @@ public class PsmProcessedJsonConverterTest {
         deserializedRawPsm.setValidatorResults(validatorResults);
         deserializedRawPsm.setFailedMessage("{");
 
-        KeyValue<RsuTypeIdKey, ProcessedPsm<Point>> processedPsm =
+        KeyValue<RsuPsmIdKey, ProcessedPsm<Point>> processedPsm =
                 psmProcessedJsonConverter.transform(null, deserializedRawPsm);
         assertNotNull(processedPsm.key);
         assertNotNull(processedPsm.value);

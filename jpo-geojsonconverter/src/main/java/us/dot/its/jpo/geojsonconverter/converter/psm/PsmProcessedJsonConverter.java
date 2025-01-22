@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 import com.networknt.schema.ValidationMessage;
 
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.Point;
-import us.dot.its.jpo.geojsonconverter.partitioner.RsuTypeIdKey;
+import us.dot.its.jpo.geojsonconverter.partitioner.RsuPsmIdKey;
 import us.dot.its.jpo.geojsonconverter.pojos.ProcessedValidationMessage;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.psm.*;
 import us.dot.its.jpo.geojsonconverter.validator.JsonValidatorResult;
@@ -29,7 +29,7 @@ import us.dot.its.jpo.ode.model.OdePsmPayload;
 import us.dot.its.jpo.ode.plugin.j2735.J2735PSM;
 
 public class PsmProcessedJsonConverter
-        implements Transformer<Void, DeserializedRawPsm, KeyValue<RsuTypeIdKey, ProcessedPsm<Point>>> {
+        implements Transformer<Void, DeserializedRawPsm, KeyValue<RsuPsmIdKey, ProcessedPsm<Point>>> {
     private static final Logger logger = LoggerFactory.getLogger(PsmProcessedJsonConverter.class);
 
     @Override
@@ -43,7 +43,7 @@ public class PsmProcessedJsonConverter
      * @return A key value pair: the key a RsuTypeIdKey containing the RSU IP address or the PSM log file name
      */
     @Override
-    public KeyValue<RsuTypeIdKey, ProcessedPsm<Point>> transform(Void rawKey, DeserializedRawPsm rawPsm) {
+    public KeyValue<RsuPsmIdKey, ProcessedPsm<Point>> transform(Void rawKey, DeserializedRawPsm rawPsm) {
         try {
             if (!rawPsm.getValidationFailure()) {
                 OdePsmData rawValue = new OdePsmData();
@@ -58,16 +58,15 @@ public class PsmProcessedJsonConverter
 
                 // Set the schema version
                 processedPsm.getProperties().setSchemaVersion(psmMetadata.getSchemaVersion());
-                RsuTypeIdKey key = new RsuTypeIdKey();
+                RsuPsmIdKey key = new RsuPsmIdKey();
                 key.setRsuId(psmMetadata.getOriginIp());
-                key.setPedestrianType(psmPayload.getPsm().getBasicType());
                 key.setPsmId(psmPayload.getPsm().getId());
 
                 return KeyValue.pair(key, processedPsm);
             } else {
                 ProcessedPsm<Point> processedPsm =
                         createFailureProcessedPsm(rawPsm.getValidatorResults(), rawPsm.getFailedMessage());
-                RsuTypeIdKey key = new RsuTypeIdKey();
+                RsuPsmIdKey key = new RsuPsmIdKey();
                 key.setPsmId("ERROR");
                 return KeyValue.pair(key, processedPsm);
             }
@@ -75,7 +74,7 @@ public class PsmProcessedJsonConverter
             String errMsg = String.format("Exception converting ODE PSM to Processed PSM! Message: %s", e.getMessage());
             logger.error(errMsg, e);
             // KafkaStreams knows to remove null responses before allowing further steps from occurring
-            RsuTypeIdKey key = new RsuTypeIdKey();
+            RsuPsmIdKey key = new RsuPsmIdKey();
             key.setPsmId("ERROR");
             return KeyValue.pair(key, null);
         }

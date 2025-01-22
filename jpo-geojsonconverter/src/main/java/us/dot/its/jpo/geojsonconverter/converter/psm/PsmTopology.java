@@ -10,8 +10,8 @@ import org.apache.kafka.streams.kstream.Produced;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import us.dot.its.jpo.geojsonconverter.partitioner.RsuTypeIdKey;
-import us.dot.its.jpo.geojsonconverter.partitioner.RsuTypeIdPartitioner;
+import us.dot.its.jpo.geojsonconverter.partitioner.RsuPsmIdKey;
+import us.dot.its.jpo.geojsonconverter.partitioner.RsuPsmIdPartitioner;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.Point;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.psm.DeserializedRawPsm;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.psm.ProcessedPsm;
@@ -58,13 +58,13 @@ public class PsmTopology {
         });
 
         // Convert ODE PSM to GeoJSON
-        KStream<RsuTypeIdKey, ProcessedPsm<Point>> processedJsonPsmStream =
+        KStream<RsuPsmIdKey, ProcessedPsm<Point>> processedJsonPsmStream =
                 validatedOdePsmStream.transform(() -> new PsmProcessedJsonConverter());
 
         processedJsonPsmStream.to(
                 // Push the joined GeoJSON stream back out to the PSM GeoJSON topic
                 psmProcessedJsonTopic, Produced.with(JsonSerdes.RsuTypeIdKey(), JsonSerdes.ProcessedPsm(),
-                        new RsuTypeIdPartitioner<RsuTypeIdKey, ProcessedPsm<Point>>()));
+                        new RsuPsmIdPartitioner<RsuPsmIdKey, ProcessedPsm<Point>>()));
 
         return builder.build();
     }
