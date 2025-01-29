@@ -11,6 +11,7 @@ The message validation has been included in the jpo-geojsonconverter in order to
 All stakeholders are invited to provide input to these documents. To provide feedback, we recommend that you create an "issue" in this repository (<https://github.com/usdot-jpo-ode/jpo-geojsonconverter/issues>). You will need a GitHub account to create an issue. If you don’t have an account, a dialog will be presented to you to create one at no cost.
 
 ## Release Notes
+
 The current version and release history of the JPO GeoJSON Converter: [Release Notes](<docs/Release_notes.md>)
 
 ---
@@ -19,13 +20,13 @@ The current version and release history of the JPO GeoJSON Converter: [Release N
 
 ## Table of Contents
 
-1.  [Usage Example](#usage-example)
-2.  [Configuration](#configuration)
-3.  [Installation](#installation)
-4.  [File Manifest](#file-manifest)
-5.  [Development Setup](#development-setup)
-6.  [Contact Information](#contact-information)
-7.  [Contributing](#contributing)
+1. [Usage Example](#usage-example)
+2. [Configuration](#configuration)
+3. [Installation](#installation)
+4. [File Manifest](#file-manifest)
+5. [Development Setup](#development-setup)
+6. [Contact Information](#contact-information)
+7. [Contributing](#contributing)
 <!--
 #########################################
 ############# Usage Example #############
@@ -36,7 +37,7 @@ The current version and release history of the JPO GeoJSON Converter: [Release N
 
 ## 1. Usage Example
 
-The jpo-geojsonconverter is used to convert the ODE JSON output of MAP, SPaT and BSM messages into GeoJSON ProcessedMap, enhanced ProcessedSpat, and GeoJSON ProcessedBsm messages. In order to verify your jpo-geojsonconverter is functioning, you must run the jpo-ode, then the jpo-geojsonconverter, and then send the jpo-ode raw ASN1 encoded MAP, SPaT and BSM data.
+The jpo-geojsonconverter is used to convert the ODE JSON output of MAP, SPaT and BSM messages into GeoJSON ProcessedMap, enhanced ProcessedSpat, GeoJSON ProcessedBsm, and GeoJSON ProcessedPsm messages. In order to verify your jpo-geojsonconverter is functioning, you must run the jpo-ode, then the jpo-geojsonconverter, and then send the jpo-ode raw ASN1 encoded MAP, SPaT and BSM data.
 
 Follow the configuration section to properly configure and launch your jpo-ode and jpo-geojsonconverter.
 
@@ -47,7 +48,8 @@ Once the message has been sent to the jpo-ode, it will be eventually be decoded 
 ### <b>Output Message Types</b>
 
 ### ProcessedMap
-When an OdeMapJson message is processed through the jpo-geojsonconverter, a ProcessedMap message is created. This message is a single JSON object that contains two geoJSON FeatureCollection objects and one regular JSON object. 
+
+When an OdeMapJson message is processed through the jpo-geojsonconverter, a ProcessedMap message is created. This message is a single JSON object that contains two geoJSON FeatureCollection objects and one regular JSON object.
 
 - *mapFeatureCollection* - Feature Collection for storing all of the unique metadata and geographic data for each lane in an intersection. Mapping this object would display all defined lanes in an OdeMapJson object.
 - *connectingLanesFeatureCollection* - Feature Collection for storing all geographic data for connecting lanes within an intersection. When mapped, the feature collection displays a bunch of two point lines connecting each egress lane to all possible and legal traversals to ingress lanes. Useful for visualizing ProcessedSpat data.
@@ -56,13 +58,14 @@ When an OdeMapJson message is processed through the jpo-geojsonconverter, a Proc
 [ProcessedMap schema can be found here.](<jpo-geojsonconverter/src/main/resources/schemas/processed-map.schema.json>)
 
 ### ProcessedSpat
-When an OdeSpatJson message is processed through the jpo-geojsonconverter, a ProcessedSpat message is created. This message is a single JSON object that contains all of the important information within a SPaT message for matching it to a corresponding ProcessedMap message and for identifying its state. There is no geoJSON component to a ProcessedMap message on its own.
+
+When an OdeSpatJson message is processed through the jpo-geojsonconverter, a ProcessedSpat message is created. This message is a single JSON object that contains all of the important information within a SPaT message for matching it to a corresponding ProcessedMap message and for identifying its state. There is no geoJSON component to a ProcessedSpat message on its own.
 
 [ProcessedSpat schema can be found here.](<jpo-geojsonconverter/src/main/resources/schemas/processed-spat.schema.json>)
 
 Example ProcessedSpat message:
 
-```
+```json
 {
   "messageType": "SPAT",
   "odeReceivedAt": "2023-06-20T06:18:20.577365Z",
@@ -124,74 +127,130 @@ Example ProcessedSpat message:
 ```
 
 ### ProcessedBsm
+
 When an OdeBsmJson message is processed through the jpo-geojsonconverter, a ProcessedBsm message is created. This message is a GeoJSON feature collection that contains extra metadata fields that represents a single BSM.
 
-- *type* - The type of object the JSON is. This will always be a 'FeatureCollection'.
-- *features* - Feature Collection for storing all of the unique BSM payload and geographic data for each lane in an intersection. Mapping this object would display a single point representing the BSM.
-- *schemaVersion* - The schema version that the JSON object was generated for.
-- *messageType* - The message type the FeatureCollection represents.
-- *odeReceivedAt* - A date-time string representing when the BSM was received by the ODE.
-- *timestamp* - A date-time string representing when the BSM processed and transformed into a ProcessedBsm.
-- *originIp* - An IP string representing the RSU the BSM was generated by if there is a IP present.
-- *validationMessages* - A list of validation messages that specify issues found within the original OdeBsmJson object based on the JSON schema.
+- *type* - The type of object the JSON is. This will always be a 'Feature'.
+- *geometry* - The geometry of the BSM.
+- *properties* - The properties of the BSM.
+  - *schemaVersion* - The schema version that the JSON object was generated for.
+  - *messageType* - The message type the FeatureCollection represents.
+  - *odeReceivedAt* - A date-time string representing when the BSM was received by the ODE.
+  - *timestamp* - A date-time string representing when the BSM processed and transformed into a ProcessedBsm.
+  - *originIp* - An IP string representing the RSU the BSM was generated by if there is a IP present.
+  - *validationMessages* - A list of validation messages that specify issues found within the original OdeBsmJson object based on the JSON schema.
 
-```
+[ProcessedBsm schema can be found here.](<jpo-geojsonconverter/src/main/resources/schemas/processed-bsm.schema.json>)
+
+```json
 {
-    "type": "FeatureCollection",
-    "features": [
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    -105.0342901,
-                    40.5671913
-                ]
+    "type": "Feature",
+    "geometry": {
+        "type": "Point",
+        "coordinates": [
+            -105.0342901,
+            40.5671913
+        ]
+    },
+    "properties": {
+        "schemaVersion": 8,
+        "messageType": "BSM",
+        "odeReceivedAt": "2024-08-12T12:32:03.811Z",
+        "originIp": "8.8.8.8",
+        "validationMessages": [],
+        "timeStamp": "2024-08-12T12:32:04.3034091Z",
+        "accelSet": {
+            "accelLat": 2001,
+            "accelLong": 0,
+            "accelVert": -127,
+            "accelYaw": 0
+        },
+        "accuracy": {
+            "semiMajor": 5,
+            "semiMinor": 2,
+            "orientation": 0
+        },
+        "brakes": {
+            "wheelBrakes": {
+                "leftFront": false,
+                "rightFront": false,
+                "unavailable": true,
+                "leftRear": false,
+                "rightRear": false
             },
-            "properties": {
-                "accelSet": {
-                    "accelLat": 2001,
-                    "accelLong": 0,
-                    "accelVert": -127,
-                    "accelYaw": 0
-                },
-                "accuracy": {
-                    "semiMajor": 5,
-                    "semiMinor": 2,
-                    "orientation": 0
-                },
-                "brakes": {
-                    "wheelBrakes": {
-                        "leftFront": false,
-                        "rightFront": false,
-                        "unavailable": true,
-                        "leftRear": false,
-                        "rightRear": false
-                    },
-                    "traction": "unavailable",
-                    "abs": "unavailable",
-                    "scs": "unavailable",
-                    "brakeBoost": "unavailable",
-                    "auxBrakes": "unavailable"
-                },
-                "heading": 359.4,
-                "id": "12A7A951",
-                "msgCnt": 25,
-                "secMark": 2800,
-                "size": {
-                    "width": 208,
-                    "length": 586
-                },
-                "transmission": "UNAVAILABLE"
+            "traction": "unavailable",
+            "abs": "unavailable",
+            "scs": "unavailable",
+            "brakeBoost": "unavailable",
+            "auxBrakes": "unavailable"
+        },
+        "heading": 359.4,
+        "id": "12345678",
+        "msgCnt": 25,
+        "secMark": 2800,
+        "size": {
+            "width": 208,
+            "length": 586
+        },
+        "transmission": "UNAVAILABLE"
+    }
+}
+```
+
+### ProcessedPsm
+
+When an OdePsmJson message is processed through the jpo-geojsonconverter, a ProcessedPsm message is created. This message is a GeoJSON feature that contains extra metadata fields that represents a single PSM.
+
+- *type* - The type of object the JSON is. This will always be a 'Feature'.
+- *geometry* - The geometry of the PSM.
+- *properties* - The properties of the PSM.
+  - *schemaVersion* - The schema version of the base PSM message.
+  - *messageType* - The message type the Feature represents.
+  - *odeReceivedAt* - A date-time string representing when the PSM was received by the ODE.
+  - *timeStamp* - A date-time string representing the PSM generation time. It uses the time that the ODE was generated as the base timestamp but pulls the milliseconds in the seconds (from the "secMark" field) to represent the PSM generation time.
+  - *originIp* - An IP string representing the RSU the PSM was generated by if there is a IP present.
+  - *validationMessages* - A list of validation messages that specify issues found within the original OdePsmJson object based on the JSON schema.
+  - *basicType* - The basic type of the PSM.
+  - *id* - The ID of the PSM.
+  - *msgCnt* - The message count of the PSM.
+  - *secMark* - J2735 secMark field of the PSM that represents the milliseconds in the seconds of the PSM generation time.
+  - *speed* - The speed of the PSM.
+  - *heading* - The heading of the PSM.
+
+[ProcessedPsm schema can be found here.](<jpo-geojsonconverter/src/main/resources/schemas/processed-psm.schema.json>)
+
+Example ProcessedPsm message:
+
+```json
+{
+    "type": "Feature",
+    "geometry": {
+        "type": "Point",
+        "coordinates": [
+            -74.2761437,
+            40.2397377
+        ]
+    },
+    "properties": {
+        "schemaVersion": 8,
+        "messageType": "PSM",
+        "odeReceivedAt": "2025-01-16T17:15:25.649Z",
+        "timeStamp": "2025-01-16T17:15:03.564Z",
+        "originIp": "8.8.8.8",
+        "validationMessages": [
+            {
+                "message": "$.metadata.recordGeneratedBy: string found, null expected",
+                "jsonPath": "$.metadata.recordGeneratedBy",
+                "schemaPath": "#/properties/metadata/properties/recordGeneratedBy/type"
             }
-        }
-    ],
-    "schemaVersion": 1,
-    "messageType": "BSM",
-    "odeReceivedAt": "2024-08-12T12:32:03.811Z",
-    "originIp": "172.19.0.1",
-    "validationMessages": [],
-    "timeStamp": "2024-08-12T12:32:04.3034091Z"
+        ],
+        "basicType": "aPEDESTRIAN",
+        "id": "12345678",
+        "msgCnt": 26,
+        "secMark": 3564,
+        "speed": 0,
+        "heading": 8898
+    }
 }
 ```
 
@@ -210,12 +269,13 @@ When an OdeBsmJson message is processed through the jpo-geojsonconverter, a Proc
 ### System Requirements
 
 Recommended machine specs running Docker to run the GeoJsonConverter:
--  Minimum RAM: 16 GB
--  Minimum storage space: 100 GB
--  Supported operating systems:
-   -  Ubuntu 20.04 Linux (Recommended)
-   -  Windows 10/11 Professional (Professional version required for Docker virtualization)
-   -  OSX 10 Mojave
+
+- Minimum RAM: 16 GB
+- Minimum storage space: 100 GB
+- Supported operating systems:
+  - Ubuntu 20.04 Linux (Recommended)
+  - Windows 10/11 Professional (Professional version required for Docker virtualization)
+  - OSX 10 Mojave
 
 The GeoJsonConverter software can run on most standard Window, Mac, or Linux based computers with
 Pentium core processors. Performance of the software will be based on the computing power and available RAM in
@@ -247,7 +307,7 @@ Read the following guides to familiarize yourself with GeoJsonConverter's Docker
 The GeoJsonConverter configuration is customized through the environment variables provided to Docker when Docker-Compose runs the Docker built GeoJsonConverter image. You may customize the Kafka broker endpoint.
 
 **Important!**
-You must rename `sample.env` to `.env` in both the [root directory](sample.env) and in [jpo-utils](jpo-utils/sample.env) for Docker to automatically read the file. Do not push this file to source control. 
+You must rename `sample.env` to `.env` in both the [root directory](sample.env) and in [jpo-utils](jpo-utils/sample.env) for Docker to automatically read the file. Do not push this file to source control.
 
 [Back to top](#toc)
 
@@ -352,6 +412,7 @@ A GitHub token is required to pull artifacts from GitHub repositories. This is r
 #### Step 4 - Build and run jpo-geojsonconverter application
 
 **Notes:**
+
 - Docker builds may fail if you are on a corporate network due to DNS resolution errors.
 - In order for Docker to automatically read the environment variable file, you must rename it from `sample.env` to `.env`. **This file will contain private keys, do not put add it to version control.**. A copy of the `sample.env` file must be created in [jpo-utils](jpo-utils/sample.env) in order for the base applications (kafka, mongo, etc.) to start up correctly
 - Unless you intend to run geojsonconverter without jpo-ode, replace the contents of docker-compose.yml with those of docker-compose-standalone.yml.
@@ -368,6 +429,7 @@ To bring down the services and remove the running containers run the following c
 ```bash
 docker-compose down
 ```
+
 For a fresh restart, run:
 
 ```bash
@@ -389,14 +451,15 @@ docker-compose ps
 
 ### Purpose & Usage
 
-#### Runtime Environmental Variables:
+#### Runtime Environmental Variables
 
 These variables are required for the image during runtime:
 
 - The `DOCKER_HOST_IP` environment variable is used to communicate with the bootstrap server that the instance of Kafka is running on.
 - The `GEOMETRY_OUTPUT_MODE` environmental variable is used to enable the Processed Map topology to create Well Known Text formatted messages on the `topic.ProcessedMapWKT` topic. Options are `GEOJSON_ONLY` or `WKT`, if the variable is not set it will default to `GEOJSON_ONLY`.
-- 
-#### Image Building Environmental Variables:
+-
+
+#### Image Building Environmental Variables
 
 These variables are passed into the Docker image as build arguments and allow for pulling the jpo-ode `.jar` files from GitHub Maven Central.
 
@@ -404,6 +467,7 @@ These variables are passed into the Docker image as build arguments and allow fo
 - The `MAVEN_GITHUB_ORG` environment variable is the name of the GitHub organization to use for the jpo-ode repository.
 
 ### Values
+
 In order to utilize Confluent Cloud:
 
 - DOCKER_HOST_IP must be set to the bootstrap server address (excluding the port)
@@ -413,7 +477,7 @@ In order to utilize Confluent Cloud:
 - `CONFLUENT_SECRET` must be set to the API secret being utilized for CC
 
 [Back to top](#toc)
-	
+
 <!--
 #########################################
 ############# File Manifest #############
@@ -461,13 +525,34 @@ This section outlines the software technology stacks of the GeoJsonConverter.
 
 Install the IDE of your choice:
 
-* Eclipse: [https://eclipse.org/](https://eclipse.org/)
-* STS: [https://spring.io/tools/sts/all](https://spring.io/tools/sts/all)
-* IntelliJ: [https://www.jetbrains.com/idea/](https://www.jetbrains.com/idea/)
+- Eclipse: [https://eclipse.org/](https://eclipse.org/)
+- STS: [https://spring.io/tools/sts/all](https://spring.io/tools/sts/all)
+- IntelliJ: [https://www.jetbrains.com/idea/](https://www.jetbrains.com/idea/)
+
+### Regenerating JSON Schemas
+
+The project includes JSON schemas for validating processed messages (ProcessedMap, ProcessedSpat, ProcessedBsm, ProcessedPsm). These schemas are automatically generated from the Java POJOs using the SchemaGeneratorUtility.
+
+To regenerate the schemas:
+
+1. Using VS Code:
+   - Open the project in VS Code
+   - Go to the Run and Debug view
+   - Select "SchemaGeneratorUtility" from the dropdown
+   - Click the play button or press F5
+
+2. Using command line:
+
+   ```bash
+   cd jpo-geojsonconverter
+   mvn exec:java -Dexec.mainClass="us.dot.its.jpo.geojsonconverter.utils.SchemaGeneratorUtility" -Dexec.args="--output src/main/resources/schemas"
+   ```
+
+The schemas will be generated in `jpo-geojsonconverter/src/main/resources/schemas/`.
 
 ### Continuous Integration
 
-* TravisCI: <https://travis-ci.org/usdot-jpo-ode/jpo-ode>
+- TravisCI: <https://travis-ci.org/usdot-jpo-ode/jpo-ode>
 
 [Back to top](#toc)
 
@@ -509,8 +594,8 @@ Please read our [contributing guide](docs/contributing_guide.md) to learn about 
 ### Source Repositories - GitHub
 
 - Main repository on GitHub (public)
-	- <https://github.com/usdot-jpo-ode/jpo-geojsonconverter>
+  - <https://github.com/usdot-jpo-ode/jpo-geojsonconverter>
 - USDOT ITS JPO ODE on Github (public)
-	- <https://github.com/usdot-jpo-ode/jpo-ode>
+  - <https://github.com/usdot-jpo-ode/jpo-ode>
 
 [Back to top](#toc)
