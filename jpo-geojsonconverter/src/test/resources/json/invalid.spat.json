@@ -25,6 +25,7 @@
 		"odePacketID": "",
 		"odeTimStartDateTime": "",
 		"spatSource": "V2X",
+		"asn1": "",
 		"originIp": "172.21.0.1",
 		"isCertPresent": false,
 		"invalidExtraProperty": "invalid"

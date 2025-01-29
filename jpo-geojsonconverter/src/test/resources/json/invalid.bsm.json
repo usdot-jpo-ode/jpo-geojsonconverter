@@ -23,13 +23,14 @@
             "serialNumber": 0
         },
         "odeReceivedAt": "2024-08-12T12:32:03.811Z",
-        "schemaVersion": 6,
+        "schemaVersion": 8,
         "maxDurationTime": 0,
         "recordGeneratedAt": "",
         "recordGeneratedBy": "OBU",
         "sanitized": false,
         "odePacketID": "",
         "odeTimStartDateTime": "",
+        "asn1": "",
         "originIp": 5
     },
     "payload": {
