@@ -1,84 +1,30 @@
-{
-    "$schema": "https://json-schema.org/draft/2019-09/schema",
+﻿{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "processed-bsm-schema-v1",
     "type": "object",
     "description": "BSM object containing a FeatureCollection for the geospatial data of a BSM and additional metadata",
     "properties": {
         "type": {
             "type": "string",
-            "const": "FeatureCollection"
+            "const": "Feature"
         },
-        "features": {
-            "$ref": "#/$defs/BsmFeatures"
+        "id": {
+            "type": "number"
         },
-        "schemaVersion": {
-            "type": "integer",
-            "minimum": -1
+        "geometry": {
+            "$ref": "#/$defs/PointGeometry"
         },
-        "messageType": {
-            "type": "string",
-            "const": "BSM"
-        },
-        "odeReceivedAt": {
-            "type": "string",
-            "format": "date-time"
-        },
-        "timeStamp": {
-            "type": "string",
-            "format": "date-time"
-        },
-        "originIp": {
-            "$ref": "#/$defs/IPAddress"
-        },
-        "logName": {
-            "type": "string"
-        },
-        "validationMessages": {
-            "$ref": "#/$defs/ValidationMessageList"
+        "properties": {
+            "$ref": "#/$defs/BsmProperties"
         }
     },
-    "required": [
-        "features",
-        "schemaVersion",
-        "messageType",
-        "odeReceivedAt",
-        "timeStamp",
-        "validationMessages"
-    ],
     "additionalProperties": false,
+    "required": [
+        "type",
+        "geometry",
+        "properties"
+    ],
     "$defs": {
-        "BsmFeatures": {
-            "type": "array",
-            "minItems": 1,
-            "items": {
-                "$ref": "#/$defs/BsmFeature"
-            }
-        },
-        "BsmFeature": {
-            "type": "object",
-            "description": "Feature for a BSM message representing a geospatial point",
-            "properties": {
-                "type": {
-                    "type": "string",
-                    "const": "Feature"
-                },
-                "id": {
-                    "type": "number"
-                },
-                "properties": {
-                    "$ref": "#/$defs/BsmFeatureProperties"
-                },
-                "geometry": {
-                    "$ref": "#/$defs/PointGeometry"
-                }
-            },
-            "required": [
-                "type",
-                "properties",
-                "geometry"
-            ],
-            "additionalProperties": false
-        },
         "PointGeometry": {
             "type": [
                 "object",
@@ -93,24 +39,49 @@
                     "$ref": "#/$defs/Coordinate"
                 }
             },
+            "additionalProperties": false,
             "required": [
                 "type",
                 "coordinates"
-            ],
-            "additionalProperties": false
+            ]
         },
         "Coordinate": {
             "type": "array",
+            "description": "Lon/Lat coordinate with optional elevation",
+            "maxItems": 3,
+            "minItems": 2,
             "items": {
                 "type": "number"
-            },
-            "minItems": 2,
-            "maxItems": 3,
-            "description": "Lon/Lat coordinate with optional elevation"
+            }
         },
-        "BsmFeatureProperties": {
+        "BsmProperties": {
             "type": "object",
             "properties": {
+                "schemaVersion": {
+                    "type": "integer",
+                    "minimum": -1
+                },
+                "messageType": {
+                    "type": "string",
+                    "const": "BSM"
+                },
+                "odeReceivedAt": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "timeStamp": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "originIp": {
+                    "$ref": "#/$defs/IPAddress"
+                },
+                "logName": {
+                    "type": "string"
+                },
+                "validationMessages": {
+                    "$ref": "#/$defs/ValidationMessageList"
+                },
                 "accelSet": {
                     "$ref": "#/$defs/J2735AccelerationSet"
                 },
@@ -158,16 +129,22 @@
                     ]
                 }
             },
-            "required": [],
-            "additionalProperties": false
+            "additionalProperties": false,
+            "required": [
+                "schemaVersion",
+                "messageType",
+                "odeReceivedAt",
+                "timeStamp",
+                "validationMessages"
+            ]
         },
         "ValidationMessageList": {
             "type": "array",
+            "description": "A list of validation messages",
+            "minItems": 0,
             "items": {
                 "$ref": "#/$defs/ValidationMessage"
-            },
-            "minItems": 0,
-            "description": "A list of validation messages"
+            }
         },
         "ValidationMessage": {
             "type": "object",

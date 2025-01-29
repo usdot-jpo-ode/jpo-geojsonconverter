@@ -213,18 +213,18 @@ Recommended machine specs running Docker to run the GeoJsonConverter:
 -  Minimum RAM: 16 GB
 -  Minimum storage space: 100 GB
 -  Supported operating systems:
-   -  Ubuntu 18.04 Linux (Recommended)
-   -  Windows 10 Professional (Professional version required for Docker virtualization)
+   -  Ubuntu 20.04 Linux (Recommended)
+   -  Windows 10/11 Professional (Professional version required for Docker virtualization)
    -  OSX 10 Mojave
 
 The GeoJsonConverter software can run on most standard Window, Mac, or Linux based computers with
 Pentium core processors. Performance of the software will be based on the computing power and available RAM in
 the system.  Larger data flows can require much larger space requirements depending on the
-amount of data being processed by the software. The GeoJsonConverter software application was developed using the open source programming language Java. If running the GeoJsonConverter outside of Docker, the application requires the Java 11 runtime environment.
+amount of data being processed by the software. The GeoJsonConverter software application was developed using the open source programming language Java. If running the GeoJsonConverter outside of Docker, the application requires the Java 21 runtime environment.
 
 ### Software Prerequisites
 
-The GeoJsonConverter is a micro service that runs as an independent application but serves the sole purpose of converting JSON objects created by the JPO-ODE via Apache Kafka. To support these JSON objects, the GeoJsonConverter application utilizes some classes from the JPO-ODE repository. This is included into the GeoJsonConverter as a submodule but the JPO-ODE should also be run independently of the jpo-geojsonconverter. The JPO-ODE is still required to launch Kafka, Zookeeper, the ASN1 decoder and create the required Kafka topics. All other required dependencies will automatically be downloaded and installed as part of the Docker build process.
+The GeoJsonConverter is a micro service that runs as an independent application but serves the sole purpose of converting JSON objects created by the JPO-ODE via Apache Kafka. To support these JSON objects, the GeoJsonConverter application utilizes some classes from the JPO-ODE. These classes are referenced in the GeoJsonConverter by pulling the built `.jar` artifact from GitHub Maven Central. The JPO-ODE is still required to launch Kafka, Zookeeper, the ASN1 decoder and create the required Kafka topics. All other required dependencies will automatically be downloaded and installed as part of the Docker build process.
 
 - Docker: <https://docs.docker.com/engine/installation/>
 - Docker-Compose: <https://docs.docker.com/compose/install/>
@@ -247,7 +247,7 @@ Read the following guides to familiarize yourself with GeoJsonConverter's Docker
 The GeoJsonConverter configuration is customized through the environment variables provided to Docker when Docker-Compose runs the Docker built GeoJsonConverter image. You may customize the Kafka broker endpoint.
 
 **Important!**
-You must rename `sample.env` to `.env` for Docker to automatically read the file. Do not push this file to source control.
+You must rename `sample.env` to `.env` in both the [root directory](sample.env) and in [jpo-utils](jpo-utils/sample.env) for Docker to automatically read the file. Do not push this file to source control. 
 
 [Back to top](#toc)
 
@@ -303,11 +303,57 @@ docker-compose ps
 
 Verify the jpo-ode, kafka, zookeeper, asn1-decoder and asn1-encoder are running before performing step 3.
 
-#### Step 3 - Build and run jpo-geojsonconverter application
+#### Step 3 - Generate GitHub Token
+
+A GitHub token is required to pull artifacts from GitHub repositories. This is required to obtain the jpo-ode jars and must be done before attempting to build this repository.
+
+1. Log into GitHub.
+2. Navigate to Settings -> Developer settings -> Personal access tokens.
+3. Click "New personal access token (classic)".
+   1. As of now, GitHub does not support `Fine-grained tokens` for obtaining packages.
+4. Provide a name and expiration for the token.
+5. Select the `read:packages` scope.
+6. Click "Generate token" and copy the token.
+7. Copy the token name and token value into your `.env` file.
+8. Create a copy of [settings.xml](jpo-geojsonconverter/settings.xml) and save it to `~/.m2/settings.xml`
+9. Update the variables in your `~/.m2/settings.xml` with the token value and target jpo-ode organization. Here is an example filled in `settings.xml` file:
+
+```XML
+<?xml version="1.0" encoding="UTF-8"?>
+<settings>
+    <activeProfiles>
+        <activeProfile>default</activeProfile>
+    </activeProfiles>
+    <servers>
+        <server>
+            <id>github</id>
+            <username>jpo_geojsonconverter</username>
+            <password>ghp_token-string-value</password>
+        </server>
+    </servers>
+    <profiles>
+        <profile>
+            <id>default</id>
+            <repositories>
+                <repository>
+                    <id>github</id>
+                    <name>GitHub Apache Maven Packages</name>
+                    <url>https://maven.pkg.github.com/usdot-jpo-ode/jpo-ode</url>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </repository>
+            </repositories>
+        </profile>
+    </profiles>
+</settings>
+```
+
+#### Step 4 - Build and run jpo-geojsonconverter application
 
 **Notes:**
 - Docker builds may fail if you are on a corporate network due to DNS resolution errors.
-- In order for Docker to automatically read the environment variable file, you must rename it from `sample.env` to `.env`. **This file will contain private keys, do not put add it to version control.**
+- In order for Docker to automatically read the environment variable file, you must rename it from `sample.env` to `.env`. **This file will contain private keys, do not put add it to version control.**. A copy of the `sample.env` file must be created in [jpo-utils](jpo-utils/sample.env) in order for the base applications (kafka, mongo, etc.) to start up correctly
 - Unless you intend to run geojsonconverter without jpo-ode, replace the contents of docker-compose.yml with those of docker-compose-standalone.yml.
 
 Navigate to the root directory of the jpo-geojsonconverter project and run the following command:
@@ -343,12 +389,28 @@ docker-compose ps
 
 ### Purpose & Usage
 
-- The DOCKER_HOST_IP environment variable is used to communicate with the bootstrap server that the instance of Kafka is running on.
+#### Runtime Environmental Variables:
+
+These variables are required for the image during runtime:
+
+- The `DOCKER_HOST_IP` environment variable is used to communicate with the bootstrap server that the instance of Kafka is running on.
+- The `GEOMETRY_OUTPUT_MODE` environmental variable is used to enable the Processed Map topology to create Well Known Text formatted messages on the `topic.ProcessedMapWKT` topic. Options are `GEOJSON_ONLY` or `WKT`, if the variable is not set it will default to `GEOJSON_ONLY`.
+- 
+#### Image Building Environmental Variables:
+
+These variables are passed into the Docker image as build arguments and allow for pulling the jpo-ode `.jar` files from GitHub Maven Central.
+
+- The `MAVEN_GITHUB_TOKEN` environment variable is the value of the generated token from xxx used for pulling the jpo-ode java image.
+- The `MAVEN_GITHUB_ORG` environment variable is the name of the GitHub organization to use for the jpo-ode repository.
 
 ### Values
 In order to utilize Confluent Cloud:
 
 - DOCKER_HOST_IP must be set to the bootstrap server address (excluding the port)
+
+- `KAFKA_TYPE` must be set to "CONFLUENT"
+- `CONFLUENT_KEY` must be set to the API key being utilized for CC
+- `CONFLUENT_SECRET` must be set to the API secret being utilized for CC
 
 [Back to top](#toc)
 	
@@ -375,7 +437,7 @@ This section outlines the software technology stacks of the GeoJsonConverter.
 
 ### ODE Code
 
-- [Java 11](https://openjdk.java.net/)
+- [Java](https://openjdk.java.net/)
 - [Maven](https://maven.apache.org/)
 - [Spring Boot](http://spring.io/projects/spring-boot)
 - [Logback](https://logback.qos.ch/)

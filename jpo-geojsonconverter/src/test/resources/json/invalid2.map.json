@@ -25,6 +25,7 @@
 		"odePacketID": "",
 		"odeTimStartDateTime": "",
 		"mapSource": "RSU",
+		"asn1": "",
 		"originIp": "172.18.0.1"
 	},
 	"payload": {
