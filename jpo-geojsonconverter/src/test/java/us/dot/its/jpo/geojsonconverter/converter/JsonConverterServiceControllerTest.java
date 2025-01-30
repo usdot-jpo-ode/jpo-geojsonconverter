@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import us.dot.its.jpo.geojsonconverter.GeoJsonConverterProperties;
 import us.dot.its.jpo.geojsonconverter.validator.BsmJsonValidator;
 import us.dot.its.jpo.geojsonconverter.validator.MapJsonValidator;
+import us.dot.its.jpo.geojsonconverter.validator.PsmJsonValidator;
 import us.dot.its.jpo.geojsonconverter.validator.SpatJsonValidator;
 
 @SpringBootTest
@@ -22,7 +23,7 @@ public class JsonConverterServiceControllerTest {
     JsonConverterServiceController geoJsonConverterServiceController;
     GeoJsonConverterProperties props;
 
-    @Autowired 
+    @Autowired
     MapJsonValidator mapJsonValidator;
 
     @Autowired
@@ -30,6 +31,9 @@ public class JsonConverterServiceControllerTest {
 
     @Autowired
     BsmJsonValidator bsmJsonValidator;
+
+    @Autowired
+    PsmJsonValidator psmJsonValidator;
 
     @Before
     public void setup() {
@@ -39,7 +43,8 @@ public class JsonConverterServiceControllerTest {
 
     @Test
     public void testSpringBootLoaded() {
-        geoJsonConverterServiceController = new JsonConverterServiceController(props, mapJsonValidator, spatJsonValidator, bsmJsonValidator);
+        geoJsonConverterServiceController = new JsonConverterServiceController(props, mapJsonValidator,
+                spatJsonValidator, bsmJsonValidator, psmJsonValidator);
         assertNotNull(geoJsonConverterServiceController);
     }
 }
