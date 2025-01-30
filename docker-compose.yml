@@ -31,8 +31,8 @@ services:
       options:
         max-size: "10m"
         max-file: "5"
-    depends_on:
-      - kafka
+#    depends_on:
+#      - kafka
 
   # ODE Services:
   ode:
