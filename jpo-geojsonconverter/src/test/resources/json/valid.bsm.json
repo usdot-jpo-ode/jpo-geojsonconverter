@@ -30,6 +30,7 @@
         "sanitized": false,
         "odePacketID": "",
         "odeTimStartDateTime": "",
+        "asn1": "",
         "originIp": "172.19.0.1"
     },
     "payload": {
