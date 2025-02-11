@@ -25,5 +25,5 @@ steps:
   - task: PublishBuildArtifacts@1
     inputs:
       PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-      ArtifactName: 'jpo-ode'
+      ArtifactName: 'jpo-geojsonconverter'
       publishLocation: 'Container'
