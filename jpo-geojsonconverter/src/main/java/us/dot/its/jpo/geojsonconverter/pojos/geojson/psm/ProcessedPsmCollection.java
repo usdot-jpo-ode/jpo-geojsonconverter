@@ -1,4 +1,4 @@
-package us.dot.its.jpo.geojsonconverter.pojos.geojson.bsm;
+package us.dot.its.jpo.geojsonconverter.pojos.geojson.psm;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -14,12 +14,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import us.dot.its.jpo.geojsonconverter.DateJsonMapper;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.BaseFeatureCollection;
 
-// This is a helper class to allow for a ProcessedBsmCollection to be created with a list of ProcessedBsm Features
-public class ProcessedBsmCollection<TGeometry> extends BaseFeatureCollection<ProcessedBsm<TGeometry>> {
-    private static Logger logger = LoggerFactory.getLogger(ProcessedBsmCollection.class);
+// This is a helper class to allow for a ProcessedPsmCollection to be created with a list of ProcessedPsm Features
+public class ProcessedPsmCollection<TGeometry> extends BaseFeatureCollection<ProcessedPsm<TGeometry>> {
+    private static Logger logger = LoggerFactory.getLogger(ProcessedPsmCollection.class);
 
     @JsonCreator
-    public ProcessedBsmCollection(@JsonProperty("features") ProcessedBsm<TGeometry>[] features) {
+    public ProcessedPsmCollection(@JsonProperty("features") ProcessedPsm<TGeometry>[] features) {
         super(features);
     }
 
@@ -27,13 +27,13 @@ public class ProcessedBsmCollection<TGeometry> extends BaseFeatureCollection<Pro
     public boolean equals(Object o) {
         if (o == this)
             return true;
-        if (!(o instanceof ProcessedBsmCollection)) {
+        if (!(o instanceof ProcessedPsmCollection)) {
             return false;
         }
 
         @SuppressWarnings("unchecked")
-        ProcessedBsmCollection<TGeometry> processedBsm = (ProcessedBsmCollection<TGeometry>) o;
-        return (Arrays.equals(getFeatures(), processedBsm.getFeatures()));
+        ProcessedPsmCollection<TGeometry> processedPsm = (ProcessedPsmCollection<TGeometry>) o;
+        return (Arrays.equals(getFeatures(), processedPsm.getFeatures()));
     }
 
     @Override

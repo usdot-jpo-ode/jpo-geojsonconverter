@@ -1,265 +1,236 @@
-﻿{
-    "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "processed-spat-schema-v1",
-    "type": "object",
-    "properties": {
-        "schemaVersion": {
-            "type": "integer",
-            "minimum": -1
+{
+  "$schema" : "https://json-schema.org/draft/2020-12/schema",
+  "$defs" : {
+    "IntersectionStatusObject" : {
+      "type" : "object",
+      "properties" : {
+        "failureFlash" : {
+          "type" : "boolean"
         },
-        "messageType": {
-            "type": "string",
-            "const": "SPAT"
+        "failureMode" : {
+          "type" : "boolean"
         },
-        "odeReceivedAt": {
-            "type": "string",
-            "format": "date-time"
+        "fixedTimeOperation" : {
+          "type" : "boolean"
         },
-        "utcTimeStamp": {
-            "type": "string",
-            "description": "Timestamp derived from the timestamp=DE_MinuteOfTheYear of the top level of the spat message and the timeStamp=DE_Dsecond of the IntersectionState.",
-            "format": "date-time"
+        "manualControlIsEnabled" : {
+          "type" : "boolean"
         },
-        "originIp": {
-            "$ref": "#/$defs/IPAddress"
+        "noValidMAPisAvailableAtThisTime" : {
+          "type" : "boolean"
         },
-        "name": {
-            "oneOf": [
-                {
-                    "$ref": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/spat.schema.json#/$defs/J2735DescriptiveName"
-                },
-                {
-                    "type": "null"
-                }
-            ]
+        "noValidSPATisAvailableAtThisTime" : {
+          "type" : "boolean"
         },
-        "region": {
-            "$ref": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/spat.schema.json#/$defs/J2735RoadRegulatorID"
+        "off" : {
+          "type" : "boolean"
         },
-        "intersectionId": {
-            "$ref": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/spat.schema.json#/$defs/J2735IntersectionID"
+        "preemptIsActive" : {
+          "type" : "boolean"
         },
-        "cti4501Conformant": {
-            "type": "boolean"
+        "recentChangeInMAPassignedLanesIDsUsed" : {
+          "type" : "boolean"
         },
-        "validationMessages": {
-            "$ref": "#/$defs/ValidationMessageList"
+        "recentMAPmessageUpdate" : {
+          "type" : "boolean"
         },
-        "revision": {
-            "$ref": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/spat.schema.json#/$defs/J2735MsgCount"
+        "signalPriorityIsActive" : {
+          "type" : "boolean"
         },
-        "status": {
-            "$ref": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/spat.schema.json#/$defs/J2735IntersectionStatusObject"
+        "standbyOperation" : {
+          "type" : "boolean"
         },
-        "enabledLanes": {
-            "$ref": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/spat.schema.json#/$defs/J2735EnabledLaneList",
-            "description": "Conditionally required"
+        "stopTimeIsActivated" : {
+          "type" : "boolean"
         },
-        "states": {
-            "$ref": "#/$defs/MovementList"
+        "trafficDependentOperation" : {
+          "type" : "boolean"
         }
+      }
     },
-    "additionalProperties": false,
-    "required": [
-        "messageType",
-        "odeReceivedAt",
-        "utcTimeStamp",
-        "originIp",
-        "region",
-        "intersectionId",
-        "cti4501Conformant",
-        "revision",
-        "status",
-        "enabledLanes",
-        "states"
-    ],
-    "$defs": {
-        "MovementList": {
-            "type": "array",
-            "maxItems": 255,
-            "minItems": 1,
-            "items": {
-                "$ref": "#/$defs/MovementState"
-            }
+    "J2735AdvisorySpeed" : {
+      "type" : "object",
+      "properties" : {
+        "classId" : {
+          "type" : "integer",
+          "format" : "int32"
         },
-        "MovementState": {
-            "type": "object",
-            "properties": {
-                "movementName": {
-                    "oneOf": [
-                        {
-                            "$ref": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/spat.schema.json#/$defs/J2735DescriptiveName"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ]
-                },
-                "signalGroup": {
-                    "$ref": "#/$defs/J2735SignalGroupID"
-                },
-                "stateTimeSpeed": {
-                    "$ref": "#/$defs/MovementEventList"
-                },
-                "maneuverAssistList": {
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "object"
-                        }
-                    ]
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "signalGroup",
-                "stateTimeSpeed"
-            ]
+        "confidence" : {
+          "$ref" : "#/$defs/J2735SpeedConfidence"
         },
-        "MovementEventList": {
-            "type": "array",
-            "maxItems": 16,
-            "minItems": 1,
-            "items": {
-                "$ref": "#/$defs/MovementEvent"
-            }
+        "distance" : {
+          "type" : "integer",
+          "format" : "int32"
         },
-        "MovementEvent": {
-            "type": "object",
-            "properties": {
-                "eventState": {
-                    "$ref": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/spat.schema.json#/$defs/J2735MovementPhaseState"
-                },
-                "timing": {
-                    "$ref": "#/$defs/TimeChangeDetails",
-                    "description": "Optional in J2735, but mandatory in CI Implementation Guide"
-                },
-                "speeds": {
-                    "oneOf": [
-                        {
-                            "$ref": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-geojsonconverter/develop/jpo-geojsonconverter/src/main/resources/schemas/spat.schema.json#/$defs/J2735AdvisorySpeedList"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ]
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "eventState",
-                "timing"
-            ]
+        "speed" : {
+          "type" : "integer",
+          "format" : "int32"
         },
-        "TimeChangeDetails": {
-            "type": "object",
-            "description": "Derived from J2735TimeChangeDetails with DE_TimeMark fields converted to UTC strings",
-            "properties": {
-                "startTime": {
-                    "type": "string",
-                    "description": "Optional in J2735, but mandatory in CI Implementation Guide",
-                    "format": "date-time"
-                },
-                "minEndTime": {
-                    "type": "string",
-                    "description": "Mandatory in both J2735 and CI Guide",
-                    "format": "date-time"
-                },
-                "maxEndTime": {
-                    "type": "string",
-                    "description": "Optional in J2735, but mandatory in CI Implementation Guide",
-                    "format": "date-time"
-                },
-                "likelyTime": {
-                    "description": "Optional",
-                    "oneOf": [
-                        {
-                            "type": "string",
-                            "format": "date-time"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ]
-                },
-                "confidence": {
-                    "description": "DE_TimeIntervalConfidence. Optional.",
-                    "oneOf": [
-                        {
-                            "type": "integer",
-                            "maximum": 15,
-                            "minimum": 0
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ]
-                },
-                "nextTime": {
-                    "type": "string",
-                    "description": "Optional in J2735, but mandatory in CI Implementation Guide",
-                    "format": "date-time"
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "startTime",
-                "minEndTime",
-                "maxEndTime",
-                "nextTime"
-            ]
-        },
-        "ValidationMessageList": {
-            "type": "array",
-            "description": "A list of validation messages",
-            "minItems": 0,
-            "items": {
-                "$ref": "#/$defs/ValidationMessage"
-            }
-        },
-        "ValidationMessage": {
-            "type": "object",
-            "properties": {
-                "message": {
-                    "type": "string",
-                    "description": "Description/summary of the validation error"
-                },
-                "jsonPath": {
-                    "type": "string",
-                    "description": "Path in the original ODE JSON message"
-                },
-                "schemaPath": {
-                    "type": "string",
-                    "description": "Path in the json schema of the ODE JSON"
-                },
-                "exception": {
-                    "type": "string",
-                    "description": "Details of java validation exception thrown, if any"
-                }
-            },
-            "required": [
-                "message"
-            ]
-        },
-        "IPAddress": {
-            "oneOf": [
-                {
-                    "type": "string",
-                    "format": "ipv4"
-                },
-                {
-                    "type": "string",
-                    "format": "ipv6"
-                }
-            ]
-        },
-        "J2735SignalGroupID": {
-            "type": "integer",
-            "description": "DE_SignalGroupID",
-            "maximum": 255,
-            "minimum": 0
+        "type" : {
+          "$ref" : "#/$defs/J2735AdvisorySpeedType"
         }
+      }
+    },
+    "J2735AdvisorySpeedList" : {
+      "type" : "object",
+      "properties" : {
+        "advisorySpeedList" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/$defs/J2735AdvisorySpeed"
+          }
+        }
+      }
+    },
+    "J2735AdvisorySpeedType" : {
+      "type" : "string",
+      "enum" : [ "NONE", "GREENWAVE", "ECODRIVE", "TRANSIT" ]
+    },
+    "J2735MovementPhaseState" : {
+      "type" : "string",
+      "enum" : [ "UNAVAILABLE", "DARK", "STOP_THEN_PROCEED", "STOP_AND_REMAIN", "PRE_MOVEMENT", "PERMISSIVE_MOVEMENT_ALLOWED", "PROTECTED_MOVEMENT_ALLOWED", "PERMISSIVE_CLEARANCE", "PROTECTED_CLEARANCE", "CAUTION_CONFLICTING_TRAFFIC" ]
+    },
+    "J2735SpeedConfidence" : {
+      "type" : "string",
+      "enum" : [ "UNAVAILABLE", "PREC100MS", "PREC10MS", "PREC5MS", "PREC1MS", "PREC0_1MS", "PREC0_05MS", "PREC0_01MS" ]
+    },
+    "MovementEvent" : {
+      "type" : "object",
+      "properties" : {
+        "eventState" : {
+          "$ref" : "#/$defs/J2735MovementPhaseState"
+        },
+        "speeds" : {
+          "$ref" : "#/$defs/J2735AdvisorySpeedList"
+        },
+        "timing" : {
+          "$ref" : "#/$defs/TimingChangeDetails"
+        }
+      }
+    },
+    "MovementState" : {
+      "type" : "object",
+      "properties" : {
+        "movementName" : {
+          "type" : "string"
+        },
+        "signalGroup" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "stateTimeSpeed" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/$defs/MovementEvent"
+          }
+        }
+      }
+    },
+    "ProcessedValidationMessage" : {
+      "type" : "object",
+      "properties" : {
+        "exception" : {
+          "type" : "string"
+        },
+        "jsonPath" : {
+          "type" : "string"
+        },
+        "message" : {
+          "type" : "string"
+        },
+        "schemaPath" : {
+          "type" : "string"
+        }
+      }
+    },
+    "TimingChangeDetails" : {
+      "type" : "object",
+      "properties" : {
+        "confidence" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "likelyTime" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "maxEndTime" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "minEndTime" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "nextTime" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "startTime" : {
+          "type" : "string",
+          "format" : "date-time"
+        }
+      }
     }
+  },
+  "type" : "object",
+  "properties" : {
+    "cti4501Conformant" : {
+      "type" : "boolean"
+    },
+    "enabledLanes" : {
+      "type" : "array",
+      "items" : {
+        "type" : "integer",
+        "format" : "int32"
+      }
+    },
+    "intersectionId" : {
+      "type" : "integer",
+      "format" : "int32"
+    },
+    "messageType" : {
+      "type" : "string"
+    },
+    "name" : {
+      "type" : "string"
+    },
+    "odeReceivedAt" : {
+      "type" : "string"
+    },
+    "originIp" : {
+      "type" : "string"
+    },
+    "region" : {
+      "type" : "integer",
+      "format" : "int32"
+    },
+    "revision" : {
+      "type" : "integer",
+      "format" : "int32"
+    },
+    "schemaVersion" : {
+      "type" : "integer",
+      "format" : "int32"
+    },
+    "states" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/$defs/MovementState"
+      }
+    },
+    "status" : {
+      "$ref" : "#/$defs/IntersectionStatusObject"
+    },
+    "utcTimeStamp" : {
+      "type" : "string",
+      "format" : "date-time"
+    },
+    "validationMessages" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/$defs/ProcessedValidationMessage"
+      }
+    }
+  }
 }

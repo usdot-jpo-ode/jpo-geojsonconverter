@@ -148,6 +148,12 @@
                 },
                 "sanitized": {
                     "type": "boolean"
+                },
+                "asn1": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 }
             },
             "required": [
@@ -161,7 +167,8 @@
                 "odeReceivedAt",
                 "schemaVersion",
                 "recordGeneratedAt",
-                "sanitized"
+                "sanitized",
+                "asn1"
             ],
             "additionalProperties": false
         },

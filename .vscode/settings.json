@@ -19,5 +19,28 @@
 		}
 	],
 	"java.jdt.ls.vmargs": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx2G -Xms100m -Xlog:disable",
-	"java.debug.settings.onBuildFailureProceed": true
+	"java.debug.settings.onBuildFailureProceed": true,
+	"java.compile.nullAnalysis.mode": "automatic",
+	"java.format.settings.url": ".vscode/java-formatter.xml",
+	"java.format.settings.profile": "GoogleStyle",
+	"editor.formatOnSave": true,
+	"editor.codeActionsOnSave": {
+		"source.fixAll": "always"
+	},
+	"[xml]": {
+		"editor.defaultFormatter": "redhat.vscode-xml",
+		"editor.tabSize": 4,
+		"editor.insertSpaces": true,
+		"files.trimTrailingWhitespace": true,
+		"editor.detectIndentation": false,
+		"editor.autoIndent": "full"
+	},
+	"xml.format.joinCDATALines": false,
+	"xml.format.joinContentLines": false,
+	"xml.format.preserveEmptyContent": false,
+	"xml.format.joinCommentLines": false,
+	"xml.format.enabled": true,
+	"xml.format.preservedNewlines": 1,
+	"xml.format.spaceBeforeEmptyCloseTag": true,
+	"xml.format.enforceQuoteStyle": "preferred",
 }
