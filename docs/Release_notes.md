@@ -1,7 +1,16 @@
 JPO GeoJSON Converter Release Notes
 ----------------------------
 
-Version 2.0.0
+Version 2.2.0
+----------------------------------------
+
+### **Summary**
+This release includes compatibility upgrades for the jpo-ode 4.1.0 version.
+
+Enhancements in this release:
+- [CDOT PR 13](https://github.com/CDOT-CV/jpo-geojsonconverter/pull/13): Update gjc to work with latest version of the jpo-ode 4.1.0
+
+Version 2.0.0 + 2.1.0
 ----------------------------------------
 
 ### **Summary**
