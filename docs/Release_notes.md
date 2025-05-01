@@ -9,6 +9,9 @@ This release includes compatibility upgrades for the jpo-ode 4.1.0 version.
 
 Enhancements in this release:
 - [CDOT PR 13](https://github.com/CDOT-CV/jpo-geojsonconverter/pull/13): Update gjc to work with latest version of the jpo-ode 4.1.0
+- [CDOT PR 12](https://github.com/CDOT-CV/jpo-geojsonconverter/pull/12): Adding Git history to CI Pipelines
+- [CDOT PR 10](https://github.com/CDOT-CV/jpo-geojsonconverter/pull/10): Setting up CI with Azure Pipelines configuration.
+- [USDOT PR 92](https://github.com/usdot-jpo-ode/jpo-geojsonconverter/pull/92): Processed PSM and Schema Generation
 
 Version 2.0.0 + 2.1.0
 ----------------------------------------
