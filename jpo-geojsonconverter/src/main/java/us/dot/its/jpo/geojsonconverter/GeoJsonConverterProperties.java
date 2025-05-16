@@ -30,7 +30,6 @@ import org.apache.kafka.streams.errors.LogAndContinueExceptionHandler;
 import org.apache.kafka.streams.processor.LogAndSkipOnInvalidTimestamp;
 
 import us.dot.its.jpo.geojsonconverter.pojos.GeometryOutputMode;
-import us.dot.its.jpo.ode.util.CommonUtils;
 
 @ConfigurationProperties("geojsonconverter")
 public class GeoJsonConverterProperties implements EnvironmentAware {
@@ -73,7 +72,7 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
     @PostConstruct
     public void initialize() {
         if (kafkaBrokers == null) {
-            String dockerIp = CommonUtils.getEnvironmentVariable("DOCKER_HOST_IP");
+            String dockerIp = getEnvironmentVariable("DOCKER_HOST_IP");
 
             if (dockerIp == null) {
                 logger.warn(
@@ -85,12 +84,12 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
                     kafkaBrokers);
         }
 
-        String kafkaType = CommonUtils.getEnvironmentVariable("KAFKA_TYPE");
+        String kafkaType = getEnvironmentVariable("KAFKA_TYPE");
         if (kafkaType != null) {
             confluentCloudEnabled = kafkaType.equals("CONFLUENT");
             if (confluentCloudEnabled) {
-                confluentKey = CommonUtils.getEnvironmentVariable("CONFLUENT_KEY");
-                confluentSecret = CommonUtils.getEnvironmentVariable("CONFLUENT_SECRET");
+                confluentKey = getEnvironmentVariable("CONFLUENT_KEY");
+                confluentSecret = getEnvironmentVariable("CONFLUENT_SECRET");
             }
         }
     }
@@ -263,5 +262,13 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
 
     public int getKafkaLingerMs() {
         return lingerMs;
+    }
+
+    private static String getEnvironmentVariable(String variableName) {
+        String value = System.getenv(variableName);
+        if (value == null || value.equals("")) {
+            System.out.println("Something went wrong retrieving the environment variable " + variableName);
+        }
+        return value;
     }
 }
