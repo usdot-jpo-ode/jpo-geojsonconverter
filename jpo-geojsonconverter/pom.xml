@@ -9,15 +9,21 @@
         <version>3.1.3</version>
         <relativePath /> <!-- lookup parent from repository -->
     </parent>
+
+    <scm>
+        <developerConnection>scm:git:https://github.com/usdot-jpo-ode/jpo-geojsonconverter.git</developerConnection>
+        <tag>jpo-geojsonconverter-usdot-2.2.0</tag>
+    </scm>
+
     <groupId>usdot.jpo.ode</groupId>
     <artifactId>jpo-geojsonconverter</artifactId>
-    <version>2.0.0</version>
+    <version>2.2.0</version>
     <packaging>jar</packaging>
     <name>jpo-geojsonconverter</name>
     <description>J2735 message to GeoJSON converter for US DOT ITS JPO ODE</description>
     <properties>
         <java.version>21</java.version>
-        <jpoode.version>4.0.0</jpoode.version>
+        <jpoode.version>4.1.1</jpoode.version>
         <sonar.organization>usdot-jpo-ode</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <sonar.exclusions>src/main/**/GeoJsonConverterApplication.java,
@@ -30,6 +36,7 @@
         <sonar.language>java</sonar.language>
         <!-- Allow override of github organization when publishing artifacts to github -->
         <github_organization>usdot-jpo-ode</github_organization>
+        <jsonschema.generator.version>4.31.1</jsonschema.generator.version>
     </properties>
     <dependencies>
         <!-- Spring Boot Dependencies -->
@@ -149,7 +156,7 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.30</version>
-            <scope>annotationProcessor</scope>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -164,6 +171,33 @@
             <groupId>org.locationtech.jts</groupId>
             <artifactId>jts-core</artifactId>
             <version>1.19.0</version>
+        </dependency>
+
+        <!-- JSON Schema Generator -->
+        <dependency>
+            <groupId>com.github.victools</groupId>
+            <artifactId>jsonschema-generator</artifactId>
+            <version>${jsonschema.generator.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.victools</groupId>
+            <artifactId>jsonschema-module-jackson</artifactId>
+            <version>${jsonschema.generator.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.victools</groupId>
+            <artifactId>jsonschema-module-jakarta-validation</artifactId>
+            <version>${jsonschema.generator.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+            <version>3.0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>8.0.1.Final</version>
         </dependency>
     </dependencies>
     <build>
@@ -265,6 +299,18 @@
                                 <phase>none</phase>
                             </execution>
                         </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <configuration>
+                            <annotationProcessorPaths>
+                                <path>
+                                    <groupId>org.projectlombok</groupId>
+                                    <artifactId>lombok</artifactId>
+                                </path>
+                            </annotationProcessorPaths>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>

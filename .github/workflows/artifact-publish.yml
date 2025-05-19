@@ -4,6 +4,8 @@ on:
   push:
     tags:
       - 'jpo-geojsonconverter-*'
+  release:
+    types: [published]
 
 jobs:
   build:

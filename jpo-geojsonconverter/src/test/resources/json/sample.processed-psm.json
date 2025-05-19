@@ -1,0 +1,30 @@
+{
+    "type": "Feature",
+    "geometry": {
+        "type": "Point",
+        "coordinates": [
+            -74.2761437,
+            40.2397377
+        ]
+    },
+    "properties": {
+        "schemaVersion": 8,
+        "messageType": "PSM",
+        "odeReceivedAt": "2025-01-16T17:15:25.649Z",
+        "timeStamp": "2025-01-16T17:15:03.564Z",
+        "originIp": "172.23.0.1",
+        "validationMessages": [
+            {
+                "message": "$.metadata.recordGeneratedBy: string found, null expected",
+                "jsonPath": "$.metadata.recordGeneratedBy",
+                "schemaPath": "#/properties/metadata/properties/recordGeneratedBy/type"
+            }
+        ],
+        "basicType": "aPEDESTRIAN",
+        "id": "24779D7E",
+        "msgCnt": 26,
+        "secMark": 3564,
+        "speed": 0,
+        "heading": 8898
+    }
+}

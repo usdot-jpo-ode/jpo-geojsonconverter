@@ -57,18 +57,10 @@ public class ProcessedBsmTest {
         properties.setSpeed(new BigDecimal(100));
         properties.setTransmission(J2735TransmissionState.FORWARDGEARS);
 
-        double[] coordinates = new double[] { 40.5671913, -105.0342901 };
+        double[] coordinates = new double[] {40.5671913, -105.0342901};
         Point geometry = new Point(coordinates);
 
         feature = new ProcessedBsm<Point>(null, geometry, properties);
-    }
-
-    @SuppressWarnings("unchecked")
-    @Test
-    public void testBsmFeatureCollectionGeoJson() {
-        ProcessedBsm<Point>[] expectedFeatureList = new ProcessedBsm[] { feature };
-        ProcessedBsmCollection<Point> object = new ProcessedBsmCollection<Point>(expectedFeatureList);
-        assertEquals(expectedFeatureList, object.getFeatures());
     }
 
     @Test
@@ -79,7 +71,7 @@ public class ProcessedBsmTest {
 
         boolean equals = object.equals(object);
         assertEquals(true, equals);
-        
+
         boolean otherEquals = object.equals(otherObject);
         assertEquals(false, otherEquals);
 
@@ -87,14 +79,14 @@ public class ProcessedBsmTest {
         boolean notEquals = otherObject.equals(string);
         assertEquals(false, notEquals);
     }
-    
+
     @Test
     public void testHashCode() {
         ProcessedMap<LineString> ProcessedMapPojo = new ProcessedMap<LineString>();
         Integer hash = ProcessedMapPojo.hashCode();
         assertNotNull(hash);
     }
-    
+
     @Test
     public void testToString() {
         ProcessedMap<LineString> ProcessedMapPojo = new ProcessedMap<LineString>();

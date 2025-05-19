@@ -1,17 +1,14 @@
 /*******************************************************************************
  * Copyright 2018 572682
  * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
  * 
- *   http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  ******************************************************************************/
 package us.dot.its.jpo.geojsonconverter;
 
@@ -33,7 +30,6 @@ import org.apache.kafka.streams.errors.LogAndContinueExceptionHandler;
 import org.apache.kafka.streams.processor.LogAndSkipOnInvalidTimestamp;
 
 import us.dot.its.jpo.geojsonconverter.pojos.GeometryOutputMode;
-import us.dot.its.jpo.ode.util.CommonUtils;
 
 @ConfigurationProperties("geojsonconverter")
 public class GeoJsonConverterProperties implements EnvironmentAware {
@@ -52,43 +48,48 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
     private String confluentKey = null;
     private String confluentSecret = null;
 
-    //SPAT
+    // SPAT
     private String kafkaTopicOdeSpatJson = "topic.OdeSpatJson";
     private String kafkaTopicProcessedSpat = "topic.ProcessedSpat";
 
-    //MAP
+    // MAP
     private String kafkaTopicOdeMapJson = "topic.OdeMapJson";
     private String kafkaTopicProcessedMap = "topic.ProcessedMap";
     private String kafkaTopicProcessedMapWKT = "topic.ProcessedMapWKT";
 
-    //BSM
+    // BSM
     private String kafkaTopicOdeBsmJson = "topic.OdeBsmJson";
     private String kafkaTopicProcessedBsm = "topic.ProcessedBsm";
 
+    // PSM
+    private String kafkaTopicOdePsmJson = "topic.OdePsmJson";
+    private String kafkaTopicProcessedPsm = "topic.ProcessedPsm";
+
     private int lingerMs = 0;
-    
+
     private GeometryOutputMode geometryOutputMode = GeometryOutputMode.GEOJSON_ONLY;
 
     @PostConstruct
     public void initialize() {
         if (kafkaBrokers == null) {
-            String dockerIp = CommonUtils.getEnvironmentVariable("DOCKER_HOST_IP");
+            String dockerIp = getEnvironmentVariable("DOCKER_HOST_IP");
 
             if (dockerIp == null) {
-            logger.warn(
-                    "Neither spring.kafka.bootstrap-servers property nor DOCKER_HOST_IP environment variable are defined. Defaulting to localhost.");
-            dockerIp = "localhost";
+                logger.warn(
+                        "Neither spring.kafka.bootstrap-servers property nor DOCKER_HOST_IP environment variable are defined. Defaulting to localhost.");
+                dockerIp = "localhost";
             }
             kafkaBrokers = dockerIp + ":" + DEFAULT_KAFKA_PORT;
-            logger.warn("spring.kafka.bootstrap-servers property not defined. Will try DOCKER_HOST_IP => {}", kafkaBrokers);
+            logger.warn("spring.kafka.bootstrap-servers property not defined. Will try DOCKER_HOST_IP => {}",
+                    kafkaBrokers);
         }
 
-        String kafkaType = CommonUtils.getEnvironmentVariable("KAFKA_TYPE");
+        String kafkaType = getEnvironmentVariable("KAFKA_TYPE");
         if (kafkaType != null) {
             confluentCloudEnabled = kafkaType.equals("CONFLUENT");
             if (confluentCloudEnabled) {
-                confluentKey = CommonUtils.getEnvironmentVariable("CONFLUENT_KEY");
-                confluentSecret = CommonUtils.getEnvironmentVariable("CONFLUENT_SECRET");
+                confluentKey = getEnvironmentVariable("CONFLUENT_KEY");
+                confluentSecret = getEnvironmentVariable("CONFLUENT_SECRET");
             }
         }
     }
@@ -100,9 +101,9 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
         streamProps.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaBrokers);
 
         streamProps.put(StreamsConfig.DEFAULT_DESERIALIZATION_EXCEPTION_HANDLER_CLASS_CONFIG,
-            LogAndContinueExceptionHandler.class.getName());
+                LogAndContinueExceptionHandler.class.getName());
         streamProps.put(StreamsConfig.DEFAULT_TIMESTAMP_EXTRACTOR_CLASS_CONFIG,
-            LogAndSkipOnInvalidTimestamp.class.getName());
+                LogAndSkipOnInvalidTimestamp.class.getName());
 
         streamProps.put(StreamsConfig.NUM_STREAM_THREADS_CONFIG, 2);
 
@@ -131,13 +132,12 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
             streamProps.put("sasl.mechanism", "PLAIN");
 
             if (confluentKey != null && confluentSecret != null) {
-                String auth = "org.apache.kafka.common.security.plain.PlainLoginModule required " +
-                    "username=\"" + confluentKey + "\" " +
-                    "password=\"" + confluentSecret + "\";";
-                    streamProps.put("sasl.jaas.config", auth);
-            }
-            else {
-                logger.error("Environment variables CONFLUENT_KEY and CONFLUENT_SECRET are not set. Set these in the .env file to use Confluent Cloud");
+                String auth = "org.apache.kafka.common.security.plain.PlainLoginModule required " + "username=\""
+                        + confluentKey + "\" " + "password=\"" + confluentSecret + "\";";
+                streamProps.put("sasl.jaas.config", auth);
+            } else {
+                logger.error(
+                        "Environment variables CONFLUENT_KEY and CONFLUENT_SECRET are not set. Set these in the .env file to use Confluent Cloud");
             }
         }
 
@@ -166,65 +166,81 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
         env = environment;
     }
 
-	public String getKafkaTopicOdeSpatJson() {
-		return kafkaTopicOdeSpatJson;
-	}
+    public String getKafkaTopicOdeSpatJson() {
+        return kafkaTopicOdeSpatJson;
+    }
 
-	public void setKafkaTopicOdeSpatJson(String kafkaTopicOdeSpatJson) {
-		this.kafkaTopicOdeSpatJson = kafkaTopicOdeSpatJson;
-	}
+    public void setKafkaTopicOdeSpatJson(String kafkaTopicOdeSpatJson) {
+        this.kafkaTopicOdeSpatJson = kafkaTopicOdeSpatJson;
+    }
 
     public String getKafkaTopicSpatGeoJson() {
-		return kafkaTopicProcessedSpat;
-	}
+        return kafkaTopicProcessedSpat;
+    }
 
-	public void setKafkaTopicSpatGeoJson(String kafkaTopicSpatGeoJson) {
-		this.kafkaTopicProcessedSpat = kafkaTopicSpatGeoJson;
-	}
+    public void setKafkaTopicSpatGeoJson(String kafkaTopicSpatGeoJson) {
+        this.kafkaTopicProcessedSpat = kafkaTopicSpatGeoJson;
+    }
 
-	public String getKafkaTopicOdeMapJson() {
-		return kafkaTopicOdeMapJson;
-	}
+    public String getKafkaTopicOdeMapJson() {
+        return kafkaTopicOdeMapJson;
+    }
 
-	public void setKafkaTopicOdeMapJson(String kafkaTopicOdeMapJson) {
-		this.kafkaTopicOdeMapJson = kafkaTopicOdeMapJson;
-	}
+    public void setKafkaTopicOdeMapJson(String kafkaTopicOdeMapJson) {
+        this.kafkaTopicOdeMapJson = kafkaTopicOdeMapJson;
+    }
 
     public String getKafkaTopicProcessedMap() {
-		return kafkaTopicProcessedMap;
-	}
+        return kafkaTopicProcessedMap;
+    }
 
-	public void setKafkaTopicProcessedMap(String kafkaTopicMapGeoJson) {
-		this.kafkaTopicProcessedMap = kafkaTopicMapGeoJson;
-	}
+    public void setKafkaTopicProcessedMap(String kafkaTopicMapGeoJson) {
+        this.kafkaTopicProcessedMap = kafkaTopicMapGeoJson;
+    }
 
     public String getKafkaTopicProcessedMapWKT() {
-		return kafkaTopicProcessedMapWKT;
-	}
+        return kafkaTopicProcessedMapWKT;
+    }
 
-	public void setKafkaTopicProcessedMapWKT(String kafkaTopicProcessedMapWKT) {
-		this.kafkaTopicProcessedMapWKT = kafkaTopicProcessedMapWKT;
-	}
+    public void setKafkaTopicProcessedMapWKT(String kafkaTopicProcessedMapWKT) {
+        this.kafkaTopicProcessedMapWKT = kafkaTopicProcessedMapWKT;
+    }
 
     public String getKafkaTopicOdeBsmJson() {
-		return kafkaTopicOdeBsmJson;
-	}
+        return kafkaTopicOdeBsmJson;
+    }
 
-	public void setKafkaTopicOdeBsmJson(String kafkaTopicOdeBsmJson) {
-		this.kafkaTopicOdeBsmJson = kafkaTopicOdeBsmJson;
-	}
+    public void setKafkaTopicOdeBsmJson(String kafkaTopicOdeBsmJson) {
+        this.kafkaTopicOdeBsmJson = kafkaTopicOdeBsmJson;
+    }
 
     public String getKafkaTopicProcessedBsm() {
-		return kafkaTopicProcessedBsm;
-	}
+        return kafkaTopicProcessedBsm;
+    }
 
-	public void setKafkaTopicProcessedBsm(String kafkaTopicProcessedBsm) {
-		this.kafkaTopicProcessedBsm = kafkaTopicProcessedBsm;
-	}
+    public void setKafkaTopicProcessedBsm(String kafkaTopicProcessedBsm) {
+        this.kafkaTopicProcessedBsm = kafkaTopicProcessedBsm;
+    }
 
     public Boolean getConfluentCloudStatus() {
-		return confluentCloudEnabled;
-	}
+        return confluentCloudEnabled;
+    }
+
+    public String getKafkaTopicOdePsmJson() {
+        return kafkaTopicOdePsmJson;
+    }
+
+    public void setKafkaTopicOdePsmJson(String kafkaTopicOdePsmJson) {
+        this.kafkaTopicOdePsmJson = kafkaTopicOdePsmJson;
+    }
+
+    public String getKafkaTopicProcessedPsm() {
+        return kafkaTopicProcessedPsm;
+    }
+
+    public void setKafkaTopicProcessedPsm(String kafkaTopicProcessedPsm) {
+        this.kafkaTopicProcessedPsm = kafkaTopicProcessedPsm;
+    }
 
     @Value("${geometry.output.mode}")
     public void setGeometryOutputMode(String gomString) {
@@ -246,5 +262,13 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
 
     public int getKafkaLingerMs() {
         return lingerMs;
+    }
+
+    private static String getEnvironmentVariable(String variableName) {
+        String value = System.getenv(variableName);
+        if (value == null || value.equals("")) {
+            System.out.println("Something went wrong retrieving the environment variable " + variableName);
+        }
+        return value;
     }
 }
