@@ -18,7 +18,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '1'
+          cpus: "1"
           memory: 2G
     environment:
       DOCKER_HOST_IP: ${DOCKER_HOST_IP:?error}
@@ -27,7 +27,7 @@ services:
       CONFLUENT_SECRET: ${CONFLUENT_SECRET}
       geometry.output.mode: ${GEOMETRY_OUTPUT_MODE}
       spring.kafka.bootstrap-servers: ${DOCKER_HOST_IP:?error}:9092
-    logging: 
+    logging:
       options:
         max-size: "10m"
         max-file: "5"
@@ -44,7 +44,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: "2"
           memory: 4G
     ports:
       - "8080:8080"
@@ -79,11 +79,12 @@ services:
       KAFKA_PARTITIONER_CLASS: ${KAFKA_PARTITIONER_CLASS}
       ODE_TIM_INGEST_MONITORING_ENABLED: ${ODE_TIM_INGEST_MONITORING_ENABLED}
       ODE_TIM_INGEST_MONITORING_INTERVAL: ${ODE_TIM_INGEST_MONITORING_INTERVAL}
+      ODE_STOMP_EXPORTER_ENABLED: ${ODE_STOMP_EXPORTER_ENABLED-false}
     depends_on:
       kafka:
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "wget" ,"--spider", "http://localhost:8080"]
+      test: ["CMD", "wget", "--spider", "http://localhost:8080"]
       interval: 5s
       timeout: 30s
       retries: 5
@@ -102,7 +103,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '1'
+          cpus: "1"
           memory: 2G
     environment:
       DOCKER_HOST_IP: ${DOCKER_HOST_IP}
