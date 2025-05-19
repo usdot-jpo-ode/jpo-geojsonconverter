@@ -11,7 +11,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.boot.info.BuildProperties;
 
-import us.dot.its.jpo.ode.util.CommonUtils;
 
 
 public class GeoJsonConverterPropertiesTest {
@@ -19,7 +18,6 @@ public class GeoJsonConverterPropertiesTest {
     
     GeoJsonConverterProperties testGeoJsonConverterProperties;
     BuildProperties mockBuildProperties;
-    CommonUtils capturingCommonUtils;
 
     @Before
     public void setup() {
