@@ -12,12 +12,12 @@
 
     <scm>
         <developerConnection>scm:git:https://github.com/usdot-jpo-ode/jpo-geojsonconverter.git</developerConnection>
-        <tag>jpo-geojsonconverter-usdot-2.2.0</tag>
+        <tag>jpo-geojsonconverter-usdot-2.1.1</tag>
     </scm>
 
     <groupId>usdot.jpo.ode</groupId>
     <artifactId>jpo-geojsonconverter</artifactId>
-    <version>2.2.0</version>
+    <version>2.1.1</version>
     <packaging>jar</packaging>
     <name>jpo-geojsonconverter</name>
     <description>J2735 message to GeoJSON converter for US DOT ITS JPO ODE</description>
@@ -299,18 +299,6 @@
                                 <phase>none</phase>
                             </execution>
                         </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-compiler-plugin</artifactId>
-                        <configuration>
-                            <annotationProcessorPaths>
-                                <path>
-                                    <groupId>org.projectlombok</groupId>
-                                    <artifactId>lombok</artifactId>
-                                </path>
-                            </annotationProcessorPaths>
-                        </configuration>
                     </plugin>
                 </plugins>
             </build>
