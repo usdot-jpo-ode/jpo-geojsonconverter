@@ -65,7 +65,7 @@ public class PsmTopologyTest {
             KeyValue<RsuPsmIdKey, ProcessedPsm<Point>> processedPsmJson = processedPsmJsonResults.get(0);
             assertNotNull(processedPsmJson.key);
 
-            RsuPsmIdKey expectedKey = RsuPsmIdKey.builder().rsuId("172.23.0.1").psmId("24779D7E").build();
+            RsuPsmIdKey expectedKey = RsuPsmIdKey.builder().rsuId("172.18.0.1").psmId("24779D7E").build();
             assertEquals(expectedKey, processedPsmJson.key);
 
             assertNotNull(processedPsmJson.value);

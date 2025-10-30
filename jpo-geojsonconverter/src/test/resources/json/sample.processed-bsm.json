@@ -1,52 +1,53 @@
 {
-    "type": "Feature",
-    "geometry": {
-        "type": "Point",
-        "coordinates": [
-            -105.0342901,
-            40.5671913
-        ]
-    },
-    "properties": {
-        "schemaVersion": 1,
-        "messageType": "BSM",
-        "odeReceivedAt": "2024-08-12T12:32:03.811Z",
-        "originIp": "172.19.0.1",
-        "validationMessages": [],
-        "timeStamp": "2024-08-12T12:32:04.3034091Z",
-        "accelSet": {
-            "accelLat": 2001,
-            "accelLong": 0,
-            "accelVert": -127,
-            "accelYaw": 0
-        },
-        "accuracy": {
-            "semiMajor": 5,
-            "semiMinor": 2,
-            "orientation": 0
-        },
-        "brakes": {
-            "wheelBrakes": {
-                "leftFront": false,
-                "rightFront": false,
-                "unavailable": true,
-                "leftRear": false,
-                "rightRear": false
-            },
-            "traction": "unavailable",
-            "abs": "unavailable",
-            "scs": "unavailable",
-            "brakeBoost": "unavailable",
-            "auxBrakes": "unavailable"
-        },
-        "heading": 359.4,
-        "id": "12A7A951",
-        "msgCnt": 25,
-        "secMark": 2800,
-        "size": {
-            "width": 208,
-            "length": 586
-        },
-        "transmission": "UNAVAILABLE"
-    }
+	"type": "Feature",
+	"geometry": {
+		"type": "Point",
+		"coordinates": [
+			-105.0317754,
+			40.5659938
+		]
+	},
+	"properties": {
+		"schemaVersion": 2,
+		"messageType": "BSM",
+		"odeReceivedAt": "2025-07-25T10:10:03.826Z",
+		"timeStamp": "2025-07-25T10:10:25.399Z",
+		"originIp": "172.18.0.1",
+		"asn1": "001480B8494C4C950CD8CDE6E9651116579F22A424DD78FFFFF00761E4FD7EB7D07F7FFF80005F11D1020214C1C0FFC7C016AFF4017A0FF65403B0FD204C20FFCCC04F8FE40C420FFE6404CEFE60E9A10133408FCFDE1438103AB4138F00E1EEC1048EC160103E237410445C171104E26BC103DC4154305C2C84103B1C1C8F0A82F42103F34262D1123198103DAC25FB12034CE10381C259F12038CA103574251B10E3B2210324C23AD0F23D8EFFFE0000209340D10000004264BF00",
+		"validationMessages": [],
+		"accelSet": {
+			"accelLat": 0.0,
+			"accelLong": 0.27,
+			"accelVert": 0.0,
+			"accelYaw": 0.0
+		},
+		"accuracy": {
+			"semiMajor": 9.3,
+			"semiMinor": 12.05
+		},
+		"brakes": {
+			"wheelBrakes": {
+				"unavailable": true,
+				"leftFront": false,
+				"leftRear": false,
+				"rightFront": false,
+				"rightRear": false
+			},
+			"traction": "UNAVAILABLE",
+			"abs": "UNAVAILABLE",
+			"scs": "UNAVAILABLE",
+			"brakeBoost": "UNAVAILABLE",
+			"auxBrakes": "UNAVAILABLE"
+		},
+		"heading": 313.25,
+		"id": "31325433",
+		"msgCnt": 37,
+		"secMark": 25399,
+		"size": {
+			"width": 190,
+			"length": 570
+		},
+		"speed": 0.28,
+		"transmission": "UNAVAILABLE"
+	}
 }

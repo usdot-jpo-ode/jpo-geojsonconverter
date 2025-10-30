@@ -1,0 +1,4 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$ref": "https://raw.githubusercontent.com/usdot-jpo-ode/jpo-ode/jpo-ode-5.1.0/jpo-ode-core/src/main/resources/schemas/schema-rtcm.json"
+}

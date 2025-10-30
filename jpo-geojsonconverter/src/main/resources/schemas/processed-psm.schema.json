@@ -1,9 +1,9 @@
 {
   "$schema" : "https://json-schema.org/draft/2020-12/schema",
   "$defs" : {
-    "J2735PersonalDeviceUserType" : {
+    "ProcessedPersonalDeviceUserType" : {
       "type" : "string",
-      "enum" : [ "unavailable", "aPEDESTRIAN", "aPEDALCYCLIST", "aPUBLICSAFETYWORKER", "anANIMAL" ]
+      "enum" : [ "UNAVAILABLE", "APEDESTRIAN", "APEDALCYCLIST", "APUBLICSAFETYWORKER", "ANANIMAL" ]
     },
     "ProcessedValidationMessage" : {
       "type" : "object",
@@ -25,12 +25,15 @@
     "PsmProperties" : {
       "type" : "object",
       "properties" : {
+        "asn1" : {
+          "type" : "string"
+        },
         "basicType" : {
-          "$ref" : "#/$defs/J2735PersonalDeviceUserType"
+          "$ref" : "#/$defs/ProcessedPersonalDeviceUserType"
         },
         "heading" : {
-          "type" : "integer",
-          "format" : "int32"
+          "type" : "number",
+          "format" : "double"
         },
         "id" : {
           "type" : "string"
@@ -57,8 +60,8 @@
           "format" : "int32"
         },
         "speed" : {
-          "type" : "integer",
-          "format" : "int32"
+          "type" : "number",
+          "format" : "double"
         },
         "timeStamp" : {
           "type" : "string",

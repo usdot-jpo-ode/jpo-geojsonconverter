@@ -1,0 +1,51 @@
+{
+  "metadata": {
+    "logFileName": "",
+    "recordType": "rtcmTx",
+    "securityResultCode": "success",
+    "receivedMessageDetails": {
+      "rxSource": "NA"
+    },
+    "payloadType": "us.dot.its.jpo.ode.model.OdeMessageFramePayload",
+    "serialId": {
+      "streamId": "0caf1325-5227-4113-ae55-d63ca4c5b6b3",
+      "bundleSize": 1,
+      "bundleId": 0,
+      "recordId": 0,
+      "serialNumber": 0
+    },
+    "odeReceivedAt": "2025-07-28T00:37:30.280Z",
+    "schemaVersion": 9,
+    "maxDurationTime": 0,
+    "recordGeneratedAt": "",
+    "recordGeneratedBy": "RSU",
+    "sanitized": false,
+    "odePacketID": "",
+    "odeTimStartDateTime": "",
+    "asn1": "001C6D25244028D2D4B29BC25EC0C12C418D300133ED980037BDD1A80C6358121DD4E499FFC6712E91F0D10F4C00F90266005105115939553131053951153939048081393D391400003551492535093114810531313D64513985D880D4B8D0D080BC8109BDBDD080D4B8D0D0023197E4",
+    "source": "RSU",
+    "originIp": "172.18.0.1",
+    "isCertPresent": false
+  },
+  "payload": {
+    "data": {
+      "messageId": 28,
+      "value": {
+        "RTCMcorrections": {
+          "msgCnt": 82,
+          "rev": "rtcmRev3",
+          "anchorPoint": {
+            "long": -1115094349,
+            "lat": 406603360,
+            "elevation": 20630
+          },
+          "msgs": [
+            "D300133ED980037BDD1A80C6358121DD4E499FFC6712E91F0D",
+            "D3003E409980144144564E554C4C414E54454E4E4120204E4F4E4500000D5452494D424C4520414C4C4F59144E617620352E3434202F20426F6F7420352E3434008C65F9"
+          ]
+        }
+      }
+    },
+    "dataType": "us.dot.its.jpo.asn.j2735.r2024.RTCMcorrections.RTCMcorrectionsMessageFrame"
+  }
+}

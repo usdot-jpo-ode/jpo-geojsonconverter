@@ -2,13 +2,12 @@ package us.dot.its.jpo.geojsonconverter.serialization.deserializers;
 
 import java.io.IOException;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import us.dot.its.jpo.geojsonconverter.DateJsonMapper;
 
 import org.apache.kafka.common.serialization.Deserializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JsonDeserializer<T> implements Deserializer<T> {
     private static Logger logger = LoggerFactory.getLogger(JsonDeserializer.class);

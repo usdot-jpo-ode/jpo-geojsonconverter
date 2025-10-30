@@ -11,6 +11,7 @@ import java.nio.charset.StandardCharsets;
 
 import static org.junit.Assert.fail;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,8 +22,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import us.dot.its.jpo.geojsonconverter.DateJsonMapper;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.LineString;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.Point;
@@ -31,12 +30,10 @@ import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.ProcessedMap;
 import us.dot.its.jpo.geojsonconverter.pojos.spat.ProcessedSpat;
 
 
-@SpringBootTest({
-        "processed.spat.json=classpath:json/sample.processed-spat.json",
+@SpringBootTest({"processed.spat.json=classpath:json/sample.processed-spat.json",
         "processed.map.json=classpath:json/sample.processed-map.json",
         "processed.map.wkt.json=classpath:json/sample.processed-map-wkt.json",
-        "processed.bsm.json=classpath:json/sample.processed-bsm.json"
-})
+        "processed.bsm.json=classpath:json/sample.processed-bsm.json"})
 @RunWith(SpringRunner.class)
 @ActiveProfiles("test")
 public class JsonSerializerTest {
@@ -66,10 +63,11 @@ public class JsonSerializerTest {
     public void testProcessedSpatSerializer() {
         try (JsonSerializer<ProcessedSpat> serializer = new JsonSerializer<ProcessedSpat>()) {
             BufferedInputStream inputStream = new BufferedInputStream(validSpatJsonResource.getInputStream());
-            String spatString = IOUtils.toString(inputStream, "UTF-8"); 
+            String spatString = IOUtils.toString(inputStream, "UTF-8");
             ObjectMapper mapper = DateJsonMapper.getInstance();
             ProcessedSpat spat = mapper.readValue(spatString, ProcessedSpat.class);
-            
+
+            final String str = mapper.writeValueAsString(spat);
             byte[] bytes = serializer.serialize("the_topic", spat);
             assertNotNull(bytes);
             assertTrue(bytes.length > 0);
@@ -83,11 +81,11 @@ public class JsonSerializerTest {
     public void testProcessedMapGeoJsonSerializer() {
         try (JsonSerializer<ProcessedMap<LineString>> serializer = new JsonSerializer<ProcessedMap<LineString>>()) {
             BufferedInputStream inputStream = new BufferedInputStream(validMapGeoJsonResource.getInputStream());
-            String mapString = IOUtils.toString(inputStream, "UTF-8"); 
+            String mapString = IOUtils.toString(inputStream, "UTF-8");
             ObjectMapper mapper = DateJsonMapper.getInstance();
             JavaType javaType = mapper.getTypeFactory().constructParametricType(ProcessedMap.class, LineString.class);
             ProcessedMap<LineString> map = mapper.readValue(mapString, javaType);
-            
+
             byte[] bytes = serializer.serialize("the_topic", map);
             assertNotNull(bytes);
             assertTrue(bytes.length > 0);
@@ -101,11 +99,11 @@ public class JsonSerializerTest {
     public void testProcessedMapWKTJsonSerializer() {
         try (JsonSerializer<ProcessedMap<String>> serializer = new JsonSerializer<ProcessedMap<String>>()) {
             BufferedInputStream inputStream = new BufferedInputStream(validMapWKTJsonResource.getInputStream());
-            String mapString = IOUtils.toString(inputStream, "UTF-8"); 
+            String mapString = IOUtils.toString(inputStream, "UTF-8");
             ObjectMapper mapper = DateJsonMapper.getInstance();
             JavaType javaType = mapper.getTypeFactory().constructParametricType(ProcessedMap.class, String.class);
             ProcessedMap<String> map = mapper.readValue(mapString, javaType);
-            
+
             byte[] bytes = serializer.serialize("the_topic", map);
             assertNotNull(bytes);
             assertTrue(bytes.length > 0);
@@ -118,7 +116,7 @@ public class JsonSerializerTest {
     @Test
     public void testProcessedBsmJsonSerializer() throws IOException {
         try (var serializer = new JsonSerializer<ProcessedBsm<Point>>();
-            BufferedInputStream inputStream = new BufferedInputStream(validProcessedBsmResource.getInputStream())) {
+                BufferedInputStream inputStream = new BufferedInputStream(validProcessedBsmResource.getInputStream())) {
             final String bsmString = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
             final ObjectMapper mapper = DateJsonMapper.getInstance();
             final JavaType javaType = mapper.getTypeFactory().constructParametricType(ProcessedBsm.class, Point.class);
@@ -126,7 +124,8 @@ public class JsonSerializerTest {
             final byte[] bytes = serializer.serialize("the_topic", bsm);
             assertNotNull(bytes);
             assertTrue(bytes.length > 0);
-            assertEquals(bsm.toString(), new String(bytes));
+            // Compare JSON structures instead of raw strings to account for formatting differences
+            assertEquals(mapper.readTree(bsmString), mapper.readTree(new String(bytes)));
         }
     }
 
@@ -148,11 +147,21 @@ public class JsonSerializerTest {
 
 }
 
+
 class TestClass {
     public TestClass() {}
 
     private String prop;
-    public String getProp() { return prop; }
-    public void setProp(String prop) { this.prop = prop; }
-    public String toString() { return String.format("{\"prop\":\"%s\"}", prop); }
+
+    public String getProp() {
+        return prop;
+    }
+
+    public void setProp(String prop) {
+        this.prop = prop;
+    }
+
+    public String toString() {
+        return String.format("{\"prop\":\"%s\"}", prop);
+    }
 }

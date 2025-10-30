@@ -10,11 +10,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class SpatJsonValidator extends AbstractJsonValidator {
 
+    public SpatJsonValidator() {
+        super("classpath:schemas/spat.schema.json");
+    }
+
     /**
-     * @param jsonSchemaResource The json schema file in resources/schemas.  Injected by Spring DI.
+     * @param schemaLocation The json schema classpath
      */
-    public SpatJsonValidator(@Value("${schema.spat}") Resource jsonSchemaResource) {
-        super(jsonSchemaResource);
+    public SpatJsonValidator(String schemaLocation) {
+        super(schemaLocation);
     }
     
 }

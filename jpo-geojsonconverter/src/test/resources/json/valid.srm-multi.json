@@ -1,0 +1,97 @@
+{
+  "metadata": {
+    "logFileName": "",
+    "recordType": "srmTx",
+    "securityResultCode": "success",
+    "receivedMessageDetails": {
+      "rxSource": "NA"
+    },
+    "payloadType": "us.dot.its.jpo.ode.model.OdeMessageFramePayload",
+    "serialId": {
+      "streamId": "ab0906f8-6743-4355-b5ca-84f6d47ce475",
+      "bundleSize": 1,
+      "bundleId": 0,
+      "recordId": 0,
+      "serialNumber": 0
+    },
+    "odeReceivedAt": "2025-09-26T20:22:46.101Z",
+    "schemaVersion": 9,
+    "maxDurationTime": 0,
+    "recordGeneratedAt": "",
+    "recordGeneratedBy": "OBU",
+    "sanitized": false,
+    "odePacketID": "",
+    "odeTimStartDateTime": "",
+    "asn1": "001D2F72DC028000050890BD481080201F1A62242F5205200408430AB02F236614C002D4D3841D02CA71A8851970D51C3060",
+    "source": "RSU",
+    "originIp": "172.18.0.1",
+    "isCertPresent": false
+  },
+  "payload": {
+    "data": {
+      "messageId": 29,
+      "value": {
+        "SignalRequestMessage": {
+          "timeStamp": 374789,
+          "second": 0,
+          "sequenceNumber": 5,
+          "requests": [
+            {
+              "request": {
+                "id": {
+                  "id": 12114
+                },
+                "requestID": 4,
+                "requestType": "priorityRequest",
+                "inBoundLane": {
+                  "lane": 2
+                },
+                "outBoundLane": {
+                  "lane": 15
+                }
+              },
+              "duration": 36145
+            },
+            {
+              "request": {
+                "id": {
+                  "id": 12114
+                },
+                "requestID": 5,
+                "requestType": "priorityRequest",
+                "inBoundLane": {
+                  "lane": 1
+                },
+                "outBoundLane": {
+                  "lane": 16
+                }
+              },
+              "duration": 34325
+            }
+          ],
+          "requestor": {
+            "id": {
+              "stationID": 2031825062
+            },
+            "type": {
+              "role": "publicTransport"
+            },
+            "position": {
+              "position": {
+                "lat": 395532496,
+                "long": -1050851191,
+                "elevation": 16791
+              },
+              "heading": 1704,
+              "speed": {
+                "transmisson": "unavailable",
+                "speed": 387
+              }
+            }
+          }
+        }
+      }
+    },
+    "dataType": "us.dot.its.jpo.asn.j2735.r2024.SignalRequestMessage.SignalRequestMessageMessageFrame"
+  }
+}

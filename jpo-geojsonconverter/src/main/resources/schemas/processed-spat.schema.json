@@ -1,62 +1,15 @@
 {
   "$schema" : "https://json-schema.org/draft/2020-12/schema",
   "$defs" : {
-    "IntersectionStatusObject" : {
+    "ProcessedAdvisorySpeed" : {
       "type" : "object",
       "properties" : {
-        "failureFlash" : {
-          "type" : "boolean"
-        },
-        "failureMode" : {
-          "type" : "boolean"
-        },
-        "fixedTimeOperation" : {
-          "type" : "boolean"
-        },
-        "manualControlIsEnabled" : {
-          "type" : "boolean"
-        },
-        "noValidMAPisAvailableAtThisTime" : {
-          "type" : "boolean"
-        },
-        "noValidSPATisAvailableAtThisTime" : {
-          "type" : "boolean"
-        },
-        "off" : {
-          "type" : "boolean"
-        },
-        "preemptIsActive" : {
-          "type" : "boolean"
-        },
-        "recentChangeInMAPassignedLanesIDsUsed" : {
-          "type" : "boolean"
-        },
-        "recentMAPmessageUpdate" : {
-          "type" : "boolean"
-        },
-        "signalPriorityIsActive" : {
-          "type" : "boolean"
-        },
-        "standbyOperation" : {
-          "type" : "boolean"
-        },
-        "stopTimeIsActivated" : {
-          "type" : "boolean"
-        },
-        "trafficDependentOperation" : {
-          "type" : "boolean"
-        }
-      }
-    },
-    "J2735AdvisorySpeed" : {
-      "type" : "object",
-      "properties" : {
-        "classId" : {
+        "class" : {
           "type" : "integer",
           "format" : "int32"
         },
         "confidence" : {
-          "$ref" : "#/$defs/J2735SpeedConfidence"
+          "$ref" : "#/$defs/ProcessedSpeedConfidence"
         },
         "distance" : {
           "type" : "integer",
@@ -67,48 +20,39 @@
           "format" : "int32"
         },
         "type" : {
-          "$ref" : "#/$defs/J2735AdvisorySpeedType"
+          "$ref" : "#/$defs/ProcessedAdvisorySpeedType"
         }
       }
     },
-    "J2735AdvisorySpeedList" : {
-      "type" : "object",
-      "properties" : {
-        "advisorySpeedList" : {
-          "type" : "array",
-          "items" : {
-            "$ref" : "#/$defs/J2735AdvisorySpeed"
-          }
-        }
-      }
-    },
-    "J2735AdvisorySpeedType" : {
+    "ProcessedAdvisorySpeedType" : {
       "type" : "string",
       "enum" : [ "NONE", "GREENWAVE", "ECODRIVE", "TRANSIT" ]
     },
-    "J2735MovementPhaseState" : {
-      "type" : "string",
-      "enum" : [ "UNAVAILABLE", "DARK", "STOP_THEN_PROCEED", "STOP_AND_REMAIN", "PRE_MOVEMENT", "PERMISSIVE_MOVEMENT_ALLOWED", "PROTECTED_MOVEMENT_ALLOWED", "PERMISSIVE_CLEARANCE", "PROTECTED_CLEARANCE", "CAUTION_CONFLICTING_TRAFFIC" ]
+    "ProcessedIntersectionStatusObject" : {
+      "type" : "object"
     },
-    "J2735SpeedConfidence" : {
-      "type" : "string",
-      "enum" : [ "UNAVAILABLE", "PREC100MS", "PREC10MS", "PREC5MS", "PREC1MS", "PREC0_1MS", "PREC0_05MS", "PREC0_01MS" ]
-    },
-    "MovementEvent" : {
+    "ProcessedMovementEvent" : {
       "type" : "object",
       "properties" : {
         "eventState" : {
-          "$ref" : "#/$defs/J2735MovementPhaseState"
+          "$ref" : "#/$defs/ProcessedMovementPhaseState"
         },
         "speeds" : {
-          "$ref" : "#/$defs/J2735AdvisorySpeedList"
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/$defs/ProcessedAdvisorySpeed"
+          }
         },
         "timing" : {
           "$ref" : "#/$defs/TimingChangeDetails"
         }
       }
     },
-    "MovementState" : {
+    "ProcessedMovementPhaseState" : {
+      "type" : "string",
+      "enum" : [ "UNAVAILABLE", "DARK", "STOP_THEN_PROCEED", "STOP_AND_REMAIN", "PRE_MOVEMENT", "PERMISSIVE_MOVEMENT_ALLOWED", "PROTECTED_MOVEMENT_ALLOWED", "PERMISSIVE_CLEARANCE", "PROTECTED_CLEARANCE", "CAUTION_CONFLICTING_TRAFFIC" ]
+    },
+    "ProcessedMovementState" : {
       "type" : "object",
       "properties" : {
         "movementName" : {
@@ -121,10 +65,14 @@
         "stateTimeSpeed" : {
           "type" : "array",
           "items" : {
-            "$ref" : "#/$defs/MovementEvent"
+            "$ref" : "#/$defs/ProcessedMovementEvent"
           }
         }
       }
+    },
+    "ProcessedSpeedConfidence" : {
+      "type" : "string",
+      "enum" : [ "UNAVAILABLE", "PREC100MS", "PREC10MS", "PREC5MS", "PREC1MS", "PREC0_1MS", "PREC0_05MS", "PREC0_01MS" ]
     },
     "ProcessedValidationMessage" : {
       "type" : "object",
@@ -175,6 +123,9 @@
   },
   "type" : "object",
   "properties" : {
+    "asn1" : {
+      "type" : "string"
+    },
     "cti4501Conformant" : {
       "type" : "boolean"
     },
@@ -216,11 +167,11 @@
     "states" : {
       "type" : "array",
       "items" : {
-        "$ref" : "#/$defs/MovementState"
+        "$ref" : "#/$defs/ProcessedMovementState"
       }
     },
     "status" : {
-      "$ref" : "#/$defs/IntersectionStatusObject"
+      "$ref" : "#/$defs/ProcessedIntersectionStatusObject"
     },
     "utcTimeStamp" : {
       "type" : "string",

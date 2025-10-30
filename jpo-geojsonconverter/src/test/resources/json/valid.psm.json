@@ -6,44 +6,50 @@
 		"receivedMessageDetails": {
 			"rxSource": "NA"
 		},
-		"payloadType": "us.dot.its.jpo.ode.model.OdePsmPayload",
+		"payloadType": "us.dot.its.jpo.ode.model.OdeMessageFramePayload",
 		"serialId": {
-			"streamId": "afaabd48-53ad-46b4-937a-6d34b9605120",
+			"streamId": "41769974-caee-44b3-8642-1793b6301ba9",
 			"bundleSize": 1,
 			"bundleId": 0,
 			"recordId": 0,
 			"serialNumber": 0
 		},
-		"odeReceivedAt": "2025-01-15T23:41:08.681Z",
-		"schemaVersion": 8,
+		"odeReceivedAt": "2025-07-25T09:39:46.640Z",
+		"schemaVersion": 9,
 		"maxDurationTime": 0,
 		"recordGeneratedAt": "",
 		"recordGeneratedBy": "UNKNOWN",
 		"sanitized": false,
 		"odePacketID": "",
 		"odeTimStartDateTime": "",
-		"asn1": "00201A0000021BD86891DE75F84DA101C13F042E2214141FFF00022C2000270000000163B2CC7986010000",
-		"psmSource": "RSU",
-		"originIp": "172.23.0.1"
+		"asn1": "00201A0000021BD86891DE75F84DA101C13F042E2214141FFF00022C2000270000000163B2CC79860100",
+		"source": "RSU",
+		"originIp": "172.18.0.1",
+		"isCertPresent": false
 	},
 	"payload": {
 		"data": {
-			"basicType": "aPEDESTRIAN",
-			"secMark": 3564,
-			"msgCnt": 26,
-			"id": "24779D7E",
-			"position": {
-				"latitude": 40.2397377,
-				"longitude": -74.2761437
-			},
-			"accuracy": {
-				"semiMajor": 1.00,
-				"semiMinor": 1.00,
-				"orientation": 44.9951935489
-			},
-			"speed": 0,
-			"heading": 8898
+			"messageId": 32,
+			"value": {
+				"PersonalSafetyMessage": {
+					"basicType": "aPEDESTRIAN",
+					"secMark": 3564,
+					"msgCnt": 26,
+					"id": "24779D7E",
+					"position": {
+						"lat": 402397377,
+						"long": -742761437
+					},
+					"accuracy": {
+						"semiMajor": 20,
+						"semiMinor": 20,
+						"orientation": 8191
+					},
+					"speed": 0,
+					"heading": 8898
+				}
+			}
 		},
-		"dataType": "us.dot.its.jpo.ode.plugin.j2735.J2735PSM"
+		"dataType": "us.dot.its.jpo.asn.j2735.r2024.PersonalSafetyMessage.PersonalSafetyMessageMessageFrame"
 	}
 }

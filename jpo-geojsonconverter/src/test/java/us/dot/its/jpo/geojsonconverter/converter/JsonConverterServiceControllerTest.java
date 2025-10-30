@@ -11,10 +11,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import us.dot.its.jpo.geojsonconverter.GeoJsonConverterProperties;
-import us.dot.its.jpo.geojsonconverter.validator.BsmJsonValidator;
-import us.dot.its.jpo.geojsonconverter.validator.MapJsonValidator;
-import us.dot.its.jpo.geojsonconverter.validator.PsmJsonValidator;
-import us.dot.its.jpo.geojsonconverter.validator.SpatJsonValidator;
+import us.dot.its.jpo.geojsonconverter.converter.rtcm.RTCMConverter;
+import us.dot.its.jpo.geojsonconverter.converter.srm.SrmConverter;
+import us.dot.its.jpo.geojsonconverter.converter.ssm.SsmConverter;
+import us.dot.its.jpo.geojsonconverter.validator.*;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -35,6 +35,24 @@ public class JsonConverterServiceControllerTest {
     @Autowired
     PsmJsonValidator psmJsonValidator;
 
+    @Autowired
+    RTCMJsonValidator rtcmJsonValidator;
+
+    @Autowired
+    RTCMConverter rtcmConverter;
+
+    @Autowired
+    SrmJsonValidator srmJsonValidator;
+
+    @Autowired
+    SrmConverter srmConverter;
+
+    @Autowired
+    SsmJsonValidator ssmJsonValidator;
+
+    @Autowired
+    SsmConverter ssmConverter;
+
     @Before
     public void setup() {
         props = new GeoJsonConverterProperties();
@@ -44,7 +62,8 @@ public class JsonConverterServiceControllerTest {
     @Test
     public void testSpringBootLoaded() {
         geoJsonConverterServiceController = new JsonConverterServiceController(props, mapJsonValidator,
-                spatJsonValidator, bsmJsonValidator, psmJsonValidator);
+                spatJsonValidator, bsmJsonValidator, psmJsonValidator, rtcmJsonValidator, rtcmConverter,
+                srmJsonValidator, srmConverter, ssmJsonValidator, ssmConverter);
         assertNotNull(geoJsonConverterServiceController);
     }
 }

@@ -1,0 +1,67 @@
+{
+  "metadata": {
+    "logFileName": "",
+    "recordType": "ssmTx",
+    "securityResultCode": "success",
+    "receivedMessageDetails": {
+      "rxSource": "NA"
+    },
+    "payloadType": "us.dot.its.jpo.ode.model.OdeMessageFramePayload",
+    "serialId": {
+      "streamId": "64c77df2-e59f-431d-8bed-9733f98dbb08",
+      "bundleSize": 1,
+      "bundleId": 0,
+      "recordId": 0,
+      "serialNumber": 0
+    },
+    "odeReceivedAt": "2025-09-25T17:27:01.137Z",
+    "schemaVersion": 9,
+    "maxDurationTime": 0,
+    "recordGeneratedAt": "",
+    "recordGeneratedBy": "RSU",
+    "sanitized": false,
+    "odePacketID": "",
+    "odeTimStartDateTime": "",
+    "asn1": "001E1865B80579181E00F0BD480C95E46CC2981428200408430AA0",
+    "source": "RSU",
+    "originIp": "172.18.0.1",
+    "isCertPresent": false
+  },
+  "payload": {
+    "data": {
+      "messageId": 30,
+      "value": {
+        "SignalStatusMessage": {
+          "timeStamp": 374789,
+          "sequenceNumber": 15,
+          "status": [
+            {
+              "sequenceNumber": 30,
+              "id": {
+                "id": 12114
+              },
+              "sigStatus": [
+                {
+                  "requester": {
+                    "id": {
+                      "stationID": 2031825062
+                    },
+                    "request": 5,
+                    "sequenceNumber": 5,
+                    "role": "publicTransport"
+                  },
+                  "outboundOn": {
+                    "lane": 16
+                  },
+                  "duration": 34325,
+                  "status": "granted"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "dataType": "us.dot.its.jpo.asn.j2735.r2024.SignalStatusMessage.SignalStatusMessageMessageFrame"
+  }
+}

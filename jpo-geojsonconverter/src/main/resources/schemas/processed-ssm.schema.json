@@ -1,0 +1,169 @@
+{
+  "$schema" : "https://json-schema.org/draft/2020-12/schema",
+  "$defs" : {
+    "Duration" : {
+      "type" : "object",
+      "properties" : {
+        "seconds" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      }
+    },
+    "ProcessedBasicVehicleRole" : {
+      "type" : "string",
+      "enum" : [ "BASICVEHICLE", "PUBLICTRANSPORT", "SPECIALTRANSPORT", "DANGEROUSGOODS", "ROADWORK", "ROADRESCUE", "EMERGENCY", "SAFETYCAR", "NONE_UNKNOWN", "TRUCK", "MOTORCYCLE", "ROADSIDESOURCE", "POLICE", "FIRE", "AMBULANCE", "DOT", "TRANSIT", "SLOWMOVING", "STOPNGO", "CYCLIST", "PEDESTRIAN", "NONMOTORIZED", "MILITARY" ]
+    },
+    "ProcessedPrioritizationResponseStatus" : {
+      "type" : "string",
+      "enum" : [ "UNKNOWN", "REQUESTED", "PROCESSING", "WATCHOTHERTRAFFIC", "GRANTED", "REJECTED", "MAXPRESENCE", "RESERVICELOCKED" ]
+    },
+    "ProcessedRequestImportanceLevel" : {
+      "type" : "string",
+      "enum" : [ "REQUESTIMPORTANCELEVELUNKNOWN", "REQUESTIMPORTANCELEVEL1", "REQUESTIMPORTANCELEVEL2", "REQUESTIMPORTANCELEVEL3", "REQUESTIMPORTANCELEVEL4", "REQUESTIMPORTANCELEVEL5", "REQUESTIMPORTANCELEVEL6", "REQUESTIMPORTANCELEVEL7", "REQUESTIMPORTANCELEVEL8", "REQUESTIMPORTANCELEVEL9", "REQUESTIMPORTANCELEVEL10", "REQUESTIMPORTANCELEVEL11", "REQUESTIMPORTANCELEVEL12", "REQUESTIMPORTANCELEVEL13", "REQUESTIMPORTANCELEVEL14", "REQUESTIMPORTANCERESERVED" ]
+    },
+    "ProcessedRequestSubRole" : {
+      "type" : "string",
+      "enum" : [ "REQUESTSUBROLEUNKNOWN", "REQUESTSUBROLE1", "REQUESTSUBROLE2", "REQUESTSUBROLE3", "REQUESTSUBROLE4", "REQUESTSUBROLE5", "REQUESTSUBROLE6", "REQUESTSUBROLE7", "REQUESTSUBROLE8", "REQUESTSUBROLE9", "REQUESTSUBROLE10", "REQUESTSUBROLE11", "REQUESTSUBROLE12", "REQUESTSUBROLE13", "REQUESTSUBROLE14", "REQUESTSUBROLERESERVED" ]
+    },
+    "ProcessedSignalStatus" : {
+      "type" : "object",
+      "properties" : {
+        "estimatedTimeOfArrival" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "estimatedTimeOfArrivalDurationSeconds" : {
+          "$ref" : "#/$defs/Duration"
+        },
+        "inboundOnApproachID" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "inboundOnLaneConnectionID" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "inboundOnLaneID" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "outboundOnApproachID" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "outboundOnLaneConnectionID" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "outboundOnLaneID" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "requestID" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "requestImportanceLevel" : {
+          "$ref" : "#/$defs/ProcessedRequestImportanceLevel"
+        },
+        "requesterHpmsType" : {
+          "$ref" : "#/$defs/ProcessedVehicleType"
+        },
+        "requesterIso3833VehicleType" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "requesterRole" : {
+          "$ref" : "#/$defs/ProcessedBasicVehicleRole"
+        },
+        "requesterSequenceNumber" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "requesterSubrole" : {
+          "$ref" : "#/$defs/ProcessedRequestSubRole"
+        },
+        "status" : {
+          "$ref" : "#/$defs/ProcessedPrioritizationResponseStatus"
+        },
+        "vehicleID" : {
+          "type" : "string"
+        }
+      }
+    },
+    "ProcessedValidationMessage" : {
+      "type" : "object",
+      "properties" : {
+        "exception" : {
+          "type" : "string"
+        },
+        "jsonPath" : {
+          "type" : "string"
+        },
+        "message" : {
+          "type" : "string"
+        },
+        "schemaPath" : {
+          "type" : "string"
+        }
+      }
+    },
+    "ProcessedVehicleType" : {
+      "type" : "string",
+      "enum" : [ "NONE", "UNKNOWN", "SPECIAL", "MOTO", "CAR", "CAROTHER", "BUS", "AXLECNT2", "AXLECNT3", "AXLECNT4", "AXLECNT4TRAILER", "AXLECNT5TRAILER", "AXLECNT6TRAILER", "AXLECNT5MULTITRAILER", "AXLECNT6MULTITRAILER", "AXLECNT7MULTITRAILER" ]
+    }
+  },
+  "type" : "object",
+  "properties" : {
+    "asn1" : {
+      "type" : "string"
+    },
+    "intersectionId" : {
+      "type" : "integer",
+      "format" : "int32"
+    },
+    "messageType" : {
+      "type" : "string"
+    },
+    "odeReceivedAt" : {
+      "type" : "string",
+      "format" : "date-time"
+    },
+    "originIp" : {
+      "type" : "string"
+    },
+    "region" : {
+      "type" : "integer",
+      "format" : "int32"
+    },
+    "schemaVersion" : {
+      "type" : "integer",
+      "format" : "int32"
+    },
+    "sequenceNumber" : {
+      "type" : "integer",
+      "format" : "int32"
+    },
+    "statusList" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/$defs/ProcessedSignalStatus"
+      }
+    },
+    "statusSequenceNumber" : {
+      "type" : "integer",
+      "format" : "int32"
+    },
+    "timeStamp" : {
+      "type" : "string",
+      "format" : "date-time"
+    },
+    "validationMessages" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/$defs/ProcessedValidationMessage"
+      }
+    }
+  }
+}

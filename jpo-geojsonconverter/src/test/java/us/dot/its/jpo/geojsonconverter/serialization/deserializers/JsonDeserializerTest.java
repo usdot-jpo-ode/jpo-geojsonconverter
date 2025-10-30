@@ -46,13 +46,13 @@ public class JsonDeserializerTest {
     public void deserializeExceptionTest() {
         try (JsonDeserializer<BadClass> deserializer = new JsonDeserializer<BadClass>(BadClass.class)) {
             assertThrows(RuntimeException.class, () -> {
-                deserializer.deserialize("topic", new byte[] { (byte)0 });
+                deserializer.deserialize("topic", new byte[] {(byte) 0});
             });
         }
     }
 
     @Test
-    public void deserializeNullTest(){
+    public void deserializeNullTest() {
         try (JsonDeserializer<TestClass> deserializer = new JsonDeserializer<TestClass>(TestClass.class)) {
             TestClass result = deserializer.deserialize("topic", null);
             assertNull(result);
@@ -61,22 +61,20 @@ public class JsonDeserializerTest {
 
     @Test
     public void testProcessedSpatDeserializer() {
-        try (JsonDeserializer<ProcessedSpat> serializer = new JsonDeserializer<ProcessedSpat>(ProcessedSpat.class)) {
-            byte[] spatBytes = IOUtils.toByteArray(validSpatJsonResource.getInputStream()); 
-            //String spatString = new String(spatBytes).strip().replace("\n", "").replace("\r", "").replace(" ", "");
+        try (JsonDeserializer<ProcessedSpat> serializer =
+                new JsonDeserializer<ProcessedSpat>(ProcessedSpat.class)) {
+            byte[] spatBytes = IOUtils.toByteArray(validSpatJsonResource.getInputStream());
 
             ProcessedSpat spat = serializer.deserialize("the_topic", spatBytes);
             assertNotNull(spat);
-            assertEquals(false, spat.getCti4501Conformant());
-            assertEquals("2022-11-17T22:55:28.744Z", spat.getUtcTimeStamp().toString());
-
-            //assertEquals(spatString, spat.toString().replace(" ", ""));
+            assertEquals(false, spat.isCti4501Conformant());
+            assertEquals("2025-07-16T22:55:58.423Z", spat.getUtcTimeStamp().toString());
 
         } catch (Exception e) {
             fail("Unexpected exception: " + e);
         }
     }
-    
+
     @Value("${processed.spat.json}")
     private Resource validSpatJsonResource;
 
@@ -85,11 +83,21 @@ public class JsonDeserializerTest {
     }
 }
 
+
 class TestClass {
     public TestClass() {}
 
     private String prop;
-    public String getProp() { return prop; }
-    public void setProp(String prop) { this.prop = prop; }
-    public String toString() { return String.format("{\"prop\":\"%s\"}", prop); }
+
+    public String getProp() {
+        return prop;
+    }
+
+    public void setProp(String prop) {
+        this.prop = prop;
+    }
+
+    public String toString() {
+        return String.format("{\"prop\":\"%s\"}", prop);
+    }
 }

@@ -3,6 +3,8 @@ package us.dot.its.jpo.geojsonconverter.validator;
 import java.io.IOException;
 import java.util.Set;
 
+import lombok.Getter;
+import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -11,36 +13,26 @@ import com.networknt.schema.JsonSchema;
 import com.networknt.schema.JsonSchemaFactory;
 import com.networknt.schema.ValidationMessage;
 import com.networknt.schema.SpecVersion;
+import org.springframework.core.io.ResourceLoader;
 
 /**
  * Class for a validator to validate a JSON document against a
  * schema and report all errors.
- * 
- * Annotate implementing classes with <code>@Service</code> to inject with Spring DI.
  */
 public abstract class AbstractJsonValidator {
 
      /**
-     * @param jsonSchemaResource The json schema file in resources/schemas.  
-     * Add an <code>@Value("${schema.resourceName}")</code> annotation to this argument
-     * in implementing classes to specify the schema location.
+     * @param schemaLocation The classpath to the schema location
+     * For example: ""classpath:schemas/srm.schema.json"
      */
-    protected AbstractJsonValidator(Resource jsonSchemaResource) {
-        this.jsonSchemaResource = jsonSchemaResource;
+    protected AbstractJsonValidator(String schemaLocation) {
+        this.jsonSchemaResource = loadJsonSchemaResource(schemaLocation);
     }
 
     private final ObjectMapper mapper = new ObjectMapper();
+    @Getter
     private final Resource jsonSchemaResource;
     private JsonSchema jsonSchema;
-
-    /**
-     * The resource where the json schema file is
-     * 
-     * @return Resource
-     */
-    public Resource getJsonSchemaResource() {
-        return jsonSchemaResource;
-    }
 
 
     public JsonSchema getJsonSchema() throws IOException {
@@ -63,7 +55,7 @@ public abstract class AbstractJsonValidator {
             JsonNode node = mapper.readTree(json);
             Set<ValidationMessage> validationMessages = getJsonSchema().validate(node);
             result.addValidationMessages(validationMessages);
-        } catch (IOException e) {
+        } catch (Exception e) {
             result.addException(e);
         }
         return result;
@@ -75,11 +67,19 @@ public abstract class AbstractJsonValidator {
             JsonNode node = mapper.readTree(jsonBytes);
             Set<ValidationMessage> validationMessages = getJsonSchema().validate(node);
             result.addValidationMessages(validationMessages);
-        } catch (IOException e) {
+        } catch (Exception e) {
             result.addException(e);
 
         }
         return result;
+    }
+
+    private Resource loadJsonSchemaResource(String schemaLocation) {
+        ResourceLoader resourceLoader = new DefaultResourceLoader();
+        if (schemaLocation != null) {
+            return resourceLoader.getResource(schemaLocation);
+        }
+        return null;
     }
     
 }

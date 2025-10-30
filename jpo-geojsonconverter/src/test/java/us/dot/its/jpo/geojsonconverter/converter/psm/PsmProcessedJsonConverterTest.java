@@ -24,17 +24,17 @@ import us.dot.its.jpo.geojsonconverter.pojos.geojson.psm.DeserializedRawPsm;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.psm.ProcessedPsm;
 import us.dot.its.jpo.geojsonconverter.serialization.deserializers.JsonDeserializer;
 import us.dot.its.jpo.geojsonconverter.validator.JsonValidatorResult;
-import us.dot.its.jpo.ode.model.OdePsmData;
+import us.dot.its.jpo.ode.model.OdeMessageFrameData;
 
 public class PsmProcessedJsonConverterTest {
     PsmProcessedJsonConverter psmProcessedJsonConverter;
-    OdePsmData odePsmPojo;
-    private String odePsmJsonString;
+    OdeMessageFrameData odePsmPojo;
 
     @Before
     public void setup() throws IOException {
-        odePsmJsonString = new String(Files.readAllBytes(Paths.get("src/test/resources/json/valid.psm.json")));
-        try (JsonDeserializer<OdePsmData> odePsmDeserializer = new JsonDeserializer<>(OdePsmData.class)) {
+        String odePsmJsonString = new String(Files.readAllBytes(Paths.get("src/test/resources/json/valid.psm.json")));
+        try (JsonDeserializer<OdeMessageFrameData> odePsmDeserializer =
+                new JsonDeserializer<>(OdeMessageFrameData.class)) {
             odePsmPojo = odePsmDeserializer.deserialize("test-topic", odePsmJsonString.getBytes());
         }
         psmProcessedJsonConverter = new PsmProcessedJsonConverter();
@@ -56,13 +56,13 @@ public class PsmProcessedJsonConverterTest {
     public void testTransform() {
         JsonValidatorResult validatorResults = new JsonValidatorResult();
         DeserializedRawPsm deserializedRawPsm = new DeserializedRawPsm();
-        deserializedRawPsm.setOdePsmData(odePsmPojo);
+        deserializedRawPsm.setOdePsmMessageFrameData(odePsmPojo);
         deserializedRawPsm.setValidatorResults(validatorResults);
 
         KeyValue<RsuPsmIdKey, ProcessedPsm<Point>> processedPsm =
                 psmProcessedJsonConverter.transform(null, deserializedRawPsm);
         assertNotNull(processedPsm.key);
-        assertEquals(RsuPsmIdKey.builder().rsuId("172.23.0.1").psmId("24779D7E").build(), processedPsm.key);
+        assertEquals(RsuPsmIdKey.builder().rsuId("172.18.0.1").psmId("24779D7E").build(), processedPsm.key);
         assertNotNull(processedPsm.value);
         assertEquals("24779D7E", processedPsm.value.getProperties().getId());
     }
@@ -74,7 +74,7 @@ public class PsmProcessedJsonConverterTest {
         validatorResults.addException(exception);
 
         DeserializedRawPsm deserializedRawPsm = new DeserializedRawPsm();
-        deserializedRawPsm.setOdePsmData(odePsmPojo);
+        deserializedRawPsm.setOdePsmMessageFrameData(odePsmPojo);
         deserializedRawPsm.setValidatorResults(validatorResults);
 
         KeyValue<RsuPsmIdKey, ProcessedPsm<Point>> processedPsm = psmProcessedJsonConverter.transform(null, null);

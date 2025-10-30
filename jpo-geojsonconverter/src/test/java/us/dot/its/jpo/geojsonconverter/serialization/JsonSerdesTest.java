@@ -11,14 +11,12 @@ import us.dot.its.jpo.geojsonconverter.pojos.geojson.Point;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.bsm.ProcessedBsm;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.map.ProcessedMap;
 import us.dot.its.jpo.geojsonconverter.pojos.spat.ProcessedSpat;
-import us.dot.its.jpo.ode.model.OdeBsmData;
-import us.dot.its.jpo.ode.model.OdeMapData;
-import us.dot.its.jpo.ode.model.OdeSpatData;
+import us.dot.its.jpo.ode.model.OdeMessageFrameData;
 
 public class JsonSerdesTest {
     @Test
-    public void testOdeMapSerdes() {
-        Serde<OdeMapData> serde = JsonSerdes.OdeMap();
+    public void testOdeMessageFrameSerdes() {
+        Serde<OdeMessageFrameData> serde = JsonSerdes.OdeMessageFrame();
         assertNotNull(serde);
     }
 
@@ -35,20 +33,8 @@ public class JsonSerdesTest {
     }
 
     @Test
-    public void testOdeSpatSerdes() {
-        Serde<OdeSpatData> serde = JsonSerdes.OdeSpat();
-        assertNotNull(serde);
-    }
-
-    @Test
     public void testProcessedSpatSerdes() {
         Serde<ProcessedSpat> serde = JsonSerdes.ProcessedSpat();
-        assertNotNull(serde);
-    }
-
-    @Test
-    public void testOdeBsmSerdes() {
-        Serde<OdeBsmData> serde = JsonSerdes.OdeBsm();
         assertNotNull(serde);
     }
 

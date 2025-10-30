@@ -41,101 +41,6 @@
         }
       }
     },
-    "J2735BitString" : {
-      "type" : "object"
-    },
-    "J2735ConnectingLane" : {
-      "type" : "object",
-      "properties" : {
-        "lane" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "maneuver" : {
-          "$ref" : "#/$defs/J2735BitString"
-        }
-      }
-    },
-    "J2735Connection" : {
-      "type" : "object",
-      "properties" : {
-        "connectingLane" : {
-          "$ref" : "#/$defs/J2735ConnectingLane"
-        },
-        "connectionID" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "remoteIntersection" : {
-          "$ref" : "#/$defs/J2735IntersectionReferenceID"
-        },
-        "signalGroup" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "userClass" : {
-          "type" : "integer",
-          "format" : "int32"
-        }
-      }
-    },
-    "J2735IntersectionReferenceID" : {
-      "type" : "object",
-      "properties" : {
-        "id" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "region" : {
-          "type" : "integer",
-          "format" : "int32"
-        }
-      }
-    },
-    "J2735LaneTypeAttributes" : {
-      "type" : "object",
-      "properties" : {
-        "bikeLane" : {
-          "$ref" : "#/$defs/J2735BitString"
-        },
-        "crosswalk" : {
-          "$ref" : "#/$defs/J2735BitString"
-        },
-        "median" : {
-          "$ref" : "#/$defs/J2735BitString"
-        },
-        "parking" : {
-          "$ref" : "#/$defs/J2735BitString"
-        },
-        "sidewalk" : {
-          "$ref" : "#/$defs/J2735BitString"
-        },
-        "striping" : {
-          "$ref" : "#/$defs/J2735BitString"
-        },
-        "trackedVehicle" : {
-          "$ref" : "#/$defs/J2735BitString"
-        },
-        "vehicle" : {
-          "$ref" : "#/$defs/J2735BitString"
-        }
-      }
-    },
-    "J2735RegulatorySpeedLimit" : {
-      "type" : "object",
-      "properties" : {
-        "speed" : {
-          "type" : "number"
-        },
-        "type" : {
-          "$ref" : "#/$defs/J2735SpeedLimitType"
-        }
-      }
-    },
-    "J2735SpeedLimitType" : {
-      "type" : "string",
-      "enum" : [ "unknown", "maxSpeedInSchoolZone", "maxSpeedInSchoolZoneWhenChildrenArePresent", "maxSpeedInConstructionZone", "vehicleMinSpeed", "vehicleMaxSpeed", "vehicleNightMaxSpeed", "truckMinSpeed", "truckMaxSpeed", "truckNightMaxSpeed", "vehiclesWithTrailersMinSpeed", "vehiclesWithTrailersMaxSpeed", "vehiclesWithTrailersNightMaxSpeed" ]
-    },
     "MapFeature(Object)" : {
       "type" : "object",
       "properties" : {
@@ -181,7 +86,7 @@
         "connectsTo" : {
           "type" : "array",
           "items" : {
-            "$ref" : "#/$defs/J2735Connection"
+            "$ref" : "#/$defs/ProcessedConnection"
           }
         },
         "egressApproach" : {
@@ -206,10 +111,10 @@
           "type" : "string"
         },
         "laneType" : {
-          "$ref" : "#/$defs/J2735LaneTypeAttributes"
+          "$ref" : "#/$defs/ProcessedLaneTypeAttributes"
         },
         "maneuvers" : {
-          "$ref" : "#/$defs/J2735BitString"
+          "$ref" : "#/$defs/ProcessedAllowedManeuvers"
         },
         "nodes" : {
           "type" : "array",
@@ -218,13 +123,33 @@
           }
         },
         "sharedWith" : {
-          "$ref" : "#/$defs/J2735BitString"
+          "$ref" : "#/$defs/ProcessedLaneSharing"
+        }
+      }
+    },
+    "MapRefPoint" : {
+      "type" : "object",
+      "properties" : {
+        "elevation" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "latitude" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "longitude" : {
+          "type" : "number",
+          "format" : "double"
         }
       }
     },
     "MapSharedProperties" : {
       "type" : "object",
       "properties" : {
+        "asn1" : {
+          "type" : "string"
+        },
         "cti4501Conformant" : {
           "type" : "boolean"
         },
@@ -240,7 +165,7 @@
           "format" : "int32"
         },
         "mapSource" : {
-          "$ref" : "#/$defs/MapSource"
+          "$ref" : "#/$defs/Source"
         },
         "messageType" : {
           "type" : "string"
@@ -257,7 +182,7 @@
           "type" : "string"
         },
         "refPoint" : {
-          "$ref" : "#/$defs/OdePosition3D"
+          "$ref" : "#/$defs/MapRefPoint"
         },
         "region" : {
           "type" : "integer",
@@ -274,7 +199,7 @@
         "speedLimits" : {
           "type" : "array",
           "items" : {
-            "$ref" : "#/$defs/J2735RegulatorySpeedLimit"
+            "$ref" : "#/$defs/ProcessedRegulatorySpeedLimit"
           }
         },
         "timeStamp" : {
@@ -289,23 +214,128 @@
         }
       }
     },
-    "MapSource" : {
-      "type" : "string",
-      "enum" : [ "RSU", "V2X", "MMITSS", "unknown" ]
+    "ProcessedAllowedManeuvers" : {
+      "type" : "object"
     },
-    "OdePosition3D" : {
+    "ProcessedConnectingLane" : {
       "type" : "object",
       "properties" : {
-        "elevation" : {
-          "type" : "number"
+        "lane" : {
+          "type" : "integer",
+          "format" : "int32"
         },
-        "latitude" : {
-          "type" : "number"
-        },
-        "longitude" : {
-          "type" : "number"
+        "maneuver" : {
+          "$ref" : "#/$defs/ProcessedAllowedManeuvers"
         }
       }
+    },
+    "ProcessedConnection" : {
+      "type" : "object",
+      "properties" : {
+        "connectingLane" : {
+          "$ref" : "#/$defs/ProcessedConnectingLane"
+        },
+        "connectionID" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "remoteIntersection" : {
+          "$ref" : "#/$defs/ProcessedIntersectionReferenceID"
+        },
+        "signalGroup" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "userClass" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "ProcessedIntersectionReferenceID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "region" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "ProcessedLaneAttributes_Barrier" : {
+      "type" : "object"
+    },
+    "ProcessedLaneAttributes_Bike" : {
+      "type" : "object"
+    },
+    "ProcessedLaneAttributes_Crosswalk" : {
+      "type" : "object"
+    },
+    "ProcessedLaneAttributes_Parking" : {
+      "type" : "object"
+    },
+    "ProcessedLaneAttributes_Sidewalk" : {
+      "type" : "object"
+    },
+    "ProcessedLaneAttributes_Striping" : {
+      "type" : "object"
+    },
+    "ProcessedLaneAttributes_TrackedVehicle" : {
+      "type" : "object"
+    },
+    "ProcessedLaneAttributes_Vehicle" : {
+      "type" : "object"
+    },
+    "ProcessedLaneSharing" : {
+      "type" : "object"
+    },
+    "ProcessedLaneTypeAttributes" : {
+      "type" : "object",
+      "properties" : {
+        "bikeLane" : {
+          "$ref" : "#/$defs/ProcessedLaneAttributes_Bike"
+        },
+        "crosswalk" : {
+          "$ref" : "#/$defs/ProcessedLaneAttributes_Crosswalk"
+        },
+        "median" : {
+          "$ref" : "#/$defs/ProcessedLaneAttributes_Barrier"
+        },
+        "parking" : {
+          "$ref" : "#/$defs/ProcessedLaneAttributes_Parking"
+        },
+        "sidewalk" : {
+          "$ref" : "#/$defs/ProcessedLaneAttributes_Sidewalk"
+        },
+        "striping" : {
+          "$ref" : "#/$defs/ProcessedLaneAttributes_Striping"
+        },
+        "trackedVehicle" : {
+          "$ref" : "#/$defs/ProcessedLaneAttributes_TrackedVehicle"
+        },
+        "vehicle" : {
+          "$ref" : "#/$defs/ProcessedLaneAttributes_Vehicle"
+        }
+      }
+    },
+    "ProcessedRegulatorySpeedLimit" : {
+      "type" : "object",
+      "properties" : {
+        "speed" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "type" : {
+          "$ref" : "#/$defs/ProcessedSpeedLimitType"
+        }
+      }
+    },
+    "ProcessedSpeedLimitType" : {
+      "type" : "string",
+      "enum" : [ "UNKNOWN", "MAXSPEEDINSCHOOLZONE", "MAXSPEEDINSCHOOLZONEWHENCHILDRENAREPRESENT", "MAXSPEEDINCONSTRUCTIONZONE", "VEHICLEMINSPEED", "VEHICLEMAXSPEED", "VEHICLENIGHTMAXSPEED", "TRUCKMINSPEED", "TRUCKMAXSPEED", "TRUCKNIGHTMAXSPEED", "VEHICLESWITHTRAILERSMINSPEED", "VEHICLESWITHTRAILERSMAXSPEED", "VEHICLESWITHTRAILERSNIGHTMAXSPEED" ]
     },
     "ProcessedValidationMessage" : {
       "type" : "object",
@@ -323,6 +353,10 @@
           "type" : "string"
         }
       }
+    },
+    "Source" : {
+      "type" : "string",
+      "enum" : [ "RSU", "V2X", "MMITSS", "EV", "RV", "SAT", "SNMP", "NA", "UNKNOWN" ]
     }
   },
   "type" : "object",

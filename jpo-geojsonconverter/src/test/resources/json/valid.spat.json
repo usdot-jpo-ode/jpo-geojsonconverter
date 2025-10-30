@@ -4,214 +4,145 @@
 		"recordType": "spatTx",
 		"securityResultCode": "success",
 		"receivedMessageDetails": {
-			"locationData": null,
 			"rxSource": "NA"
 		},
-		"encodings": null,
-		"payloadType": "us.dot.its.jpo.ode.model.OdeSpatPayload",
+		"payloadType": "us.dot.its.jpo.ode.model.OdeMessageFramePayload",
 		"serialId": {
-			"streamId": "13575210-4ce9-41b1-b702-0d6749229797",
+			"streamId": "85486983-88ea-4ee9-a6cb-84cbb77924fc",
 			"bundleSize": 1,
 			"bundleId": 0,
 			"recordId": 0,
 			"serialNumber": 0
 		},
-		"odeReceivedAt": "2022-10-18T23:02:53.824251Z",
-		"schemaVersion": 6,
+		"odeReceivedAt": "2025-07-11T22:46:13.439Z",
+		"schemaVersion": 9,
 		"maxDurationTime": 0,
 		"recordGeneratedAt": "",
-		"recordGeneratedBy": null,
+		"recordGeneratedBy": "RSU",
 		"sanitized": false,
 		"odePacketID": "",
 		"odeTimStartDateTime": "",
-		"spatSource": "V2X",
-		"asn1": "",
-		"originIp": "172.21.0.1",
+		"asn1": "0381004003807C00134700081132000000E437070010434257925790010232119A11CE800C10D095E495E400808684AF24AF20050434257925790030232119A11CE801C10D095E495E401008684AF24AF200",
+		"source": "RSU",
+		"originIp": "172.18.0.1",
 		"isCertPresent": false
 	},
 	"payload": {
 		"data": {
-			"timeStamp": 0,
-			"name": null,
-			"intersectionStateList": {
-				"intersectionStatelist": [
-					{
-						"name": null,
-						"id": {
-							"region": 0,
-							"id": 12111
-						},
-						"revision": 0,
-						"status": {
-							"manualControlIsEnabled": true,
-							"stopTimeIsActivated": false,
-							"failureFlash": false,
-							"preemptIsActive": false,
-							"signalPriorityIsActive": false,
-							"fixedTimeOperation": false,
-							"trafficDependentOperation": false,
-							"standbyOperation": false,
-							"failureMode": false,
-							"off": false,
-							"recentMAPmessageUpdate": false,
-							"recentChangeInMAPassignedLanesIDsUsed": false,
-							"noValidMAPisAvailableAtThisTime": false,
-							"noValidSPATisAvailableAtThisTime": false
-						},
-						"moy": null,
-						"timeStamp": 35176,
-						"states": {
-							"movementList": [
+			"messageId": 19,
+			"value": {
+				"SPAT": {
+					"intersections": [
+						{
+							"id": {
+								"id": 8804
+							},
+							"revision": 0,
+							"status": "0000",
+							"timeStamp": 58423,
+							"states": [
 								{
-									"movementName": null,
-									"signalGroup": 2,
-									"state_time_speed": {
-										"movementEventList": [
-											{
-												"eventState": "PROTECTED_MOVEMENT_ALLOWED",
-												"timing": {
-													"startTime": 22120,
-													"minEndTime": 22120,
-													"maxEndTime": 22121,
-													"likelyTime": null,
-													"confidence": null,
-													"nextTime": 22121
-												},
-												"speeds": null
-											}
-										]
-									},
-									"maneuverAssistList": null
-								},
-								{
-									"movementName": null,
-									"signalGroup": 4,
-									"state_time_speed": {
-										"movementEventList": [
-											{
-												"eventState": "STOP_AND_REMAIN",
-												"timing": {
-													"startTime": 22120,
-													"minEndTime": 22181,
-													"maxEndTime": 22181,
-													"likelyTime": null,
-													"confidence": null,
-													"nextTime": 22121
-												},
-												"speeds": null
-											}
-										]
-									},
-									"maneuverAssistList": null
-								},
-								{
-									"movementName": null,
-									"signalGroup": 6,
-									"state_time_speed": {
-										"movementEventList": [
-											{
-												"eventState": "PROTECTED_MOVEMENT_ALLOWED",
-												"timing": {
-													"startTime": 22120,
-													"minEndTime": 22120,
-													"maxEndTime": 22121,
-													"likelyTime": null,
-													"confidence": null,
-													"nextTime": 22121
-												},
-												"speeds": null
-											}
-										]
-									},
-									"maneuverAssistList": null
-								},
-								{
-									"movementName": null,
-									"signalGroup": 8,
-									"state_time_speed": {
-										"movementEventList": [
-											{
-												"eventState": "STOP_AND_REMAIN",
-												"timing": {
-													"startTime": 21852,
-													"minEndTime": 21852,
-													"maxEndTime": 21852,
-													"likelyTime": null,
-													"confidence": null,
-													"nextTime": 21852
-												},
-												"speeds": null
-											}
-										]
-									},
-									"maneuverAssistList": null
-								},
-								{
-									"movementName": null,
 									"signalGroup": 1,
-									"state_time_speed": {
-										"movementEventList": [
-											{
-												"eventState": "STOP_AND_REMAIN",
-												"timing": {
-													"startTime": 21852,
-													"minEndTime": 21852,
-													"maxEndTime": 21852,
-													"likelyTime": null,
-													"confidence": null,
-													"nextTime": 21852
-												},
-												"speeds": null
+									"state-time-speed": [
+										{
+											"eventState": "stop-And-Remain",
+											"timing": {
+												"minEndTime": 19186,
+												"maxEndTime": 19186
 											}
-										]
-									},
-									"maneuverAssistList": null
+										}
+									]
 								},
 								{
-									"movementName": null,
-									"signalGroup": 5,
-									"state_time_speed": {
-										"movementEventList": [
-											{
-												"eventState": "STOP_AND_REMAIN",
-												"timing": {
-													"startTime": 21852,
-													"minEndTime": 21852,
-													"maxEndTime": 21852,
-													"likelyTime": null,
-													"confidence": null,
-													"nextTime": 21852
-												},
-												"speeds": { 
-													"advisorySpeedList": [
-														{
-															"type": "GREENWAVE",
-															"speed": 10,
-															"confidence": "PREC1MS",
-															"distance": 1000,
-															"classId": 0
-														},
-														{
-															"type": "ECODRIVE",
-															"speed": 10,
-															"confidence": "PREC1MS",
-															"distance": 1000,
-															"classId": 0
-														}
-													]
-												}
+									"signalGroup": 2,
+									"state-time-speed": [
+										{
+											"eventState": "protected-Movement-Allowed",
+											"timing": {
+												"minEndTime": 18024,
+												"maxEndTime": 18234
 											}
-										]
-									},
-									"maneuverAssistList": null
+										}
+									]
+								},
+								{
+									"signalGroup": 3,
+									"state-time-speed": [
+										{
+											"eventState": "stop-And-Remain",
+											"timing": {
+												"minEndTime": 19186,
+												"maxEndTime": 19186
+											}
+										}
+									]
+								},
+								{
+									"signalGroup": 4,
+									"state-time-speed": [
+										{
+											"eventState": "stop-And-Remain",
+											"timing": {
+												"minEndTime": 19186,
+												"maxEndTime": 19186
+											}
+										}
+									]
+								},
+								{
+									"signalGroup": 5,
+									"state-time-speed": [
+										{
+											"eventState": "stop-And-Remain",
+											"timing": {
+												"minEndTime": 19186,
+												"maxEndTime": 19186
+											}
+										}
+									]
+								},
+								{
+									"signalGroup": 6,
+									"state-time-speed": [
+										{
+											"eventState": "protected-Movement-Allowed",
+											"timing": {
+												"minEndTime": 18024,
+												"maxEndTime": 18234
+											}
+										}
+									]
+								},
+								{
+									"signalGroup": 7,
+									"state-time-speed": [
+										{
+											"eventState": "stop-And-Remain",
+											"timing": {
+												"minEndTime": 19186,
+												"maxEndTime": 19186
+											}
+										}
+									]
+								},
+								{
+									"signalGroup": 8,
+									"state-time-speed": [
+										{
+											"eventState": "stop-And-Remain",
+											"timing": {
+												"minEndTime": 19186,
+												"maxEndTime": 19186
+											}
+										}
+									]
 								}
 							]
-						},
-						"maneuverAssistList": null
-					}
-				]
+						}
+					]
+				}
 			}
 		},
-		"dataType": "us.dot.its.jpo.ode.plugin.j2735.J2735SPAT"
+		"dataType": "us.dot.its.jpo.asn.j2735.r2024.SPAT.SPATMessageFrame"
 	}
 }

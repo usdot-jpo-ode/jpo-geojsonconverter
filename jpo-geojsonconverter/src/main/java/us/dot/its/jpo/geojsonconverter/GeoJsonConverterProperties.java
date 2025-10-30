@@ -16,6 +16,8 @@ import java.util.Properties;
 
 import jakarta.annotation.PostConstruct;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +33,7 @@ import org.apache.kafka.streams.processor.LogAndSkipOnInvalidTimestamp;
 
 import us.dot.its.jpo.geojsonconverter.pojos.GeometryOutputMode;
 
-@ConfigurationProperties("geojsonconverter")
+@ConfigurationProperties(prefix = "geojsonconverter")
 public class GeoJsonConverterProperties implements EnvironmentAware {
 
     private static final Logger logger = LoggerFactory.getLogger(GeoJsonConverterProperties.class);
@@ -65,9 +67,26 @@ public class GeoJsonConverterProperties implements EnvironmentAware {
     private String kafkaTopicOdePsmJson = "topic.OdePsmJson";
     private String kafkaTopicProcessedPsm = "topic.ProcessedPsm";
 
+    // RTCM
+    @Getter @Setter private String kafkaTopicOdeRtcmJson;
+    @Getter @Setter private String kafkaTopicProcessedRtcm;
+
+    // SRM
+    @Getter @Setter private String kafkaTopicOdeSrmJson;
+    @Getter @Setter private String kafkaTopicProcessedSrm;
+
+    // SSM
+    @Getter @Setter private String kafkaTopicOdeSsmJson;
+    @Getter @Setter private String kafkaTopicProcessedSsm;
+
     private int lingerMs = 0;
 
     private GeometryOutputMode geometryOutputMode = GeometryOutputMode.GEOJSON_ONLY;
+
+    @Getter
+    @Setter
+    @Value("${rtcm.full.decode}")
+    private boolean rtcmFullDecode;
 
     @PostConstruct
     public void initialize() {

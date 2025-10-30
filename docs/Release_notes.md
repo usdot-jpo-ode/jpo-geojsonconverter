@@ -1,6 +1,28 @@
 JPO GeoJSON Converter Release Notes
 ----------------------------
 
+Version 3.2.0
+----------------------------------------
+
+### **Summary**
+
+This release adds full MessageFrame processing support to align with the reworked jpo-ode 5.0.2 update, enabling compatibility across BSM, SPaT, MAP, PSM, SRM, SSM, and RTCM message types. Kafka has been removed as a startup dependency to simplify local deployment and testing. Additional improvements include enhanced message processing reliability, refined time generation handling, and the introduction of independent schema versions for each processed message type.
+
+Enhancements in this release:
+
+- [CDOT PR 17](https://github.com/CDOT-CV/jpo-geojsonconverter/pull/17): BSM MessageFrame Support
+- [CDOT PR 18](https://github.com/CDOT-CV/jpo-geojsonconverter/pull/18): SPaT MessageFrame Support
+- [CDOT PR 19](https://github.com/CDOT-CV/jpo-geojsonconverter/pull/19): Removes Kafka as a startup dependency for the GJC
+- [CDOT PR 20](https://github.com/CDOT-CV/jpo-geojsonconverter/pull/20): MapData MessageFrame Support
+- [CDOT PR 21](https://github.com/CDOT-CV/jpo-geojsonconverter/pull/21): PersonalSafetyMessage MessageFrame Support
+- [CDOT PR 22](https://github.com/CDOT-CV/jpo-geojsonconverter/pull/22): Full jpo-ode MessageFrame Support
+- [CDOT PR 23](https://github.com/CDOT-CV/jpo-geojsonconverter/pull/23): ProcessedRtcm support
+- [CDOT PR 24](https://github.com/CDOT-CV/jpo-geojsonconverter/pull/24): Processed MAP/SPAT/BSM/PSM adjustments
+- [CDOT PR 26](https://github.com/CDOT-CV/jpo-geojsonconverter/pull/26): Updating time generation logic to function with null DSecond
+- [CDOT PR 27](https://github.com/CDOT-CV/jpo-geojsonconverter/pull/27): Handling edge case where key is negative
+- [CDOT PR 29](https://github.com/CDOT-CV/jpo-geojsonconverter/pull/29): Processed SRM & SSM
+- [CDOT PR 31](https://github.com/CDOT-CV/jpo-geojsonconverter/pull/31): Processed SSM Serialization
+
 Version 2.1.1 - HOTFIX
 ----------------------------------------
 

@@ -6,7 +6,6 @@ services:
     profiles:
       - all
       - geojson_full
-      - geojson_base
     build:
       context: .
       dockerfile: Dockerfile
@@ -32,7 +31,37 @@ services:
         max-size: "10m"
         max-file: "5"
     depends_on:
-      - kafka
+      kafka:
+        condition: service_healthy
+        required: false
+
+  geojsonconverter_base:
+    profiles:
+      - geojson_base
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        MAVEN_GITHUB_TOKEN: ${MAVEN_GITHUB_TOKEN:?error}
+        MAVEN_GITHUB_ORG: ${MAVEN_GITHUB_ORG:?error}
+    image: jpo_geojsonconverter:latest
+    restart: ${RESTART_POLICY}
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 2G
+    environment:
+      DOCKER_HOST_IP: ${DOCKER_HOST_IP:?error}
+      KAFKA_TYPE: ${KAFKA_TYPE}
+      CONFLUENT_KEY: ${CONFLUENT_KEY}
+      CONFLUENT_SECRET: ${CONFLUENT_SECRET}
+      geometry.output.mode: ${GEOMETRY_OUTPUT_MODE}
+      spring.kafka.bootstrap-servers: ${DOCKER_HOST_IP:?error}:9092
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "5"
 
   # ODE Services:
   ode:
@@ -83,6 +112,7 @@ services:
     depends_on:
       kafka:
         condition: service_healthy
+        required: false
     healthcheck:
       test: ["CMD", "wget", "--spider", "http://localhost:8080"]
       interval: 5s
@@ -117,6 +147,7 @@ services:
     depends_on:
       kafka:
         condition: service_healthy
+        required: false
     logging:
       options:
         max-size: "10m"

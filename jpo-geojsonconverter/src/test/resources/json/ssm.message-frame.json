@@ -1,0 +1,38 @@
+{
+  "messageId": 30,
+  "value": {
+    "SignalStatusMessage": {
+      "timeStamp": 374789,
+      "second": 31000,
+      "sequenceNumber": 15,
+      "status": [
+        {
+          "sequenceNumber": 30,
+          "id": {
+            "id": 12114
+          },
+          "sigStatus": [
+            {
+              "requester": {
+                "id": {
+                  "stationID": 2031825062
+                },
+                "request": 5,
+                "sequenceNumber": 5,
+                "role": "publicTransport"
+              },
+              "inboundOn": {
+                "lane": 1
+              },
+              "outboundOn": {
+                "lane": 16
+              },
+              "duration": 34325,
+              "status": "granted"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

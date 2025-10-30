@@ -5,19 +5,24 @@
       "type" : "object",
       "properties" : {
         "accelSet" : {
-          "$ref" : "#/$defs/J2735AccelerationSet4Way"
+          "$ref" : "#/$defs/ProcessedBsmAccelerationSet4Way"
         },
         "accuracy" : {
-          "$ref" : "#/$defs/J2735PositionalAccuracy"
+          "$ref" : "#/$defs/ProcessedBsmPositionalAccuracy"
         },
         "angle" : {
-          "type" : "number"
+          "type" : "number",
+          "format" : "double"
+        },
+        "asn1" : {
+          "type" : "string"
         },
         "brakes" : {
-          "$ref" : "#/$defs/J2735BrakeSystemStatus"
+          "$ref" : "#/$defs/ProcessedBrakeSystemStatus"
         },
         "heading" : {
-          "type" : "number"
+          "type" : "number",
+          "format" : "double"
         },
         "id" : {
           "type" : "string"
@@ -47,17 +52,18 @@
           "format" : "int32"
         },
         "size" : {
-          "$ref" : "#/$defs/J2735VehicleSize"
+          "$ref" : "#/$defs/ProcessedVehicleSize"
         },
         "speed" : {
-          "type" : "number"
+          "type" : "number",
+          "format" : "double"
         },
         "timeStamp" : {
           "type" : "string",
           "format" : "date-time"
         },
         "transmission" : {
-          "$ref" : "#/$defs/J2735TransmissionState"
+          "$ref" : "#/$defs/ProcessedTransmissionState"
         },
         "validationMessages" : {
           "type" : "array",
@@ -67,79 +73,93 @@
         }
       }
     },
-    "J2735AccelerationSet4Way" : {
-      "type" : "object",
-      "properties" : {
-        "accelLat" : {
-          "type" : "number"
-        },
-        "accelLong" : {
-          "type" : "number"
-        },
-        "accelVert" : {
-          "type" : "number"
-        },
-        "accelYaw" : {
-          "type" : "number"
-        }
-      }
+    "ProcessedAntiLockBrakeStatus" : {
+      "type" : "string",
+      "enum" : [ "UNAVAILABLE", "OFF", "ON", "ENGAGED" ]
     },
-    "J2735BitString" : {
+    "ProcessedAuxiliaryBrakeStatus" : {
+      "type" : "string",
+      "enum" : [ "UNAVAILABLE", "OFF", "ON", "RESERVED" ]
+    },
+    "ProcessedBrakeAppliedStatus" : {
       "type" : "object"
     },
-    "J2735BrakeSystemStatus" : {
+    "ProcessedBrakeBoostApplied" : {
+      "type" : "string",
+      "enum" : [ "UNAVAILABLE", "OFF", "ON" ]
+    },
+    "ProcessedBrakeSystemStatus" : {
       "type" : "object",
       "properties" : {
         "abs" : {
-          "type" : "string"
+          "$ref" : "#/$defs/ProcessedAntiLockBrakeStatus"
         },
         "auxBrakes" : {
-          "type" : "string"
+          "$ref" : "#/$defs/ProcessedAuxiliaryBrakeStatus"
         },
         "brakeBoost" : {
-          "type" : "string"
+          "$ref" : "#/$defs/ProcessedBrakeBoostApplied"
         },
         "scs" : {
-          "type" : "string"
+          "$ref" : "#/$defs/ProcessedStabilityControlStatus"
         },
         "traction" : {
-          "type" : "string"
+          "$ref" : "#/$defs/ProcessedTractionControlStatus"
         },
         "wheelBrakes" : {
-          "$ref" : "#/$defs/J2735BitString"
+          "$ref" : "#/$defs/ProcessedBrakeAppliedStatus"
         }
       }
     },
-    "J2735PositionalAccuracy" : {
+    "ProcessedBsmAccelerationSet4Way" : {
+      "type" : "object",
+      "properties" : {
+        "accelLat" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "accelLong" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "accelVert" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "accelYaw" : {
+          "type" : "number",
+          "format" : "double"
+        }
+      }
+    },
+    "ProcessedBsmPositionalAccuracy" : {
       "type" : "object",
       "properties" : {
         "orientation" : {
-          "type" : "number"
+          "type" : "number",
+          "format" : "double"
         },
         "semiMajor" : {
-          "type" : "number"
+          "type" : "number",
+          "format" : "double"
         },
         "semiMinor" : {
-          "type" : "number"
+          "type" : "number",
+          "format" : "double"
         }
       }
     },
-    "J2735TransmissionState" : {
+    "ProcessedStabilityControlStatus" : {
+      "type" : "string",
+      "enum" : [ "UNAVAILABLE", "OFF", "ON", "ENGAGED" ]
+    },
+    "ProcessedTractionControlStatus" : {
+      "type" : "string",
+      "enum" : [ "UNAVAILABLE", "OFF", "ON", "ENGAGED" ]
+    },
+    "ProcessedTransmissionState" : {
       "type" : "string",
       "enum" : [ "NEUTRAL", "PARK", "FORWARDGEARS", "REVERSEGEARS", "RESERVED1", "RESERVED2", "RESERVED3", "UNAVAILABLE" ]
-    },
-    "J2735VehicleSize" : {
-      "type" : "object",
-      "properties" : {
-        "length" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "width" : {
-          "type" : "integer",
-          "format" : "int32"
-        }
-      }
     },
     "ProcessedValidationMessage" : {
       "type" : "object",
@@ -155,6 +175,19 @@
         },
         "schemaPath" : {
           "type" : "string"
+        }
+      }
+    },
+    "ProcessedVehicleSize" : {
+      "type" : "object",
+      "properties" : {
+        "length" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "width" : {
+          "type" : "integer",
+          "format" : "int32"
         }
       }
     }

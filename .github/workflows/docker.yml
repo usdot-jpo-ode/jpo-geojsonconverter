@@ -3,6 +3,7 @@ name: Docker Build
 on:
   pull_request:
     types: [opened, synchronize, reopened]
+    
 
 jobs:
   jpo-geojsonconverter:

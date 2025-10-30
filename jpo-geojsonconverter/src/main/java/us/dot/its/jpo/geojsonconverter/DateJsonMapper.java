@@ -8,16 +8,19 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 public class DateJsonMapper {
     final static ObjectMapper objectMapper;
-    
+
     static {
+        // Initialize the ObjectMapper for general use
         objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
         objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         objectMapper.setSerializationInclusion(Include.NON_NULL);
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
     }
 
     public static ObjectMapper getInstance() {
         return objectMapper;
     }
+
 }

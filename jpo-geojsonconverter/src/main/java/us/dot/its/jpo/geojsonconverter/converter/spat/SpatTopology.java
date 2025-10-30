@@ -19,8 +19,7 @@ import us.dot.its.jpo.geojsonconverter.validator.JsonValidatorResult;
 import us.dot.its.jpo.geojsonconverter.validator.SpatJsonValidator;
 
 /**
- * Kafka Streams Topology builder for processing SPaT messages from
- * ODE SPaT JSON -> SPaT GeoJSON
+ * Kafka Streams Topology builder for processing SPaT messages from ODE SPaT JSON -> SPaT GeoJSON
  */
 public class SpatTopology {
 
@@ -31,24 +30,19 @@ public class SpatTopology {
         StreamsBuilder builder = new StreamsBuilder();
 
         // Stream for raw SPAT messages
+        // Raw topic has no key and the values are raw JSON bytes
         KStream<Void, Bytes> rawOdeSpatStream =
-            builder.stream(
-                spatOdeJsonTopic,
-                Consumed.with(
-                    Serdes.Void(),  // Raw topic has no key
-                    Serdes.Bytes()  // Raw JSON bytes
-                )
-            );
+                builder.stream(spatOdeJsonTopic, Consumed.with(Serdes.Void(), Serdes.Bytes()));
 
         // Validate the JSON and write validation errors to the log at warn level
         // Passes the raw JSON along unchanged, even if there are validation errors.
-        KStream<Void, DeserializedRawSpat> validatedOdeSpatStream = 
-            rawOdeSpatStream.mapValues(
-                (Void key, Bytes value) -> {
+        KStream<Void, DeserializedRawSpat> validatedOdeSpatStream =
+                rawOdeSpatStream.mapValues((Void key, Bytes value) -> {
                     DeserializedRawSpat deserializedRawSpat = new DeserializedRawSpat();
                     try {
                         JsonValidatorResult validationResults = spatJsonValidator.validate(value.get());
-                        deserializedRawSpat.setOdeSpatOdeSpatData(JsonSerdes.OdeSpat().deserializer().deserialize(spatOdeJsonTopic, value.get()));
+                        deserializedRawSpat.setOdeSpatMessageFrameData(
+                                JsonSerdes.OdeMessageFrame().deserializer().deserialize(spatOdeJsonTopic, value.get()));
                         deserializedRawSpat.setValidatorResults(validationResults);
                         logger.debug(validationResults.describeResults());
                     } catch (Exception e) {
@@ -62,24 +56,17 @@ public class SpatTopology {
                         logger.error("Error in spatValidation:", e);
                     }
                     return deserializedRawSpat;
-                }
-            );
+                });
 
-        // Convert ODE SPaT to GeoJSON
+        // Convert ODE SPaT to ProcessedSpat which is not GeoJSON
         KStream<RsuIntersectionKey, ProcessedSpat> processedJsonSpatStream =
-            validatedOdeSpatStream.transform(
-                () -> new SpatProcessedJsonConverter() // change this converter to something else NOT GEOJSON
-            );
+                validatedOdeSpatStream.transform(() -> new SpatProcessedJsonConverter());
 
         processedJsonSpatStream.to(
-            // Push the joined GeoJSON stream back out to the SPaT GeoJSON topic 
-            spatProcessedJsonTopic, 
-            Produced.with(
-                JsonSerdes.RsuIntersectionKey(),
-                JsonSerdes.ProcessedSpat(), 
-                new IntersectionIdPartitioner<RsuIntersectionKey, ProcessedSpat>())  // Partition by RSU ID
-        );
-        
+                // Push the ProcessedSpat to the output topic partioned by RsuIntersectionKey
+                spatProcessedJsonTopic, Produced.with(JsonSerdes.RsuIntersectionKey(), JsonSerdes.ProcessedSpat(),
+                        new IntersectionIdPartitioner<RsuIntersectionKey, ProcessedSpat>()));
+
         return builder.build();
     }
 }

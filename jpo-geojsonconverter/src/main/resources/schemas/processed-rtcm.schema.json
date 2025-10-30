@@ -1,0 +1,151 @@
+{
+  "$schema" : "https://json-schema.org/draft/2020-12/schema",
+  "$defs" : {
+    "DecodedRTCMmessage" : {
+      "type" : "object",
+      "properties" : {
+        "decodedMessage" : {
+          "$ref" : "#/$defs/JsonNode"
+        },
+        "hex" : {
+          "type" : "string"
+        }
+      }
+    },
+    "JsonNode" : {
+      "type" : "object"
+    },
+    "Point-1" : {
+      "type" : "object",
+      "properties" : {
+        "bbox" : {
+          "type" : "array",
+          "items" : {
+            "type" : "number",
+            "format" : "double"
+          }
+        },
+        "coordinates" : {
+          "type" : "array",
+          "items" : {
+            "type" : "number",
+            "format" : "double"
+          }
+        }
+      }
+    },
+    "Point-2" : {
+      "$ref" : "#/$defs/Point-1",
+      "type" : "object",
+      "properties" : {
+        "type" : {
+          "const" : "Point"
+        }
+      },
+      "required" : [ "type" ]
+    },
+    "ProcessedValidationMessage" : {
+      "type" : "object",
+      "properties" : {
+        "exception" : {
+          "type" : "string"
+        },
+        "jsonPath" : {
+          "type" : "string"
+        },
+        "message" : {
+          "type" : "string"
+        },
+        "schemaPath" : {
+          "type" : "string"
+        }
+      }
+    },
+    "RTCMProperties" : {
+      "type" : "object",
+      "properties" : {
+        "asn1" : {
+          "type" : "string"
+        },
+        "cti4501Conformant" : {
+          "type" : "boolean"
+        },
+        "elevation" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "latitude" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "longitude" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "messageType" : {
+          "type" : "string"
+        },
+        "messageTypes" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        },
+        "messages" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/$defs/DecodedRTCMmessage"
+          }
+        },
+        "msgCnt" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "odeReceivedAt" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "originIp" : {
+          "type" : "string"
+        },
+        "rev" : {
+          "type" : "string"
+        },
+        "schemaVersion" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "stationId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "utcTime" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "validationMessages" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/$defs/ProcessedValidationMessage"
+          }
+        }
+      }
+    },
+    "Void" : {
+      "type" : "object"
+    }
+  },
+  "type" : "object",
+  "properties" : {
+    "geometry" : {
+      "$ref" : "#/$defs/Point-2"
+    },
+    "id" : {
+      "$ref" : "#/$defs/Void"
+    },
+    "properties" : {
+      "$ref" : "#/$defs/RTCMProperties"
+    }
+  }
+}

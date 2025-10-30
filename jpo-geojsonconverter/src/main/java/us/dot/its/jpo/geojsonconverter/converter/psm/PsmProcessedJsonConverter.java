@@ -1,5 +1,6 @@
 package us.dot.its.jpo.geojsonconverter.converter.psm;
 
+import com.networknt.schema.ValidationMessage;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
@@ -7,26 +8,27 @@ import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.kstream.Transformer;
 import org.apache.kafka.streams.processor.ProcessorContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.networknt.schema.ValidationMessage;
-
+import us.dot.its.jpo.asn.j2735.r2024.PersonalSafetyMessage.PersonalDeviceUserType;
 import us.dot.its.jpo.geojsonconverter.pojos.geojson.Point;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.psm.DeserializedRawPsm;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.psm.ProcessedPersonalDeviceUserType;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.psm.ProcessedPsm;
+import us.dot.its.jpo.geojsonconverter.pojos.geojson.psm.PsmProperties;
+import us.dot.its.jpo.asn.j2735.r2024.PersonalSafetyMessage.PersonalSafetyMessage;
+import us.dot.its.jpo.asn.j2735.r2024.PersonalSafetyMessage.PersonalSafetyMessageMessageFrame;
+import us.dot.its.jpo.geojsonconverter.converter.FieldConversions;
 import us.dot.its.jpo.geojsonconverter.partitioner.RsuPsmIdKey;
 import us.dot.its.jpo.geojsonconverter.pojos.ProcessedValidationMessage;
-import us.dot.its.jpo.geojsonconverter.pojos.geojson.psm.*;
+import us.dot.its.jpo.geojsonconverter.utils.ProcessedSchemaVersions;
 import us.dot.its.jpo.geojsonconverter.validator.JsonValidatorResult;
-
-import us.dot.its.jpo.ode.model.OdePsmData;
-import us.dot.its.jpo.ode.model.OdePsmMetadata;
-import us.dot.its.jpo.ode.model.OdePsmPayload;
-import us.dot.its.jpo.ode.plugin.j2735.J2735PSM;
+import us.dot.its.jpo.ode.model.OdeMessageFrameData;
+import us.dot.its.jpo.ode.model.OdeMessageFrameMetadata;
 
 public class PsmProcessedJsonConverter
         implements Transformer<Void, DeserializedRawPsm, KeyValue<RsuPsmIdKey, ProcessedPsm<Point>>> {
@@ -37,7 +39,7 @@ public class PsmProcessedJsonConverter
 
     /**
      * Transform an ODE PSM POJO to Processed PSM POJO.
-     * 
+     *
      * @param rawKey - Void type because ODE topics have no specified key
      * @param rawPsm - The raw POJO
      * @return A key value pair: the key a RsuTypeIdKey containing the RSU IP address or the PSM log file name
@@ -45,22 +47,23 @@ public class PsmProcessedJsonConverter
     @Override
     public KeyValue<RsuPsmIdKey, ProcessedPsm<Point>> transform(Void rawKey, DeserializedRawPsm rawPsm) {
         try {
-            if (!rawPsm.getValidationFailure()) {
-                OdePsmData rawValue = new OdePsmData();
-                rawValue.setMetadata(rawPsm.getOdePsmData().getMetadata());
-                OdePsmMetadata psmMetadata = (OdePsmMetadata) rawValue.getMetadata();
+            if (!rawPsm.isValidationFailure()) {
+                OdeMessageFrameData rawValue = new OdeMessageFrameData();
+                rawValue.setMetadata(rawPsm.getOdePsmMessageFrameData().getMetadata());
+                OdeMessageFrameMetadata psmMetadata = rawValue.getMetadata();
 
-                rawValue.setPayload(rawPsm.getOdePsmData().getPayload());
-                OdePsmPayload psmPayload = (OdePsmPayload) rawValue.getPayload();
+                rawValue.setPayload(rawPsm.getOdePsmMessageFrameData().getPayload());
+                PersonalSafetyMessageMessageFrame psmMessageFrame =
+                        (PersonalSafetyMessageMessageFrame) rawValue.getPayload().getData();
 
                 ProcessedPsm<Point> processedPsm =
-                        createProcessedPsm(psmMetadata, psmPayload, rawPsm.getValidatorResults());
+                        createProcessedPsm(psmMetadata, psmMessageFrame, rawPsm.getValidatorResults());
 
                 // Set the schema version
-                processedPsm.getProperties().setSchemaVersion(psmMetadata.getSchemaVersion());
+                processedPsm.getProperties().setSchemaVersion(ProcessedSchemaVersions.PROCESSED_PSM_SCHEMA_VERSION);
                 RsuPsmIdKey key = new RsuPsmIdKey();
                 key.setRsuId(psmMetadata.getOriginIp());
-                key.setPsmId(psmPayload.getPsm().getId());
+                key.setPsmId(psmMessageFrame.getValue().getId().getValue());
 
                 return KeyValue.pair(key, processedPsm);
             } else {
@@ -85,16 +88,17 @@ public class PsmProcessedJsonConverter
         // Nothing to do here
     }
 
-    @SuppressWarnings("unchecked")
-    public ProcessedPsm<Point> createProcessedPsm(OdePsmMetadata metadata, OdePsmPayload payload,
-            JsonValidatorResult validationMessages) {
+    public ProcessedPsm<Point> createProcessedPsm(OdeMessageFrameMetadata metadata,
+            PersonalSafetyMessageMessageFrame psmMessageFrame, JsonValidatorResult validationMessages) {
 
-        ProcessedPsm<Point> processedPsm = createProcessedPsmGeometryAndProperties(payload);
+        ProcessedPsm<Point> processedPsm = createProcessedPsmGeometryAndProperties(psmMessageFrame);
+        // ISO 8601: 2022-11-11T16:36:10.529530Z
         processedPsm.getProperties().setOdeReceivedAt(metadata.getOdeReceivedAt());
-
+        processedPsm.getProperties().setAsn1(metadata.getAsn1());
         if (metadata.getOriginIp() != null && !metadata.getOriginIp().isEmpty())
             processedPsm.getProperties().setOriginIp(metadata.getOriginIp());
 
+        // Handle validation messages
         List<ProcessedValidationMessage> processedPsmValidationMessages = new ArrayList<ProcessedValidationMessage>();
         for (Exception exception : validationMessages.getExceptions()) {
             ProcessedValidationMessage object = new ProcessedValidationMessage();
@@ -110,32 +114,36 @@ public class PsmProcessedJsonConverter
 
             processedPsmValidationMessages.add(object);
         }
+        processedPsm.getProperties().setValidationMessages(processedPsmValidationMessages);
 
         ZonedDateTime odeDate = Instant.parse(metadata.getOdeReceivedAt()).atZone(ZoneId.of("UTC"));
-
-        processedPsm.getProperties().setValidationMessages(processedPsmValidationMessages);
-        processedPsm.getProperties().setTimeStamp(generateOffsetUTCTimestamp(odeDate, payload.getPsm().getSecMark()));
-        processedPsm.getProperties().setSchemaVersion(1);
+        processedPsm.getProperties().setTimeStamp(
+                generateOffsetUTCTimestamp(odeDate, (int) psmMessageFrame.getValue().getSecMark().getValue()));
 
         return processedPsm;
     }
 
-    private ProcessedPsm<Point> createProcessedPsmGeometryAndProperties(OdePsmPayload payload) {
-        J2735PSM psm = payload.getPsm();
+    private ProcessedPsm<Point> createProcessedPsmGeometryAndProperties(
+            PersonalSafetyMessageMessageFrame psmMessageFrame) {
+        PersonalSafetyMessage psm = psmMessageFrame.getValue();
 
         // Create the Geometry Point
-        double psmLong = psm.getPosition().getLongitude().doubleValue();
-        double psmLat = psm.getPosition().getLatitude().doubleValue();
+        Double psmLong = FieldConversions.convertLong(psm.getPosition().getLong_().getValue());
+        Double psmLat = FieldConversions.convertLat(psm.getPosition().getLat().getValue());
         Point psmPoint = new Point(psmLong, psmLat);
 
         // Create the PSM Properties
         PsmProperties psmProps = new PsmProperties();
-        psmProps.setBasicType(psm.getBasicType());
-        psmProps.setId(psm.getId());
-        psmProps.setMsgCnt(psm.getMsgCnt());
-        psmProps.setSecMark(psm.getSecMark());
-        psmProps.setSpeed(psm.getSpeed());
-        psmProps.setHeading(psm.getHeading());
+        PersonalDeviceUserType personalDeviceUserType = psm.getBasicType();
+        if (personalDeviceUserType != null) {
+            var processedPersonalDeviceUserType = ProcessedPersonalDeviceUserType.fromName(personalDeviceUserType.getName());
+            psmProps.setBasicType(processedPersonalDeviceUserType);
+        }
+        psmProps.setId(psm.getId().getValue());
+        psmProps.setMsgCnt((int) psm.getMsgCnt().getValue());
+        psmProps.setSecMark((int) psm.getSecMark().getValue());
+        psmProps.setSpeed(FieldConversions.convertSpeed(psm.getSpeed().getValue()));
+        psmProps.setHeading(FieldConversions.convertHeading(psm.getHeading().getValue()));
 
         return new ProcessedPsm<Point>(null, psmPoint, psmProps);
     }

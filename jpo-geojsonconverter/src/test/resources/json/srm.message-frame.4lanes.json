@@ -1,0 +1,96 @@
+{
+  "messageId": 29,
+  "value": {
+    "SignalRequestMessage": {
+      "timeStamp": 374532,
+      "second": 0,
+      "sequenceNumber": 9,
+      "requests": [
+        {
+          "request": {
+            "id": {
+              "id": 8802
+            },
+            "requestID": 4,
+            "requestType": "priorityCancellation",
+            "inBoundLane": {
+              "lane": 28
+            },
+            "outBoundLane": {
+              "lane": 26
+            }
+          },
+          "duration": 5624
+        },
+        {
+          "request": {
+            "id": {
+              "id": 8802
+            },
+            "requestID": 3,
+            "requestType": "priorityCancellation",
+            "inBoundLane": {
+              "lane": 1
+            },
+            "outBoundLane": {
+              "lane": 19
+            }
+          },
+          "duration": 6078
+        },
+        {
+          "request": {
+            "id": {
+              "id": 8802
+            },
+            "requestID": 1,
+            "requestType": "priorityCancellation",
+            "inBoundLane": {
+              "lane": 3
+            },
+            "outBoundLane": {
+              "lane": 17
+            }
+          },
+          "duration": 6173
+        },
+        {
+          "request": {
+            "id": {
+              "id": 8802
+            },
+            "requestID": 2,
+            "requestType": "priorityCancellation",
+            "inBoundLane": {
+              "lane": 2
+            },
+            "outBoundLane": {
+              "lane": 18
+            }
+          },
+          "duration": 6101
+        }
+      ],
+      "requestor": {
+        "id": {
+          "stationID": 312977750
+        },
+        "type": {
+          "role": "publicTransport"
+        },
+        "position": {
+          "position": {
+            "lat": 395939481,
+            "long": -1048844050,
+            "elevation": 17525
+          },
+          "heading": 12568,
+          "speed": {
+            "transmisson": "unavailable",
+            "speed": 1417
+          }
+        }
+      }
+    }
+  }
+}

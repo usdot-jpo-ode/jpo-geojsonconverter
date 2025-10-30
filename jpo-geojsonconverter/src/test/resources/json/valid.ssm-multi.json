@@ -1,0 +1,89 @@
+{
+  "metadata": {
+    "logFileName": "",
+    "recordType": "ssmTx",
+    "securityResultCode": "success",
+    "receivedMessageDetails": {
+      "rxSource": "NA"
+    },
+    "payloadType": "us.dot.its.jpo.ode.model.OdeMessageFramePayload",
+    "serialId": {
+      "streamId": "126db3cd-bbf3-43ce-8bc8-71d136d0b1c9",
+      "bundleSize": 1,
+      "bundleId": 0,
+      "recordId": 0,
+      "serialNumber": 0
+    },
+    "odeReceivedAt": "2025-09-26T20:26:21.570Z",
+    "schemaVersion": 9,
+    "maxDurationTime": 0,
+    "recordGeneratedAt": "",
+    "recordGeneratedBy": "RSU",
+    "sanitized": false,
+    "odePacketID": "",
+    "odeTimStartDateTime": "",
+    "asn1": "001E2565B8056D601800E8BD482C95E46CC2981028200807C30A9325791B30A6050A08010210C2A4",
+    "source": "RSU",
+    "originIp": "172.18.0.1",
+    "isCertPresent": false
+  },
+  "payload": {
+    "data": {
+      "messageId": 30,
+      "value": {
+        "SignalStatusMessage": {
+          "timeStamp": 374789,
+          "second": 28000,
+          "sequenceNumber": 12,
+          "status": [
+            {
+              "sequenceNumber": 29,
+              "id": {
+                "id": 12114
+              },
+              "sigStatus": [
+                {
+                  "requester": {
+                    "id": {
+                      "stationID": 2031825062
+                    },
+                    "request": 4,
+                    "sequenceNumber": 5,
+                    "role": "publicTransport"
+                  },
+                  "inboundOn": {
+                    "lane": 2
+                  },
+                  "outboundOn": {
+                    "lane": 15
+                  },
+                  "duration": 34325,
+                  "status": "processing"
+                },
+                {
+                  "requester": {
+                    "id": {
+                      "stationID": 2031825062
+                    },
+                    "request": 5,
+                    "sequenceNumber": 5,
+                    "role": "publicTransport"
+                  },
+                  "inboundOn": {
+                    "lane": 1
+                  },
+                  "outboundOn": {
+                    "lane": 16
+                  },
+                  "duration": 34325,
+                  "status": "processing"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "dataType": "us.dot.its.jpo.asn.j2735.r2024.SignalStatusMessage.SignalStatusMessageMessageFrame"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "messageType": "SSM",
+  "asn1": "001E1865B80579181E00F0BD480C95E46CC2981428200408430AA0",
+  "odeReceivedAt": "2025-09-18T06:29:28Z",
+  "originIp": "172.18.0.1",
+  "timeStamp": "2025-09-18T06:29:31Z",
+  "sequenceNumber": 15,
+  "statusSequenceNumber": 30,
+  "intersectionId": 12114,
+  "statusList": [
+    {
+      "vehicleID": "2031825062",
+      "requestID": 5,
+      "requesterSequenceNumber": 5,
+      "requesterRole": "PUBLICTRANSPORT",
+      "inboundOnLaneID": 1,
+      "outboundOnLaneID": 16,
+      "estimatedTimeOfArrivalDurationSeconds": 34.325000000,
+      "status": "GRANTED"
+    }
+  ],
+  "validationMessages": []
+}

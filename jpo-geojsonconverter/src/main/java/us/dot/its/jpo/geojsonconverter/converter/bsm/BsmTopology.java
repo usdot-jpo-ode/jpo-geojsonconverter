@@ -43,8 +43,8 @@ public class BsmTopology {
             DeserializedRawBsm deserializedRawBsm = new DeserializedRawBsm();
             try {
                 JsonValidatorResult validationResults = bsmJsonValidator.validate(value.get());
-                deserializedRawBsm
-                        .setOdeBsmData(JsonSerdes.OdeBsm().deserializer().deserialize(bsmOdeJsonTopic, value.get()));
+                deserializedRawBsm.setOdeBsmMessageFrameData(
+                        JsonSerdes.OdeMessageFrame().deserializer().deserialize(bsmOdeJsonTopic, value.get()));
                 deserializedRawBsm.setValidatorResults(validationResults);
                 logger.debug(validationResults.describeResults());
             } catch (Exception e) {

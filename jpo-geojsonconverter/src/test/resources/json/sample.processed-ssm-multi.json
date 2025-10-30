@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "messageType": "SSM",
+  "asn1": "001E2565B8056D601800E8BD482C95E46CC2981028200807C30A9325791B30A6050A08010210C2A4",
+  "odeReceivedAt": "2025-09-26T20:26:31.73Z",
+  "originIp": "172.18.0.1",
+  "timeStamp": "2025-09-18T06:29:28Z",
+  "sequenceNumber": 12,
+  "statusSequenceNumber": 29,
+  "intersectionId": 12114,
+  "statusList": [
+    {
+      "vehicleID": "2031825062",
+      "requestID": 4,
+      "requesterSequenceNumber": 5,
+      "requesterRole": "PUBLICTRANSPORT",
+      "inboundOnLaneID": 2,
+      "outboundOnLaneID": 15,
+      "estimatedTimeOfArrivalDurationSeconds": 34.325000000,
+      "status": "PROCESSING"
+    },
+    {
+      "vehicleID": "2031825062",
+      "requestID": 5,
+      "requesterSequenceNumber": 5,
+      "requesterRole": "PUBLICTRANSPORT",
+      "inboundOnLaneID": 1,
+      "outboundOnLaneID": 16,
+      "estimatedTimeOfArrivalDurationSeconds": 34.325000000,
+      "status": "PROCESSING"
+    }
+  ],
+  "validationMessages": []
+}

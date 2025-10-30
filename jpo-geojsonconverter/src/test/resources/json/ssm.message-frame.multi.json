@@ -1,0 +1,56 @@
+{
+  "messageId": 30,
+  "value": {
+    "SignalStatusMessage": {
+      "timeStamp": 374789,
+      "second": 28000,
+      "sequenceNumber": 12,
+      "status": [
+        {
+          "sequenceNumber": 29,
+          "id": {
+            "id": 12114
+          },
+          "sigStatus": [
+            {
+              "requester": {
+                "id": {
+                  "stationID": 2031825062
+                },
+                "request": 4,
+                "sequenceNumber": 5,
+                "role": "publicTransport"
+              },
+              "inboundOn": {
+                "lane": 2
+              },
+              "outboundOn": {
+                "lane": 15
+              },
+              "duration": 34325,
+              "status": "processing"
+            },
+            {
+              "requester": {
+                "id": {
+                  "stationID": 2031825062
+                },
+                "request": 5,
+                "sequenceNumber": 5,
+                "role": "publicTransport"
+              },
+              "inboundOn": {
+                "lane": 1
+              },
+              "outboundOn": {
+                "lane": 16
+              },
+              "duration": 34325,
+              "status": "processing"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

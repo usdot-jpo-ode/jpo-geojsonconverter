@@ -1,0 +1,81 @@
+{
+  "metadata": {
+    "logFileName": "",
+    "recordType": "srmTx",
+    "securityResultCode": "success",
+    "receivedMessageDetails": {
+      "rxSource": "NA"
+    },
+    "payloadType": "us.dot.its.jpo.ode.model.OdeMessageFramePayload",
+    "serialId": {
+      "streamId": "b18d90c6-448a-4019-b259-12232676c718",
+      "bundleSize": 1,
+      "bundleId": 0,
+      "recordId": 0,
+      "serialNumber": 0
+    },
+    "odeReceivedAt": "2025-09-25T17:26:11.873Z",
+    "schemaVersion": 9,
+    "maxDurationTime": 0,
+    "recordGeneratedAt": "",
+    "recordGeneratedBy": "OBU",
+    "sanitized": false,
+    "odePacketID": "",
+    "odeTimStartDateTime": "",
+    "asn1": "001D2672DC0280000B0090BD48148010210C2AC0BC8D9853000B534E12B10B29C796546502EC710000",
+    "source": "RSU",
+    "originIp": "172.18.0.1",
+    "isCertPresent": false
+  },
+  "payload": {
+    "data": {
+      "messageId": 29,
+      "value": {
+        "SignalRequestMessage": {
+          "timeStamp": 374789,
+          "second": 0,
+          "sequenceNumber": 11,
+          "requests": [
+            {
+              "request": {
+                "id": {
+                  "id": 12114
+                },
+                "requestID": 5,
+                "requestType": "priorityRequest",
+                "inBoundLane": {
+                  "lane": 1
+                },
+                "outBoundLane": {
+                  "lane": 16
+                }
+              },
+              "duration": 34325
+            }
+          ],
+          "requestor": {
+            "id": {
+              "stationID": 2031825062
+            },
+            "type": {
+              "role": "publicTransport"
+            },
+            "position": {
+              "position": {
+                "lat": 395534788,
+                "long": -1050850214,
+                "elevation": 16788
+              },
+              "heading": 1496,
+              "speed": {
+                "transmisson": "unavailable",
+                "speed": 512
+              }
+            }
+          }
+        }
+      }
+    },
+    "dataType": "us.dot.its.jpo.asn.j2735.r2024.SignalRequestMessage.SignalRequestMessageMessageFrame"
+  }
+}

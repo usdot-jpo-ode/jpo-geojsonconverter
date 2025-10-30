@@ -40,8 +40,8 @@ public class PsmTopology {
             DeserializedRawPsm deserializedRawPsm = new DeserializedRawPsm();
             try {
                 JsonValidatorResult validationResults = psmJsonValidator.validate(value.get());
-                deserializedRawPsm
-                        .setOdePsmData(JsonSerdes.OdePsm().deserializer().deserialize(psmOdeJsonTopic, value.get()));
+                deserializedRawPsm.setOdePsmMessageFrameData(
+                        JsonSerdes.OdeMessageFrame().deserializer().deserialize(psmOdeJsonTopic, value.get()));
                 deserializedRawPsm.setValidatorResults(validationResults);
                 logger.debug(validationResults.describeResults());
             } catch (Exception e) {

@@ -8,7 +8,9 @@ import static org.hamcrest.Matchers.*;
 
 
 import org.junit.Test;
-import us.dot.its.jpo.ode.plugin.j2735.J2735IntersectionReferenceID;
+import us.dot.its.jpo.asn.j2735.r2024.Common.IntersectionID;
+import us.dot.its.jpo.asn.j2735.r2024.Common.IntersectionReferenceID;
+import us.dot.its.jpo.asn.j2735.r2024.Common.RoadRegulatorID;
 
 
 public class RsuIntersectionKeyTest {
@@ -16,15 +18,15 @@ public class RsuIntersectionKeyTest {
     final static String ipAddress = "127.0.0.1";
     final static int intersectionId = 10001;
     final static int region = 10;
-    
+
     @Test
-    public void testEquality() {        
-        
+    public void testEquality() {
+
         var key = new RsuIntersectionKey();
         key.setRsuId(ipAddress);
-        var intersectionRegion = new J2735IntersectionReferenceID();
-        intersectionRegion.setId(intersectionId);
-        intersectionRegion.setRegion(region);
+        var intersectionRegion = new IntersectionReferenceID();
+        intersectionRegion.setId(new IntersectionID(intersectionId));
+        intersectionRegion.setRegion(new RoadRegulatorID(region));
         key.setIntersectionReferenceID(intersectionRegion);
 
         var keyValue = new RsuIntersectionKey(ipAddress, intersectionId, region);
