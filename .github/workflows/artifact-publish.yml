@@ -1,6 +1,9 @@
 name: Publish Java Package
 
 on:
+  push:
+    tags:
+      - 'jpo-geojsonconverter-*'
   release:
     types: [published]
 
