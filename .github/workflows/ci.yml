@@ -27,7 +27,7 @@ jobs:
     if: github.event.pull_request.base.repo.owner.login == 'usdot-jpo-ode'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           submodules: recursive
       - name: Set up JDK
